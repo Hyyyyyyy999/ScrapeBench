@@ -24,7 +24,7 @@ def seed_all(seed):
 def load_sd15(model_id, device="cuda", fp16=True):
     from diffusers import StableDiffusionPipeline, UNet2DConditionModel, AutoencoderKL, DDPMScheduler
     from transformers import CLIPTextModel, CLIPTokenizer
-    dtype = torch.float16 if fp16 else torch.float32
+    dtype = torch.bfloat16 if fp16 else torch.float32
     tok = CLIPTokenizer.from_pretrained(model_id, subfolder="tokenizer")
     te = CLIPTextModel.from_pretrained(model_id, subfolder="text_encoder").to(device, dtype=dtype)
     vae = AutoencoderKL.from_pretrained(model_id, subfolder="vae").to(device, dtype=dtype)

@@ -40,7 +40,7 @@ def _t5_inv(img):
 class Regenerator:
     def __init__(self, model_id, device="cuda"):
         from diffusers import StableDiffusionImg2ImgPipeline
-        self.pipe = StableDiffusionImg2ImgPipeline.from_pretrained(model_id, torch_dtype=torch.float16, safety_checker=None).to(device)
+        self.pipe = StableDiffusionImg2ImgPipeline.from_pretrained(model_id, torch_dtype=torch.bfloat16, safety_checker=None).to(device)
         self.pipe.set_progress_bar_config(disable=True)
         self.device = device
 
