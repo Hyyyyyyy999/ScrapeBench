@@ -76,9 +76,13 @@ def main():
         tier_fn = get_tier(tier)
         imgs = [tier_fn(Image.open(p).convert("RGB")) for p in paths]
         t0 = time.time()
-        gens = zs.generate(PROMPTS, imgs, n_per_prompt=n_per_prompt,
-                           steps=atk_cfg.get("steps", 30), guidance=atk_cfg.get("guidance", 5.0),
-                           seed=cfg["run"].get("seed", 0))
+        try:
+            gens = zs.generate(PROMPTS, imgs, n_per_prompt=n_per_prompt,
+                               steps=atk_cfg.get("steps", 30), guidance=atk_cfg.get("guidance", 5.0),
+                               seed=cfg["run"].get("seed", 0))
+        except RuntimeError as e:
+            log(f"skip {m}/{pid}/{tier}: {e}", log_path)
+            continue
         gen_sec = time.time() - t0
         sims = []
         dets = []

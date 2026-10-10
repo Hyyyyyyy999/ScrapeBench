@@ -1,11 +1,18 @@
 \section{The Web Acquisition Funnel as an Attack Surface}
 \label{sec:method}
 
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.92\textwidth]{../figures/overview.jpg}
+\caption{The ScrapeBench measurement pipeline. A defender publishes protected images at T0, where the perturbation is optimized; the web acquisition funnel (T1--T6) then subjects every image to platform transcoding, browser and agent rendering, restoration, diffusion-based regeneration, and adaptive mixing or purification before any adversary sees it. Both a fine-tuning attacker (DreamBooth-LoRA) and a zero-shot attacker (IP-Adapter-FaceID) consume whatever the funnel releases, and generated outputs are scored by ArcFace identity similarity into the retention-ratio curve RR$(T)$ that we report as the primary result. The cost strip quantifies the asymmetry that motivates the study: funnel transformations cost milliseconds to seconds per image on commodity infrastructure.}
+\label{fig:overview}
+\end{figure*}
+
 \subsection{Threat Model}
 \label{sec:threat}
 We consider a subject $s$ whose face images $\{x_i\}_{i=1}^{m}$ are publicly reachable on the web, and a defense $D$ that releases protected images $\tilde{x}_i = x_i + \delta_i$, $\|\delta_i\|_\infty \le \epsilon$, claiming that any downstream customization of $\{\tilde{x}_i\}$ fails to reproduce $s$. The adversary $\mathcal{A}$ harvests images of $s$ through the web acquisition funnel $\Phi$ (Section~\ref{sec:funnel}), then attempts identity reconstruction with an attack pipeline $P$---either fine-tuning-based (\emph{DreamBooth-LoRA}~\cite{ruiz2022dreambooth}) or zero-shot (\emph{IP-Adapter-FaceID}~\cite{ye2023ipadapter}). We assume a \emph{resource-bounded} adversary: $P$ runs on one consumer GPU (24\,GB), generation uses 25--30 denoising steps, and the adversary does not adversarially optimize against $D$ (the funnel requires no knowledge of $D$). This is the deployment-relevant threat: an opportunistic scraper, not a defense-aware red team. Adaptive extensions that mix clean sources or purify images are captured at T6 (Section~\ref{sec:funnel}).
 
-The defender's implicit assumptions, which the funnel dismantles one by one, are: (A1) the adversary trains on the exact pixels the defender perturbed; (A2) the adversary must fine-tune, so poisoning the fine-tuning gradient suffices; (A3) robustness budgets can be spent on adversarial transformations chosen by the defender (JPEG, blur, crops) rather than those chosen by platforms and users. Each tier of the funnel violates one of these assumptions \emph{upstream} of the defense.
+The defender's implicit assumptions, which the funnel dismantles one by one, are: (A1) the adversary trains on the exact pixels the defender perturbed; (A2) the adversary must fine-tune, so poisoning the fine-tuning gradient suffices; (A3) robustness budgets can be spent on adversarial transformations chosen by the defender (JPEG, blur, crops) rather than those chosen by platforms and users. Each tier of the funnel violates one of these assumptions \emph{upstream} of the defense (Figure~\ref{fig:overview}).
 
 \subsection{Funnel Formalization}
 \label{sec:funnel}
