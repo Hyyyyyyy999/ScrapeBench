@@ -1,0 +1,47 @@
+run:
+  name: smoke
+  seed: 0
+  data_root: data
+  resolution: 512
+  samples_per_cell: 15
+  ref_per_id: 2
+  tau: 0.30
+  sd_model: stable-diffusion-v1-5/stable-diffusion-v1-5
+  fp16: true
+
+stage_a:
+  methods: [clean, random, fsmg]
+  tiers: [t0, t1_jpeg85, t2_canvas_dpr1]
+  ids: [all]
+
+stage_b:
+  methods: [clean, fsmg]
+  tiers: [t0, t1_jpeg85]
+  ids: [all]
+  steps: 200
+  lora_rank: 16
+  lr: 0.0001
+  prompt: "a photo of a sks person"
+
+stage_c:
+  ids: [all]
+  mix_ratios: [0.2]
+  steps: 200
+  lora_rank: 16
+  lr: 0.0001
+  prompt: "a photo of a sks person"
+
+protection:
+  methods: [clean, random, fsmg]
+  eps: 8.0
+  alpha: 1.0
+  surrogate_steps: 100
+  pgd_steps: 30
+  aspl_rounds: 2
+
+attack:
+  ip_adapter_repo: h94/IP-Adapter-FaceID
+  ip_adapter_weight: ip-adapter-faceid_sd15.bin
+  ip_adapter_scale: 0.8
+  steps: 20
+  guidance: 5.0

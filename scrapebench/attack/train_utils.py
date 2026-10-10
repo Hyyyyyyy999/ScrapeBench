@@ -1,0 +1,111 @@
+import random
+import numpy as np
+import torch
+from PIL import Image
+RESAMPLE_LANCZOS = getattr(getattr(Image, "Resampling", Image), "LANCZOS")
+
+PROMPTS = [
+    "a photo of a sks person",
+    "a dslr portrait of sks person",
+    "a close-up photo of sks person riding a bike",
+    "a photo of sks person in front of eiffel tower",
+    "a selfie photo of sks person on top of mount fuji",
+]
+CLASS_PROMPT = "a photo of a person"
+
+
+def seed_all(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
+
+def load_sd15(model_id, device="cuda", fp16=True):
+    from diffusers import StableDiffusionPipeline, UNet2DConditionModel, AutoencoderKL, DDPMScheduler
+    from transformers import CLIPTextModel, CLIPTokenizer
+    dtype = torch.float16 if fp16 else torch.float32
+    tok = CLIPTokenizer.from_pretrained(model_id, subfolder="tokenizer")
+    te = CLIPTextModel.from_pretrained(model_id, subfolder="text_encoder").to(device, dtype=dtype)
+    vae = AutoencoderKL.from_pretrained(model_id, subfolder="vae").to(device, dtype=dtype)
+    unet = UNet2DConditionModel.from_pretrained(model_id, subfolder="unet").to(device, dtype=dtype)
+    sched = DDPMScheduler.from_pretrained(model_id, subfolder="scheduler")
+    comps = dict(tokenizer=tok, text_encoder=te, vae=vae, unet=unet, scheduler=sched, dtype=dtype, device=device)
+    comps["pipeline_factory"] = lambda: StableDiffusionPipeline(
+        vae=vae, text_encoder=te, tokenizer=tok, unet=unet,
+        scheduler=sched.__class__.from_config(sched.config),
+        safety_checker=None, feature_extractor=None, requires_safety_checker=False,
+    ).to(device)
+    return comps
+
+
+def load_gallery(paths, resolution=512):
+    imgs = []
+    for p in paths:
+        im = Image.open(p).convert("RGB")
+        w, h = im.size
+        s = min(w, h)
+        im = im.crop(((w - s) // 2, (h - s) // 2, (w + s) // 2, (h + s) // 2))
+        imgs.append(im.resize((resolution, resolution), RESAMPLE_LANCZOS))
+    return imgs
+
+
+def images_to_tensor(imgs, dtype):
+    arr = np.stack([np.asarray(im, dtype=np.float32) for im in imgs]) / 127.5 - 1.0
+    return torch.from_numpy(arr).permute(0, 3, 1, 2).to(dtype)
+
+
+def encode_latents(vae, x):
+    lat = vae.encode(x).latent_dist.sample()
+    return lat * vae.config.scaling_factor
+
+
+def text_embed(comps, prompts):
+    tok, te = comps["tokenizer"], comps["text_encoder"]
+    ids = tok(prompts, padding="max_length", truncation=True, max_length=tok.model_max_length, return_tensors="pt").input_ids
+    return te(ids.to(te.device)).last_hidden_state
+
+
+def add_lora(unet, rank=16, lr=1e-4, name="default"):
+    from peft import LoraConfig
+    cfg = LoraConfig(r=rank, lora_alpha=rank, target_modules=["to_q", "to_k", "to_v", "to_out.0"], lora_dropout=0.0, bias="none")
+    unet.add_adapter(cfg, adapter_name=name)
+    params = [p for p in unet.parameters() if p.requires_grad]
+    opt = torch.optim.AdamW(params, lr=lr)
+    return opt
+
+
+def reset_lora(unet):
+    names = list(getattr(unet, "peft_config", {}).keys())
+    if names:
+        unet.delete_adapters(names)
+    for n in names:
+        unet.peft_config.pop(n, None)
+
+
+def dreambooth_loss(comps, images, prompt, t_min=20, t_max=980):
+    vae, unet, sched = comps["vae"], comps["unet"], comps["scheduler"]
+    x = images.to(comps["device"], comps["dtype"])
+    lat = encode_latents(vae, x)
+    noise = torch.randn_like(lat)
+    t = torch.randint(t_min, t_max, (lat.shape[0],), device=lat.device)
+    noisy = sched.add_noise(lat, noise, t)
+    emb = text_embed(comps, [prompt] * lat.shape[0])
+    pred = unet(noisy, t, encoder_hidden_states=emb).sample
+    return torch.nn.functional.mse_loss(pred.float(), noise.float(), reduction="mean")
+
+
+def build_pipeline(comps):
+    pipe = comps["pipeline_factory"]()
+    pipe.set_progress_bar_config(disable=True)
+    return pipe
+
+
+@torch.no_grad()
+def generate_images(pipe, prompts, n_per_prompt, steps=30, guidance=7.5, seed=0, height=512, width=512):
+    out = []
+    for pr in prompts:
+        g = torch.Generator(device=pipe.device).manual_seed(seed)
+        res = pipe([pr] * n_per_prompt, num_inference_steps=steps, guidance_scale=guidance, generator=g, height=height, width=width)
+        out.extend(res.images)
+    return out
