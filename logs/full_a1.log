@@ -260,3 +260,44 @@ You have disabled the safety checker for <class 'diffusers.pipelines.stable_diff
 [2026-10-10 20:12:20] A fsmg/celeb00030/t4_sr_x2 mean=0.294 det=1.00 22s
 [2026-10-10 20:12:55] A fsmg/celeb00030/t5_i2i30 mean=0.233 det=0.60 17s
 [2026-10-10 20:13:38] A fsmg/celeb00031/t0 mean=0.278 det=0.80 24s
+[2026-10-10 20:14:19] A fsmg/celeb00031/t1_jpeg95 mean=0.276 det=0.80 22s
+[2026-10-10 20:15:03] A fsmg/celeb00031/t1_jpeg85 mean=0.289 det=0.80 24s
+[2026-10-10 20:15:46] A fsmg/celeb00031/t1_jpeg75 mean=0.317 det=0.80 23s
+[2026-10-10 20:16:32] A fsmg/celeb00031/t1_jpeg65 mean=0.294 det=0.80 26s
+[2026-10-10 20:17:26] A fsmg/celeb00031/t1_webp80 mean=0.287 det=0.80 29s
+[2026-10-10 20:18:11] A fsmg/celeb00031/t2_canvas_dpr1 mean=0.298 det=0.80 24s
+[2026-10-10 20:18:16] skip fsmg/celeb00031/t3_agent_facecrop: no face detected in reference images
+[2026-10-10 20:19:06] A fsmg/celeb00031/t4_sr_x2 mean=0.286 det=0.80 27s
+[2026-10-10 20:19:49] A fsmg/celeb00031/t5_i2i30 mean=0.112 det=0.90 15s
+[2026-10-10 20:20:46] A fsmg/celeb00032/t0 mean=0.379 det=0.80 30s
+[2026-10-10 20:21:36] A fsmg/celeb00032/t1_jpeg95 mean=0.341 det=0.90 28s
+[2026-10-10 20:22:32] A fsmg/celeb00032/t1_jpeg85 mean=0.325 det=0.80 29s
+[2026-10-10 20:23:29] A fsmg/celeb00032/t1_jpeg75 mean=0.364 det=0.80 30s
+[2026-10-10 20:24:27] A fsmg/celeb00032/t1_jpeg65 mean=0.374 det=0.90 30s
+[2026-10-10 20:25:21] A fsmg/celeb00032/t1_webp80 mean=0.339 det=0.80 30s
+[2026-10-10 20:26:14] A fsmg/celeb00032/t2_canvas_dpr1 mean=0.340 det=0.90 28s
+[2026-10-10 20:26:20] skip fsmg/celeb00032/t3_agent_facecrop: no face detected in reference images
+[2026-10-10 20:27:06] A fsmg/celeb00032/t4_sr_x2 mean=0.309 det=0.80 26s
+[2026-10-10 20:27:42] A fsmg/celeb00032/t5_i2i30 mean=0.157 det=0.90 13s
+[2026-10-10 20:28:31] A fsmg/celeb00033/t0 mean=0.424 det=0.80 25s
+[2026-10-10 20:29:16] A fsmg/celeb00033/t1_jpeg95 mean=0.416 det=0.80 25s
+[2026-10-10 20:30:01] A fsmg/celeb00033/t1_jpeg85 mean=0.443 det=0.80 26s
+[2026-10-10 20:30:41] A fsmg/celeb00033/t1_jpeg75 mean=0.418 det=0.80 24s
+[2026-10-10 20:31:23] A fsmg/celeb00033/t1_jpeg65 mean=0.415 det=0.80 22s
+[2026-10-10 20:32:07] A fsmg/celeb00033/t1_webp80 mean=0.428 det=0.80 26s
+[2026-10-10 20:32:55] A fsmg/celeb00033/t2_canvas_dpr1 mean=0.441 det=0.80 27s
+[2026-10-10 20:33:01] skip fsmg/celeb00033/t3_agent_facecrop: no face detected in reference images
+[2026-10-10 20:33:49] A fsmg/celeb00033/t4_sr_x2 mean=0.429 det=0.80 26s
+[2026-10-10 20:34:37] A fsmg/celeb00033/t5_i2i30 mean=0.173 det=0.80 22s
+[2026-10-10 20:35:32] A fsmg/celeb00034/t0 mean=0.315 det=0.80 29s
+[2026-10-10 20:36:22] A fsmg/celeb00034/t1_jpeg95 mean=0.286 det=0.80 27s
+[2026-10-10 20:37:12] A fsmg/celeb00034/t1_jpeg85 mean=0.304 det=0.80 29s
+[2026-10-10 20:37:58] A fsmg/celeb00034/t1_jpeg75 mean=0.278 det=0.80 26s
+[2026-10-10 20:38:45] A fsmg/celeb00034/t1_jpeg65 mean=0.325 det=0.90 23s
+[2026-10-10 20:39:41] A fsmg/celeb00034/t1_webp80 mean=0.322 det=0.80 31s
+[2026-10-10 20:40:29] A fsmg/celeb00034/t2_canvas_dpr1 mean=0.340 det=0.90 27s
+[2026-10-10 20:40:34] skip fsmg/celeb00034/t3_agent_facecrop: no face detected in reference images
+[2026-10-10 20:41:21] A fsmg/celeb00034/t4_sr_x2 mean=0.235 det=0.80 25s
+[2026-10-10 20:42:05] A fsmg/celeb00034/t5_i2i30 mean=0.042 det=0.70 19s
+[2026-10-10 20:42:58] A fsmg/celeb00035/t0 mean=0.263 det=0.80 27s
+[2026-10-10 20:43:43] A fsmg/celeb00035/t1_jpeg95 mean=0.286 det=0.80 24s
