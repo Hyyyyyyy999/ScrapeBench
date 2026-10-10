@@ -38,11 +38,14 @@ def main():
         env.update(GIT_ASKPASS=askpass, SCRAPEBENCH_USER="x-access-token", SCRAPEBENCH_PASS=pat)
     run(["git", "add", "-A", "runs", "report", "figures", "logs"])
     st = run(["git", "status", "--porcelain"])
-    if not st.stdout.strip():
-        print("nothing to commit")
-        return 0
-    run(["git", "-c", "user.name=ScrapeBench", "-c",
-         "user.email=scrapebench@users.noreply.github.com", "commit", "-m", msg])
+    if st.stdout.strip():
+        run(["git", "-c", "user.name=ScrapeBench", "-c",
+             "user.email=scrapebench@users.noreply.github.com", "commit", "-m", msg])
+    else:
+        ahead = run(["git", "rev-list", "--count", "origin/main..HEAD"])
+        if ahead.stdout.strip() == "0":
+            print("nothing to commit or push")
+            return 0
     target = "origin" if run(["git", "remote", "get-url", "origin"]).returncode == 0 else REPO_URL
     push = run(["git", "push", target, "HEAD:main"], env=env)
     out = (push.stdout + push.stderr).replace(pat, "***") if pat else (push.stdout + push.stderr)
