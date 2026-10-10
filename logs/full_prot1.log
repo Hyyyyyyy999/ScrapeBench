@@ -37,3 +37,29 @@
 [surrogate] step 250/250 loss 0.3751
 [2026-10-10 14:41:36] fsmg/celeb00031 psnr=28.13
 [surrogate] step 50/250 loss 0.0798
+[surrogate] step 100/250 loss 0.0985
+[surrogate] step 150/250 loss 0.0960
+[surrogate] step 200/250 loss 0.3972
+[surrogate] step 250/250 loss 0.0883
+[2026-10-10 14:48:13] fsmg/celeb00032 psnr=27.86
+[surrogate] step 50/250 loss 0.0933
+[surrogate] step 100/250 loss 0.1119
+[surrogate] step 150/250 loss 0.1081
+[surrogate] step 200/250 loss 0.1931
+[surrogate] step 250/250 loss 0.1887
+[2026-10-10 14:54:52] fsmg/celeb00033 psnr=27.71
+[surrogate] step 50/250 loss 0.0889
+[surrogate] step 100/250 loss 0.1217
+[surrogate] step 150/250 loss 0.0319
+[surrogate] step 200/250 loss 0.2226
+[surrogate] step 250/250 loss 0.1255
+[2026-10-10 15:02:18] fsmg/celeb00034 psnr=27.53
+[surrogate] step 50/250 loss 0.1278
+[surrogate] step 100/250 loss 0.3088
+[surrogate] step 150/250 loss 0.2620
+[surrogate] step 200/250 loss 0.1046
+[surrogate] step 250/250 loss 0.1808
+[2026-10-10 15:09:39] fsmg/celeb00035 psnr=27.91
+[surrogate] step 50/250 loss 0.0349
+[surrogate] step 100/250 loss 0.1207
+[surrogate] step 150/250 loss 0.0759
