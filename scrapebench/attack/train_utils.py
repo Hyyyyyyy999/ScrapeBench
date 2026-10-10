@@ -85,6 +85,8 @@ def reset_lora(unet):
 
 def dreambooth_loss(comps, images, prompt, t_min=20, t_max=980):
     vae, unet, sched = comps["vae"], comps["unet"], comps["scheduler"]
+    if isinstance(images, (list, tuple)):
+        images = images_to_tensor(images, comps["dtype"])
     x = images.to(comps["device"], comps["dtype"])
     lat = encode_latents(vae, x)
     noise = torch.randn_like(lat)
