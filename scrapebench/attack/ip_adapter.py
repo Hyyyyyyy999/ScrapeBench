@@ -22,7 +22,7 @@ class ZeroShotFaceID:
         if not faces:
             return None
         f = max(faces, key=lambda x: (x.bbox[2] - x.bbox[0]) * (x.bbox[3] - x.bbox[1]))
-        return torch.from_numpy(f.normed_embedding.astype(np.float32))[None].to(self.device, torch.float16)
+        return torch.from_numpy(f.normed_embedding.astype(np.float32))[None].to(self.device, self.pipe.dtype)
 
     def ref_embeds(self, ref_imgs):
         pos = [e for e in (self._embed(im) for im in ref_imgs) if e is not None]
@@ -33,14 +33,14 @@ class ZeroShotFaceID:
     @torch.no_grad()
     def generate(self, prompts, ref_imgs, n_per_prompt=1, steps=30, guidance=5.0, seed=0, height=512, width=512):
         emb = self.ref_embeds(ref_imgs)
-        neg = torch.zeros_like(emb)
+        pair = torch.cat([torch.zeros_like(emb), emb], dim=0).unsqueeze(1)
         out = []
         for pr in prompts:
             g = torch.Generator(device=self.device).manual_seed(seed)
             res = self.pipe(
                 [pr] * n_per_prompt, num_inference_steps=steps, guidance_scale=guidance,
                 generator=g, height=height, width=width,
-                ip_adapter_image_embeds=[emb, neg],
+                ip_adapter_image_embeds=[pair],
             )
             out.extend(res.images)
         return out
