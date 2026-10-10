@@ -1,0 +1,806 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{50}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Cao et~al\mbox{.}(2025)]%
+        {cao2024controllable}
+\bibfield{author}{\bibinfo{person}{Pu Cao}, \bibinfo{person}{Feng Zhou},
+  \bibinfo{person}{Qing Song}, {and} \bibinfo{person}{Lu Yang}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Controllable Generation with Text-to-Image
+  Diffusion Models: A Survey}.
+\newblock  (\bibinfo{year}{2025}).
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/TPAMI.2025.3646548}
+\showDOI{\tempurl}
+
+
+\bibitem[Chen et~al\mbox{.}(2025)]%
+        {chen2025fragile}
+\bibfield{author}{\bibinfo{person}{Zhen Chen}, \bibinfo{person}{Yi Zhang},
+  \bibinfo{person}{Xiangyu Yin}, \bibinfo{person}{Chengxuan Qin},
+  \bibinfo{person}{Xingyu Zhao}, \bibinfo{person}{Xiaowei Huang}, {and}
+  \bibinfo{person}{Wenjie Ruan}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{Fragile by Design: On the Limits of Adversarial
+  Defenses in Personalized Generation}.
+\newblock \bibinfo{howpublished}{arXiv:2511.10382}.
+\newblock
+\showeprint[arxiv]{2511.10382}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2511.10382v1}
+\showURL{%
+\tempurl}
+
+
+\bibitem[{Coalition for Content Provenance and Authenticity}(2026)]%
+        {c2pa2026spec}
+\bibfield{author}{\bibinfo{person}{{Coalition for Content Provenance and
+  Authenticity}}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{C2PA Technical Specification: Content Credentials}.
+\newblock \bibinfo{howpublished}{C2PA Technical Specification,
+  \url{https://c2pa.org/specifications/}}.
+\newblock
+
+
+\bibitem[Deng et~al\mbox{.}(2018)]%
+        {deng2018arcface}
+\bibfield{author}{\bibinfo{person}{Jiankang Deng}, \bibinfo{person}{Jia Guo},
+  \bibinfo{person}{Jing Yang}, \bibinfo{person}{Niannan Xue},
+  \bibinfo{person}{Irene Kotsia}, {and} \bibinfo{person}{Stefanos Zafeiriou}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \bibinfo{title}{ArcFace: Additive Angular Margin Loss for Deep Face
+  Recognition}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/TPAMI.2021.3087709}
+\showDOI{\tempurl}
+\showeprint[arxiv]{1801.07698}
+
+
+\bibitem[Fardin et~al\mbox{.}(2026)]%
+        {fardin2026metacloakjpeg}
+\bibfield{author}{\bibinfo{person}{Tanjim~Rahaman Fardin},
+  \bibinfo{person}{S~M~Zunaid Alam}, \bibinfo{person}{Mahadi~Hasan Fahim},
+  {and} \bibinfo{person}{Md~Faysal Mahfuz}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{MetaCloak-JPEG: JPEG-Robust Adversarial Perturbation
+  for Preventing Unauthorized DreamBooth-Based Deepfake Generation}.
+\newblock \bibinfo{howpublished}{arXiv:2604.18537}.
+\newblock
+\showeprint[arxiv]{2604.18537}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2604.18537v1}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Fu et~al\mbox{.}(2023)]%
+        {fu2022robust}
+\bibfield{author}{\bibinfo{person}{Shaopeng Fu}, \bibinfo{person}{Fengxiang
+  He}, \bibinfo{person}{Yang Liu}, \bibinfo{person}{Li Shen}, {and}
+  \bibinfo{person}{Dacheng Tao}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Robust Unlearnable Examples: Protecting Data
+  Against Adversarial Learning}. In \bibinfo{booktitle}{\emph{International
+  Conference on Learning Representations (ICLR)}}.
+\newblock
+
+
+\bibitem[Gal et~al\mbox{.}(2023)]%
+        {gal2023inversion}
+\bibfield{author}{\bibinfo{person}{Rinon Gal}, \bibinfo{person}{Yuval Alaluf},
+  \bibinfo{person}{Yuval Atzmon}, \bibinfo{person}{Or Patashnik},
+  \bibinfo{person}{Amit~H. Bermano}, \bibinfo{person}{Gal Chechik}, {and}
+  \bibinfo{person}{Daniel Cohen-Or}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{An Image is Worth One Word: Customizing
+  Text-to-Image Generation using Textual Inversion}. In
+  \bibinfo{booktitle}{\emph{International Conference on Learning
+  Representations (ICLR)}}.
+\newblock
+
+
+\bibitem[Guo et~al\mbox{.}(2024)]%
+        {guo2024improving}
+\bibfield{author}{\bibinfo{person}{Kefu Guo}, \bibinfo{person}{Fengfan Zhou},
+  \bibinfo{person}{Hefei Ling}, \bibinfo{person}{Ping Li}, {and}
+  \bibinfo{person}{Hui Liu}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{Improving the JPEG-resistance of Adversarial Attacks
+  on Face Recognition by Interpolation Smoothing}.
+\newblock \bibinfo{howpublished}{arXiv:2402.16586}.
+\newblock
+\showeprint[arxiv]{2402.16586}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2402.16586v1}
+\showURL{%
+\tempurl}
+
+
+\bibitem[He et~al\mbox{.}(2026)]%
+        {he2026chronolock}
+\bibfield{author}{\bibinfo{person}{Jiaming He}, \bibinfo{person}{Jiashu Zhang},
+  \bibinfo{person}{Guanyu Hou}, \bibinfo{person}{Shuhan Ye},
+  \bibinfo{person}{Hanwei Zhu}, \bibinfo{person}{Yi Yu}, {and}
+  \bibinfo{person}{Xudong Jiang}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{ChronoLock: Protecting Videos from Unauthorized
+  Text-to-Video Personalization}.
+\newblock \bibinfo{howpublished}{arXiv:2606.21146}.
+\newblock
+\showeprint[arxiv]{2606.21146}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2606.21146v1}
+\showURL{%
+\tempurl}
+
+
+\bibitem[H\"onig et~al\mbox{.}(2025)]%
+        {hnig2024adversarial}
+\bibfield{author}{\bibinfo{person}{Robert H\"onig}, \bibinfo{person}{Javier
+  Rando}, \bibinfo{person}{Nicholas Carlini}, {and} \bibinfo{person}{Florian
+  Tram\`er}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Adversarial Perturbations Cannot Reliably Protect
+  Artists From Generative AI}. In \bibinfo{booktitle}{\emph{International
+  Conference on Learning Representations (ICLR)}}.
+\newblock
+
+
+\bibitem[Huang et~al\mbox{.}(2022)]%
+        {huang2021unlearnable}
+\bibfield{author}{\bibinfo{person}{Hanxun Huang}, \bibinfo{person}{Xingjun Ma},
+  \bibinfo{person}{Sarah~Monazam Erfani}, \bibinfo{person}{James Bailey}, {and}
+  \bibinfo{person}{Yisen Wang}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Unlearnable Examples: Making Personal Data
+  Unexploitable}. In \bibinfo{booktitle}{\emph{International Conference on
+  Learning Representations (ICLR)}}.
+\newblock
+
+
+\bibitem[Huang et~al\mbox{.}(2026)]%
+        {huang2026delving}
+\bibfield{author}{\bibinfo{person}{Yuxin Huang}, \bibinfo{person}{Ziming Hong},
+  \bibinfo{person}{Mingming Gong}, \bibinfo{person}{Wanyu Wang},
+  \bibinfo{person}{Jing Zhang}, {and} \bibinfo{person}{Tongliang Liu}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{Delving into the Temporal Challenges of Unified Video
+  Protection Against Image-to-Video and Fine-Tuning-based Customization}.
+\newblock \bibinfo{howpublished}{arXiv:2607.13336}.
+\newblock
+\showeprint[arxiv]{2607.13336}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2607.13336v1}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Jang et~al\mbox{.}(2025)]%
+        {jang2025silent}
+\bibfield{author}{\bibinfo{person}{Sangwon Jang}, \bibinfo{person}{June~Suk
+  Choi}, \bibinfo{person}{Jaehyeong Jo}, \bibinfo{person}{Kimin Lee}, {and}
+  \bibinfo{person}{Sung~Ju Hwang}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Silent Branding Attack: Trigger-free Data Poisoning
+  Attack on Text-to-Image Diffusion Models}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the IEEE/CVF Conference on Computer
+  Vision and Pattern Recognition (CVPR)}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/CVPR52734.2025.00768}
+\showDOI{\tempurl}
+
+
+\bibitem[Jeong et~al\mbox{.}(2025)]%
+        {jeong2025faceshield}
+\bibfield{author}{\bibinfo{person}{Jaehwan Jeong}, \bibinfo{person}{Sumin In},
+  \bibinfo{person}{Sieun Kim}, \bibinfo{person}{Hannie Shin},
+  \bibinfo{person}{Jongheon Jeong}, \bibinfo{person}{Sang~Ho Yoon},
+  \bibinfo{person}{Jaewook Chung}, {and} \bibinfo{person}{Sangpil Kim}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{FaceShield: Defending Facial Image Against Deepfake
+  Threats}. In \bibinfo{booktitle}{\emph{Proceedings of the IEEE/CVF
+  International Conference on Computer Vision (ICCV)}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/ICCV51701.2025.00965}
+\showDOI{\tempurl}
+
+
+\bibitem[Jia et~al\mbox{.}(2025)]%
+        {jia2025dladiff}
+\bibfield{author}{\bibinfo{person}{Jun Jia}, \bibinfo{person}{Hongyi Miao},
+  \bibinfo{person}{Yingjie Zhou}, \bibinfo{person}{Linhan Cao},
+  \bibinfo{person}{Yanwei Jiang}, \bibinfo{person}{Wangqiu Zhou},
+  \bibinfo{person}{Dandan Zhu}, \bibinfo{person}{Hua Yang},
+  \bibinfo{person}{Wei Sun}, \bibinfo{person}{Xiongkuo Min}, {and}
+  \bibinfo{person}{Guangtao Zhai}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{DLADiff: A Dual-Layer Defense Framework against
+  Fine-Tuning and Zero-Shot Customization of Diffusion Models}.
+\newblock \bibinfo{howpublished}{arXiv:2511.19910}.
+\newblock
+\showeprint[arxiv]{2511.19910}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2511.19910v1}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Jiang et~al\mbox{.}(2023)]%
+        {jiang2023false}
+\bibfield{author}{\bibinfo{person}{Wan Jiang}, \bibinfo{person}{Yunfeng Diao},
+  \bibinfo{person}{He Wang}, \bibinfo{person}{Jianxin Sun},
+  \bibinfo{person}{Meng Wang}, {and} \bibinfo{person}{Richang Hong}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Unlearnable Examples Give a False Sense of
+  Security: Piercing through Unexploitable Data with Learnable Examples}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 31st ACM International
+  Conference on Multimedia (ACM MM)}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/3581783.3611833}
+\showDOI{\tempurl}
+
+
+\bibitem[Karras et~al\mbox{.}(2018)]%
+        {karras2017progressive}
+\bibfield{author}{\bibinfo{person}{Tero Karras}, \bibinfo{person}{Timo Aila},
+  \bibinfo{person}{Samuli Laine}, {and} \bibinfo{person}{Jaakko Lehtinen}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Progressive Growing of GANs for Improved Quality,
+  Stability, and Variation}. In \bibinfo{booktitle}{\emph{International
+  Conference on Learning Representations (ICLR)}}.
+\newblock
+
+
+\bibitem[Kim et~al\mbox{.}(2026)]%
+        {kim2026phantom}
+\bibfield{author}{\bibinfo{person}{Jungkon Kim}, \bibinfo{person}{Cheolseung
+  Jung}, \bibinfo{person}{Jong-Min Choi}, {and} \bibinfo{person}{Juseong Lee}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{Phantom: A Unified Face-Swap Deepfake Protection
+  Framework with Latent and Spatial Constraints}.
+\newblock \bibinfo{howpublished}{arXiv:2606.31703}.
+\newblock
+\showeprint[arxiv]{2606.31703}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2606.31703v1}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Kumari et~al\mbox{.}(2023)]%
+        {kumari2023custom}
+\bibfield{author}{\bibinfo{person}{Nupur Kumari}, \bibinfo{person}{Bingliang
+  Zhang}, \bibinfo{person}{Richard Zhang}, \bibinfo{person}{Eli Shechtman},
+  {and} \bibinfo{person}{Jun-Yan Zhu}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Multi-Concept Customization of Text-to-Image
+  Diffusion}. In \bibinfo{booktitle}{\emph{Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR)}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/CVPR52729.2023.00192}
+\showDOI{\tempurl}
+
+
+\bibitem[Le et~al\mbox{.}(2023)]%
+        {le2023antidreambooth}
+\bibfield{author}{\bibinfo{person}{Thanh~Van Le}, \bibinfo{person}{Hao Phung},
+  \bibinfo{person}{Thuan~Hoang Nguyen}, \bibinfo{person}{Quan Dao},
+  \bibinfo{person}{Ngoc~N. Tran}, {and} \bibinfo{person}{Anh Tran}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Anti-DreamBooth: Protecting users from personalized
+  text-to-image synthesis}. In \bibinfo{booktitle}{\emph{Proceedings of the
+  IEEE/CVF International Conference on Computer Vision (ICCV)}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/ICCV51070.2023.00202}
+\showDOI{\tempurl}
+
+
+\bibitem[Lee et~al\mbox{.}(2026a)]%
+        {lee2026universal}
+\bibfield{author}{\bibinfo{person}{Chanhui Lee}, \bibinfo{person}{Donggyu
+  Choi}, \bibinfo{person}{Seunghyun Shin}, \bibinfo{person}{Hae-Gon Jeon},
+  {and} \bibinfo{person}{Jeany Son}.} \bibinfo{year}{2026}\natexlab{a}.
+\newblock \bibinfo{title}{Universal Image Immunization against Diffusion-based
+  Image Editing via Semantic Injection}.
+\newblock \bibinfo{howpublished}{arXiv:2602.14679}.
+\newblock
+\showeprint[arxiv]{2602.14679}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2602.14679v2}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Lee et~al\mbox{.}(2026b)]%
+        {lee2025data}
+\bibfield{author}{\bibinfo{person}{Chung~Peng Lee}, \bibinfo{person}{Rachel
+  Hong}, \bibinfo{person}{Harry~H. Jiang}, \bibinfo{person}{Aster Plotnik},
+  \bibinfo{person}{William Agnew}, {and} \bibinfo{person}{Jamie Morgenstern}.}
+  \bibinfo{year}{2026}\natexlab{b}.
+\newblock \showarticletitle{How Do Data Owners Say No? A Case Study of Data
+  Consent Mechanisms in Web-Scraped Vision-Language AI Training Datasets}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence (AAAI)}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1609/aaai.v40i45.41225}
+\showDOI{\tempurl}
+
+
+\bibitem[Li et~al\mbox{.}(2024)]%
+        {li2024promptindependent}
+\bibfield{author}{\bibinfo{person}{Ang Li}, \bibinfo{person}{Yichuan Mo},
+  \bibinfo{person}{Mingjie Li}, {and} \bibinfo{person}{Yisen Wang}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{PID: Prompt-Independent Data Protection Against
+  Latent Diffusion Models}.
+\newblock \bibinfo{howpublished}{arXiv:2406.15305}.
+\newblock
+\showeprint[arxiv]{2406.15305}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2406.15305v1}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Li et~al\mbox{.}(2025)]%
+        {li2025survey}
+\bibfield{author}{\bibinfo{person}{Jiahao Li}, \bibinfo{person}{Yiqiang Chen},
+  \bibinfo{person}{Yunbing Xing}, \bibinfo{person}{Yang Gu}, {and}
+  \bibinfo{person}{Xiangyuan Lan}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{A Survey on Unlearnable Data}.
+\newblock \bibinfo{howpublished}{arXiv:2503.23536}.
+\newblock
+\showeprint[arxiv]{2503.23536}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2503.23536v3}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Liu et~al\mbox{.}(2024)]%
+        {liu2023metacloak}
+\bibfield{author}{\bibinfo{person}{Yixin Liu}, \bibinfo{person}{Chenrui Fan},
+  \bibinfo{person}{Yutong Dai}, \bibinfo{person}{Xun Chen},
+  \bibinfo{person}{Pan Zhou}, {and} \bibinfo{person}{Lichao Sun}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{MetaCloak: Preventing Unauthorized Subject-Driven
+  Text-to-Image Diffusion-Based Synthesis via Meta-Learning}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the IEEE/CVF Conference on Computer
+  Vision and Pattern Recognition (CVPR)}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/CVPR52733.2024.02286}
+\showDOI{\tempurl}
+
+
+\bibitem[Lou et~al\mbox{.}(2025)]%
+        {bei2024largescale}
+\bibfield{author}{\bibinfo{person}{Hengrui Lou}, \bibinfo{person}{Zunlei Feng},
+  \bibinfo{person}{Jinsong Geng}, \bibinfo{person}{Erteng Liu},
+  \bibinfo{person}{Lechao Cheng}, \bibinfo{person}{Jie Lei},
+  \bibinfo{person}{Jie Song}, \bibinfo{person}{Mingli Song}, {and}
+  \bibinfo{person}{Yijun Bei}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{A Large-scale Universal Evaluation Benchmark For
+  Face Forgery Detection}. In \bibinfo{booktitle}{\emph{Proceedings of the 33rd
+  ACM International Conference on Multimedia}}. \bibinfo{publisher}{ACM},
+  \bibinfo{pages}{12592--12599}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/3746027.3758194}
+\showDOI{\tempurl}
+
+
+\bibitem[Onikubo and Matsui(2024)]%
+        {onikubo2024highfrequency}
+\bibfield{author}{\bibinfo{person}{Takuto Onikubo} {and}
+  \bibinfo{person}{Yusuke Matsui}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{High-Frequency Anti-DreamBooth: Robust Defense
+  against Personalized Image Synthesis}.
+\newblock \bibinfo{howpublished}{arXiv:2409.08167}.
+\newblock
+\showeprint[arxiv]{2409.08167}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2409.08167v3}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Ozden et~al\mbox{.}(2024)]%
+        {ozden2024diffvax}
+\bibfield{author}{\bibinfo{person}{Tarik~Can Ozden}, \bibinfo{person}{Ozgur
+  Kara}, \bibinfo{person}{Oguzhan Akcin}, \bibinfo{person}{Kerem Zaman},
+  \bibinfo{person}{Shashank Srivastava}, \bibinfo{person}{Sandeep~P.
+  Chinchali}, {and} \bibinfo{person}{James~M. Rehg}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{DiffVax: Optimization-Free Image Immunization Against
+  Diffusion-Based Editing}.
+\newblock \bibinfo{howpublished}{arXiv:2411.17957}.
+\newblock
+\showeprint[arxiv]{2411.17957}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2411.17957v2}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Pei et~al\mbox{.}(2026)]%
+        {pei2024deepfake}
+\bibfield{author}{\bibinfo{person}{Gan Pei}, \bibinfo{person}{Jiangning Zhang},
+  \bibinfo{person}{Menghan Hu}, \bibinfo{person}{Zhenyu Zhang},
+  \bibinfo{person}{Chengjie Wang}, \bibinfo{person}{Yunsheng Wu},
+  \bibinfo{person}{Guangtao Zhai}, \bibinfo{person}{Jian Yang}, {and}
+  \bibinfo{person}{Dacheng Tao}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \showarticletitle{Deepfake Generation and Detection: A Benchmark and
+  Survey}.
+\newblock \bibinfo{journal}{\emph{Comput. Surveys}} \bibinfo{volume}{58},
+  \bibinfo{number}{11} (\bibinfo{year}{2026}), \bibinfo{pages}{1--41}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/3801962}
+\showDOI{\tempurl}
+
+
+\bibitem[Peng et~al\mbox{.}(2025)]%
+        {peng2025contrastive}
+\bibfield{author}{\bibinfo{person}{Sen Peng}, \bibinfo{person}{Mingyue Wang},
+  \bibinfo{person}{Jianfei He}, \bibinfo{person}{Jijia Yang}, {and}
+  \bibinfo{person}{Xiaohua Jia}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{CAT: Contrastive Adversarial Training for Evaluating
+  the Robustness of Protective Perturbations in Latent Diffusion Models}.
+\newblock \bibinfo{howpublished}{arXiv:2502.07225}.
+\newblock
+\showeprint[arxiv]{2502.07225}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2502.07225v2}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Qin et~al\mbox{.}(2024)]%
+        {qin2023learning}
+\bibfield{author}{\bibinfo{person}{Tianrui Qin}, \bibinfo{person}{Xitong Gao},
+  \bibinfo{person}{Juanjuan Zhao}, \bibinfo{person}{Kejiang Ye}, {and}
+  \bibinfo{person}{Cheng-Zhong Xu}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Learning the Unlearnable: Adversarial Augmentations
+  Suppress Unlearnable Example Attacks}. In
+  \bibinfo{booktitle}{\emph{International Conference on Learning
+  Representations (ICLR)}}.
+\newblock
+
+
+\bibitem[Rombach et~al\mbox{.}(2022)]%
+        {rombach2021highresolution}
+\bibfield{author}{\bibinfo{person}{Robin Rombach}, \bibinfo{person}{Andreas
+  Blattmann}, \bibinfo{person}{Dominik Lorenz}, \bibinfo{person}{Patrick
+  Esser}, {and} \bibinfo{person}{Bjorn Ommer}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{High-Resolution Image Synthesis with Latent
+  Diffusion Models}. In \bibinfo{booktitle}{\emph{Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR)}}.
+  \bibinfo{pages}{10684--10695}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/cvpr52688.2022.01042}
+\showDOI{\tempurl}
+
+
+\bibitem[Ruiz et~al\mbox{.}(2023)]%
+        {ruiz2022dreambooth}
+\bibfield{author}{\bibinfo{person}{Nataniel Ruiz}, \bibinfo{person}{Yuanzhen
+  Li}, \bibinfo{person}{Varun Jampani}, \bibinfo{person}{Yael Pritch},
+  \bibinfo{person}{Michael Rubinstein}, {and} \bibinfo{person}{Kfir Aberman}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{DreamBooth: Fine Tuning Text-to-Image Diffusion
+  Models for Subject-Driven Generation}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the IEEE/CVF Conference on Computer
+  Vision and Pattern Recognition (CVPR)}}. \bibinfo{pages}{2230--2239}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/CVPR52729.2023.02155}
+\showDOI{\tempurl}
+
+
+\bibitem[Salman et~al\mbox{.}(2023)]%
+        {salman2023raising}
+\bibfield{author}{\bibinfo{person}{Hadi Salman}, \bibinfo{person}{Alaa
+  Khaddaj}, \bibinfo{person}{Guillaume Leclerc}, \bibinfo{person}{Andrew
+  Ilyas}, {and} \bibinfo{person}{Aleksander Madry}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Raising the Cost of Malicious AI-Powered Image
+  Editing}. In \bibinfo{booktitle}{\emph{2023 IEEE Symposium on Security and
+  Privacy (S\&P)}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/SP46215.2023.10179268}
+\showDOI{\tempurl}
+
+
+\bibitem[Sandoval-Segura et~al\mbox{.}(2023a)]%
+        {sandovalsegura2023jpeg}
+\bibfield{author}{\bibinfo{person}{Pedro Sandoval-Segura},
+  \bibinfo{person}{Jonas Geiping}, {and} \bibinfo{person}{Tom Goldstein}.}
+  \bibinfo{year}{2023}\natexlab{a}.
+\newblock \bibinfo{title}{JPEG Compressed Images Can Bypass Protections Against
+  AI Editing}.
+\newblock \bibinfo{howpublished}{arXiv:2304.02234}.
+\newblock
+\showeprint[arxiv]{2304.02234}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2304.02234v2}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Sandoval-Segura et~al\mbox{.}(2023b)]%
+        {sandovalsegura2023what}
+\bibfield{author}{\bibinfo{person}{Pedro Sandoval-Segura},
+  \bibinfo{person}{Vasu Singla}, \bibinfo{person}{Jonas Geiping},
+  \bibinfo{person}{Micah Goldblum}, {and} \bibinfo{person}{Tom Goldstein}.}
+  \bibinfo{year}{2023}\natexlab{b}.
+\newblock \bibinfo{title}{What Can We Learn from Unlearnable Datasets?}
+\newblock \bibinfo{howpublished}{arXiv:2305.19254}.
+\newblock
+\showeprint[arxiv]{2305.19254}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2305.19254v3}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Sandoval-Segura et~al\mbox{.}(2022)]%
+        {sandovalsegura2022autoregressive}
+\bibfield{author}{\bibinfo{person}{Pedro Sandoval-Segura},
+  \bibinfo{person}{Vasu Singla}, \bibinfo{person}{Jonas Geiping},
+  \bibinfo{person}{Micah Goldblum}, \bibinfo{person}{Tom Goldstein}, {and}
+  \bibinfo{person}{David~W. Jacobs}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Autoregressive Perturbations for Data Poisoning}.
+  In \bibinfo{booktitle}{\emph{Advances in Neural Information Processing
+  Systems (NeurIPS)}}.
+\newblock
+
+
+\bibitem[Shan et~al\mbox{.}(2024)]%
+        {shan2023glaze}
+\bibfield{author}{\bibinfo{person}{Shawn Shan}, \bibinfo{person}{Jenna Cryan},
+  \bibinfo{person}{Emily Wenger}, \bibinfo{person}{Haitao Zheng},
+  \bibinfo{person}{Rana Hanocka}, {and} \bibinfo{person}{Ben~Y. Zhao}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Glaze: Protecting Artists from Style Mimicry by
+  Text-to-Image Models}. In \bibinfo{booktitle}{\emph{2024 IEEE Symposium on
+  Security and Privacy (S\&P)}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/SP54257.2024.00006}
+\showDOI{\tempurl}
+
+
+\bibitem[Shan et~al\mbox{.}(2020)]%
+        {shan2020fawkes}
+\bibfield{author}{\bibinfo{person}{Shawn Shan}, \bibinfo{person}{Emily Wenger},
+  \bibinfo{person}{Jiayun Zhang}, \bibinfo{person}{Huiying Li},
+  \bibinfo{person}{Haitao Zheng}, {and} \bibinfo{person}{Ben~Y. Zhao}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \bibinfo{title}{Fawkes: Protecting Privacy against Unauthorized Deep
+  Learning Models}.
+\newblock \bibinfo{howpublished}{USENIX Security Symposium 2020}.
+\newblock
+\showeprint[arxiv]{2002.08327}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2002.08327v2}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Song et~al\mbox{.}(2024)]%
+        {song2024idprotector}
+\bibfield{author}{\bibinfo{person}{Yiren Song}, \bibinfo{person}{Pei Yang},
+  \bibinfo{person}{Hai Ci}, {and} \bibinfo{person}{Mike~Zheng Shou}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{IDProtector: An Adversarial Noise Encoder to Protect
+  Against ID-Preserving Image Generation}.
+\newblock \bibinfo{howpublished}{arXiv:2412.11638}.
+\newblock
+\showeprint[arxiv]{2412.11638}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2412.11638v2}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Trippodo et~al\mbox{.}(2025)]%
+        {trippodo2025immunizing}
+\bibfield{author}{\bibinfo{person}{Matteo Trippodo}, \bibinfo{person}{Federico
+  Becattini}, {and} \bibinfo{person}{Lorenzo Seidenari}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{Immunizing Images from Text to Image Editing via
+  Adversarial Cross-Attention}.
+\newblock \bibinfo{howpublished}{arXiv:2509.10359}.
+\newblock
+\showeprint[arxiv]{2509.10359}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2509.10359v1}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Wang et~al\mbox{.}(2025b)]%
+        {wang2025provably}
+\bibfield{author}{\bibinfo{person}{Derui Wang}, \bibinfo{person}{Minhui Xue},
+  \bibinfo{person}{Bo Li}, \bibinfo{person}{Seyit Camtepe},
+  \bibinfo{person}{Liming Zhu}, {and} \bibinfo{person}{Derui Wang}.}
+  \bibinfo{year}{2025}\natexlab{b}.
+\newblock \showarticletitle{Provably Unlearnable Data Examples}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 2025 Network and Distributed
+  System Security Symposium (NDSS)}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.14722/ndss.2025.240886}
+\showDOI{\tempurl}
+
+
+\bibitem[Wang et~al\mbox{.}(2025a)]%
+        {wang2025privacy}
+\bibfield{author}{\bibinfo{person}{Guanyu Wang}, \bibinfo{person}{Kailong
+  Wang}, \bibinfo{person}{Yihao Huang}, \bibinfo{person}{Mingyi Zhou},
+  \bibinfo{person}{Geguang Pu}, {and} \bibinfo{person}{Li Li}.}
+  \bibinfo{year}{2025}\natexlab{a}.
+\newblock \bibinfo{title}{Privacy Protection Against Personalized Text-to-Image
+  Synthesis via Cross-image Consistency Constraints}.
+\newblock \bibinfo{howpublished}{arXiv:2504.12747}.
+\newblock
+\showeprint[arxiv]{2504.12747}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2504.12747v3}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Wang et~al\mbox{.}(2024)]%
+        {wang2024instantid}
+\bibfield{author}{\bibinfo{person}{Qixun Wang}, \bibinfo{person}{Xu Bai},
+  \bibinfo{person}{Haofan Wang}, \bibinfo{person}{Zekui Qin},
+  \bibinfo{person}{Anthony Chen}, \bibinfo{person}{Huaxia Li},
+  \bibinfo{person}{Xu Tang}, {and} \bibinfo{person}{Yao Hu}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{InstantID: Zero-shot Identity-Preserving Generation
+  in Seconds}.
+\newblock \bibinfo{howpublished}{arXiv:2401.07519}.
+\newblock
+\showeprint[arxiv]{2401.07519}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2401.07519v2}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Wang et~al\mbox{.}(2025c)]%
+        {wang2025make}
+\bibfield{author}{\bibinfo{person}{Tao Wang}, \bibinfo{person}{Yushu Zhang},
+  \bibinfo{person}{Xiangli Xiao}, \bibinfo{person}{Kun Xu},
+  \bibinfo{person}{Lin Yuan}, \bibinfo{person}{Wenying Wen}, {and}
+  \bibinfo{person}{Yuming Fang}.} \bibinfo{year}{2025}\natexlab{c}.
+\newblock \bibinfo{title}{Make Identity Unextractable yet Perceptible:
+  Synthesis-Based Privacy Protection for Subject Faces in Photos}.
+\newblock \bibinfo{howpublished}{arXiv:2509.11249}.
+\newblock
+\showeprint[arxiv]{2509.11249}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2509.11249v1}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Wu et~al\mbox{.}(2025c)]%
+        {wu2025temporal}
+\bibfield{author}{\bibinfo{person}{Qiangqiang Wu}, \bibinfo{person}{Yi Yu},
+  \bibinfo{person}{Chenqi Kong}, \bibinfo{person}{Ziquan Liu},
+  \bibinfo{person}{Jia Wan}, \bibinfo{person}{Haoliang Li},
+  \bibinfo{person}{Alex~C. Kot}, {and} \bibinfo{person}{Antoni~B. Chan}.}
+  \bibinfo{year}{2025}\natexlab{c}.
+\newblock \showarticletitle{Temporal Unlearnable Examples: Preventing Personal
+  Video Data from Unauthorized Exploitation by Object Tracking}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the IEEE/CVF International
+  Conference on Computer Vision (ICCV)}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/ICCV51701.2025.01034}
+\showDOI{\tempurl}
+
+
+\bibitem[Wu et~al\mbox{.}(2025a)]%
+        {wu2025feasibility}
+\bibfield{author}{\bibinfo{person}{Stanley Wu}, \bibinfo{person}{Ronik
+  Bhaskar}, \bibinfo{person}{Anna Yoo~Jeong Ha}, \bibinfo{person}{Shawn Shan},
+  \bibinfo{person}{Haitao Zheng}, {and} \bibinfo{person}{Ben~Y. Zhao}.}
+  \bibinfo{year}{2025}\natexlab{a}.
+\newblock \showarticletitle{On the Feasibility of Poisoning Text-to-Image AI
+  Models via Adversarial Mislabeling}. In \bibinfo{booktitle}{\emph{Proceedings
+  of the 2025 ACM SIGSAC Conference on Computer and Communications Security
+  (CCS)}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/3719027.3744845}
+\showDOI{\tempurl}
+
+
+\bibitem[Wu et~al\mbox{.}(2025b)]%
+        {wu2025myopia}
+\bibfield{author}{\bibinfo{person}{Zhihao Wu}, \bibinfo{person}{Yushi Cheng},
+  \bibinfo{person}{Tianyang Sun}, \bibinfo{person}{Xiaoyu Ji}, {and}
+  \bibinfo{person}{Wenyuan Xu}.} \bibinfo{year}{2025}\natexlab{b}.
+\newblock \showarticletitle{MYOPIA: Protecting Face Privacy from Malicious
+  Personalized Text-to-Image Synthesis via Unlearnable Examples}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence (AAAI)}}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1609/aaai.v39i1.32075}
+\showDOI{\tempurl}
+
+
+\bibitem[Ye et~al\mbox{.}(2023)]%
+        {ye2023ipadapter}
+\bibfield{author}{\bibinfo{person}{Hu Ye}, \bibinfo{person}{Jun Zhang},
+  \bibinfo{person}{Sibo Liu}, \bibinfo{person}{Xiao Han}, {and}
+  \bibinfo{person}{Wei Yang}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{title}{IP-Adapter: Text Compatible Image Prompt Adapter for
+  Text-to-Image Diffusion Models}.
+\newblock \bibinfo{howpublished}{arXiv:2308.06721}.
+\newblock
+\showeprint[arxiv]{2308.06721}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2308.06721v1}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Zheng et~al\mbox{.}(2023)]%
+        {zheng2023targeted}
+\bibfield{author}{\bibinfo{person}{Boyang Zheng}, \bibinfo{person}{Chumeng
+  Liang}, {and} \bibinfo{person}{Xiaoyu Wu}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{title}{Targeted Attack Improves Protection against
+  Unauthorized Diffusion Customization}.
+\newblock \bibinfo{howpublished}{arXiv:2310.04687}.
+\newblock
+\showeprint[arxiv]{2310.04687}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/2310.04687v5}
+\showURL{%
+\tempurl}
+
+
+\end{thebibliography}
