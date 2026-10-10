@@ -299,3 +299,45 @@
 [2026-10-10 17:42:18] A random/celeb00012/t2_canvas_dpr1 mean=0.299 det=0.80 26s
 [2026-10-10 17:42:24] skip random/celeb00012/t3_agent_facecrop: no face detected in reference images
 [2026-10-10 17:43:19] A random/celeb00012/t4_sr_x2 mean=0.232 det=0.90 29s
+[2026-10-10 17:44:13] A random/celeb00012/t5_i2i30 mean=0.118 det=0.80 27s
+[2026-10-10 17:45:00] A random/celeb00013/t0 mean=0.410 det=0.80 27s
+[2026-10-10 17:45:46] A random/celeb00013/t1_jpeg95 mean=0.425 det=0.80 26s
+[2026-10-10 17:46:39] A random/celeb00013/t1_jpeg85 mean=0.404 det=0.80 27s
+[2026-10-10 17:47:26] A random/celeb00013/t1_jpeg75 mean=0.391 det=0.60 28s
+[2026-10-10 17:48:10] A random/celeb00013/t1_jpeg65 mean=0.417 det=0.80 26s
+[2026-10-10 17:48:48] A random/celeb00013/t1_webp80 mean=0.383 det=0.70 22s
+[2026-10-10 17:49:27] A random/celeb00013/t2_canvas_dpr1 mean=0.388 det=0.60 22s
+[2026-10-10 17:49:31] skip random/celeb00013/t3_agent_facecrop: no face detected in reference images
+[2026-10-10 17:50:17] A random/celeb00013/t4_sr_x2 mean=0.383 det=0.80 22s
+[2026-10-10 17:51:05] A random/celeb00013/t5_i2i30 mean=0.264 det=0.80 28s
+[2026-10-10 17:51:44] A random/celeb00014/t0 mean=0.217 det=0.70 23s
+[2026-10-10 17:52:25] A random/celeb00014/t1_jpeg95 mean=0.292 det=0.70 23s
+[2026-10-10 17:53:07] A random/celeb00014/t1_jpeg85 mean=0.277 det=0.70 24s
+[2026-10-10 17:53:47] A random/celeb00014/t1_jpeg75 mean=0.282 det=0.70 22s
+[2026-10-10 17:54:25] A random/celeb00014/t1_jpeg65 mean=0.268 det=0.60 24s
+[2026-10-10 17:55:12] A random/celeb00014/t1_webp80 mean=0.257 det=0.70 27s
+[2026-10-10 17:55:59] A random/celeb00014/t2_canvas_dpr1 mean=0.287 det=0.70 28s
+[2026-10-10 17:56:05] skip random/celeb00014/t3_agent_facecrop: no face detected in reference images
+[2026-10-10 17:56:49] A random/celeb00014/t4_sr_x2 mean=0.276 det=0.60 27s
+[2026-10-10 17:57:42] A random/celeb00014/t5_i2i30 mean=0.179 det=0.80 29s
+[2026-10-10 17:58:29] A random/celeb00015/t0 mean=0.396 det=0.80 26s
+[2026-10-10 17:59:14] A random/celeb00015/t1_jpeg95 mean=0.356 det=0.80 26s
+[2026-10-10 18:00:01] A random/celeb00015/t1_jpeg85 mean=0.390 det=0.80 26s
+[2026-10-10 18:00:45] A random/celeb00015/t1_jpeg75 mean=0.397 det=0.80 25s
+[2026-10-10 18:01:37] A random/celeb00015/t1_jpeg65 mean=0.403 det=0.80 27s
+[2026-10-10 18:02:21] A random/celeb00015/t1_webp80 mean=0.387 det=0.80 24s
+[2026-10-10 18:03:06] A random/celeb00015/t2_canvas_dpr1 mean=0.412 det=0.80 25s
+[2026-10-10 18:03:12] skip random/celeb00015/t3_agent_facecrop: no face detected in reference images
+[2026-10-10 18:04:01] A random/celeb00015/t4_sr_x2 mean=0.359 det=0.80 28s
+[2026-10-10 18:04:51] A random/celeb00015/t5_i2i30 mean=0.218 det=0.80 27s
+[2026-10-10 18:05:36] A random/celeb00017/t0 mean=0.403 det=0.80 27s
+[2026-10-10 18:06:25] A random/celeb00017/t1_jpeg95 mean=0.410 det=0.80 27s
+[2026-10-10 18:07:15] A random/celeb00017/t1_jpeg85 mean=0.399 det=0.80 29s
+[2026-10-10 18:08:04] A random/celeb00017/t1_jpeg75 mean=0.409 det=0.80 28s
+[2026-10-10 18:08:53] A random/celeb00017/t1_jpeg65 mean=0.428 det=0.80 26s
+[2026-10-10 18:09:42] A random/celeb00017/t1_webp80 mean=0.401 det=0.80 27s
+[2026-10-10 18:10:32] A random/celeb00017/t2_canvas_dpr1 mean=0.421 det=0.80 28s
+[2026-10-10 18:10:37] skip random/celeb00017/t3_agent_facecrop: no face detected in reference images
+[2026-10-10 18:11:24] A random/celeb00017/t4_sr_x2 mean=0.409 det=0.80 23s
+[2026-10-10 18:12:15] A random/celeb00017/t5_i2i30 mean=0.261 det=0.80 25s
+[2026-10-10 18:13:01] A random/celeb00019/t0 mean=0.296 det=0.80 26s
