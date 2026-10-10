@@ -741,3 +741,53 @@ You have disabled the safety checker for <class 'diffusers.pipelines.stable_diff
 [2026-10-10 23:12:42] skip aspl/celeb00039/t5_i2i30: no face detected in reference images
 [2026-10-10 23:13:18] A aspl/celeb00040/t0 mean=0.101 det=0.80 21s
 [2026-10-10 23:13:58] A aspl/celeb00040/t1_jpeg95 mean=0.127 det=0.80 21s
+[2026-10-10 23:14:40] A aspl/celeb00040/t1_jpeg85 mean=0.123 det=0.80 22s
+[2026-10-10 23:15:22] A aspl/celeb00040/t1_jpeg75 mean=0.103 det=0.80 23s
+[2026-10-10 23:16:06] A aspl/celeb00040/t1_jpeg65 mean=0.106 det=0.80 23s
+[2026-10-10 23:16:52] A aspl/celeb00040/t1_webp80 mean=0.114 det=0.80 23s
+[2026-10-10 23:17:39] A aspl/celeb00040/t2_canvas_dpr1 mean=0.103 det=0.80 24s
+[2026-10-10 23:17:45] skip aspl/celeb00040/t3_agent_facecrop: no face detected in reference images
+[2026-10-10 23:18:30] A aspl/celeb00040/t4_sr_x2 mean=0.107 det=0.80 24s
+[2026-10-10 23:19:11] A aspl/celeb00040/t5_i2i30 mean=0.070 det=0.70 18s
+[2026-10-10 23:19:53] A aspl/celeb00041/t0 mean=0.330 det=1.00 19s
+[2026-10-10 23:20:32] A aspl/celeb00041/t1_jpeg95 mean=0.328 det=0.90 20s
+[2026-10-10 23:21:16] A aspl/celeb00041/t1_jpeg85 mean=0.306 det=1.00 23s
+[2026-10-10 23:21:57] A aspl/celeb00041/t1_jpeg75 mean=0.323 det=1.00 19s
+[2026-10-10 23:22:43] A aspl/celeb00041/t1_jpeg65 mean=0.324 det=0.90 23s
+[2026-10-10 23:23:27] A aspl/celeb00041/t1_webp80 mean=0.325 det=0.90 20s
+[2026-10-10 23:24:13] A aspl/celeb00041/t2_canvas_dpr1 mean=0.344 det=1.00 19s
+[2026-10-10 23:24:19] skip aspl/celeb00041/t3_agent_facecrop: no face detected in reference images
+[2026-10-10 23:25:07] A aspl/celeb00041/t4_sr_x2 mean=0.273 det=1.00 16s
+[2026-10-10 23:25:15] skip aspl/celeb00041/t5_i2i30: no face detected in reference images
+[2026-10-10 23:25:51] A aspl/celeb00042/t0 mean=0.507 det=0.40 25s
+[2026-10-10 23:26:31] A aspl/celeb00042/t1_jpeg95 mean=0.463 det=0.50 25s
+[2026-10-10 23:27:09] A aspl/celeb00042/t1_jpeg85 mean=0.367 det=0.60 23s
+[2026-10-10 23:27:49] A aspl/celeb00042/t1_jpeg75 mean=0.396 det=0.60 23s
+[2026-10-10 23:28:26] A aspl/celeb00042/t1_jpeg65 mean=0.440 det=0.40 23s
+[2026-10-10 23:29:16] A aspl/celeb00042/t1_webp80 mean=0.368 det=0.60 29s
+[2026-10-10 23:29:54] A aspl/celeb00042/t2_canvas_dpr1 mean=0.485 det=0.40 24s
+[2026-10-10 23:30:00] skip aspl/celeb00042/t3_agent_facecrop: no face detected in reference images
+[2026-10-10 23:30:36] A aspl/celeb00042/t4_sr_x2 mean=0.472 det=0.50 20s
+[2026-10-10 23:30:45] skip aspl/celeb00042/t5_i2i30: no face detected in reference images
+[2026-10-10 23:31:27] A aspl/celeb00043/t0 mean=0.224 det=0.80 22s
+[2026-10-10 23:32:07] A aspl/celeb00043/t1_jpeg95 mean=0.245 det=0.80 20s
+[2026-10-10 23:32:49] A aspl/celeb00043/t1_jpeg85 mean=0.254 det=0.80 20s
+[2026-10-10 23:33:29] A aspl/celeb00043/t1_jpeg75 mean=0.222 det=0.80 21s
+[2026-10-10 23:34:10] A aspl/celeb00043/t1_jpeg65 mean=0.239 det=0.80 20s
+[2026-10-10 23:34:49] A aspl/celeb00043/t1_webp80 mean=0.274 det=0.80 20s
+[2026-10-10 23:35:28] A aspl/celeb00043/t2_canvas_dpr1 mean=0.248 det=0.80 20s
+[2026-10-10 23:35:32] skip aspl/celeb00043/t3_agent_facecrop: no face detected in reference images
+[2026-10-10 23:36:10] A aspl/celeb00043/t4_sr_x2 mean=0.254 det=0.90 18s
+[2026-10-10 23:36:44] A aspl/celeb00043/t5_i2i30 mean=0.104 det=0.80 13s
+[2026-10-10 23:37:22] A aspl/celeb00045/t0 mean=0.134 det=0.80 19s
+[2026-10-10 23:38:01] A aspl/celeb00045/t1_jpeg95 mean=0.122 det=0.80 24s
+[2026-10-10 23:38:43] A aspl/celeb00045/t1_jpeg85 mean=0.156 det=0.80 22s
+[2026-10-10 23:39:28] A aspl/celeb00045/t1_jpeg75 mean=0.146 det=0.80 24s
+[2026-10-10 23:40:10] A aspl/celeb00045/t1_jpeg65 mean=0.135 det=0.80 21s
+[2026-10-10 23:40:51] A aspl/celeb00045/t1_webp80 mean=0.137 det=0.80 21s
+[2026-10-10 23:41:30] A aspl/celeb00045/t2_canvas_dpr1 mean=0.168 det=0.80 20s
+[2026-10-10 23:41:35] skip aspl/celeb00045/t3_agent_facecrop: no face detected in reference images
+[2026-10-10 23:42:14] A aspl/celeb00045/t4_sr_x2 mean=0.119 det=0.80 20s
+[2026-10-10 23:42:22] skip aspl/celeb00045/t5_i2i30: no face detected in reference images
+[2026-10-10 23:43:06] A aspl/celeb00046/t0 mean=0.305 det=0.90 24s
+[2026-10-10 23:43:46] A aspl/celeb00046/t1_jpeg95 mean=0.320 det=0.80 22s
