@@ -3,7 +3,7 @@ run:
   seed: 0
   data_root: data
   resolution: 512
-  samples_per_cell: 15
+  samples_per_cell: 10
   ref_per_id: 2
   tau: 0.30
   sd_model: stable-diffusion-v1-5/stable-diffusion-v1-5
@@ -18,7 +18,7 @@ stage_b:
   methods: [clean, fsmg]
   tiers: [t0, t1_jpeg85]
   ids: [all]
-  steps: 200
+  steps: 25
   lora_rank: 16
   lr: 0.0001
   prompt: "a photo of a sks person"
@@ -26,7 +26,7 @@ stage_b:
 stage_c:
   ids: [all]
   mix_ratios: [0.2]
-  steps: 200
+  steps: 25
   lora_rank: 16
   lr: 0.0001
   prompt: "a photo of a sks person"
@@ -36,12 +36,12 @@ protection:
   eps: 8.0
   alpha: 1.0
   surrogate_steps: 100
-  pgd_steps: 30
+  pgd_steps: 25
   aspl_rounds: 2
 
 attack:
   ip_adapter_repo: h94/IP-Adapter-FaceID
   ip_adapter_weight: ip-adapter-faceid_sd15.bin
   ip_adapter_scale: 0.8
-  steps: 20
+  steps: 25
   guidance: 5.0

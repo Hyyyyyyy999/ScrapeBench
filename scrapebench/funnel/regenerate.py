@@ -2,6 +2,40 @@ import torch
 import numpy as np
 from PIL import Image
 
+T5_TRANSFORMS = {}
+_REGEN = {}
+
+
+def _get_regen():
+    import os
+    model_id = os.environ.get("SCRAPEBENCH_SD", "stable-diffusion-v1-5/stable-diffusion-v1-5")
+    if model_id not in _REGEN:
+        _REGEN[model_id] = Regenerator(model_id)
+    return _REGEN[model_id]
+
+
+def register(names):
+    def deco(fn):
+        for n in names:
+            T5_TRANSFORMS[n] = fn
+        return fn
+    return deco
+
+
+@register(["t5_i2i30"])
+def _t5_i2i30(img):
+    return _get_regen().i2i([img], strength=0.3)[0]
+
+
+@register(["t5_i2i50"])
+def _t5_i2i50(img):
+    return _get_regen().i2i([img], strength=0.5)[0]
+
+
+@register(["t5_inversion"])
+def _t5_inv(img):
+    return _get_regen().inversion_regen([img], eta=0.1)[0]
+
 
 class Regenerator:
     def __init__(self, model_id, device="cuda"):
