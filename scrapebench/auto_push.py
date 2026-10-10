@@ -41,7 +41,8 @@ def main():
     if not st.stdout.strip():
         print("nothing to commit")
         return 0
-    run(["git", "commit", "-m", msg])
+    run(["git", "-c", "user.name=ScrapeBench", "-c",
+         "user.email=scrapebench@users.noreply.github.com", "commit", "-m", msg])
     target = "origin" if run(["git", "remote", "get-url", "origin"]).returncode == 0 else REPO_URL
     push = run(["git", "push", target, "HEAD:main"], env=env)
     out = (push.stdout + push.stderr).replace(pat, "***") if pat else (push.stdout + push.stderr)
