@@ -28,7 +28,7 @@ class ZeroShotFaceID:
         pos = [e for e in (self._embed(im) for im in ref_imgs) if e is not None]
         if not pos:
             raise RuntimeError("no face detected in reference images")
-        return torch.cat(pos, 0).mean(0, keepdim=True)
+        return torch.cat(pos, 0)
 
     @torch.no_grad()
     def generate(self, prompts, ref_imgs, n_per_prompt=1, steps=30, guidance=5.0, seed=0, height=512, width=512):
