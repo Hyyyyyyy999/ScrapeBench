@@ -70,6 +70,9 @@ def main():
         ref_dir = os.path.join(root, "refs", pid)
         ref_paths = [os.path.join(ref_dir, f) for f in sorted(os.listdir(ref_dir))][:ref_per_id]
         ref_embs = scorer.ref_embeddings(pid, ref_paths)
+        if not ref_embs:
+            log(f"no refs {m}/{pid}", log_path)
+            continue
         tier_fn = get_tier(tier)
         imgs = [tier_fn(Image.open(p).convert("RGB")) for p in paths]
         t0 = time.time()

@@ -82,6 +82,9 @@ def main():
         ref_dir = os.path.join(root, "refs", pid)
         ref_paths = [os.path.join(ref_dir, f) for f in sorted(os.listdir(ref_dir))][:ref_per_id]
         ref_embs = scorer.ref_embeddings(pid, ref_paths)
+        if not ref_embs:
+            log(f"no refs {m}/{pid}", log_path)
+            continue
         pipe = build_pipeline(comps)
         t1 = time.time()
         gens = generate_images(pipe, PROMPTS, n_per_prompt=n_per_prompt, steps=30,

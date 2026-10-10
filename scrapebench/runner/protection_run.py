@@ -72,6 +72,10 @@ def main():
             paths = galleries.get(pid)
             if not paths:
                 continue
+            n_refs = len(os.listdir(os.path.join(root, "refs", pid))) if os.path.isdir(os.path.join(root, "refs", pid)) else 0
+            if n_refs < 2:
+                log(f"skip {m}/{pid} refs={n_refs}", cfg["run"].get("log_file"))
+                continue
             out_dir = os.path.join(root, "protected", m, pid)
             if os.path.isdir(out_dir) and len(os.listdir(out_dir)) >= len(paths):
                 log(f"skip {m}/{pid}", cfg["run"].get("log_file"))
