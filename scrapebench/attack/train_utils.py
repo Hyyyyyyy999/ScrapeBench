@@ -76,11 +76,16 @@ def add_lora(unet, rank=16, lr=1e-4, name="default"):
 
 
 def reset_lora(unet):
-    names = list(getattr(unet, "peft_config", {}).keys())
-    if names:
-        unet.delete_adapters(names)
+    try:
+        adapters = unet.get_list_adapters()
+        names = adapters.get("unet", []) if isinstance(adapters, dict) else list(adapters or [])
+    except Exception:
+        names = []
     for n in names:
-        unet.peft_config.pop(n, None)
+        try:
+            unet.delete_adapters([n])
+        except Exception:
+            pass
 
 
 def dreambooth_loss(comps, images, prompt, t_min=20, t_max=980):
