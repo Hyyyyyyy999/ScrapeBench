@@ -2,3 +2,38 @@
   warnings.warn(
 [surrogate] step 50/250 loss 0.3710
 [surrogate] step 100/250 loss 0.1159
+[surrogate] step 150/250 loss 0.0914
+[surrogate] step 200/250 loss 0.1458
+[surrogate] step 250/250 loss 0.1223
+[2026-10-10 14:18:51] fsmg/celeb00025 psnr=28.07
+[surrogate] step 50/250 loss 0.1525
+[surrogate] step 100/250 loss 0.2965
+[surrogate] step 150/250 loss 0.3703
+[surrogate] step 200/250 loss 0.0683
+[surrogate] step 250/250 loss 0.1753
+[2026-10-10 14:21:25] fsmg/celeb00027 psnr=28.07
+[surrogate] step 50/250 loss 0.1962
+[surrogate] step 100/250 loss 0.1124
+[surrogate] step 150/250 loss 0.1479
+[surrogate] step 200/250 loss 0.1364
+[surrogate] step 250/250 loss 0.0685
+[2026-10-10 14:23:38] fsmg/celeb00028 psnr=28.14
+[surrogate] step 50/250 loss 0.1220
+[surrogate] step 100/250 loss 0.0308
+[surrogate] step 150/250 loss 0.1262
+[surrogate] step 200/250 loss 0.1933
+[surrogate] step 250/250 loss 0.1603
+[2026-10-10 14:27:08] fsmg/celeb00029 psnr=28.18
+[surrogate] step 50/250 loss 0.1937
+[surrogate] step 100/250 loss 0.1835
+[surrogate] step 150/250 loss 0.1075
+[surrogate] step 200/250 loss 0.1994
+[surrogate] step 250/250 loss 0.2198
+[2026-10-10 14:34:20] fsmg/celeb00030 psnr=28.01
+[surrogate] step 50/250 loss 0.0639
+[surrogate] step 100/250 loss 0.0531
+[surrogate] step 150/250 loss 0.1698
+[surrogate] step 200/250 loss 0.1285
+[surrogate] step 250/250 loss 0.3751
+[2026-10-10 14:41:36] fsmg/celeb00031 psnr=28.13
+[surrogate] step 50/250 loss 0.0798
