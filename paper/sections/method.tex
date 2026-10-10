@@ -1,0 +1,52 @@
+\section{The Web Acquisition Funnel as an Attack Surface}
+\label{sec:method}
+
+\subsection{Threat Model}
+\label{sec:threat}
+We consider a subject $s$ whose face images $\{x_i\}_{i=1}^{m}$ are publicly reachable on the web, and a defense $D$ that releases protected images $\tilde{x}_i = x_i + \delta_i$, $\|\delta_i\|_\infty \le \epsilon$, claiming that any downstream customization of $\{\tilde{x}_i\}$ fails to reproduce $s$. The adversary $\mathcal{A}$ harvests images of $s$ through the web acquisition funnel $\Phi$ (Section~\ref{sec:funnel}), then attempts identity reconstruction with an attack pipeline $P$---either fine-tuning-based (\emph{DreamBooth-LoRA}~\cite{ruiz2022dreambooth}) or zero-shot (\emph{IP-Adapter-FaceID}~\cite{ye2023ipadapter}). We assume a \emph{resource-bounded} adversary: $P$ runs on one consumer GPU (24\,GB), generation uses 25--30 denoising steps, and the adversary does not adversarially optimize against $D$ (the funnel requires no knowledge of $D$). This is the deployment-relevant threat: an opportunistic scraper, not a defense-aware red team. Adaptive extensions that mix clean sources or purify images are captured at T6 (Section~\ref{sec:funnel}).
+
+The defender's implicit assumptions, which the funnel dismantles one by one, are: (A1) the adversary trains on the exact pixels the defender perturbed; (A2) the adversary must fine-tune, so poisoning the fine-tuning gradient suffices; (A3) robustness budgets can be spent on adversarial transformations chosen by the defender (JPEG, blur, crops) rather than those chosen by platforms and users. Each tier of the funnel violates one of these assumptions \emph{upstream} of the defense.
+
+\subsection{Funnel Formalization}
+\label{sec:funnel}
+The funnel is a sequence of transformations $\Phi = \phi_T \circ \cdots \circ \phi_1$ applied between upload and training-batch ingestion. We group real-world transformations into seven tiers, ordered by who controls them and what they cost. Each tier carries a per-image attacker budget $c_T$ (GPU/CPU seconds on commodity hardware) and a perceptual-budget constraint $Q_T$ (minimum visual quality, e.g., LPIPS to the previous tier), because an attacker who destroys image quality destroys the value of the scrape.
+
+\begin{table}[t]
+\centering
+\caption{The ScrapeBench acquisition funnel. Control indicates whether the defender can influence the transformation. Budgets are per image, measured on our hardware.}
+\label{tab:funnel}
+\small
+\begin{tabular}{@{}llp{4.1cm}ll@{}}
+\toprule
+Tier & Control & Transformation & Budget & Purpose \\
+\midrule
+T0 & defender & original upload, PNG & --- & lab condition \\
+T1 & platform & JPEG $q{\in}\{95,85,75,65\}$, WebP $q{=}80$, platform resize & $<10$\,ms & storage cost \\
+T2 & platform & browser/thumbnail render, DPR $\in\{1,2\}$, $240$\,px thumbs & $<100$\,ms & serving \\
+T3 & agent & headless page capture, face crop (margin 0.35) & $<200$\,ms & scraping agents \\
+T4 & user/agent & super-resolution $\times 2$ & $\sim$1\,s & ``enhancement'' \\
+T5 & user & diffusion regeneration: img2img $s{\in}\{0.3,0.5\}$, DDIM inversion & $\sim$5\,s & filters, re-upload \\
+T6 & attacker & adaptive: clean-source mixing $\rho{\in}\{0.2,0.5\}$, purification & variable & bypass poisoning \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Concretely, T1 emulates platform transcoding with libjpeg-quality sweeps plus a composite \texttt{t1\_platform} (JPEG-85 at reduced long side, as served by major social platforms). T2 renders the image as a browser would: the image is rasterized into a viewport under device-pixel-ratio $\mathrm{DPR}\in\{1,2\}$ and re-captured, with a thumbnail variant at $240$\,px; where a headless browser is unavailable we substitute a deterministic canvas-equivalent rasterizer so that the tier is reproducible without browser drift. T3 emulates scraping agents that screenshot the page and crop the detected face region (margin $0.35$) rather than fetch the original file. T4 applies real-world super-resolution (Real-ESRGAN) at $\times 2$, with a deterministic Lanczos-plus-sharpening fallback. T5 applies diffusion-based regeneration: img2img at strengths $s\in\{0.3,0.5\}$ with an empty prompt and guidance $1.0$, and a DDIM-inversion-and-reconstruction path with $\eta=0.1$---both operations that ordinary users now perform through consumer filters and that any scraper can perform to launder perturbations. T6 models adaptive adversaries in two ways: \emph{mixing} (the attacker trains on $\rho$ fraction of clean images harvested from a second source, diluting the poisoned gallery exactly as in the uncontrolled setting of prior evaluations) and \emph{purification} (training on T5-regenerated versions of the protected images, laundering the perturbation before fine-tuning).
+
+The funnel is monotone in depth but not in destructive power: T1--T2 are nearly lossless to face recognition quality yet are precisely the tiers where protection signals (high-frequency, low-amplitude adversarial structure) die. This is the crux: the funnel is a \emph{feature} of the attacker's environment, selected for free by platform economics.
+
+\subsection{Retention Ratio and Cost Ledger}
+\label{sec:metric}
+Let $g(x; P, r)$ denote the best cosine similarity between the ArcFace embedding~\cite{deng2018arcface} of a generated image $x$ and the reference embeddings of subject $s$ under attack pipeline $P$ with random seed $r$. For a defense $D$ and funnel tier $T$ we define the \emph{protection gap}
+\begin{equation}
+\Delta(T; D, P) \;=\; \mathbb{E}_{r}\big[g(\Phi_T(\mathrm{clean}); P, r)\big] \;-\; \mathbb{E}_{r}\big[g(\Phi_T(D(\mathrm{clean})); P, r)\big],
+\label{eq:gap}
+\end{equation}
+where the expectations are over seeds and the five standard DreamBooth prompts. The first term is how well the attack reproduces $s$ from \emph{unprotected} images at the same tier---the fair baseline, because acquisition transforms hit attacker and defense alike. The \emph{retention ratio} normalizes the gap by its clean-domain value:
+\begin{equation}
+\mathrm{RR}(T; D, P) \;=\; \Delta(T; D, P)\,/\,\Delta(T_0; D, P).
+\label{eq:rr}
+\end{equation}
+$\mathrm{RR}=1$ means the defense retains its full headline protection at tier $T$; $\mathrm{RR}\to 0$ means the funnel has erased it; negative values mean the funnel hurts the defense more than the attack. RR is robust to tier-level quality effects that confound raw-similarity comparisons, is comparable across defenses with different absolute strength, and yields a single interpretable curve per defense---the \emph{collapse curve} we report as the primary result.
+
+Two companion quantities complete the ledger. \emph{Detection-failure rate}: the fraction of generated samples below the recognition threshold $\tau$ (calibrated on clean data, $\tau=0.30$ with sensitivity analysis at $0.25/0.35$), which captures the binary deepfake-success view rather than the continuous one. \emph{Cost asymmetry}: the GPU-seconds per identity to generate the protection ($c_{\mathrm{prot}}$) versus the CPU/GPU-seconds per image to execute the funnel transformations ($c_{\mathrm{funnel}}$); the ratio $\kappa = c_{\mathrm{prot}} / c_{\mathrm{funnel}}$ is the economic inversion that Section~\ref{sec:results} quantifies. We report 95\% bootstrap confidence intervals over identities, paired two-sided Wilcoxon tests against the clean baseline at matched tiers with Holm correction across tiers, and Cliff's $\delta$ effect sizes.

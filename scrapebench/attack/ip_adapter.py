@@ -9,7 +9,7 @@ class ZeroShotFaceID:
         from diffusers import StableDiffusionPipeline
         from insightface.app import FaceAnalysis
         self.pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.bfloat16, safety_checker=None).to(device)
-        self.pipe.load_ip_adapter(adapter_repo, subfolder="", weight_name=weight_name)
+        self.pipe.load_ip_adapter(adapter_repo, subfolder="", weight_name=weight_name, image_encoder_folder=None)
         self.pipe.set_ip_adapter_scale(scale)
         self.pipe.set_progress_bar_config(disable=True)
         self.device = device

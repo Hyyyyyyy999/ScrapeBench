@@ -1,6 +1,6 @@
 \documentclass[sigconf,nonacm]{acmart}
 \usepackage{booktabs}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath} % auto-fixed: remove amssymb conflict
 \usepackage{graphicx}
 \usepackage{placeins}
 \usepackage{xcolor}
@@ -8,7 +8,7 @@
 \usepackage{subcaption}
 \usepackage{balance}
 \usepackage{enumitem}
-\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue} % auto-fixed: option clash
 \newcommand{\res}[1]{\textbf{#1}}
 \newcommand{\todoval}[1]{\textcolor{red}{[TODO:#1]}}
 \newtheorem{proposition}{Proposition}
