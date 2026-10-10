@@ -1,0 +1,58 @@
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]Loading pipeline components...:  33%|███▎      | 2/6 [00:00<00:01,  2.03it/s]/usr/local/lib/python3.10/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Loading pipeline components...:  67%|██████▋   | 4/6 [00:01<00:00,  4.24it/s]Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  4.28it/s]Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.85it/s]
+You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.StableDiffusionPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+image_encoder is not loaded since `image_encoder_folder=None` passed. You will not be able to use `ip_adapter_image` when calling the pipeline with IP-Adapter.Use `ip_adapter_image_embeds` to pass pre-generated image embedding instead.
+/usr/local/lib/python3.10/dist-packages/onnxruntime/capi/onnxruntime_inference_collection.py:123: UserWarning: Specified provider 'CUDAExecutionProvider' is not in available provider names.Available providers: 'AzureExecutionProvider, CPUExecutionProvider'
+  warnings.warn(
+[33mWARNING: onnxruntime is not built with CUDA 12.x support. Please install a version that supports CUDA 12.x, or call preload_dlls with cuda=False and cudnn=False.[0m
+[2026-10-10 13:51:33] stage_a start cells=24 done=0
+[2026-10-10 13:52:32] A clean/celeb00001/t0 mean=0.338 det=1.00 27s
+[2026-10-10 13:53:18] A clean/celeb00001/t1_jpeg85 mean=0.339 det=1.00 27s
+[2026-10-10 13:54:03] A clean/celeb00001/t2_canvas_dpr1 mean=0.334 det=1.00 23s
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]Loading pipeline components...:  33%|███▎      | 2/6 [00:00<00:01,  2.91it/s]Loading pipeline components...:  83%|████████▎ | 5/6 [00:00<00:00,  6.99it/s]Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  4.56it/s]
+You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion_img2img.StableDiffusionImg2ImgPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+[2026-10-10 13:54:46] A clean/celeb00001/t5_i2i30 mean=0.175 det=0.80 21s
+[2026-10-10 13:54:46] missing gallery clean/celeb00003
+[2026-10-10 13:54:46] missing gallery clean/celeb00003
+[2026-10-10 13:54:46] missing gallery clean/celeb00003
+[2026-10-10 13:54:46] missing gallery clean/celeb00003
+[2026-10-10 13:55:24] A random/celeb00001/t0 mean=0.328 det=0.90 21s
+[2026-10-10 13:56:05] A random/celeb00001/t1_jpeg85 mean=0.320 det=0.90 23s
+[2026-10-10 13:56:47] A random/celeb00001/t2_canvas_dpr1 mean=0.318 det=0.90 22s
+[2026-10-10 13:57:32] A random/celeb00001/t5_i2i30 mean=0.195 det=0.90 24s
+[2026-10-10 13:57:32] missing gallery random/celeb00003
+[2026-10-10 13:57:32] missing gallery random/celeb00003
+[2026-10-10 13:57:32] missing gallery random/celeb00003
+[2026-10-10 13:57:32] missing gallery random/celeb00003
+[2026-10-10 13:58:08] A fsmg/celeb00001/t0 mean=0.316 det=0.80 21s
+[2026-10-10 13:58:47] A fsmg/celeb00001/t1_jpeg85 mean=0.302 det=0.80 21s
+[2026-10-10 13:59:23] A fsmg/celeb00001/t2_canvas_dpr1 mean=0.316 det=0.80 21s
+[2026-10-10 14:00:02] A fsmg/celeb00001/t5_i2i30 mean=0.179 det=0.80 21s
+[2026-10-10 14:00:02] missing gallery fsmg/celeb00003
+[2026-10-10 14:00:02] missing gallery fsmg/celeb00003
+[2026-10-10 14:00:02] missing gallery fsmg/celeb00003
+[2026-10-10 14:00:02] missing gallery fsmg/celeb00003
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]Loading pipeline components...:  17%|█▋        | 1/6 [00:00<00:01,  2.82it/s]Loading pipeline components...:  50%|█████     | 3/6 [00:01<00:01,  2.70it/s]/usr/local/lib/python3.10/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Loading pipeline components...:  67%|██████▋   | 4/6 [00:01<00:00,  3.57it/s]Loading pipeline components...:  83%|████████▎ | 5/6 [00:01<00:00,  3.44it/s]Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.91it/s]
+You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.StableDiffusionPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+image_encoder is not loaded since `image_encoder_folder=None` passed. You will not be able to use `ip_adapter_image` when calling the pipeline with IP-Adapter.Use `ip_adapter_image_embeds` to pass pre-generated image embedding instead.
+/usr/local/lib/python3.10/dist-packages/onnxruntime/capi/onnxruntime_inference_collection.py:123: UserWarning: Specified provider 'CUDAExecutionProvider' is not in available provider names.Available providers: 'AzureExecutionProvider, CPUExecutionProvider'
+  warnings.warn(
+[33mWARNING: onnxruntime is not built with CUDA 12.x support. Please install a version that supports CUDA 12.x, or call preload_dlls with cuda=False and cudnn=False.[0m
+[2026-10-10 14:02:14] stage_a start cells=12 done=12
+[2026-10-10 14:03:04] A clean/celeb00003/t0 mean=0.356 det=0.80 23s
+[2026-10-10 14:03:52] A clean/celeb00003/t1_jpeg85 mean=0.346 det=0.80 23s
+[2026-10-10 14:04:48] A clean/celeb00003/t2_canvas_dpr1 mean=0.349 det=0.80 31s
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]Loading pipeline components...:  17%|█▋        | 1/6 [00:00<00:00,  6.29it/s]Loading pipeline components...:  50%|█████     | 3/6 [00:01<00:01,  2.80it/s]Loading pipeline components...:  83%|████████▎ | 5/6 [00:01<00:00,  2.97it/s]Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.64it/s]
+You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion_img2img.StableDiffusionImg2ImgPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+[2026-10-10 14:05:36] A clean/celeb00003/t5_i2i30 mean=0.264 det=0.80 23s
+[2026-10-10 14:06:18] A random/celeb00003/t0 mean=0.356 det=0.80 21s
+[2026-10-10 14:07:06] A random/celeb00003/t1_jpeg85 mean=0.341 det=0.80 25s
+[2026-10-10 14:07:52] A random/celeb00003/t2_canvas_dpr1 mean=0.334 det=0.80 23s
+[2026-10-10 14:08:38] A random/celeb00003/t5_i2i30 mean=0.284 det=0.70 25s
+[2026-10-10 14:09:19] A fsmg/celeb00003/t0 mean=0.328 det=0.80 21s
+[2026-10-10 14:10:00] A fsmg/celeb00003/t1_jpeg85 mean=0.349 det=0.80 21s
+[2026-10-10 14:10:42] A fsmg/celeb00003/t2_canvas_dpr1 mean=0.355 det=0.80 21s
+[2026-10-10 14:11:26] A fsmg/celeb00003/t5_i2i30 mean=0.250 det=0.80 23s

@@ -1,0 +1,12 @@
+/usr/local/lib/python3.10/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[2026-10-10 13:33:17] skip clean/celeb00001
+[2026-10-10 13:33:17] skip clean/celeb00002
+[2026-10-10 13:33:18] random/celeb00001 psnr=34.83
+[2026-10-10 13:33:18] random/celeb00002 psnr=35.22
+[surrogate] step 50/100 loss 0.0320
+[surrogate] step 100/100 loss 0.0468
+[2026-10-10 13:34:07] fsmg/celeb00001 psnr=35.65
+[surrogate] step 50/100 loss 0.0437
+[surrogate] step 100/100 loss 0.1061
+[2026-10-10 13:34:55] fsmg/celeb00002 psnr=36.11

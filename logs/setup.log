@@ -1,0 +1,5 @@
+[setup] python Python 3.10.12
+[setup] torch already present
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+[setup] torch 2.11.0+cu128 cuda True 2
+[setup] done

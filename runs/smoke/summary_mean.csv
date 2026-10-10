@@ -1,0 +1,13 @@
+stage,method,tier,mean,count
+A,clean,t0,0.347,2
+A,clean,t1_jpeg85,0.34265,2
+A,clean,t2_canvas_dpr1,0.3417,2
+A,clean,t5_i2i30,0.21955000000000002,2
+A,fsmg,t0,0.3217,2
+A,fsmg,t1_jpeg85,0.32530000000000003,2
+A,fsmg,t2_canvas_dpr1,0.33535000000000004,2
+A,fsmg,t5_i2i30,0.2142,2
+A,random,t0,0.34230000000000005,2
+A,random,t1_jpeg85,0.33045,2
+A,random,t2_canvas_dpr1,0.32605,2
+A,random,t5_i2i30,0.23945,2
