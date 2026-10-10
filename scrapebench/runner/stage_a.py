@@ -60,7 +60,7 @@ def main():
     cells = [(m, p, t) for m in methods for p in ids for t in tiers]
     log(f"stage_a start cells={len(cells)} done={len(done)}", log_path)
     for m, pid, tier in cells:
-        if (pid, m) not in galleries:
+        if (m, pid) not in galleries:
             log(f"missing gallery {m}/{pid}", log_path)
             continue
         key = ("A", pid, m, tier, "ipfaceid")
