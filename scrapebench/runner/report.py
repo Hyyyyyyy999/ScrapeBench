@@ -66,19 +66,14 @@ def main():
         if gap_rows:
             gtab = pd.DataFrame(gap_rows)
             gtab.to_csv(os.path.join(run_dir, f"retention_stage_{stage}.csv"), index=False)
-            plt.figure(figsize=(7, 4.5))
-            for _, r in gtab.iterrows():
-                ys = [r[t] if t in r and not pd.isna(r[t]) else np.nan for t in tiers]
-                plt.plot(range(len(tiers)), ys, marker="o", label=r["method"])
-            plt.xticks(range(len(tiers)), tiers, rotation=45, ha="right")
-            plt.ylabel("Retention ratio RR(T)")
-            plt.axhline(1.0, color="gray", lw=0.8, ls="--")
-            plt.axhline(0.0, color="gray", lw=0.8)
-            plt.title(f"Protection retention under web funnel (stage {stage})")
-            plt.legend()
-            plt.tight_layout()
-            plt.savefig(os.path.join("figures", f"collapse_stage_{stage}.png"), dpi=200)
-            plt.close()
+            from .figures import plot_gap, plot_rr, plot_det
+            sub_m = sub[sub["method"].isin(list(gtab["method"]) + ["clean"])]
+            plot_gap(sub_m, tiers, stage, "figures")
+            sig = plot_rr(sub_m, tiers, stage, "figures")
+            plot_det(df, tiers, stage, "figures")
+            with open(os.path.join(run_dir, f"rr_significance_{stage}.txt"), "w") as f:
+                for m, s in sig.items():
+                    f.write(f"{m}\t{s}\n")
     wil_rows = []
     for (stage, tier), g in df.groupby(["stage", "tier"]):
         clean = g[g["method"] == "clean"].groupby("pid")["mean_id"].mean()
