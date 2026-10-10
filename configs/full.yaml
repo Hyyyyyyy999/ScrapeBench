@@ -1,5 +1,5 @@
 run:
-  name: stage_a_full
+  name: full
   seed: 0
   data_root: data
   resolution: 512
@@ -15,10 +15,10 @@ stage_a:
   ids: [all]
 
 stage_b:
-  methods: [clean, fsmg]
+  methods: [clean, random, fsmg]
   tiers: [t0, t1_jpeg85, t2_canvas_dpr1, t5_i2i30]
   ids: [all]
-  steps: 25
+  steps: 400
   lora_rank: 16
   lr: 0.0001
   prompt: "a photo of a sks person"
@@ -26,14 +26,14 @@ stage_b:
 stage_c:
   ids: [all]
   mix_ratios: [0.2, 0.5]
-  steps: 25
+  steps: 400
   lora_rank: 16
   lr: 0.0001
   prompt: "a photo of a sks person"
 
 protection:
   methods: [clean, random, fsmg, aspl]
-  eps: 8.0
+  eps: 16.0
   alpha: 1.0
   surrogate_steps: 250
   pgd_steps: 100
