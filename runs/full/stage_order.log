@@ -33,3 +33,5 @@
 [2026-10-11 12:39:12] O fsmg/celeb00031/sr_first mean=0.282 76s
 [2026-10-11 12:42:38] O fsmg/celeb00031/t5_first mean=0.103 95s
 [2026-10-11 12:44:14] O fsmg/celeb00031/jpeg_only mean=0.289 54s
+[2026-10-11 12:48:10] O fsmg/celeb00031/deep_chain mean=0.171 108s
+[2026-10-11 12:49:57] O fsmg/celeb00031/t5_only mean=0.112 58s
