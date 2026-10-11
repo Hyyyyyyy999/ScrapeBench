@@ -2236,3 +2236,17 @@
 [2026-10-11 15:13:22] skip clean/celeb00035/t3_agent_facecrop: no face detected in reference images
 [2026-10-11 15:13:37] A clean/celeb00035/t1_jpeg95 mean=0.344 det=0.80 91s
 [2026-10-11 15:14:36] A fsmgj/celeb00030/t1_jpeg65 mean=0.269 det=0.90 96s
+[2026-10-11 15:15:11] A clean/celeb00035/t4_sr_x2 mean=0.338 det=0.80 87s
+[2026-10-11 15:15:34] A clean/celeb00035/t1_jpeg85 mean=0.330 det=0.80 93s
+[2026-10-11 15:16:17] A fsmgj/celeb00030/t1_webp80 mean=0.261 det=0.90 72s
+[2026-10-11 15:17:27] A clean/celeb00035/t1_jpeg75 mean=0.344 det=0.80 83s
+[2026-10-11 15:17:42] A fsmgj/celeb00030/t2_canvas_dpr1 mean=0.278 det=0.90 39s
+[2026-10-11 15:18:00] skip fsmgj/celeb00030/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 15:18:35] A clean/celeb00035/t5_i2i30 mean=0.188 det=0.70 84s
+[2026-10-11 15:19:40] A clean/celeb00035/t1_jpeg65 mean=0.324 det=0.90 103s
+[2026-10-11 15:19:59] A fsmgj/celeb00030/t4_sr_x2 mean=0.303 det=1.00 60s
+[2026-10-11 15:20:46] A clean/celeb00036/t0 mean=0.204 det=0.90 100s
+[2026-10-11 15:21:27] A fsmgj/celeb00030/t5_i2i30 mean=0.231 det=0.70 56s
+[2026-10-11 15:21:55] A clean/celeb00035/t1_webp80 mean=0.332 det=0.80 98s
+[2026-10-11 15:23:03] A clean/celeb00036/t1_jpeg95 mean=0.211 det=0.90 98s
+[2026-10-11 15:23:12] A fsmgj/celeb00031/t0 mean=0.291 det=0.80 62s
