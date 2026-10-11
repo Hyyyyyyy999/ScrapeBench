@@ -15,6 +15,14 @@ The released result logs contain, per stage: full per-tier tables (including JPE
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=0.85\columnwidth]{../figures/detfail_stage_A.png}
+\caption{Binary attack success ($\mathrm{SR}$ at $\tau=0.30$) across tiers (Stage A). The clean baseline degrades gracefully while every protection collapses to the clean baseline's level within the platform pipeline.}
+\label{fig:detfail}
+\end{figure}
+\label{app:detfail}
+
+\begin{figure}[H]
+\centering
 \includegraphics[width=\columnwidth]{../figures/tier_grid.png}
 \caption{The six Stage-A funnel tiers applied to one clean (top) and one FSMG-protected (bottom) gallery image. Platform tiers (T1--T2) preserve both photographs; agent and user tiers transform composition (T3, T4); attacker-side regeneration (T5, strength $0.3$) destroys the protected perturbation along with large parts of the image itself.}
 \label{fig:tier_grid}

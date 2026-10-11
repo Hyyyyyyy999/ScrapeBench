@@ -1,0 +1,20 @@
+# face-consent.txt — example manifest for a photo-hosting site
+Consent-Version: 1.0
+Contact: mailto:privacy@photos.example
+Applies-To: /photos/
+Default-Policy: deny
+
+Identity-Block: subject-00003
+  Subject-Hash: sha256-3f79bb7b435b0532165da791a0697f4a1b70c7fa4a3f4e0b9d1c0a3f2e5d8b71
+  Images: /photos/celeb00003/*
+  Allowed-Uses: recognition-accuracy, research-aggregate, editorial
+  Denied-Uses: personalization, customization, fine-tuning, embedding-extraction, training-generative
+  Expiry: 2027-12-31
+  Revocation: https://photos.example/revoke/subject-00003
+
+Identity-Block: subject-00027
+  Subject-Hash: sha256-9d2f4c8a7b1e5f30c6d8a9b2e4f7163a5c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f
+  Images: /photos/celeb00027/*
+  Allowed-Uses: editorial
+  Denied-Uses: any
+  Revocation: https://photos.example/revoke/subject-00027

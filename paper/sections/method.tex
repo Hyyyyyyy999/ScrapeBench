@@ -10,9 +10,9 @@
 
 \subsection{Threat Model}
 \label{sec:threat}
-We consider a subject $s$ whose face images $\{x_i\}_{i=1}^{m}$ are publicly reachable on the web, and a defense $D$ that releases protected images $\tilde{x}_i = x_i + \delta_i$, $\|\delta_i\|_\infty \le \epsilon$, claiming that any downstream customization of $\{\tilde{x}_i\}$ fails to reproduce $s$. The adversary $\mathcal{A}$ harvests images of $s$ through the web acquisition funnel $\Phi$ (Section~\ref{sec:funnel}), then attempts identity reconstruction with an attack pipeline $P$---either fine-tuning-based (\emph{DreamBooth-LoRA}~\cite{ruiz2022dreambooth}) or zero-shot (\emph{IP-Adapter-FaceID}~\cite{ye2023ipadapter}). We assume a \emph{resource-bounded} adversary: $P$ runs on one consumer GPU (24\,GB), generation uses 25--30 denoising steps, and the adversary does not adversarially optimize against $D$ (the funnel requires no knowledge of $D$). This is the deployment-relevant threat: an opportunistic scraper, not a defense-aware red team. Adaptive extensions that mix clean sources or purify images are captured at T6 (Section~\ref{sec:funnel}).
+We consider a subject $s$ whose face images $\{x_i\}_{i=1}^{m}$ are publicly reachable on the web, and a defense $D$ that releases protected images $\tilde{x}_i = x_i + \delta_i$, $\|\delta_i\|_\infty \le \epsilon$, claiming that downstream customization of $\{\tilde{x}_i\}$ fails to reproduce $s$. The adversary $\mathcal{A}$ harvests images of $s$ through the funnel $\Phi$ (Section~\ref{sec:funnel}), then attempts identity reconstruction with a pipeline $P$---fine-tuning-based (\emph{DreamBooth-LoRA}~\cite{ruiz2022dreambooth}) or zero-shot (\emph{IP-Adapter-FaceID}~\cite{ye2023ipadapter}, \emph{InstantID}~\cite{wang2024instantid}). We assume a \emph{resource-bounded} adversary: $P$ runs on one consumer GPU (24\,GB) with 25--30 denoising steps and does not adversarially optimize against $D$---the funnel requires no knowledge of $D$. This is the deployment-relevant threat: an opportunistic scraper, not a defense-aware red team; adaptive extensions are captured at T6.
 
-The defender's implicit assumptions, which the funnel dismantles one by one, are: (A1) the adversary trains on the exact pixels the defender perturbed; (A2) the adversary must fine-tune, so poisoning the fine-tuning gradient suffices; (A3) robustness budgets can be spent on adversarial transformations chosen by the defender (JPEG, blur, crops) rather than those chosen by platforms and users. Each tier of the funnel violates one of these assumptions \emph{upstream} of the defense (Figure~\ref{fig:overview}).
+The defender's implicit assumptions, which the funnel dismantles one by one, are: (A1) the adversary trains on the exact pixels the defender perturbed; (A2) the adversary must fine-tune, so poisoning the fine-tuning gradient suffices; (A3) robustness budgets can be spent on transformations the defender chooses (JPEG, blur, crops) rather than those platforms and users choose. Each tier violates one of these assumptions \emph{upstream} of the defense (Figure~\ref{fig:overview}).
 
 \subsection{Funnel Formalization}
 \label{sec:funnel}
@@ -57,4 +57,30 @@ where the expectations are over seeds and the five standard DreamBooth prompts. 
 \end{equation}
 $\mathrm{RR}=1$ means the defense retains its full headline protection at tier $T$; $\mathrm{RR}\to 0$ means the funnel has erased it; negative values mean the funnel hurts the defense more than the attack. RR is robust to tier-level quality effects that confound raw-similarity comparisons, is comparable across defenses with different absolute strength, and yields a single interpretable curve per defense---the \emph{collapse curve} we report as the primary result.
 
-Two companion quantities complete the ledger. \emph{Detection-failure rate}: the fraction of generated samples below the recognition threshold $\tau$ (calibrated on clean data, $\tau=0.30$ with sensitivity analysis at $0.25/0.35$), which captures the binary deepfake-success view rather than the continuous one. \emph{Cost asymmetry}: the GPU-seconds per identity to generate the protection ($c_{\mathrm{prot}}$) versus the CPU/GPU-seconds per image to execute the funnel transformations ($c_{\mathrm{funnel}}$); the ratio $\kappa = c_{\mathrm{prot}} / c_{\mathrm{funnel}}$ is the economic inversion that Section~\ref{sec:results} quantifies. We report 95\% bootstrap confidence intervals over identities, paired two-sided Wilcoxon tests against the clean baseline at matched tiers with Holm correction across tiers, and Cliff's $\delta$ effect sizes.
+Two companion quantities complete the ledger. \emph{Detection-failure rate}: the fraction of generated samples below the recognition threshold $\tau$ (calibrated on clean data, $\tau=0.30$ with sensitivity analysis at $0.25/0.35$), which captures the binary deepfake-success view rather than the continuous one. \emph{Infeasibility rate}: the fraction of cells in which the attack stack cannot operate at all because no face is detectable in the tiered gallery---the regime where the funnel has not merely bypassed a defense but destroyed the image's identity content. Keeping these two failure modes apart is essential for honest interpretation: a defense whose gallery survives T5 regeneration has not been \emph{bypassed} if the regeneration also destroyed the photograph's subject, and a platform that regenerates uploads aggressively protects nobody's face while harming every user. \emph{Cost asymmetry}: the GPU-seconds per identity to generate the protection ($c_{\mathrm{prot}}$) versus the CPU/GPU-seconds per image to execute the funnel transformations ($c_{\mathrm{funnel}}$); the ratio $\kappa = c_{\mathrm{prot}} / c_{\mathrm{funnel}}$ is the economic inversion that Section~\ref{sec:results} quantifies. We report 95\% bootstrap confidence intervals over identities, paired two-sided Wilcoxon tests against the clean baseline at matched tiers with Holm correction across tiers, and Cliff's $\delta$ effect sizes.
+
+\subsection{Anchoring the Funnel in Measured Platform Behavior}
+\label{sec:reality}
+A tier definition is only as credible as its parameter range, so we probe four production image pipelines directly: GitHub's avatar service, Gravatar, WordPress's Photon CDN, and the open proxy \texttt{wsrv.nl}. For each response we estimate the JPEG quality factor by matching quantization tables against a reference encoding sweep (Table~\ref{tab:reality}). GitHub re-encodes JPEG avatars at quality ${\approx}75$ and clamps oversized requests to the stored resolution; Gravatar serves quality ${\approx}90$; Photon honors an explicit quality parameter (measured exact at 60/80/90); the proxy exposes the whole 60--90 band. Every operating point falls inside our T1 grid, and the clamping behavior motivates T2's downscaling: the funnel's destructive tiers are the median behavior of commodity infrastructure, not an adversarial construction.
+
+\subsection{A Consent Layer That Survives the Funnel}
+\label{sec:consent}
+If perturbations do not survive acquisition but metadata does, the durable fix is to make consent ride with the image rather than inside it. We specify \texttt{face-consent.txt}, a robots.txt-style manifest at \texttt{/.well-known/face-consent.txt}: per-subject blocks with salted subject hashes, image globs, a use registry (\texttt{fine-tuning} and \texttt{embedding-extraction} are first-class tokens mirroring our two attack families), expiry, revocation endpoints, optional detached signatures, and a default-deny rule for unmatched paths and unlisted uses. A reference validator shipped with the harness (under 200 lines) validates manifests, issues per-URL allow/deny decisions citing the deciding rule, emits a manifest hash so a scraper can prove which consent it acted on, and audits directories for coverage. The protocol needs nothing beyond static file serving; it is the constructive complement to our negative results---perturbations fight the funnel and lose, consent travels with the funnel and survives.
+
+\begin{table}[t]
+\centering
+\caption{Measured re-encoding behavior of four production image pipelines (HTTP probes with quantization-table quality estimation, October 2026). Every operating point falls inside the T1 transcode grid of Table~\ref{tab:funnel}.}
+\label{tab:reality}
+\small
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Service & Behavior & Quality & Clamp \\
+\midrule
+GitHub avatars & JPEG re-encode & ${\approx}75$ & yes (s$\to$stored) \\
+Gravatar & JPEG re-encode & ${\approx}90$ & no \\
+Photon CDN & resize + JPEG & exact 60/80/90 & no \\
+wsrv.nl proxy & resize + JPEG & exact 60--90 sweep & no \\
+\bottomrule
+\end{tabular}
+\end{table}
