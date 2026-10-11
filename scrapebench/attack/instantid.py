@@ -32,7 +32,7 @@ class ZeroShotInstantID:
         self.dtype = self.pipe.dtype
         self.face = FaceAnalysis(name=face_pack, root=FACE_ROOT,
                                  providers=["CPUExecutionProvider"])
-        self.face.prepare(ctx_id=-1, det_size=(640, 640))
+        self.face.prepare(ctx_id=-1, det_size=(320, 320))
 
     def _largest(self, img):
         arr = np.array(img.convert("RGB"))[:, :, ::-1]

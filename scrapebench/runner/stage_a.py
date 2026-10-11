@@ -66,6 +66,7 @@ def main():
             scale=atk_cfg.get("ip_adapter_scale", 0.8),
         )
     scorer = IdScorer(use_gpu=True)
+    ref_cache = {}
     cells = [(m, p, t) for m in methods for p in ids for t in tiers]
     log(f"stage_a start cells={len(cells)} done={len(done)}", log_path)
     for m, pid, tier in cells:
@@ -78,7 +79,9 @@ def main():
         paths = galleries[(m, pid)]
         ref_dir = os.path.join(root, "refs", pid)
         ref_paths = [os.path.join(ref_dir, f) for f in sorted(os.listdir(ref_dir))][:ref_per_id]
-        ref_embs = scorer.ref_embeddings(pid, ref_paths)
+        if pid not in ref_cache:
+            ref_cache[pid] = scorer.ref_embeddings(pid, ref_paths)
+        ref_embs = ref_cache[pid]
         if not ref_embs:
             log(f"no refs {m}/{pid}", log_path)
             continue
@@ -86,7 +89,8 @@ def main():
         imgs = [tier_fn(Image.open(p).convert("RGB")) for p in paths]
         t0 = time.time()
         try:
-            gens = zs.generate(PROMPTS, imgs, n_per_prompt=n_per_prompt,
+            prompts = PROMPTS[:2] if args.attack == "instantid" else PROMPTS
+            gens = zs.generate(prompts, imgs, n_per_prompt=max(1, cfg["run"]["samples_per_cell"] // len(prompts)),
                                steps=atk_cfg.get("steps", 30), guidance=atk_cfg.get("guidance", 5.0),
                                seed=cfg["run"].get("seed", 0))
         except RuntimeError as e:
