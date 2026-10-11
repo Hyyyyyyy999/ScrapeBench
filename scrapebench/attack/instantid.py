@@ -62,14 +62,13 @@ class ZeroShotInstantID:
         if f:
             from pipeline_stable_diffusion_xl_instantid import draw_kps
             face_img = draw_kps(Image.fromarray(ref_arr[:, :, ::-1]), f[0].kps)
-        pair = torch.cat([torch.zeros_like(face_emb), face_emb], dim=0).unsqueeze(1)
         out = []
         for pr in prompts:
             g = torch.Generator(device=self.device).manual_seed(seed)
             res = self.pipe([pr] * n_per_prompt, num_inference_steps=steps,
                             guidance_scale=guidance, generator=g,
                             height=height, width=width,
-                            ip_adapter_image_embeds=[pair], ip_adapter_image=face_img,
+                            image_embeds=face_emb, image=face_img,
                             controlnet_conditioning_scale=controlnet_scale)
             out.extend(res.images)
         return out
