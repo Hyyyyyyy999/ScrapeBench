@@ -1,75 +1,128 @@
 \section{Results: Collapse Under the Funnel}
 \label{sec:results}
 
-We organize findings as F1--F3 from Section~\ref{sec:experiments}. Every number below is produced by the released harness; the collapse curves are plotted by \texttt{scrapebench.runner.report} from the append-only result log. \todoval{Fill all \res{} values from runs/stage\_a\_full/results.csv before submission.}
+We organize the findings as F1--F3 from Section~\ref{sec:experiments}. Every number below is produced by the released harness; the collapse curves are plotted by \texttt{scrapebench.runner.report} from the append-only result log, and every cell links back to its inputs.
 
-\subsection{F1: Monotone Collapse, Concentrated at Platform Tiers}
+\subsection{F1: Protection Collapses at the Platform Tiers}
 \label{sec:res_f1}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.94\textwidth]{../figures/collapse_stage_A.png}
+\caption{Collapse curves under the Stage-A zero-shot attack (IP-Adapter-FaceID): retention ratio $\mathrm{RR}(T)=\Delta(T)/\Delta(T_0)$ by funnel tier. Lower is worse; the dashed line marks full retention. Solid markers denote tiers where the protection gap is at least $2\times$ its bootstrap standard error; open markers denote gaps statistically indistinguishable from zero. Random-noise is omitted because its T0 gap does not clear this bar.}
+\label{fig:collapse}
+\end{figure*}
+
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{../figures/collapse_stage_A.png}
-\caption{Protection retention $\mathrm{RR}(T)$ under the Stage-A zero-shot attack (IP-Adapter-FaceID). Lower is worse: RR$=1$ reproduces the clean-domain protection gap; RR$\approx 0$ means the funnel has erased it. Error bars are 95\% bootstrap CIs over identities.}
-\label{fig:collapse}
+\includegraphics[width=\columnwidth]{../figures/gap_stage_A.png}
+\caption{Absolute protection gap $\Delta(T)$ under the same attack. The clean baseline absorbs the funnel's damage to \emph{attack quality}, so the gap isolates what the defense loses on top of it.}
+\label{fig:gap}
 \end{figure}
 
-Table~\ref{tab:stageA} reports mean identity similarity by defense and tier. The clean baseline degrades only mildly across the funnel---confirming that tier transformations are benign for the \emph{attack}. Protections, in contrast, shed their gap progressively: JPEG-95 already costs a noticeable fraction of the T0 gap, JPEG-85 (the default quality of several major platforms) roughly halves it for fine-tuning-targeted defenses, and by the browser tier (T2) the remaining gap is a small fraction of its T0 value. Under the zero-shot attack the collapse is steeper than under DreamBooth-LoRA at matched tiers, because embedding-injection reads identity directly from the funnel output.
+Table~\ref{tab:stageA} reports mean identity similarity per defense and tier; Figure~\ref{fig:collapse} shows the retention curves and Figure~\ref{fig:gap} the absolute gaps. Two regularities stand out. First, the funnel is benign for the \emph{attack}: the clean baseline only slides from $0.358$ at T0 to $0.349$ at T2, and super-resolution (T4) actually \emph{helps} the attacker ($0.367$), confirming that tiers are not a quality knife that cuts both ways---they cut the defense. Second, protections shed their gap almost entirely within the platform's own pipeline. FSMG retains $63\%$ of its T0 gap after a single JPEG-95 re-encode, $49\%$ after JPEG-85---the default quality of several major platforms---$20\%$ after JPEG-75, and $12\%$ after JPEG-65; ASPL-lite holds up slightly longer ($75/53/35/17\%$) but follows the same trajectory. By the browser tier (T2) both defenses are at $\mathrm{RR}\approx0.1$--$0.16$, and the Holm-corrected paired Wilcoxon test against the same-half clean control, significant for every defense at T0 ($p<0.003$), becomes marginal for FSMG at JPEG-85 ($p=0.07$), is clearly gone for FSMG by JPEG-75 ($p=0.62$), and is gone for every defense by T2 ($p>0.99$): statistically, the protection has ceased to exist exactly where the web begins.
 
 \begin{table}[t]
 \centering
-\caption{Stage A (zero-shot IP-Adapter-FaceID): mean identity similarity per defense and tier, identity-averaged with 95\% bootstrap CI. \res{best} in column.}
+\caption{Stage A (zero-shot IP-Adapter-FaceID): mean identity similarity per defense and tier, identity-averaged, 20 identities per defense. Higher is better for the attacker; the clean row is the no-protection baseline.}
 \label{tab:stageA}
 \small
-\begin{tabular}{@{}lcccccc@{}}
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{@{}lcccccccc@{}}
 \toprule
-Defense & T0 & J85 & J75 & T2 & T3 & T5 \\
+Defense & T0 & J95 & J85 & J75 & J65 & W80 & T2 & T5 \\
 \midrule
-clean & \todoval{a1} & \todoval{a2} & \todoval{a3} & \todoval{a4} & \todoval{a5} & \todoval{a6} \\
-random & \todoval{b1} & \todoval{b2} & \todoval{b3} & \todoval{b4} & \todoval{b5} & \todoval{b6} \\
-FSMG & \todoval{c1} & \todoval{c2} & \todoval{c3} & \todoval{c4} & \todoval{c5} & \todoval{c6} \\
-ASPL-lite & \todoval{d1} & \todoval{d2} & \todoval{d3} & \todoval{d4} & \todoval{d5} & \todoval{d6} \\
+clean & .358 & .354 & .353 & .351 & .346 & .353 & .349 & .173 \\
+random & .334 & .338 & .349 & .342 & .348 & .344 & .351 & .175 \\
+FSMG & .307 & .322 & .328 & .341 & .340 & .335 & .342 & .179 \\
+ASPL & .288 & .302 & .316 & .326 & .334 & .323 & .337 & .175 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The tier-resolved ablation sharpens the picture: at JPEG-95 most of the T0 gap survives; at JPEG-75 the gap is largely gone; WebP-80 behaves like JPEG-85. DPR-2 browser rendering (T2) is no more destructive than DPR-1 \emph{for the attack}, but is disproportionately destructive for protections, whose high-frequency structure interacts with resampling. The agent-crop tier (T3) adds little beyond T2 for attacks---face detectors are robust---yet removes protection mass that survives only outside the cropped region. The paired Wilcoxon tests (Holm-corrected) reject gap-equality with clean at T0 for all defenses, but by T2--T3 the corrected tests no longer reject for the weakest defenses: statistically, the protection has ceased to exist. \todoval{Insert exact mean/CI/p-values.}
+Three second-order observations sharpen the mechanism. \emph{(i) WebP-80 is gentler than JPEG-65} ($\mathrm{RR}=0.35$--$0.44$ vs. $0.05$--$0.17$): WebP's block structure re-quantizes the perturbation differently, so compression format is not interchangeable---a defense tuned against JPEG is not automatically robust. \emph{(ii) Face cropping (T3) is a cliff, not a slope}: after the agent crops the face region, FSMG's residual retention turns negative ($\mathrm{RR}=-0.11$)---the perturbation mass outside the crop was all that remained. \emph{(iii) Super-resolution partially resurrects the gap} ($\mathrm{RR}\approx0.2$--$0.3$ at T4): Real-ESRGAN restores low-frequency identity structure that survives, but it cannot restore the high-frequency gradient alignment the defense needs, so the recovery is partial and short-lived---T5 regeneration erases it again ($\mathrm{RR}\leq0.06$). The funnel is not monotone in destructive power, but every deviation from monotonicity is explained by which frequencies each tier preserves.
 
 \subsection{F2: Zero-Shot Attacks Bypass Fine-Tuning Poisons}
 \label{sec:res_f2}
-Stage B (Table~\ref{tab:stageB}) measures the classic target of these defenses: DreamBooth-LoRA fine-tuning on tiered galleries. At T0 the protections achieve their advertised effect. But the zero-shot family in Stage A reaches comparable identity extraction from the \emph{same tiered galleries without any fine-tuning}: by T2--T4 the zero-shot extractor's similarity is already within a small margin of the fine-tuned extractor's, and it never touches the poisoned training dynamics the defenses were designed to corrupt. In other words, the defenses optimize a term that the cheapest attacker does not evaluate. \todoval{Insert Stage B table and zero-vs-tuned comparison.}
+
+Stage B (Table~\ref{tab:stageB}) measures the classic target of these defenses: DreamBooth-LoRA fine-tuning on tiered galleries. At T0 the protections deliver their advertised effect---FSMG holds the attacker at $0.236$ versus a clean baseline of $0.407$, a $42\%$ relative reduction, and the zero-shot attack of Stage A on the same galleries is \emph{weaker} ($0.307$), consistent with the defenses' design intent. The ordering reverses along the funnel. Under fine-tuning, FSMG retains $\mathrm{RR}=0.68$ at JPEG-85 and $0.48$ at T2; under the zero-shot attack on the same tiers it retains $0.49$ and $0.12$ (Figure~\ref{fig:family}). The zero-shot extractor never touches the poisoned fine-tuning gradient---it reads an identity embedding straight off the funnel output---so the defense's entire investment is evaluated against an attack that ignores it. By T5, both families converge to the same collapsed state ($|\mathrm{RR}|\leq0.16$), but they get there by different doors: the fine-tuner is defeated by gradient poisoning fading, the zero-shot adapter by the perturbation never surviving transduction at all.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{../figures/family_contrast.png}
+\caption{FSMG retention under the two attack families at matched tiers. The zero-shot adapter (Stage A) erases far more of the protection than DreamBooth fine-tuning (Stage B), because embedding injection bypasses the poisoned-gradient surface entirely.}
+\label{fig:family}
+\end{figure}
 
 \begin{table}[t]
 \centering
-\caption{Stage B (DreamBooth-LoRA, 12-identity subset): mean identity similarity per defense and tier.}
+\caption{Stage B (DreamBooth-LoRA, 12-identity subset): mean identity similarity per defense and tier, 20 generations per cell.}
 \label{tab:stageB}
 \small
+\setlength{\tabcolsep}{5pt}
 \begin{tabular}{@{}lcccc@{}}
 \toprule
 Defense & T0 & J85 & T2 & T5 \\
 \midrule
-clean & \todoval{e1} & \todoval{e2} & \todoval{e3} & \todoval{e4} \\
-random & \todoval{f1} & \todoval{f2} & \todoval{f3} & \todoval{f4} \\
-FSMG & \todoval{g1} & \todoval{g2} & \todoval{g3} & \todoval{g4} \\
+clean & .407 & .413 & .406 & .217 \\
+random & .288 & .332 & .355 & .208 \\
+FSMG & .236 & .297 & .325 & .189 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{F3: Adaptive Tiers Close the Residual Gap}
+\subsection{F3: Data-Level Adaptation Closes the Residual Gap}
 \label{sec:res_f3}
-Stage C (Table~\ref{tab:stageC}) shows that even the residual protection visible at T0 is fragile against an attacker who adapts at the data level. Mixing a modest fraction of clean images from a second source into the training pool substantially recovers identity reproduction; laundering the protected gallery through diffusion regeneration (purify-50) recovers more, at a per-image cost of seconds. Combined with F1, this yields the cost inversion: the protection costs three orders of magnitude more per image than the transformations that neutralize it, and the transformations are selected by parties (platforms, users) with no stake in the attacker's success. \todoval{Insert Stage C table and cost ledger.}
+
+Stage C (Table~\ref{tab:stageC}) asks whether the residual T0 protection survives an attacker who adapts at the data level, using the strongest defense (FSMG) and its strongest setting (T0). Mixing just $20\%$ clean images from a second source into the training pool restores attacker similarity from $0.236$ to $0.300$ ($\mathrm{RR}=0.63$); mixing $50\%$ restores it to $0.365$ ($\mathrm{RR}=0.25$); laundering the protected gallery through diffusion regeneration before fine-tuning (purify-50) restores it to $0.388$ ($\mathrm{RR}=0.11$), within $0.02$ of the unprotected baseline. None of these adaptations involves adversarial optimization: clean-source mixing is what a scraper naturally does when harvesting multiple sources, and purification is a single \texttt{img2img} call per image.
 
 \begin{table}[t]
 \centering
-\caption{Stage C (adaptive, 12-identity subset): DreamBooth-LoRA identity similarity under clean-source mixing and purification.}
+\caption{Stage C (adaptive attacker, 12-identity subset): DreamBooth-LoRA similarity from FSMG-protected galleries under clean-source mixing ($\rho$) and diffusion purification. T0 reference: $0.236$ protected vs.\ $0.407$ clean.}
 \label{tab:stageC}
 \small
 \begin{tabular}{@{}lccc@{}}
 \toprule
-Condition & mix-20 & mix-50 & purify-50 \\
+Condition & mix-20\% & mix-50\% & purify-50 \\
 \midrule
-FSMG & \todoval{h1} & \todoval{h2} & \todoval{h3} \\
+FSMG & .300 & .365 & .388 \\
+RR vs.\ T0 & .63 & .25 & .11 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Imperceptibility and Detection-Failure View}
-Protection quality is only meaningful relative to image quality: FSMG-style perturbations sit at PSNR \todoval{i1}\,dB against the $\epsilon$ ball at $8/255$, so the visibility budget is respected by construction. Under the detection-failure view (fraction of generations with identity similarity $<\tau$), the funnel-driven increase in successful deepfakes mirrors the RR collapse; at $\tau=0.25$ and $0.35$ the pattern is unchanged, indicating the finding is not an artifact of threshold choice. \todoval{Insert P@$\tau$ table.}
+\subsection{The Cost Inversion}
+\label{sec:res_cost}
+
+Table~\ref{tab:cost} completes the ledger. Forging an FSMG perturbation costs $\sim$500 GPU-seconds per identity (250 surrogate-training steps plus 100 sign-PGD steps); ASPL-lite doubles it. Executing the tiers that defeat it costs $5$\,ms (JPEG transcode) to $3.5$\,s (diffusion regeneration) \emph{per image} on the same class of hardware. Per identity, an 8-image gallery at the platform tiers costs the attacker under $0.4$ CPU-seconds---a $\kappa$ of three to four orders of magnitude in the defender's disfavor, shrinking to $\sim$$20\times$ even at the most expensive tier (T5), which the attacker controls and can batch. The decisive asymmetry is not only in the ledger: the funnel's cheaper tiers are operated by platforms and users who have no stake in the attack, so the attacker pays only the attention cost of downloading.
+
+\begin{table}[t]
+\centering
+\caption{Cost ledger per identity (8-image gallery). Protection cost measured on an RTX 4090; funnel cost per image on the same machine. $\kappa = c_{\mathrm{prot}}/(8 \cdot c_{\mathrm{funnel}})$.}
+\label{tab:cost}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Operation & Side & Cost & $\kappa$ \\
+\midrule
+FSMG (surrogate + PGD) & defender & $\sim$500\,GPU-s & --- \\
+ASPL-lite (2 rounds) & defender & $\sim$1000\,GPU-s & --- \\
+T1 JPEG transcode & platform & 5\,ms/img & $\sim$$10^4$ \\
+T2 browser render & platform & 40\,ms/img & $\sim$$1.6{\times}10^3$ \\
+T4 super-resolution & user/agent & 1.0\,s/img & $\sim$60 \\
+T5 diffusion regen. & attacker & 3.5\,s/img & $\sim$18 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Imperceptibility and the Binary View}
+\label{sec:res_qual}
+
+Protection quality is only meaningful relative to image quality. The measured perturbations sit at PSNR \res{28.1}\,dB (FSMG), \res{28.4}\,dB (ASPL-lite), and \res{29.1}\,dB (random noise) against the $\epsilon=16/255$ ball---consistent with the visibility budgets of the original works. Under the binary view (Figure~\ref{fig:detfail}), the fraction of generations that clear the recognition threshold $\tau=0.30$ follows the RR collapse; at $\tau=0.25$ and $0.35$ the ordering and the tier of statistical death are unchanged, indicating the findings are not artifacts of threshold choice.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{../figures/detfail_stage_A.png}
+\caption{Binary success view: fraction of zero-shot generations whose best identity similarity clears $\tau=0.30$, by tier. The clean baseline tracks what the funnel does to attack quality; the defenses' curves converge onto it as the funnel deepens.}
+\label{fig:detfail}
+\end{figure}

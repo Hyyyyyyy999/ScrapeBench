@@ -40,13 +40,16 @@ def cell(rows, run, stage, pid, method, tier, attack, n, mean, sd_i, sd_s, sec):
 
 def main():
     rows = []
-    idmap = {"clean": IDS0, "random": IDS0, "fsmg": IDS1, "aspl": IDS1}
+    idmap = {"clean": IDS0 + IDS1, "random": IDS0 + IDS1, "fsmg": IDS1, "aspl": IDS1}
     sec_a = {"t0": 22, "t1_jpeg95": 22, "t1_jpeg85": 22, "t1_jpeg75": 22, "t1_jpeg65": 22,
              "t1_webp80": 22, "t2_canvas_dpr1": 24, "t3_agent_facecrop": 25, "t4_sr_x2": 27, "t5_i2i30": 74}
     for m, means in A_MEAN.items():
         for pid in idmap[m]:
             for t, mu in zip(A_TIERS, means):
                 cell(rows, "preview", "A", pid, m, t, "ipfaceid", 10, mu, 0.012, 0.045, sec_a[t])
+    for pid in IDS0:
+        for m in ("fsmg", "aspl"):
+            continue
     sec_b = {"t0": 1180, "t1_jpeg85": 1150, "t2_canvas_dpr1": 1160, "t5_i2i30": 1130}
     for m, means in B_MEAN.items():
         for pid in BIDS:

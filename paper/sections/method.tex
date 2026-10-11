@@ -22,8 +22,9 @@ The funnel is a sequence of transformations $\Phi = \phi_T \circ \cdots \circ \p
 \centering
 \caption{The ScrapeBench acquisition funnel. Control indicates whether the defender can influence the transformation. Budgets are per image, measured on our hardware.}
 \label{tab:funnel}
-\small
-\begin{tabular}{@{}llp{4.1cm}ll@{}}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}llp{3.35cm}ll@{}}
 \toprule
 Tier & Control & Transformation & Budget & Purpose \\
 \midrule
@@ -40,7 +41,7 @@ T6 & attacker & adaptive: clean-source mixing $\rho{\in}\{0.2,0.5\}$, purificati
 
 Concretely, T1 emulates platform transcoding with libjpeg-quality sweeps plus a composite \texttt{t1\_platform} (JPEG-85 at reduced long side, as served by major social platforms). T2 renders the image as a browser would: the image is rasterized into a viewport under device-pixel-ratio $\mathrm{DPR}\in\{1,2\}$ and re-captured, with a thumbnail variant at $240$\,px; where a headless browser is unavailable we substitute a deterministic canvas-equivalent rasterizer so that the tier is reproducible without browser drift. T3 emulates scraping agents that screenshot the page and crop the detected face region (margin $0.35$) rather than fetch the original file. T4 applies real-world super-resolution (Real-ESRGAN) at $\times 2$, with a deterministic Lanczos-plus-sharpening fallback. T5 applies diffusion-based regeneration: img2img at strengths $s\in\{0.3,0.5\}$ with an empty prompt and guidance $1.0$, and a DDIM-inversion-and-reconstruction path with $\eta=0.1$---both operations that ordinary users now perform through consumer filters and that any scraper can perform to launder perturbations. T6 models adaptive adversaries in two ways: \emph{mixing} (the attacker trains on $\rho$ fraction of clean images harvested from a second source, diluting the poisoned gallery exactly as in the uncontrolled setting of prior evaluations) and \emph{purification} (training on T5-regenerated versions of the protected images, laundering the perturbation before fine-tuning).
 
-The funnel is monotone in depth but not in destructive power: T1--T2 are nearly lossless to face recognition quality yet are precisely the tiers where protection signals (high-frequency, low-amplitude adversarial structure) die. This is the crux: the funnel is a \emph{feature} of the attacker's environment, selected for free by platform economics.
+The funnel is monotone in depth but not in destructive power: T1--T2 are nearly lossless to face recognition quality yet are precisely the tiers where protection signals (high-frequency, low-amplitude adversarial structure) die. This is the crux: the funnel is a \emph{feature} of the attacker's environment, selected for free by platform economics.\sloppy
 
 \subsection{Retention Ratio and Cost Ledger}
 \label{sec:metric}
