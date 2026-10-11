@@ -54,8 +54,8 @@ def main():
     atk_cfg = cfg.get("attack", {})
     if args.attack == "instantid":
         zs = ZeroShotInstantID(
-            adapter_repo=atk_cfg.get("instantid_repo", "InstantID/InstantID"),
-            controlnet_repo=atk_cfg.get("instantid_controlnet", "InstantID/ControlNetModel"),
+            adapter_repo=atk_cfg.get("instantid_repo", "InstantX/InstantID"),
+            controlnet_repo=atk_cfg.get("instantid_controlnet", "InstantX/InstantID"),
             scale=atk_cfg.get("ip_adapter_scale", 0.8),
         )
     else:

@@ -11,14 +11,14 @@ FACE_ROOT = os.environ.get("INSIGHTFACE_ROOT", os.path.expanduser("~/.insightfac
 
 class ZeroShotInstantID:
     def __init__(self, model_id="stabilityai/stable-diffusion-xl-base-1.0", device="cuda",
-                 adapter_repo="InstantID/InstantID", controlnet_repo="InstantID/ControlNetModel",
+                 adapter_repo="InstantX/InstantID", controlnet_repo="InstantX/InstantID",
                  scale=0.8, face_pack="antelopev2"):
         from insightface.app import FaceAnalysis
         if REPO not in sys.path:
             sys.path.insert(0, REPO)
         from diffusers import ControlNetModel
         from pipeline_stable_diffusion_xl_instantid import StableDiffusionXLInstantIDPipeline
-        controlnet = ControlNetModel.from_pretrained(controlnet_repo, torch_dtype=torch.float16)
+        controlnet = ControlNetModel.from_pretrained(controlnet_repo, subfolder="ControlNetModel", torch_dtype=torch.float16)
         self.pipe = StableDiffusionXLInstantIDPipeline.from_pretrained(
             model_id, controlnet=controlnet, torch_dtype=torch.float16, variant="fp16",
             safety_checker=None).to(device)
