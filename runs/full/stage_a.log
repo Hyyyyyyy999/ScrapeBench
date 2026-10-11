@@ -1377,3 +1377,9 @@
 [2026-10-11 02:08:35] skip aspl/celeb00046/t3_agent_facecrop: no face detected in reference images
 [2026-10-11 02:08:40] skip aspl/celeb00047/t3_agent_facecrop: no face detected in reference images
 [2026-10-11 02:08:47] skip aspl/celeb00047/t5_i2i30: no face detected in reference images
+[2026-10-11 12:33:24] stage_a start cells=400 done=832
+[2026-10-11 12:33:28] stage_a start cells=400 done=832
+[2026-10-11 12:36:07] A clean/celeb00025/t0 mean=0.369 det=1.00 87s
+[2026-10-11 12:36:42] A clean/celeb00025/t0 mean=0.369 det=1.00 82s
+[2026-10-11 12:38:41] A clean/celeb00025/t1_jpeg95 mean=0.354 det=1.00 103s
+[2026-10-11 12:39:42] A clean/celeb00025/t1_jpeg95 mean=0.354 det=1.00 116s

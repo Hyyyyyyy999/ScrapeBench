@@ -4,3 +4,5 @@
 2026-10-11 02:26:21 stage_c attempt 4 rc=1; retry 60s
 2026-10-11 03:13:23 stage_c finished
 2026-10-11 03:13:23 chain1 done
+2026-10-11 12:31:00 queue1b: stage_c done, running clean/random protections for IDS1
+2026-10-11 12:31:42 queue1b: stage_c done, running clean/random protections for IDS1
