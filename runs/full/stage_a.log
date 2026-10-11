@@ -2426,3 +2426,4 @@
 [2026-10-11 15:42:36] A clean/celeb00038/t1_jpeg85 mean=0.283 det=0.80 85s
 [2026-10-11 15:44:00] A clean/celeb00036/t4_sr_x2 mean=0.208 det=0.90 53s
 [2026-10-11 15:44:02] A clean/celeb00038/t1_jpeg75 mean=0.288 det=0.80 42s
+[2026-10-11 15:44:50] stage_a start cells=72 done=1014

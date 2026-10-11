@@ -305,3 +305,4 @@ KeyError: 'unknown funnel tier: jpeg85'
 2026-10-11 15:42:24 fix instantid retry 1
 Keyword arguments {'safety_checker': None} are not expected by StableDiffusionXLInstantIDPipeline and will be ignored.
 Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  14%|█▍        | 1/7 [00:00<00:00,  7.16it/s]Loading pipeline components...:  29%|██▊       | 2/7 [00:00<00:01,  4.40it/s]Loading pipeline components...:  71%|███████▏  | 5/7 [00:00<00:00, 11.17it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:01<00:00,  6.57it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:01<00:00,  6.85it/s]
+2026-10-11 15:44:57 fix instantid retry 2
