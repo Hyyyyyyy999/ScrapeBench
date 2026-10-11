@@ -57,8 +57,8 @@ def diff_jpeg(x, quality=85):
     xp = F.pad(x, (0, pw, 0, ph), mode="reflect") if (ph or pw) else x
     hh, ww = xp.shape[-2:]
     dev = xp.device
-    a = _dct_basis(dev)
-    q = _quant_table(quality, dev)
+    a = _dct_basis(dev).to(xp.dtype)
+    q = _quant_table(quality, dev).to(xp.dtype)
     r, g, ch_b = xp[:, 0], xp[:, 1], xp[:, 2]
     y = 0.299 * r + 0.587 * g + 0.114 * ch_b
     cb = 0.5 - 0.168736 * r - 0.331264 * g + 0.5 * ch_b
