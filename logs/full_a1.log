@@ -937,3 +937,20 @@ image_encoder is not loaded since `image_encoder_folder=None` passed. You will n
 [2026-10-11 12:38:41] A clean/celeb00025/t1_jpeg95 mean=0.354 det=1.00 103s
 [2026-10-11 12:39:42] A clean/celeb00025/t1_jpeg95 mean=0.354 det=1.00 116s
 [2026-10-11 12:40:53] A clean/celeb00025/t1_jpeg85 mean=0.364 det=0.90 90s
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]Loading pipeline components...:  17%|█▋        | 1/6 [00:01<00:05,  1.09s/it]Loading pipeline components...:  33%|███▎      | 2/6 [00:01<00:02,  1.54it/s]/usr/local/lib/python3.10/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Loading pipeline components...:  67%|██████▋   | 4/6 [00:01<00:00,  3.61it/s]Loading pipeline components...:  83%|████████▎ | 5/6 [00:01<00:00,  4.14it/s]Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.50it/s]
+You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.StableDiffusionPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+image_encoder is not loaded since `image_encoder_folder=None` passed. You will not be able to use `ip_adapter_image` when calling the pipeline with IP-Adapter.Use `ip_adapter_image_embeds` to pass pre-generated image embedding instead.
+[2026-10-11 16:42:15] stage_a start cells=400 done=1046
+[2026-10-11 16:42:15] missing gallery clean/celeb00037
+[2026-10-11 16:42:15] missing gallery clean/celeb00037
+[2026-10-11 16:42:15] missing gallery clean/celeb00037
+[2026-10-11 16:42:15] missing gallery clean/celeb00037
+[2026-10-11 16:42:15] missing gallery clean/celeb00037
+[2026-10-11 16:42:15] missing gallery clean/celeb00037
+[2026-10-11 16:42:15] missing gallery clean/celeb00037
+[2026-10-11 16:42:15] missing gallery clean/celeb00037
+[2026-10-11 16:42:15] missing gallery clean/celeb00037
+[2026-10-11 16:42:15] missing gallery clean/celeb00037
+[2026-10-11 16:44:35] A clean/celeb00041/t0 mean=0.306 det=0.90 79s
