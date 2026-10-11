@@ -6,6 +6,7 @@ from PIL import Image
 from ..config import load_config
 from ..funnel import get_tier
 from ..attack.ip_adapter import ZeroShotFaceID
+from ..attack.instantid import ZeroShotInstantID
 from ..attack.train_utils import PROMPTS
 from ..metrics.id_sim import IdScorer
 from ..metrics.stats import bootstrap_ci_mean
@@ -32,6 +33,7 @@ def main():
     ap.add_argument("--tiers", default=None)
     ap.add_argument("--methods", default=None)
     ap.add_argument("--ids", default=None)
+    ap.add_argument("--attack", default="ipfaceid")
     args = ap.parse_args()
     cfg = load_config(args.config)
     root = cfg["run"]["data_root"]
@@ -50,12 +52,19 @@ def main():
     n_per_prompt = max(1, cfg["run"]["samples_per_cell"] // len(PROMPTS))
     ref_per_id = cfg["run"].get("ref_per_id", 2)
     atk_cfg = cfg.get("attack", {})
-    zs = ZeroShotFaceID(
-        cfg["run"]["sd_model"],
-        adapter_repo=atk_cfg.get("ip_adapter_repo", "h94/IP-Adapter-FaceID"),
-        weight_name=atk_cfg.get("ip_adapter_weight", "ip-adapter-faceid_sd15.bin"),
-        scale=atk_cfg.get("ip_adapter_scale", 0.8),
-    )
+    if args.attack == "instantid":
+        zs = ZeroShotInstantID(
+            adapter_repo=atk_cfg.get("instantid_repo", "InstantID/InstantID"),
+            controlnet_repo=atk_cfg.get("instantid_controlnet", "InstantID/ControlNetModel"),
+            scale=atk_cfg.get("ip_adapter_scale", 0.8),
+        )
+    else:
+        zs = ZeroShotFaceID(
+            cfg["run"]["sd_model"],
+            adapter_repo=atk_cfg.get("ip_adapter_repo", "h94/IP-Adapter-FaceID"),
+            weight_name=atk_cfg.get("ip_adapter_weight", "ip-adapter-faceid_sd15.bin"),
+            scale=atk_cfg.get("ip_adapter_scale", 0.8),
+        )
     scorer = IdScorer(use_gpu=True)
     cells = [(m, p, t) for m in methods for p in ids for t in tiers]
     log(f"stage_a start cells={len(cells)} done={len(done)}", log_path)
@@ -63,7 +72,7 @@ def main():
         if (m, pid) not in galleries:
             log(f"missing gallery {m}/{pid}", log_path)
             continue
-        key = ("A", pid, m, tier, "ipfaceid")
+        key = ("A", pid, m, tier, args.attack)
         if key in done:
             continue
         paths = galleries[(m, pid)]
@@ -82,7 +91,7 @@ def main():
                                seed=cfg["run"].get("seed", 0))
         except RuntimeError as e:
             append_row(res_path, dict(
-                run=run_name, stage="A", pid=pid, method=m, tier=tier, attack="ipfaceid",
+                run=run_name, stage="A", pid=pid, method=m, tier=tier, attack=args.attack,
                 n_gallery=len(paths), n_samples=0, mean_id="", ci_lo="", ci_hi="", p_lo="", p_hi="",
                 pos_rate=0.0, gen_sec=round(time.time() - t0, 1), sec_per_img="", ts=now()))
             log(f"skip {m}/{pid}/{tier}: {e}", log_path)
@@ -99,7 +108,7 @@ def main():
         det_rate = float(np.mean(dets))
         tau = cfg["run"].get("tau", 0.30)
         append_row(res_path, dict(
-            run=run_name, stage="A", pid=pid, method=m, tier=tier, attack="ipfaceid",
+            run=run_name, stage="A", pid=pid, method=m, tier=tier, attack=args.attack,
             n_gallery=len(paths), n_samples=len(sims), mean_id=round(mean, 4),
             ci_lo=round(lo, 4), ci_hi=round(hi, 4), p_lo="", p_hi="",
             pos_rate=round(float(np.nanmean(sims >= tau)), 4),
