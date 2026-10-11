@@ -22,7 +22,7 @@ class ZeroShotInstantID:
         self.pipe = StableDiffusionXLInstantIDPipeline.from_pretrained(
             model_id, controlnet=controlnet, torch_dtype=torch.float16, variant="fp16",
             safety_checker=None).to(device)
-        self.pipe.load_ip_adapter(adapter_repo, subfolder="", weight_name="ip-adapter.bin")
+        self.pipe.load_ip_adapter_instantid(adapter_repo, weight_name="ip-adapter.bin")
         self.pipe.set_ip_adapter_scale(scale)
         self.pipe.set_progress_bar_config(disable=True)
         self.device = device
