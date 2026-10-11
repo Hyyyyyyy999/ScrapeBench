@@ -96,7 +96,7 @@ def build_macros(df, run_dir):
     d0 = cmean - ref[ref.method == "fsmg"]["mean_id"].mean()
     pvc = c.groupby("tier")["mean_id"].mean()
     psc = c.groupby("tier")["pos_rate"].mean()
-    for t in ["mix20", "mix50", "purify50"]:
+    for t in ["mixlo", "mixhi", "purif"]:
         put(f"nC{t}", fs(pvc.get(t, np.nan)))
         put(f"pC{t}", fsr(psc.get(t, np.nan)))
         put(f"qC{t}", fsq(psc.get(t, np.nan)))
