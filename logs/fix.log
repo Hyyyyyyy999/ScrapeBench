@@ -241,3 +241,25 @@ image_encoder is not loaded since `image_encoder_folder=None` passed. You will n
 [2026-10-11 14:11:22] A fsmgj/celeb00025/t1_webp80 mean=0.327 det=0.80 94s
 [2026-10-11 14:13:30] A fsmgj/celeb00025/t2_canvas_dpr1 mean=0.345 det=0.80 83s
 [2026-10-11 14:13:44] skip fsmgj/celeb00025/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 14:15:24] A fsmgj/celeb00025/t4_sr_x2 mean=0.325 det=0.80 68s
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]Loading pipeline components...:  33%|███▎      | 2/6 [00:17<00:35,  8.91s/it]Loading pipeline components...:  50%|█████     | 3/6 [00:18<00:16,  5.36s/it]Loading pipeline components...: 100%|██████████| 6/6 [00:19<00:00,  2.13s/it]Loading pipeline components...: 100%|██████████| 6/6 [00:19<00:00,  3.19s/it]
+You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion_img2img.StableDiffusionImg2ImgPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+[2026-10-11 14:17:25] A fsmgj/celeb00025/t5_i2i30 mean=0.250 det=0.70 24s
+[2026-10-11 14:19:18] A fsmgj/celeb00027/t0 mean=0.307 det=0.80 86s
+[2026-10-11 14:20:55] A fsmgj/celeb00027/t1_jpeg95 mean=0.329 det=0.80 65s
+[2026-10-11 14:21:52] A fsmgj/celeb00027/t1_jpeg85 mean=0.333 det=0.80 40s
+[2026-10-11 14:23:41] A fsmgj/celeb00027/t1_jpeg75 mean=0.317 det=0.80 91s
+[2026-10-11 14:25:14] A fsmgj/celeb00027/t1_jpeg65 mean=0.300 det=0.80 52s
+[2026-10-11 14:26:24] A fsmgj/celeb00027/t1_webp80 mean=0.313 det=0.80 38s
+[2026-10-11 14:28:20] A fsmgj/celeb00027/t2_canvas_dpr1 mean=0.322 det=0.80 93s
+[2026-10-11 14:28:25] skip fsmgj/celeb00027/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 14:30:15] A fsmgj/celeb00027/t4_sr_x2 mean=0.320 det=0.80 93s
+[2026-10-11 14:32:05] A fsmgj/celeb00027/t5_i2i30 mean=0.095 det=0.50 93s
+[2026-10-11 14:34:06] A fsmgj/celeb00028/t0 mean=0.220 det=0.70 65s
+[2026-10-11 14:35:16] A fsmgj/celeb00028/t1_jpeg95 mean=0.216 det=0.70 42s
+[2026-10-11 14:36:47] A fsmgj/celeb00028/t1_jpeg85 mean=0.227 det=0.70 71s
+[2026-10-11 14:38:57] A fsmgj/celeb00028/t1_jpeg75 mean=0.230 det=0.70 109s
+[2026-10-11 14:40:54] A fsmgj/celeb00028/t1_jpeg65 mean=0.228 det=0.70 99s
+[2026-10-11 14:42:46] A fsmgj/celeb00028/t1_webp80 mean=0.233 det=0.70 90s
+[2026-10-11 14:43:48] A fsmgj/celeb00028/t2_canvas_dpr1 mean=0.219 det=0.70 35s
+[2026-10-11 14:43:56] skip fsmgj/celeb00028/t3_agent_facecrop: no face detected in reference images
