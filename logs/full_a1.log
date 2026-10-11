@@ -866,3 +866,57 @@ You have disabled the safety checker for <class 'diffusers.pipelines.stable_diff
 [2026-10-11 01:41:59] skip aspl/celeb00046/t3_agent_facecrop: no face detected in reference images
 [2026-10-11 01:42:04] skip aspl/celeb00047/t3_agent_facecrop: no face detected in reference images
 [2026-10-11 01:42:12] skip aspl/celeb00047/t5_i2i30: no face detected in reference images
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]Loading pipeline components...:  17%|█▋        | 1/6 [00:13<01:05, 13.19s/it]/usr/local/lib/python3.10/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Loading pipeline components...:  50%|█████     | 3/6 [00:13<00:10,  3.64s/it]Loading pipeline components...:  67%|██████▋   | 4/6 [00:24<00:12,  6.08s/it]Loading pipeline components...:  83%|████████▎ | 5/6 [00:39<00:08,  8.88s/it]Loading pipeline components...: 100%|██████████| 6/6 [00:39<00:00,  6.51s/it]
+You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.StableDiffusionPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+image_encoder is not loaded since `image_encoder_folder=None` passed. You will not be able to use `ip_adapter_image` when calling the pipeline with IP-Adapter.Use `ip_adapter_image_embeds` to pass pre-generated image embedding instead.
+[2026-10-11 02:01:03] stage_a start cells=400 done=716
+[2026-10-11 02:01:17] skip fsmg/celeb00025/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:01:31] skip fsmg/celeb00027/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:01:46] skip fsmg/celeb00028/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:02:02] skip fsmg/celeb00029/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:02:16] skip fsmg/celeb00030/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:02:33] skip fsmg/celeb00031/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:02:48] skip fsmg/celeb00032/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:03:01] skip fsmg/celeb00033/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:03:13] skip fsmg/celeb00034/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:03:29] skip fsmg/celeb00035/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:03:39] skip fsmg/celeb00036/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:03:50] skip fsmg/celeb00038/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:04:02] skip fsmg/celeb00040/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:04:13] skip fsmg/celeb00041/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:04:26] skip fsmg/celeb00042/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:04:37] skip fsmg/celeb00043/t3_agent_facecrop: no face detected in reference images
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]Loading pipeline components...:  17%|█▋        | 1/6 [00:08<00:41,  8.35s/it]Loading pipeline components...:  67%|██████▋   | 4/6 [00:17<00:08,  4.05s/it]Loading pipeline components...:  83%|████████▎ | 5/6 [00:22<00:04,  4.27s/it]Loading pipeline components...: 100%|██████████| 6/6 [00:22<00:00,  3.72s/it]
+You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion_img2img.StableDiffusionImg2ImgPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+[2026-10-11 02:05:36] skip fsmg/celeb00043/t5_i2i30: no face detected in reference images
+[2026-10-11 02:05:54] skip fsmg/celeb00045/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:09] skip fsmg/celeb00047/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:14] skip aspl/celeb00025/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:21] skip aspl/celeb00027/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:28] skip aspl/celeb00028/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:35] skip aspl/celeb00029/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:40] skip aspl/celeb00030/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:45] skip aspl/celeb00031/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:49] skip aspl/celeb00032/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:56] skip aspl/celeb00032/t5_i2i30: no face detected in reference images
+[2026-10-11 02:07:02] skip aspl/celeb00033/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:07:06] skip aspl/celeb00034/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:07:11] skip aspl/celeb00035/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:07:15] skip aspl/celeb00036/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:07:23] skip aspl/celeb00036/t5_i2i30: no face detected in reference images
+[2026-10-11 02:07:27] skip aspl/celeb00038/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:07:38] skip aspl/celeb00039/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:07:45] skip aspl/celeb00039/t5_i2i30: no face detected in reference images
+[2026-10-11 02:07:49] skip aspl/celeb00040/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:07:54] skip aspl/celeb00041/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:08:00] skip aspl/celeb00041/t5_i2i30: no face detected in reference images
+[2026-10-11 02:08:05] skip aspl/celeb00042/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:08:12] skip aspl/celeb00042/t5_i2i30: no face detected in reference images
+[2026-10-11 02:08:16] skip aspl/celeb00043/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:08:19] skip aspl/celeb00045/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:08:25] skip aspl/celeb00045/t5_i2i30: no face detected in reference images
+[2026-10-11 02:08:35] skip aspl/celeb00046/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:08:40] skip aspl/celeb00047/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:08:47] skip aspl/celeb00047/t5_i2i30: no face detected in reference images

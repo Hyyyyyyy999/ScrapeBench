@@ -1,0 +1,3 @@
+2026-10-11 01:58:27 chain0 start gpu=0 methods=clean,random
+2026-10-11 02:06:44 stage_a finished
+2026-10-11 02:11:25 stage_b attempt 1 rc=1; retry 60s

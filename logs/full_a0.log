@@ -483,3 +483,49 @@ image_encoder is not loaded since `image_encoder_folder=None` passed. You will n
 [2026-10-11 01:40:02] skip random/celeb00022/t3_agent_facecrop: no face detected in reference images
 [2026-10-11 01:40:08] skip random/celeb00023/t3_agent_facecrop: no face detected in reference images
 [2026-10-11 01:40:13] skip random/celeb00024/t3_agent_facecrop: no face detected in reference images
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]/usr/local/lib/python3.10/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Loading pipeline components...:  17%|█▋        | 1/6 [00:00<00:00,  7.03it/s]Loading pipeline components...:  33%|███▎      | 2/6 [00:00<00:01,  2.34it/s]Loading pipeline components...:  50%|█████     | 3/6 [00:01<00:01,  2.46it/s]Loading pipeline components...:  83%|████████▎ | 5/6 [00:01<00:00,  2.62it/s]Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.20it/s]
+You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.StableDiffusionPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+image_encoder is not loaded since `image_encoder_folder=None` passed. You will not be able to use `ip_adapter_image` when calling the pipeline with IP-Adapter.Use `ip_adapter_image_embeds` to pass pre-generated image embedding instead.
+[2026-10-11 01:58:43] stage_a start cells=400 done=716
+[2026-10-11 01:58:52] skip clean/celeb00001/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 01:59:02] skip clean/celeb00003/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 01:59:16] skip clean/celeb00004/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 01:59:28] skip clean/celeb00005/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 01:59:42] skip clean/celeb00006/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 01:59:54] skip clean/celeb00007/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:00:08] skip clean/celeb00008/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:00:18] skip clean/celeb00010/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:00:27] skip clean/celeb00011/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:00:37] skip clean/celeb00012/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:00:49] skip clean/celeb00013/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:01:03] skip clean/celeb00014/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:01:26] skip clean/celeb00015/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:01:42] skip clean/celeb00017/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:02:06] skip clean/celeb00019/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:02:25] skip clean/celeb00020/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:02:42] skip clean/celeb00021/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:03:00] skip clean/celeb00022/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:03:22] skip clean/celeb00023/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:03:40] skip clean/celeb00024/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:03:52] skip random/celeb00001/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:04:00] skip random/celeb00003/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:04:11] skip random/celeb00004/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:04:23] skip random/celeb00005/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:04:35] skip random/celeb00006/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:04:46] skip random/celeb00007/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:04:53] skip random/celeb00008/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:05:00] skip random/celeb00010/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:05:05] skip random/celeb00011/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:05:10] skip random/celeb00012/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:05:16] skip random/celeb00013/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:05:22] skip random/celeb00014/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:05:28] skip random/celeb00015/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:05:34] skip random/celeb00017/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:05:48] skip random/celeb00019/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:02] skip random/celeb00020/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:11] skip random/celeb00021/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:17] skip random/celeb00022/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:26] skip random/celeb00023/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 02:06:34] skip random/celeb00024/t3_agent_facecrop: no face detected in reference images
