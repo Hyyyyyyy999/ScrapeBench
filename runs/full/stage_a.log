@@ -1820,3 +1820,14 @@
 [2026-10-11 13:00:00] A clean/celeb00027/t1_jpeg85 mean=0.470 det=0.80 63s
 [2026-10-11 13:00:51] A clean/celeb00027/t1_webp80 mean=0.467 det=0.80 61s
 [2026-10-11 13:01:34] A clean/celeb00027/t1_jpeg75 mean=0.465 det=0.80 71s
+[2026-10-11 13:02:25] A clean/celeb00027/t2_canvas_dpr1 mean=0.460 det=0.80 73s
+[2026-10-11 13:02:30] skip clean/celeb00027/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 13:03:10] A clean/celeb00027/t1_jpeg65 mean=0.469 det=0.80 61s
+[2026-10-11 13:04:00] A clean/celeb00027/t4_sr_x2 mean=0.423 det=0.80 66s
+[2026-10-11 13:04:23] A clean/celeb00027/t1_webp80 mean=0.467 det=0.80 52s
+[2026-10-11 13:05:38] A clean/celeb00027/t2_canvas_dpr1 mean=0.460 det=0.80 49s
+[2026-10-11 13:05:57] skip clean/celeb00027/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 13:05:58] A clean/celeb00027/t5_i2i30 mean=0.220 det=0.80 47s
+[2026-10-11 13:07:14] A clean/celeb00028/t0 mean=0.243 det=0.80 46s
+[2026-10-11 13:07:49] A clean/celeb00027/t4_sr_x2 mean=0.423 det=0.80 58s
+[2026-10-11 13:08:28] A clean/celeb00028/t1_jpeg95 mean=0.247 det=0.80 60s
