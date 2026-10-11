@@ -263,3 +263,20 @@ You have disabled the safety checker for <class 'diffusers.pipelines.stable_diff
 [2026-10-11 14:42:46] A fsmgj/celeb00028/t1_webp80 mean=0.233 det=0.70 90s
 [2026-10-11 14:43:48] A fsmgj/celeb00028/t2_canvas_dpr1 mean=0.219 det=0.70 35s
 [2026-10-11 14:43:56] skip fsmgj/celeb00028/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 14:45:24] A fsmgj/celeb00028/t4_sr_x2 mean=0.196 det=0.70 64s
+[2026-10-11 14:47:43] A fsmgj/celeb00028/t5_i2i30 mean=0.073 det=0.70 80s
+[2026-10-11 14:49:11] A fsmgj/celeb00029/t0 mean=0.336 det=0.50 27s
+[2026-10-11 14:50:52] A fsmgj/celeb00029/t1_jpeg95 mean=0.336 det=0.60 68s
+[2026-10-11 14:53:04] A fsmgj/celeb00029/t1_jpeg85 mean=0.351 det=0.60 108s
+[2026-10-11 14:55:06] A fsmgj/celeb00029/t1_jpeg75 mean=0.305 det=0.50 102s
+[2026-10-11 14:57:03] A fsmgj/celeb00029/t1_jpeg65 mean=0.335 det=0.60 100s
+[2026-10-11 14:59:25] A fsmgj/celeb00029/t1_webp80 mean=0.315 det=0.50 121s
+[2026-10-11 15:01:28] A fsmgj/celeb00029/t2_canvas_dpr1 mean=0.350 det=0.60 91s
+[2026-10-11 15:01:33] skip fsmgj/celeb00029/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 15:03:12] A fsmgj/celeb00029/t4_sr_x2 mean=0.303 det=0.60 63s
+[2026-10-11 15:05:20] A fsmgj/celeb00029/t5_i2i30 mean=0.136 det=0.60 35s
+[2026-10-11 15:07:13] A fsmgj/celeb00030/t0 mean=0.273 det=0.90 73s
+[2026-10-11 15:09:23] A fsmgj/celeb00030/t1_jpeg95 mean=0.279 det=0.90 83s
+[2026-10-11 15:10:50] A fsmgj/celeb00030/t1_jpeg85 mean=0.271 det=0.90 40s
+[2026-10-11 15:12:37] A fsmgj/celeb00030/t1_jpeg75 mean=0.275 det=0.90 74s
+[2026-10-11 15:14:36] A fsmgj/celeb00030/t1_jpeg65 mean=0.269 det=0.90 96s
