@@ -286,3 +286,22 @@ You have disabled the safety checker for <class 'diffusers.pipelines.stable_diff
 [2026-10-11 15:19:59] A fsmgj/celeb00030/t4_sr_x2 mean=0.303 det=1.00 60s
 [2026-10-11 15:21:27] A fsmgj/celeb00030/t5_i2i30 mean=0.231 det=0.70 56s
 [2026-10-11 15:23:12] A fsmgj/celeb00031/t0 mean=0.291 det=0.80 62s
+Keyword arguments {'safety_checker': None} are not expected by StableDiffusionXLInstantIDPipeline and will be ignored.
+Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  14%|█▍        | 1/7 [00:02<00:12,  2.01s/it]Loading pipeline components...:  29%|██▊       | 2/7 [00:09<00:26,  5.23s/it]Loading pipeline components...:  43%|████▎     | 3/7 [00:13<00:19,  4.76s/it]Loading pipeline components...:  57%|█████▋    | 4/7 [00:16<00:12,  4.03s/it]Loading pipeline components...:  71%|███████▏  | 5/7 [00:16<00:05,  2.64s/it]Loading pipeline components...:  86%|████████▌ | 6/7 [00:17<00:02,  2.05s/it]Loading pipeline components...: 100%|██████████| 7/7 [00:18<00:00,  1.65s/it]Loading pipeline components...: 100%|██████████| 7/7 [00:18<00:00,  2.64s/it]
+[2026-10-11 15:41:07] stage_a start cells=72 done=1010
+[2026-10-11 15:41:55] skip clean/celeb00025/t0: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/root/scrapebench/scrapebench/runner/stage_a.py", line 121, in <module>
+    main()
+  File "/root/scrapebench/scrapebench/runner/stage_a.py", line 85, in main
+    tier_fn = get_tier(tier)
+  File "/root/scrapebench/scrapebench/funnel/__init__.py", line 22, in get_tier
+    raise KeyError(f"unknown funnel tier: {name}")
+KeyError: 'unknown funnel tier: jpeg85'
+2026-10-11 15:42:24 fix instantid retry 1
+Keyword arguments {'safety_checker': None} are not expected by StableDiffusionXLInstantIDPipeline and will be ignored.
+Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  14%|█▍        | 1/7 [00:00<00:00,  7.16it/s]Loading pipeline components...:  29%|██▊       | 2/7 [00:00<00:01,  4.40it/s]Loading pipeline components...:  71%|███████▏  | 5/7 [00:00<00:00, 11.17it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:01<00:00,  6.57it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:01<00:00,  6.85it/s]
