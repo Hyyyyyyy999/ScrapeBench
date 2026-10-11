@@ -1,3 +1,4 @@
 2026-10-11 01:58:55 chain1 start gpu=1 methods=fsmg,aspl
 2026-10-11 02:08:49 stage_a finished
 2026-10-11 02:12:38 stage_c attempt 1 rc=1; retry 60s
+2026-10-11 02:26:21 stage_c attempt 4 rc=1; retry 60s

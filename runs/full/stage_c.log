@@ -4,3 +4,10 @@
 [2026-10-11 02:09:00] stage_c start cells=36 done=716
 [2026-10-11 02:12:36] C celeb00025/mix50 mean=0.035 train=170s
 [2026-10-11 02:13:49] stage_c start cells=36 done=718
+[2026-10-11 02:26:19] C celeb00027/mix50 mean=0.004 train=168s
+[2026-10-11 02:27:40] stage_c start cells=36 done=720
+[2026-10-11 02:31:02] C celeb00025/purify50 mean=0.123 train=160s
+[2026-10-11 02:34:00] C celeb00027/mix20 mean=0.026 train=150s
+[2026-10-11 02:37:19] C celeb00027/purify50 mean=0.077 train=174s
+[2026-10-11 02:40:24] C celeb00028/mix20 mean=0.053 train=154s
+[2026-10-11 02:43:27] C celeb00028/mix50 mean=0.025 train=151s
