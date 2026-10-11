@@ -103,12 +103,16 @@ def build_macros(df, run_dir):
         rr = (cmean - pvc.get(t, np.nan)) / d0 if d0 and not np.isnan(pvc.get(t, np.nan)) else np.nan
         put(f"rC{t}", fs(rr))
     put("nCref", fs(cmean))
+    go = None
     gopath = os.path.join(run_dir, "retention_stage_O.csv")
     if os.path.exists(gopath):
         go = pd.read_csv(gopath).set_index("method")
-        for met in ["fsmg", "random"]:
-            for o in ORDERS:
-                put(f"rO{MSHORT[met]}{OSHORT[o]}", f"{go.loc[met][o]:.2f}" if met in go.index and o in go.columns else "--")
+    for met in ["fsmg", "random"]:
+        for o in ORDERS:
+            v = "--"
+            if go is not None and met in go.index and o in go.columns and not np.isnan(go.loc[met][o]):
+                v = f"{go.loc[met][o]:.2f}"
+            put(f"rO{MSHORT[met]}{OSHORT[o]}", v)
     s = df[(df.stage == "A") & (df.pid.isin(OIDS)) & (df.tier.isin(TIER_B))]
     for atk in ["ipfaceid", "instantid"]:
         su = s[s.attack == atk]
