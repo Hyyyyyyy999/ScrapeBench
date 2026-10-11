@@ -1,2 +1,49 @@
 Keyword arguments {'safety_checker': None} are not expected by StableDiffusionXLInstantIDPipeline and will be ignored.
 Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  14%|█▍        | 1/7 [00:00<00:00,  8.17it/s]Loading pipeline components...:  29%|██▊       | 2/7 [00:00<00:01,  3.32it/s]Loading pipeline components...:  43%|████▎     | 3/7 [00:00<00:00,  4.01it/s]Loading pipeline components...:  71%|███████▏  | 5/7 [00:00<00:00,  5.55it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:01<00:00,  6.42it/s]
+Traceback (most recent call last):
+  File "<string>", line 8, in <module>
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "/root/scrapebench/scrapebench/attack/instantid.py", line 68, in generate
+    res = self.pipe([pr] * n_per_prompt, num_inference_steps=steps,
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "/root/instantid_repo/pipeline_stable_diffusion_xl_instantid.py", line 706, in __call__
+    noise_pred = self.unet(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/unets/unet_2d_condition.py", line 1216, in forward
+    sample, res_samples = downsample_block(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/unets/unet_2d_blocks.py", line 1288, in forward
+    hidden_states = attn(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/transformers/transformer_2d.py", line 442, in forward
+    hidden_states = block(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/attention.py", line 571, in forward
+    ff_output = self.ff(norm_hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/attention.py", line 1242, in forward
+    hidden_states = module(hidden_states)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/activations.py", line 123, in forward
+    return hidden_states * self.gelu(gate)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 40.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 25.12 MiB is free. Process 75623 has 6.21 GiB memory in use. Process 75687 has 6.35 GiB memory in use. Including non-PyTorch memory, this process has 10.92 GiB memory in use. Of the allocated memory 10.10 GiB is allocated by PyTorch, and 379.98 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)

@@ -1839,3 +1839,7 @@
 [2026-10-11 13:12:44] A clean/celeb00028/t1_jpeg65 mean=0.244 det=0.80 43s
 [2026-10-11 13:14:03] A clean/celeb00028/t1_jpeg85 mean=0.244 det=0.80 57s
 [2026-10-11 13:14:03] A clean/celeb00028/t1_webp80 mean=0.234 det=0.80 41s
+[2026-10-11 13:15:26] A clean/celeb00028/t1_jpeg75 mean=0.244 det=0.80 56s
+[2026-10-11 13:15:54] A clean/celeb00028/t2_canvas_dpr1 mean=0.231 det=0.80 61s
+[2026-10-11 13:16:00] skip clean/celeb00028/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 13:16:49] A clean/celeb00028/t1_jpeg65 mean=0.244 det=0.80 58s
