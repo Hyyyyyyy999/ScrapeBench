@@ -59,3 +59,4 @@
 [2026-10-11 17:09:46] O random/celeb00029/t5_first mean=0.146 62s
 [2026-10-11 17:11:14] O random/celeb00029/jpeg_only mean=0.299 62s
 [2026-10-11 17:14:13] O random/celeb00029/deep_chain mean=0.200 73s
+[2026-10-11 17:15:58] O random/celeb00029/t5_only mean=0.149 83s

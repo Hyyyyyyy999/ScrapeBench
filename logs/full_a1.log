@@ -980,3 +980,4 @@ You have disabled the safety checker for <class 'diffusers.pipelines.stable_diff
 [2026-10-11 17:12:08] A clean/celeb00043/t1_jpeg85 mean=0.192 det=0.80 66s
 [2026-10-11 17:13:32] A clean/celeb00043/t1_jpeg75 mean=0.216 det=0.80 59s
 [2026-10-11 17:14:59] A clean/celeb00043/t1_jpeg65 mean=0.224 det=0.80 59s
+[2026-10-11 17:16:51] A clean/celeb00043/t1_webp80 mean=0.192 det=0.80 65s
