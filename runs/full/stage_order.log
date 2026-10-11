@@ -1,0 +1,7 @@
+[2026-10-11 12:08:49] stage_order start cells=108 done=804
+[2026-10-11 12:10:02] O fsmg/celeb00025/canonical mean=0.200 31s
+[2026-10-11 12:10:59] O fsmg/celeb00025/sr_first mean=0.316 29s
+[2026-10-11 12:11:57] O fsmg/celeb00025/t5_first mean=0.215 29s
+[2026-10-11 12:12:53] O fsmg/celeb00025/jpeg_only mean=0.300 29s
+[2026-10-11 12:13:54] O fsmg/celeb00025/deep_chain mean=0.164 32s
+[2026-10-11 12:14:40] O fsmg/celeb00025/t5_only mean=0.226 24s
