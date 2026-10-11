@@ -4,9 +4,9 @@ import numpy as np
 class IdScorer:
     def __init__(self, pack="buffalo_l", use_gpu=True):
         from insightface.app import FaceAnalysis
-        providers = ["CUDAExecutionProvider", "CPUExecutionProvider"] if use_gpu else ["CPUExecutionProvider"]
+        providers = ["CPUExecutionProvider"]
         self.app = FaceAnalysis(name=pack, providers=providers)
-        ctx_id = 0 if use_gpu else -1
+        ctx_id = -1
         self.app.prepare(ctx_id=ctx_id, det_size=(640, 640))
         self._ref_cache = {}
 

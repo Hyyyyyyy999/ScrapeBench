@@ -13,8 +13,8 @@ class ZeroShotFaceID:
         self.pipe.set_ip_adapter_scale(scale)
         self.pipe.set_progress_bar_config(disable=True)
         self.device = device
-        self.face = FaceAnalysis(name=face_pack, providers=["CUDAExecutionProvider", "CPUExecutionProvider"])
-        self.face.prepare(ctx_id=0 if device.startswith("cuda") else -1, det_size=(640, 640))
+        self.face = FaceAnalysis(name=face_pack, providers=["CPUExecutionProvider"])
+        self.face.prepare(ctx_id=-1, det_size=(640, 640))
 
     def _embed(self, img):
         arr = np.array(img.convert("RGB"))[:, :, ::-1]
