@@ -1,0 +1,2 @@
+Keyword arguments {'safety_checker': None} are not expected by StableDiffusionXLInstantIDPipeline and will be ignored.
+Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  14%|█▍        | 1/7 [00:00<00:00,  8.17it/s]Loading pipeline components...:  29%|██▊       | 2/7 [00:00<00:01,  3.32it/s]Loading pipeline components...:  43%|████▎     | 3/7 [00:00<00:00,  4.01it/s]Loading pipeline components...:  71%|███████▏  | 5/7 [00:00<00:00,  5.55it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:01<00:00,  6.42it/s]
