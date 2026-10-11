@@ -42,17 +42,17 @@ class ZeroShotInstantID:
         return max(faces, key=lambda f: (f.bbox[2] - f.bbox[0]) * (f.bbox[3] - f.bbox[1]))
 
     def ref_cond(self, ref_imgs):
-        embs, crops = [], []
+        best, best_arr, best_score = None, None, -1.0
         for im in ref_imgs:
             f = self._largest(im)
             if f is None:
                 continue
-            arr = np.array(im.convert("RGB"))[:, :, ::-1]
-            embs.append(f.embedding.astype(np.float32))
-            crops.append(arr)
-        if not embs:
+            score = float(getattr(f, "det_score", 1.0))
+            if score > best_score:
+                best_score, best, best_arr = score, f, np.array(im.convert("RGB"))[:, :, ::-1]
+        if best is None:
             raise RuntimeError("no face detected in reference images")
-        return np.mean(embs, axis=0), crops[0]
+        return best.embedding.astype(np.float32), best_arr
 
     @torch.no_grad()
     def generate(self, prompts, ref_imgs, n_per_prompt=1, steps=25, guidance=5.0, seed=0,
