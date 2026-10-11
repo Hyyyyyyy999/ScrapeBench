@@ -17,32 +17,20 @@ Table~\ref{tab:stageA} reports the full Stage-A grid---similarity and success ra
 
 \begin{table*}[t]
 \centering
-\renewcommand{\arraystretch}{0.92}
-\caption{Stage A (zero-shot IP-Adapter-FaceID), the full funnel grid: mean identity similarity (Sim) and binary success rate at $\tau=0.30$ (SR, \%), identity-averaged over 20 identities (10 generations $\times$ 5 prompts per cell). Bold marks the strongest protection per tier. Cell-level 95\% bootstrap CI half-widths average $0.025$ for Sim ($\le 0.028$ throughout) and $\pm 3$--$5$ points for SR. Bottom block: funnel-integrated protection $\overline{\mathrm{RR}}$ (mean RR over the nine post-T0 tiers, 95\% CIs).}
+\caption{Stage A (zero-shot IP-Adapter-FaceID), the full funnel grid: mean identity similarity / success rate at $\tau=0.30$ (SR, \%, rounded to integers), identity-averaged over 20 identities (10 generations $\times$ 5 prompts per cell). Bold marks the strongest protection per tier (lowest Sim). Cell-level 95\% bootstrap CI half-widths average $0.025$ for Sim ($\le 0.028$ throughout) and $\pm 3$--$5$ points for SR. Bottom block: funnel-integrated protection $\overline{\mathrm{RR}}$ (mean RR over the nine post-T0 tiers, 95\% CIs).}
 \label{tab:stageA}
 \footnotesize
-\setlength{\tabcolsep}{3.4pt}
-\begin{tabular}{@{}llcccccccccc@{}}
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{@{}lcccccccccc@{}}
 \toprule
-& & T0 & J95 & J85 & J75 & J65 & W80 & T2 & T3 & T4 & T5 \\
+Defense & T0 & J95 & J85 & J75 & J65 & W80 & T2 & T3 & T4 & T5 \\
 \midrule
-\multirow{2}{*}{clean}
-& ~~Sim & .358 & .354 & .353 & .351 & .346 & .353 & .349 & .338 & .367 & .173 \\
-& ~~SR & 91.0 & 90.0 & 84.7 & 88.0 & 84.2 & 88.0 & 84.7 & 76.2 & 92.5 & 0.5 \\
+clean & .358/91 & .354/90 & .353/85 & .351/88 & .346/84 & .353/88 & .349/85 & .338/76 & .367/93 & .173/1 \\
+random & .334/75 & .338/81 & .349/86 & .342/81 & .348/85 & .344/84 & .351/88 & .346/85 & .358/87 & .175/0 \\
+FSMG & .307/55 & .322/69 & .328/72 & .341/83 & .340/80 & .335/79 & .342/81 & .344/84 & \textbf{.352}/86 & .179/1 \\
+ASPL & \textbf{.288}/\textbf{38} & \textbf{.302}/\textbf{52} & \textbf{.316}/\textbf{66} & \textbf{.326}/\textbf{74} & \textbf{.334}/\textbf{78} & \textbf{.323}/\textbf{68} & \textbf{.337}/\textbf{79} & \textbf{.327}/\textbf{70} & .355/85 & .175/\textbf{0} \\
 \midrule
-\multirow{2}{*}{random}
-& ~~Sim & .334 & .338 & .349 & .342 & .348 & .344 & .351 & .346 & .358 & \textbf{.175} \\
-& ~~SR & 75.0 & 80.7 & 85.8 & 80.7 & 84.7 & 83.8 & 88.2 & 85.2 & 87.0 & 0.2 \\
-\midrule
-\multirow{2}{*}{FSMG}
-& ~~Sim & .307 & .322 & .328 & .341 & .340 & .335 & .342 & .344 & \textbf{.352} & .179 \\
-& ~~SR & 55.0 & 68.5 & 72.0 & 82.5 & 80.0 & 79.0 & 80.5 & 84.0 & \textbf{85.5} & 0.5 \\
-\midrule
-\multirow{2}{*}{ASPL}
-& ~~Sim & \textbf{.288} & \textbf{.302} & \textbf{.316} & \textbf{.326} & \textbf{.334} & \textbf{.323} & \textbf{.337} & \textbf{.327} & .355 & \textbf{.175} \\
-& ~~SR & \textbf{37.5} & \textbf{52.0} & \textbf{65.5} & \textbf{74.0} & \textbf{77.5} & \textbf{67.5} & \textbf{78.5} & \textbf{70.0} & 84.5 & \textbf{0.0} \\
-\midrule
-\multicolumn{12}{@{}l}{$\overline{\mathrm{RR}}$ (95\% CI):\quad random $0.140\,[0.028,0.285]$ \qquad FSMG $0.215\,[0.137,0.304]$ \qquad ASPL $0.293\,[0.240,0.356]$} \\
+\multicolumn{11}{@{}l}{$\overline{\mathrm{RR}}$ (95\% CI): random $0.140\,[0.028,0.285]$ \quad FSMG $0.215\,[0.137,0.304]$ \quad ASPL $0.293\,[0.240,0.356]$} \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -54,25 +42,22 @@ Three second-order observations sharpen the mechanism. \emph{(i) WebP-80 is gent
 
 Stage B (Table~\ref{tab:stageB}) measures the classic target of these defenses: DreamBooth-LoRA fine-tuning on tiered galleries. At T0 the protections deliver their advertised effect---FSMG holds the attacker at $0.236$ versus a clean $0.407$ (a $42\%$ relative reduction) and in binary terms holds attack success at $12.1\%$ versus $97.5\%$---while the zero-shot attack of Stage A on the same galleries is \emph{weaker} ($0.307$), consistent with design intent. The ordering reverses along the funnel: under fine-tuning FSMG retains $\mathrm{RR}=0.68$ at JPEG-85 and $0.48$ at T2, but under the zero-shot attack on the same tiers it retains $0.49$ and $0.12$ . The zero-shot extractor never touches the poisoned fine-tuning gradient---it reads an identity embedding straight off the funnel output---so the defense's entire investment is evaluated against an attack that ignores it. By T5 both families converge to the same collapsed state ($|\mathrm{RR}|\leq0.16$), by different doors: the fine-tuner is defeated by gradient poisoning fading, the zero-shot adapter by the perturbation never surviving transduction at all.
 
-\begin{table*}[t]
+\begin{table}[t]
 \centering
-\renewcommand{\arraystretch}{0.92}
-\caption{Stage B (DreamBooth-LoRA, 12-identity subset, 20 generations per cell): identity similarity (Sim), binary success rate at $\tau=0.30$ (SR, \%), protection quality (PSNR against the source gallery, dB; LPIPS), and funnel-integrated protection $\overline{\mathrm{RR}}$ with 95\% CIs over the three post-T0 tiers. Bold marks the lowest Sim/SR per tier (protection) and, inversely, the best image quality. The clean row carries no perturbation, so quality columns do not apply.}
+\caption{Stage B (DreamBooth-LoRA, 12-identity subset, 20 generations per cell): similarity / success rate at $\tau=0.30$ (SR, \%, rounded) at four tiers, protection quality (PSNR in dB against the source gallery / LPIPS), and funnel-integrated protection $\overline{\mathrm{RR}}$ with 95\% CIs over the three post-T0 tiers. Bold marks the best protection per tier. The clean row carries no perturbation, so quality columns do not apply.}
 \label{tab:stageB}
 \footnotesize
-\setlength{\tabcolsep}{4.0pt}
-\begin{tabular}{@{}llcc cc cc cc c@{}}
+\setlength{\tabcolsep}{2.6pt}
+\begin{tabular}{@{}llcccc@{}}
 \toprule
-& & \multicolumn{2}{c}{T0} & \multicolumn{2}{c}{J85} & \multicolumn{2}{c}{T2} & \multicolumn{2}{c}{T5} & \\
-\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
-Defense & Quality & Sim & SR & Sim & SR & Sim & SR & Sim & SR & $\overline{\mathrm{RR}}$ \\
+Defense & Quality & T0 & J85 & T2 & T5 & $\overline{\mathrm{RR}}$ \\
 \midrule
-clean & --- / --- & .407 & 97.5 & .413 & 99.6 & .406 & 96.2 & .217 & 6.7 & --- \\
-random & \textbf{29.1$\pm$0.3} / .061 & .288 & 39.6 & .332 & 70.8 & .355 & 85.4 & .208 & 3.3 & .405 [.293,.527] \\
-FSMG & 28.1$\pm$0.4 / \textbf{.052} & \textbf{.236} & \textbf{12.1} & \textbf{.297} & \textbf{47.1} & \textbf{.325} & \textbf{67.1} & \textbf{.189} & \textbf{1.7} & \textbf{.449 [.363,.559]} \\
+clean & --- & .407/98 & .413/100 & .406/96 & .217/7 & --- \\
+random & 29.1/.061 & .288/40 & .332/71 & .355/85 & .208/3 & .405 [.293,.527] \\
+FSMG & 28.1/.052 & \textbf{.236}/\textbf{12} & \textbf{.297}/\textbf{47} & \textbf{.325}/\textbf{67} & \textbf{.189}/\textbf{2} & \textbf{.449 [.363,.559]} \\
 \bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 
 \subsection{F3: Data-Level Adaptation Closes the Residual Gap}
 \label{sec:res_f3}

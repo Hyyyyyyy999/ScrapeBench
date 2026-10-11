@@ -3,7 +3,7 @@
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.92\textwidth]{../figures/overview.jpg}
+\includegraphics[width=0.80\textwidth]{../figures/overview.jpg}
 \caption{The ScrapeBench measurement pipeline. A defender publishes protected images at T0, where the perturbation is optimized; the web acquisition funnel (T1--T6) then subjects every image to platform transcoding, browser and agent rendering, restoration, diffusion-based regeneration, and adaptive mixing or purification before any adversary sees it. Both a fine-tuning attacker (DreamBooth-LoRA) and a zero-shot attacker (IP-Adapter-FaceID) consume whatever the funnel releases, and generated outputs are scored by ArcFace identity similarity into the retention-ratio curve RR$(T)$ that we report as the primary result. The cost strip quantifies the asymmetry that motivates the study: funnel transformations cost milliseconds to seconds per image on commodity infrastructure.}
 \label{fig:overview}
 \end{figure*}
