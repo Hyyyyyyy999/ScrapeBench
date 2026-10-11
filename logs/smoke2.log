@@ -1,0 +1,17 @@
+Keyword arguments {'safety_checker': None} are not expected by StableDiffusionXLInstantIDPipeline and will be ignored.
+Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  43%|████▎     | 3/7 [00:00<00:00,  9.56it/s]Loading pipeline components...:  57%|█████▋    | 4/7 [00:00<00:00,  9.52it/s]Loading pipeline components...:  71%|███████▏  | 5/7 [00:00<00:00,  6.16it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:01<00:00,  5.61it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:01<00:00,  6.37it/s]
+Traceback (most recent call last):
+  File "<string>", line 8, in <module>
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "/root/scrapebench/scrapebench/attack/instantid.py", line 69, in generate
+    res = self.pipe([pr] * n_per_prompt, num_inference_steps=steps,
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "/root/instantid_repo/pipeline_stable_diffusion_xl_instantid.py", line 456, in __call__
+    self.check_inputs(
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/pipelines/controlnet/pipeline_controlnet_sd_xl.py", line 715, in check_inputs
+    self.check_image(image, prompt, prompt_embeds)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/pipelines/controlnet/pipeline_controlnet_sd_xl.py", line 823, in check_image
+    raise TypeError(
+TypeError: image must be passed and be one of PIL image, numpy array, torch tensor, list of PIL images, list of numpy arrays or list of torch tensors, but is <class 'NoneType'>
