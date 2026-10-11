@@ -64,7 +64,7 @@ def main():
     methods = (args.methods.split(",") if args.methods else cfg.get("protection", {}).get("methods", ["clean", "random", "fsmg"]))
     galleries = list_galleries(root)
     ids = args.ids.split(",") if args.ids else sorted(galleries)
-    need_model = any(m in ("fsmg", "aspl") for m in methods)
+    need_model = any(m in ("fsmg", "aspl", "fsmgj") for m in methods)
     comps = None
     if need_model:
         comps = load_sd15(cfg["run"]["sd_model"], fp16=cfg["run"].get("fp16", True))
@@ -93,7 +93,7 @@ def main():
             psnr_val = generate_method(m, comps, paths, cfg, out_dir)
             if psnr_val is not None:
                 log(f"{m}/{pid} psnr={psnr_val:.2f}", cfg["run"].get("log_file"))
-            if m == "fsmg" and comps is not None:
+            if m in ("fsmg", "fsmgj") and comps is not None:
                 reset_lora(comps["unet"])
 
 
