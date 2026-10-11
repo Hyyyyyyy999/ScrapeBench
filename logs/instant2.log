@@ -44,4 +44,35 @@ Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
 You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion_img2img.StableDiffusionImg2ImgPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
 2026-10-11 17:15:38 instant2 retry 1
 Keyword arguments {'safety_checker': None} are not expected by StableDiffusionXLInstantIDPipeline and will be ignored.
-Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  14%|█▍        | 1/7 [00:00<00:03,  1.75it/s]Loading pipeline components...:  29%|██▊       | 2/7 [00:01<00:05,  1.00s/it]
+Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  14%|█▍        | 1/7 [00:00<00:03,  1.75it/s]Loading pipeline components...:  29%|██▊       | 2/7 [00:01<00:05,  1.00s/it]Loading pipeline components...:  43%|████▎     | 3/7 [00:08<00:14,  3.61s/it]Loading pipeline components...:  71%|███████▏  | 5/7 [00:10<00:04,  2.07s/it]Loading pipeline components...:  86%|████████▌ | 6/7 [00:11<00:01,  1.77s/it]Loading pipeline components...: 100%|██████████| 7/7 [00:11<00:00,  1.36s/it]Loading pipeline components...: 100%|██████████| 7/7 [00:11<00:00,  1.68s/it]
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/root/scrapebench/scrapebench/runner/stage_a.py", line 121, in <module>
+    main()
+  File "/root/scrapebench/scrapebench/runner/stage_a.py", line 56, in main
+    zs = ZeroShotInstantID(
+  File "/root/scrapebench/scrapebench/attack/instantid.py", line 26, in __init__
+    safety_checker=None).to(device)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/pipelines/pipeline_utils.py", line 454, in to
+    module.to(device, dtype)
+  File "/usr/local/lib/python3.10/dist-packages/diffusers/models/modeling_utils.py", line 1031, in to
+    return super().to(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1384, in to
+    return self._apply(convert)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 934, in _apply
+    module._apply(fn)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 934, in _apply
+    module._apply(fn)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 965, in _apply
+    param_applied = fn(param)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1370, in convert
+    return t.to(
+torch.AcceleratorError: CUDA error: out of memory
+Search for `cudaErrorMemoryAllocation' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
