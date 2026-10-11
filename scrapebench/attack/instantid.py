@@ -56,7 +56,7 @@ class ZeroShotInstantID:
 
     @torch.no_grad()
     def generate(self, prompts, ref_imgs, n_per_prompt=1, steps=25, guidance=5.0, seed=0,
-                 height=1024, width=1024, controlnet_scale=0.8):
+                 height=512, width=512, controlnet_scale=0.8):
         emb, ref_arr = self.ref_cond(ref_imgs)
         face_emb = torch.from_numpy(emb)[None].to(self.device, self.dtype)
         f = self.face.get(ref_arr)
