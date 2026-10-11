@@ -69,3 +69,63 @@
 [2026-10-11 04:06:46] B random/celeb00005/t5_i2i30 mean=0.087 train=136s gen=8s
 [2026-10-11 04:09:29] B random/celeb00006/t0 mean=0.175 train=135s gen=8s
 [2026-10-11 04:12:16] B random/celeb00006/t1_jpeg85 mean=0.201 train=135s gen=8s
+[2026-10-11 04:14:22] B random/celeb00006/t2_canvas_dpr1 mean=0.227 train=94s gen=8s
+[2026-10-11 04:17:08] B random/celeb00006/t5_i2i30 mean=0.164 train=141s gen=8s
+[2026-10-11 04:19:49] B random/celeb00007/t0 mean=0.113 train=141s gen=8s
+[2026-10-11 04:22:30] B random/celeb00007/t1_jpeg85 mean=0.307 train=138s gen=8s
+[2026-10-11 04:24:26] B random/celeb00007/t2_canvas_dpr1 mean=0.256 train=91s gen=8s
+[2026-10-11 04:27:12] B random/celeb00007/t5_i2i30 mean=0.207 train=135s gen=8s
+[2026-10-11 04:27:12] missing gallery random/celeb00025
+[2026-10-11 04:27:12] missing gallery random/celeb00025
+[2026-10-11 04:27:12] missing gallery random/celeb00025
+[2026-10-11 04:27:12] missing gallery random/celeb00025
+[2026-10-11 04:27:12] missing gallery random/celeb00027
+[2026-10-11 04:27:12] missing gallery random/celeb00027
+[2026-10-11 04:27:12] missing gallery random/celeb00027
+[2026-10-11 04:27:12] missing gallery random/celeb00027
+[2026-10-11 04:27:12] missing gallery random/celeb00028
+[2026-10-11 04:27:12] missing gallery random/celeb00028
+[2026-10-11 04:27:12] missing gallery random/celeb00028
+[2026-10-11 04:27:12] missing gallery random/celeb00028
+[2026-10-11 04:27:12] missing gallery random/celeb00029
+[2026-10-11 04:27:12] missing gallery random/celeb00029
+[2026-10-11 04:27:12] missing gallery random/celeb00029
+[2026-10-11 04:27:12] missing gallery random/celeb00029
+[2026-10-11 04:27:12] missing gallery random/celeb00030
+[2026-10-11 04:27:12] missing gallery random/celeb00030
+[2026-10-11 04:27:12] missing gallery random/celeb00030
+[2026-10-11 04:27:12] missing gallery random/celeb00030
+[2026-10-11 04:27:12] missing gallery random/celeb00031
+[2026-10-11 04:27:12] missing gallery random/celeb00031
+[2026-10-11 04:27:12] missing gallery random/celeb00031
+[2026-10-11 04:27:12] missing gallery random/celeb00031
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00001
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00001
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00001
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00001
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00003
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00003
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00003
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00003
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00004
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00004
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00004
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00004
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00005
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00005
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00005
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00005
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00006
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00006
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00006
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00006
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00007
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00007
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00007
+[2026-10-11 04:27:12] missing gallery fsmg/celeb00007
+[2026-10-11 04:29:52] B fsmg/celeb00025/t0 mean=0.081 train=137s gen=8s
+[2026-10-11 04:32:35] B fsmg/celeb00025/t1_jpeg85 mean=0.132 train=137s gen=8s
+[2026-10-11 04:34:37] B fsmg/celeb00025/t2_canvas_dpr1 mean=0.136 train=92s gen=8s
+[2026-10-11 04:37:30] B fsmg/celeb00025/t5_i2i30 mean=0.098 train=136s gen=8s
+[2026-10-11 04:40:15] B fsmg/celeb00027/t0 mean=0.058 train=138s gen=8s
+[2026-10-11 04:42:59] B fsmg/celeb00027/t1_jpeg85 mean=0.098 train=138s gen=8s
