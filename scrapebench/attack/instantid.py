@@ -6,7 +6,7 @@ import torch
 from PIL import Image
 
 REPO = os.environ.get("INSTANTID_REPO", os.path.expanduser("~/instantid_repo"))
-FACE_ROOT = os.environ.get("INSIGHTFACE_ROOT", os.path.expanduser("~/.insightface/models"))
+FACE_ROOT = os.environ.get("INSIGHTFACE_ROOT", os.path.expanduser("~/.insightface"))
 
 
 class ZeroShotInstantID:
