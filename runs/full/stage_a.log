@@ -2427,3 +2427,59 @@
 [2026-10-11 15:44:00] A clean/celeb00036/t4_sr_x2 mean=0.208 det=0.90 53s
 [2026-10-11 15:44:02] A clean/celeb00038/t1_jpeg75 mean=0.288 det=0.80 42s
 [2026-10-11 15:44:50] stage_a start cells=72 done=1014
+[2026-10-11 15:45:19] A clean/celeb00038/t1_jpeg65 mean=0.283 det=0.80 58s
+[2026-10-11 15:46:01] A clean/celeb00036/t5_i2i30 mean=0.166 det=0.80 74s
+[2026-10-11 15:46:07] stage_a start cells=72 done=1015
+[2026-10-11 15:47:15] A clean/celeb00038/t1_webp80 mean=0.298 det=0.80 84s
+[2026-10-11 15:47:40] skip clean/celeb00025/t1_jpeg85: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 15:48:17] skip clean/celeb00025/t2_canvas_dpr1: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 15:49:02] A clean/celeb00038/t2_canvas_dpr1 mean=0.285 det=0.80 76s
+[2026-10-11 15:49:04] stage_a start cells=72 done=1016
+[2026-10-11 15:49:14] A clean/celeb00038/t0 mean=0.288 det=0.80 137s
+[2026-10-11 15:49:18] skip clean/celeb00038/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 15:50:32] skip clean/celeb00025/t5_i2i30: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 15:51:27] skip clean/celeb00027/t0: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 15:51:31] A clean/celeb00038/t4_sr_x2 mean=0.286 det=0.80 102s
+[2026-10-11 15:52:18] A clean/celeb00038/t1_jpeg95 mean=0.282 det=0.80 137s
+[2026-10-11 15:52:32] skip clean/celeb00027/t1_jpeg85: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 15:53:34] skip clean/celeb00027/t2_canvas_dpr1: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 15:54:14] skip clean/celeb00027/t5_i2i30: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 15:54:30] A clean/celeb00038/t5_i2i30 mean=0.178 det=0.70 68s
+[2026-10-11 15:55:07] A clean/celeb00038/t1_jpeg85 mean=0.283 det=0.80 112s
+[2026-10-11 15:55:45] skip clean/celeb00028/t0: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 15:56:22] skip clean/celeb00028/t1_jpeg85: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 15:56:34] A clean/celeb00039/t0 mean=0.213 det=0.50 91s
+[2026-10-11 15:57:11] skip clean/celeb00028/t2_canvas_dpr1: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 15:58:17] A clean/celeb00038/t1_jpeg75 mean=0.288 det=0.80 133s
+[2026-10-11 15:58:19] skip clean/celeb00028/t5_i2i30: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 15:58:20] A clean/celeb00039/t1_jpeg95 mean=0.206 det=0.50 72s
+[2026-10-11 15:59:29] skip clean/celeb00029/t0: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:00:12] skip clean/celeb00029/t1_jpeg85: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:00:17] A clean/celeb00039/t1_jpeg85 mean=0.210 det=0.50 85s
+[2026-10-11 16:01:16] skip clean/celeb00029/t2_canvas_dpr1: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:01:18] A clean/celeb00038/t1_jpeg65 mean=0.283 det=0.80 138s
+[2026-10-11 16:02:09] skip clean/celeb00029/t5_i2i30: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:02:49] A clean/celeb00039/t1_jpeg75 mean=0.197 det=0.50 116s
+[2026-10-11 16:03:12] A clean/celeb00038/t1_webp80 mean=0.298 det=0.80 78s
+[2026-10-11 16:03:26] skip clean/celeb00030/t0: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:04:08] skip clean/celeb00030/t1_jpeg85: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:04:32] skip clean/celeb00030/t2_canvas_dpr1: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:05:11] A clean/celeb00039/t1_jpeg65 mean=0.209 det=0.50 105s
+[2026-10-11 16:05:39] skip clean/celeb00030/t5_i2i30: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:05:59] A clean/celeb00038/t2_canvas_dpr1 mean=0.285 det=0.80 113s
+[2026-10-11 16:06:16] skip clean/celeb00038/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 16:06:48] skip clean/celeb00031/t0: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:07:35] skip clean/celeb00031/t1_jpeg85: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:07:49] A clean/celeb00039/t1_webp80 mean=0.241 det=0.60 115s
+[2026-10-11 16:08:37] skip clean/celeb00031/t2_canvas_dpr1: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:09:20] A clean/celeb00038/t4_sr_x2 mean=0.286 det=0.80 136s
+[2026-10-11 16:09:35] skip clean/celeb00031/t5_i2i30: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:10:12] skip fsmg/celeb00025/t0: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:10:28] A clean/celeb00039/t2_canvas_dpr1 mean=0.208 det=0.50 130s
+[2026-10-11 16:10:41] skip clean/celeb00039/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 16:11:24] skip fsmg/celeb00025/t1_jpeg85: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:12:18] skip fsmg/celeb00025/t2_canvas_dpr1: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:13:12] skip fsmg/celeb00025/t5_i2i30: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:13:27] A clean/celeb00038/t5_i2i30 mean=0.178 det=0.70 122s
+[2026-10-11 16:14:26] skip fsmg/celeb00027/t0: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
+[2026-10-11 16:14:44] A clean/celeb00039/t4_sr_x2 mean=0.224 det=0.50 182s

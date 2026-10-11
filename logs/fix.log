@@ -306,3 +306,20 @@ KeyError: 'unknown funnel tier: jpeg85'
 Keyword arguments {'safety_checker': None} are not expected by StableDiffusionXLInstantIDPipeline and will be ignored.
 Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  14%|█▍        | 1/7 [00:00<00:00,  7.16it/s]Loading pipeline components...:  29%|██▊       | 2/7 [00:00<00:01,  4.40it/s]Loading pipeline components...:  71%|███████▏  | 5/7 [00:00<00:00, 11.17it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:01<00:00,  6.57it/s]Loading pipeline components...: 100%|██████████| 7/7 [00:01<00:00,  6.85it/s]
 2026-10-11 15:44:57 fix instantid retry 2
+Keyword arguments {'safety_checker': None} are not expected by StableDiffusionXLInstantIDPipeline and will be ignored.
+Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  14%|█▍        | 1/7 [00:00<00:01,  3.41it/s]Loading pipeline components...:  29%|██▊       | 2/7 [00:04<00:12,  2.60s/it]Loading pipeline components...:  57%|█████▋    | 4/7 [00:06<00:04,  1.57s/it]Loading pipeline components...:  71%|███████▏  | 5/7 [00:07<00:03,  1.51s/it]Loading pipeline components...:  86%|████████▌ | 6/7 [00:08<00:01,  1.35s/it]Loading pipeline components...: 100%|██████████| 7/7 [00:09<00:00,  1.16s/it]Loading pipeline components...: 100%|██████████| 7/7 [00:09<00:00,  1.36s/it]
+[2026-10-11 15:49:04] stage_a start cells=72 done=1016
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/root/scrapebench/scrapebench/runner/stage_a.py", line 121, in <module>
+    main()
+  File "/root/scrapebench/scrapebench/runner/stage_a.py", line 85, in main
+    tier_fn = get_tier(tier)
+  File "/root/scrapebench/scrapebench/funnel/__init__.py", line 22, in get_tier
+    raise KeyError(f"unknown funnel tier: {name}")
+KeyError: 'unknown funnel tier: jpeg85'
+2026-10-11 15:49:55 fix instantid retry 3
+2026-10-11 15:50:25 fix done
