@@ -40,6 +40,9 @@ def main():
     for stage in sorted(df["stage"].unique()):
         sub = merged[merged["stage"] == stage]
         tiers_s = [t for t in TIER_ORDER if t in set(df[df["stage"] == stage]["tier"])]
+        if stage == "O":
+            from .orders import ORDERS
+            tiers_s = [t for t in ORDERS if t in set(df[df["stage"] == stage]["tier"])]
         base = sub[(sub["method"] == "clean")].set_index("tier")["mean"]
         rows = []
         for m in sub["method"].unique():
@@ -50,6 +53,29 @@ def main():
             rows.append(row)
         tab = pd.DataFrame(rows)
         tab.to_csv(os.path.join(run_dir, f"table_stage_{stage}.csv"), index=False)
+        if stage == "O":
+            a0 = df[(df["stage"] == "A") & (df["tier"] == "t0") & df["mean_id"].notna()]
+            pids_o = set(df[df["stage"] == "O"]["pid"])
+            base_o = {}
+            for m in ("fsmg", "random"):
+                cm = a0[(a0["method"] == "clean") & (a0["pid"].isin(pids_o))]["mean_id"].mean()
+                pm = a0[(a0["method"] == m) & (a0["pid"].isin(pids_o))]["mean_id"].mean()
+                if not np.isnan(cm) and not np.isnan(pm):
+                    base_o[m] = cm - pm
+            gap_rows = []
+            for m in sub["method"].unique():
+                if m == "clean":
+                    continue
+                msub = sub[sub["method"] == m].set_index("tier")["mean"]
+                row = {"method": m}
+                for t in tiers_s:
+                    row[t] = round(float((base[t] - msub[t]) / base_o[m]), 4) if t in msub.index and m in base_o else np.nan
+                gap_rows.append(row)
+            if gap_rows:
+                pd.DataFrame(gap_rows).to_csv(os.path.join(run_dir, f"retention_stage_{stage}.csv"), index=False)
+                from .order_fig import plot_order_rr
+                plot_order_rr(pd.DataFrame(gap_rows), "figures")
+            continue
         gap_rows = []
         for m in sub["method"].unique():
             if m == "clean":

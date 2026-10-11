@@ -1,0 +1,4 @@
+method,canonical,sr_first,t5_first,jpeg_only,deep_chain,t5_only
+clean,0.35,0.35,0.35,0.35,0.35,0.35
+fsmg,0.35,0.34,0.31,0.32,0.33,0.305
+random,0.38,0.37,0.34,0.35,0.36,0.335
