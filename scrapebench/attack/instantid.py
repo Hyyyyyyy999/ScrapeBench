@@ -18,9 +18,11 @@ class ZeroShotInstantID:
             sys.path.insert(0, REPO)
         from diffusers import ControlNetModel
         from pipeline_stable_diffusion_xl_instantid import StableDiffusionXLInstantIDPipeline
-        controlnet = ControlNetModel.from_pretrained(controlnet_repo, subfolder="ControlNetModel", torch_dtype=torch.float16)
+        dtype = torch.float16 if "cuda" in device else torch.float32
+        variant = "fp16" if "cuda" in device else None
+        controlnet = ControlNetModel.from_pretrained(controlnet_repo, subfolder="ControlNetModel", torch_dtype=dtype)
         self.pipe = StableDiffusionXLInstantIDPipeline.from_pretrained(
-            model_id, controlnet=controlnet, torch_dtype=torch.float16, variant="fp16",
+            model_id, controlnet=controlnet, torch_dtype=dtype, variant=variant,
             safety_checker=None).to(device)
         from huggingface_hub import hf_hub_download
         ckpt = hf_hub_download(adapter_repo, "ip-adapter.bin")
