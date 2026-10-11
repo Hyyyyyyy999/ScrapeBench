@@ -68,3 +68,38 @@ You have disabled the safety checker for <class 'diffusers.pipelines.stable_diff
 [2026-10-11 03:08:41] B clean/celeb00006/t1_jpeg85 mean=0.221 train=155s gen=8s
 [2026-10-11 03:11:03] B clean/celeb00006/t2_canvas_dpr1 mean=0.215 train=106s gen=8s
 [2026-10-11 03:13:54] B clean/celeb00006/t5_i2i30 mean=0.181 train=145s gen=8s
+[2026-10-11 03:16:46] B clean/celeb00007/t0 mean=0.208 train=136s gen=8s
+[2026-10-11 03:19:30] B clean/celeb00007/t1_jpeg85 mean=0.117 train=137s gen=8s
+[2026-10-11 03:21:39] B clean/celeb00007/t2_canvas_dpr1 mean=0.303 train=92s gen=8s
+[2026-10-11 03:24:27] B clean/celeb00007/t5_i2i30 mean=0.104 train=137s gen=8s
+[2026-10-11 03:24:27] missing gallery clean/celeb00025
+[2026-10-11 03:24:27] missing gallery clean/celeb00025
+[2026-10-11 03:24:27] missing gallery clean/celeb00025
+[2026-10-11 03:24:27] missing gallery clean/celeb00025
+[2026-10-11 03:24:27] missing gallery clean/celeb00027
+[2026-10-11 03:24:27] missing gallery clean/celeb00027
+[2026-10-11 03:24:27] missing gallery clean/celeb00027
+[2026-10-11 03:24:27] missing gallery clean/celeb00027
+[2026-10-11 03:24:27] missing gallery clean/celeb00028
+[2026-10-11 03:24:27] missing gallery clean/celeb00028
+[2026-10-11 03:24:27] missing gallery clean/celeb00028
+[2026-10-11 03:24:27] missing gallery clean/celeb00028
+[2026-10-11 03:24:27] missing gallery clean/celeb00029
+[2026-10-11 03:24:27] missing gallery clean/celeb00029
+[2026-10-11 03:24:27] missing gallery clean/celeb00029
+[2026-10-11 03:24:27] missing gallery clean/celeb00029
+[2026-10-11 03:24:27] missing gallery clean/celeb00030
+[2026-10-11 03:24:27] missing gallery clean/celeb00030
+[2026-10-11 03:24:27] missing gallery clean/celeb00030
+[2026-10-11 03:24:27] missing gallery clean/celeb00030
+[2026-10-11 03:24:27] missing gallery clean/celeb00031
+[2026-10-11 03:24:27] missing gallery clean/celeb00031
+[2026-10-11 03:24:27] missing gallery clean/celeb00031
+[2026-10-11 03:24:27] missing gallery clean/celeb00031
+[2026-10-11 03:27:10] B random/celeb00001/t0 mean=0.216 train=137s gen=8s
+[2026-10-11 03:29:53] B random/celeb00001/t1_jpeg85 mean=0.254 train=136s gen=8s
+[2026-10-11 03:32:03] B random/celeb00001/t2_canvas_dpr1 mean=0.297 train=94s gen=8s
+[2026-10-11 03:35:00] B random/celeb00001/t5_i2i30 mean=0.175 train=138s gen=8s
+[2026-10-11 03:37:55] B random/celeb00003/t0 mean=0.227 train=139s gen=8s
+[2026-10-11 03:40:54] B random/celeb00003/t1_jpeg85 mean=0.234 train=141s gen=8s
+[2026-10-11 03:43:02] B random/celeb00003/t2_canvas_dpr1 mean=0.218 train=95s gen=8s
