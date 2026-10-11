@@ -2604,3 +2604,4 @@
 [2026-10-11 17:51:05] skip random/celeb00025/t3_agent_facecrop: no face detected in reference images
 [2026-10-11 17:52:21] A random/celeb00025/t4_sr_x2 mean=0.297 det=0.90 50s
 [2026-10-11 17:54:47] A random/celeb00025/t5_i2i30 mean=0.213 det=0.80 76s
+[2026-10-11 17:56:11] A random/celeb00027/t0 mean=0.352 det=0.80 53s
