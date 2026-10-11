@@ -1,3 +1,4 @@
+\input{sections/numbers_auto}
 \section{Results: Collapse Under the Funnel}
 \label{sec:results}
 
@@ -25,13 +26,7 @@ Table~\ref{tab:stageA} reports the full Stage-A grid---similarity and success ra
 \toprule
 Defense & T0 & J95 & J85 & J75 & J65 & W80 & T2 & T3 & T4 & T5 \\
 \midrule
-clean & .358/91 & .354/90 & .353/85 & .351/88 & .346/84 & .353/88 & .349/85 & .338/76 & .367/93 & .173/1 \\
-random & .334/75 & .338/81 & .349/86 & .342/81 & .348/85 & .344/84 & .351/88 & .346/85 & .358/87 & .175/0 \\
-FSMG & .307/55 & .322/69 & .328/72 & .341/83 & .340/80 & .335/79 & .342/81 & .344/84 & \textbf{.352}/86 & .179/1 \\
-ASPL & \textbf{.288}/\textbf{38} & \textbf{.302}/\textbf{52} & \textbf{.316}/\textbf{66} & \textbf{.326}/\textbf{74} & \textbf{.334}/\textbf{78} & \textbf{.323}/\textbf{68} & \textbf{.337}/\textbf{79} & \textbf{.327}/\textbf{70} & .355/85 & .175/\textbf{0} \\
-\midrule
-\multicolumn{11}{@{}l}{$\overline{\mathrm{RR}}$ (95\% CI): random $0.140\,[0.028,0.285]$ \quad FSMG $0.215\,[0.137,0.304]$ \quad ASPL $0.293\,[0.240,0.356]$} \\
-\bottomrule
+\input{tables_auto/stageA_body}
 \end{tabular}
 \end{table*}
 
@@ -48,14 +43,11 @@ Stage B (Table~\ref{tab:stageB}) measures the classic target of these defenses: 
 \label{tab:stageB}
 \footnotesize
 \setlength{\tabcolsep}{2.6pt}
-\begin{tabular}{@{}llcccc@{}}
+\begin{tabular}{@{}llccccc@{}}
 \toprule
 Defense & Quality & T0 & J85 & T2 & T5 & $\overline{\mathrm{RR}}$ \\
 \midrule
-clean & --- & .407/98 & .413/100 & .406/96 & .217/7 & --- \\
-random & 29.1/.061 & .288/40 & .332/71 & .355/85 & .208/3 & .405 [.293,.527] \\
-FSMG & 28.1/.052 & \textbf{.236}/\textbf{12} & \textbf{.297}/\textbf{47} & \textbf{.325}/\textbf{67} & \textbf{.189}/\textbf{2} & \textbf{.449 [.363,.559]} \\
-\bottomrule
+\input{tables_auto/stageB_body}
 \end{tabular}
 \end{table}
 
@@ -67,26 +59,7 @@ Stage C asks whether the residual T0 protection survives an attacker who adapts 
 \subsection{The Cost Inversion}
 \label{sec:res_cost}
 
-Table~\ref{tab:cost} completes the ledger. Forging an FSMG perturbation costs $\sim$500 GPU-seconds per identity (250 surrogate-training steps plus 100 sign-PGD steps); ASPL-lite doubles it. Executing the tiers that defeat it costs $5$\,ms (JPEG transcode) to $3.5$\,s (diffusion regeneration) \emph{per image} on the same class of hardware. Per identity, an 8-image gallery at the platform tiers costs the attacker under $0.4$ CPU-seconds---a $\kappa$ of three to four orders of magnitude in the defender's disfavor, shrinking to $\sim$$20\times$ even at the most expensive tier (T5), which the attacker controls and can batch. The decisive asymmetry is not only in the ledger: the funnel's cheaper tiers are operated by platforms and users who have no stake in the attack, so the attacker pays only the attention cost of downloading.
-
-\begin{table}[t]
-\centering
-\caption{Cost ledger per identity (8-image gallery). Protection cost measured on an RTX 4090; funnel cost per image on the same machine. $\kappa = c_{\mathrm{prot}}/(8 \cdot c_{\mathrm{funnel}})$.}
-\label{tab:cost}
-\small
-\begin{tabular}{@{}llll@{}}
-\toprule
-Operation & Side & Cost & $\kappa$ \\
-\midrule
-FSMG (surrogate + PGD) & defender & $\sim$500\,GPU-s & --- \\
-ASPL-lite (2 rounds) & defender & $\sim$1000\,GPU-s & --- \\
-T1 JPEG transcode & platform & 5\,ms/img & $\sim$$10^4$ \\
-T2 browser render & platform & 40\,ms/img & $\sim$$1.6{\times}10^3$ \\
-T4 super-resolution & user/agent & 1.0\,s/img & $\sim$60 \\
-T5 diffusion regen. & attacker & 3.5\,s/img & $\sim$18 \\
-\bottomrule
-\end{tabular}
-\end{table}
+The ledger completes the picture. Forging an FSMG perturbation costs ${\sim}500$ GPU-seconds per identity; ASPL-lite doubles it. Executing the tiers that defeat it costs 5\,ms (JPEG), 40\,ms (browser render), 1.0\,s (super-resolution), and 3.5\,s (diffusion regeneration) \emph{per image} on the same hardware, so an 8-image gallery costs the attacker under $0.4$ CPU-seconds at the platform tiers---a $\kappa$ of three to four orders of magnitude in the defender's disfavor, shrinking to ${\sim}20\times$ even at T5, which the attacker controls and can batch. The asymmetry is not only economic: the cheaper tiers are operated by platforms and users who have no stake in the attack.
 
 \subsection{Imperceptibility, the Binary View, and What the Attacker Sees}
 \label{sec:res_qual}
@@ -101,3 +74,41 @@ Protection quality is only meaningful relative to image quality. The measured pe
 \end{figure}
 
 Figure~\ref{fig:qual} grounds these statistics in what the attacker's pipeline actually consumes. Platform tiers leave both galleries visually intact---which is exactly why they are dangerous: the funnel damages the \emph{perturbation} without damaging the \emph{photograph}. The costly tiers invert the picture: after T5 regeneration at strength $0.3$, the clean identity still yields recognizable faces, while the FSMG-protected gallery is degraded past the point where the attack stack's face detector finds a face at all. This is protection by destruction, not by deception: the defender wins the cell only by destroying the asset's value---and a host that regenerated every upload this way would destroy face memorability for \emph{everyone}, protected or not.
+
+\subsection{F4: Order and Composition of the Funnel}
+\label{sec:res_o}
+
+Stage O asks whether the collapse depends on the canonical order of the funnel: an attacker who applies the same primitives in a different sequence, or only a subset, may pay less for the same effect. Table~\ref{tab:stageO} reports the retention of the FSMG gap (normalized by the paired Stage-A T0 gap on the same six identities) under six programs. JPEG-85 alone (\rOfgjo) already removes most of the protection, matching the T1 evidence; regeneration alone (\rOfgtvo) is nearly as destructive while skipping every platform tier; and the full deep chain (\rOfgdc) is not consistently worse than its cheapest ingredient---the funnel's damage is concentrated in its lossy primitives, not their length. Reordering matters only at the margins: restoring before transcoding (\rOfgsf) preserves slightly more of the gap than the canonical order, because super-resolution amplifies the perturbation before the transcode quantizes it away, whereas regenerating first (\rOfgtf) collapses as deeply as the full chain. For the defender the implication is uncomfortable: no ordering of the funnel lets a protection survive.
+
+\begin{table}[t]
+\centering
+\caption{Stage O (zero-shot attack, 6-identity subset): retention of the defense's T0 gap under six acquisition programs that apply the funnel primitives in different orders or subsets. Bold marks the program that destroys the most protection per defense.}
+\label{tab:stageO}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Program & FSMG & random \\
+\midrule
+\input{tables_auto/stageO_body}
+\end{tabular}
+\end{table}
+
+\subsection{F5: Stress Tests: Stronger Attack, JPEG-Aware Defense}
+\label{sec:res_stress}
+
+Two stress tests probe the boundary of the findings (Table~\ref{tab:stress}). First, replacing IP-Adapter-FaceID with InstantID (SDXL, ControlNet-guided injection), the strongest open zero-shot extractor, on a 6-identity, 4-tier subset: the InstantID baseline (\nInclto{} at T0) extracts identity as effectively as the smaller model, and protections collapse along the same trajectory---FSMG holds \nInfgto{} at T0 and \nInfgjb{} after one JPEG-85 pass. Second, FSMG-J, whose surrogate and PGD objective are wrapped in a differentiable JPEG at the measured platform qualities, is evaluated under the standard attack. At T0 it protects comparably to FSMG (\nIffjto{} vs.\ \nIffgto{}), and its advantage shows exactly where it was trained: at JPEG-85 it retains \nIffjjb{} versus FSMG's \nIffgjb{}---the only setting where a defense keeps most of its gap after a platform transcode. By T2 the advantage is gone and at T5 both collapse: robustness can be bought for one transformation class at one quality, but the funnel always contains a tier the defense was not built for.
+
+\begin{table*}[t]
+\centering
+\caption{Stress tests (6-identity subset, 4 tiers): similarity / success rate at $\tau=0.30$. Top block: the standard attack (IP-Adapter-FaceID) against clean, FSMG, and JPEG-aware FSMG-J galleries. Bottom block: the strongest zero-shot attack (InstantID, SDXL) against the same galleries. }
+\label{tab:stress}
+\footnotesize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{@{}llccccc@{}}
+\toprule
+Attack & Defense & T0 & J85 & T2 & T5 \\
+\midrule
+\input{tables_auto/stress_body}
+\end{tabular}
+\end{table*}
