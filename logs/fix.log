@@ -3,3 +3,241 @@
   warnings.warn(
 [surrogate] step 50/250 loss 0.0748
 [surrogate] step 100/250 loss 0.1918
+2026-10-11 13:46:34 fix fsmgj retry 1
+/usr/local/lib/python3.10/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[2026-10-11 13:48:14] skip fsmgj/celeb00025
+[2026-10-11 13:48:14] skip fsmgj/celeb00027
+[2026-10-11 13:48:14] skip fsmgj/celeb00028
+[2026-10-11 13:48:14] skip fsmgj/celeb00029
+[2026-10-11 13:48:14] skip fsmgj/celeb00030
+[surrogate] step 50/250 loss 0.2131
+[surrogate] step 100/250 loss 0.1171
+[surrogate] step 150/250 loss 0.1910
+[surrogate] step 200/250 loss 0.0291
+[surrogate] step 250/250 loss 0.1478
+[2026-10-11 13:58:29] fsmgj/celeb00031 psnr=27.65
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]Loading pipeline components...:  33%|███▎      | 2/6 [00:00<00:00,  4.35it/s]Loading pipeline components...:  50%|█████     | 3/6 [00:00<00:00,  4.03it/s]/usr/local/lib/python3.10/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Loading pipeline components...:  83%|████████▎ | 5/6 [00:00<00:00,  6.95it/s]Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.53it/s]
+You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.StableDiffusionPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+image_encoder is not loaded since `image_encoder_folder=None` passed. You will not be able to use `ip_adapter_image` when calling the pipeline with IP-Adapter.Use `ip_adapter_image_embeds` to pass pre-generated image embedding instead.
+[2026-10-11 13:59:53] stage_a start cells=410 done=899
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00001
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00001
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00001
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00001
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00001
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00001
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00001
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00001
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00001
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00001
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00002
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00002
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00002
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00002
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00002
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00002
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00002
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00002
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00002
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00002
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00003
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00003
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00003
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00003
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00003
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00003
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00003
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00003
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00003
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00003
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00004
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00004
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00004
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00004
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00004
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00004
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00004
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00004
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00004
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00004
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00005
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00005
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00005
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00005
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00005
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00005
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00005
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00005
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00005
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00005
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00006
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00006
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00006
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00006
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00006
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00006
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00006
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00006
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00006
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00006
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00007
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00007
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00007
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00007
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00007
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00007
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00007
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00007
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00007
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00007
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00008
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00008
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00008
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00008
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00008
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00008
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00008
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00008
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00008
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00008
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00010
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00010
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00010
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00010
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00010
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00010
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00010
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00010
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00010
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00010
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00011
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00011
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00011
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00011
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00011
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00011
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00011
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00011
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00011
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00011
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00012
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00012
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00012
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00012
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00012
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00012
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00012
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00012
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00012
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00012
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00013
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00013
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00013
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00013
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00013
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00013
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00013
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00013
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00013
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00013
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00014
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00014
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00014
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00014
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00014
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00014
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00014
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00014
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00014
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00014
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00015
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00015
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00015
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00015
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00015
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00015
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00015
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00015
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00015
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00015
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00017
+[2026-10-11 13:59:53] missing gallery fsmgj/celeb00017
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00017
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00017
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00017
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00017
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00017
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00017
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00017
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00017
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00019
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00019
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00019
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00019
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00019
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00019
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00019
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00019
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00019
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00019
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00020
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00020
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00020
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00020
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00020
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00020
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00020
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00020
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00020
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00020
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00021
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00021
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00021
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00021
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00021
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00021
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00021
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00021
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00021
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00021
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00022
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00022
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00022
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00022
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00022
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00022
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00022
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00022
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00022
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00022
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00023
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00023
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00023
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00023
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00023
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00023
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00023
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00023
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00023
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00023
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00024
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00024
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00024
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00024
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00024
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00024
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00024
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00024
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00024
+[2026-10-11 13:59:54] missing gallery fsmgj/celeb00024
+[2026-10-11 14:01:53] A fsmgj/celeb00025/t0 mean=0.331 det=0.80 83s
+[2026-10-11 14:04:01] A fsmgj/celeb00025/t1_jpeg95 mean=0.335 det=0.80 90s
+[2026-10-11 14:05:15] A fsmgj/celeb00025/t1_jpeg85 mean=0.322 det=0.80 32s
+[2026-10-11 14:07:02] A fsmgj/celeb00025/t1_jpeg75 mean=0.318 det=0.80 83s
+[2026-10-11 14:09:25] A fsmgj/celeb00025/t1_jpeg65 mean=0.298 det=0.80 108s
+[2026-10-11 14:11:22] A fsmgj/celeb00025/t1_webp80 mean=0.327 det=0.80 94s
+[2026-10-11 14:13:30] A fsmgj/celeb00025/t2_canvas_dpr1 mean=0.345 det=0.80 83s
+[2026-10-11 14:13:44] skip fsmgj/celeb00025/t3_agent_facecrop: no face detected in reference images
