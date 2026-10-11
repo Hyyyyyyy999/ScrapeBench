@@ -1,0 +1,3 @@
+[2026-10-11 01:49:36] stage_b start cells=144 done=714
+[2026-10-11 01:52:34] B clean/celeb00001/t0 mean=0.354 train=136s gen=10s
+[2026-10-11 01:57:07] stage_b start cells=144 done=716

@@ -1,2 +1,7 @@
 2026-10-11 01:31:52 stall probe gpu0 stage_a rows=360
 2026-10-11 01:31:52 stall probe gpu1 stage_a rows=354
+2026-10-11 01:44:26 gpu0 stage_a complete rows=360
+2026-10-11 01:46:56 gpu1 stage_a complete rows=354
+2026-10-11 01:49:26 stall probe gpu0 stage_b rows=0
+2026-10-11 01:51:57 stall probe gpu1 stage_c rows=0
+2026-10-11 01:56:57 stall probe gpu0 stage_b rows=1
