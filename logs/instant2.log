@@ -77,3 +77,13 @@ For debugging consider passing CUDA_LAUNCH_BLOCKING=1
 Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
 
 2026-10-11 17:17:36 instant2 retry 2
+Keyword arguments {'safety_checker': None} are not expected by StableDiffusionXLInstantIDPipeline and will be ignored.
+Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  14%|█▍        | 1/7 [00:00<00:00,  9.58it/s]Loading pipeline components...:  29%|██▊       | 2/7 [00:04<00:13,  2.74s/it]Loading pipeline components...:  43%|████▎     | 3/7 [00:06<00:08,  2.23s/it]Loading pipeline components...:  57%|█████▋    | 4/7 [00:07<00:05,  1.70s/it]Loading pipeline components...:  71%|███████▏  | 5/7 [00:08<00:02,  1.48s/it]Loading pipeline components...:  86%|████████▌ | 6/7 [00:11<00:02,  2.10s/it]Loading pipeline components...: 100%|██████████| 7/7 [00:16<00:00,  2.96s/it]Loading pipeline components...: 100%|██████████| 7/7 [00:16<00:00,  2.33s/it]
+[2026-10-11 17:20:28] stage_a start cells=72 done=1094
+[2026-10-11 17:24:51] A clean/celeb00025/t1_jpeg85 mean=0.069 det=0.20 206s
+[2026-10-11 17:28:17] A clean/celeb00025/t2_canvas_dpr1 mean=-0.031 det=0.10 177s
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]Loading pipeline components...:  50%|█████     | 3/6 [00:54<00:54, 18.04s/it]/usr/local/lib/python3.10/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Loading pipeline components...:  83%|████████▎ | 5/6 [00:54<00:09,  9.41s/it]Loading pipeline components...: 100%|██████████| 6/6 [00:55<00:00,  7.23s/it]Loading pipeline components...: 100%|██████████| 6/6 [00:55<00:00,  9.30s/it]
+You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion_img2img.StableDiffusionImg2ImgPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+[2026-10-11 17:33:18] A clean/celeb00025/t5_i2i30 mean=nan det=0.00 228s
