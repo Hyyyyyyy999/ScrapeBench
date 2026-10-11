@@ -44,7 +44,7 @@ def generate_method(method, comps, gallery_paths, cfg, out_dir):
         outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100))
     elif method == "fsmgj":
         jq = int(prot_cfg.get("jpeg_aware", 85))
-        train_surrogate(comps, imgs, steps=prot_cfg.get("surrogate_steps", 200), batch_size=4, log_every=50, jpeg_aware=jq)
+        train_surrogate(comps, imgs, steps=prot_cfg.get("surrogate_steps", 200), batch_size=4, log_every=50)
         outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100), jpeg_aware=jq)
     else:
         raise ValueError(f"unknown method {method}")
