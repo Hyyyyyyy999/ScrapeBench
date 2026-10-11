@@ -870,3 +870,4 @@ full,A,celeb00025,fsmgj,t3_agent_facecrop,ipfaceid,0,0,,,,,,0.0,0.0,,2026-10-11 
 full,A,celeb00025,fsmgj,t4_sr_x2,ipfaceid,0,0,,,,,,0.0,0.0,,2026-10-11 12:55:00
 full,A,celeb00025,fsmgj,t5_i2i30,ipfaceid,0,0,,,,,,0.0,0.0,,2026-10-11 12:55:00
 full,A,celeb00025,clean,t5_i2i30,ipfaceid,8,10,0.2717,0.2049,0.339,,,0.4,60.1,6.01,2026-10-11 12:55:09
+full,A,celeb00027,clean,t1_jpeg95,ipfaceid,8,10,0.4517,0.4166,0.486,,,0.8,50.7,5.07,2026-10-11 12:55:31
