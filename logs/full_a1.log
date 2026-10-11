@@ -936,3 +936,4 @@ image_encoder is not loaded since `image_encoder_folder=None` passed. You will n
 [2026-10-11 12:36:42] A clean/celeb00025/t0 mean=0.369 det=1.00 82s
 [2026-10-11 12:38:41] A clean/celeb00025/t1_jpeg95 mean=0.354 det=1.00 103s
 [2026-10-11 12:39:42] A clean/celeb00025/t1_jpeg95 mean=0.354 det=1.00 116s
+[2026-10-11 12:40:53] A clean/celeb00025/t1_jpeg85 mean=0.364 det=0.90 90s

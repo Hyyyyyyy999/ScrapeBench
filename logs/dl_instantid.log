@@ -1,2 +1,36 @@
 downloading stabilityai/stable-diffusion-xl-base-1.0
-Fetching 57 files:   0%|          | 0/57 [00:00<?, ?it/s]Fetching 57 files:  14%|█▍        | 8/57 [00:03<00:23,  2.10it/s]Fetching 57 files:  16%|█▌        | 9/57 [00:19<01:46,  2.21s/it]Fetching 57 files:  18%|█▊        | 10/57 [00:20<01:35,  2.04s/it]Fetching 57 files:  19%|█▉        | 11/57 [00:23<01:39,  2.16s/it]Fetching 57 files:  21%|██        | 12/57 [00:24<01:32,  2.05s/it]Fetching 57 files:  23%|██▎       | 13/57 [00:43<02:26,  3.33s/it]Fetching 57 files:  25%|██▍       | 14/57 [00:50<02:33,  3.58s/it]Fetching 57 files:  26%|██▋       | 15/57 [00:56<02:37,  3.75s/it]Fetching 57 files:  28%|██▊       | 16/57 [01:35<04:04,  5.97s/it]Fetching 57 files:  30%|██▉       | 17/57 [01:35<03:45,  5.63s/it]Fetching 57 files:  33%|███▎      | 19/57 [01:36<03:13,  5.10s/it]Fetching 57 files:  37%|███▋      | 21/57 [01:37<02:46,  4.64s/it]Fetching 57 files:  40%|████      | 23/57 [01:37<02:24,  4.25s/it]Fetching 57 files:  44%|████▍     | 25/57 [01:37<02:05,  3.92s/it]Fetching 57 files:  47%|████▋     | 27/57 [01:38<01:49,  3.64s/it]Fetching 57 files:  51%|█████     | 29/57 [01:38<01:34,  3.39s/it]Fetching 57 files:  54%|█████▍    | 31/57 [01:40<01:24,  3.24s/it]Fetching 57 files:  58%|█████▊    | 33/57 [01:42<01:14,  3.11s/it]Fetching 57 files:  60%|█████▉    | 34/57 [02:00<01:21,  3.54s/it]Fetching 57 files:  61%|██████▏   | 35/57 [02:12<01:23,  3.80s/it]Fetching 57 files:  63%|██████▎   | 36/57 [02:13<01:17,  3.70s/it]Fetching 57 files:  65%|██████▍   | 37/57 [03:10<01:43,  5.15s/it]Fetching 57 files:  67%|██████▋   | 38/57 [03:16<01:38,  5.18s/it]Fetching 57 files:  68%|██████▊   | 39/57 [03:28<01:36,  5.35s/it]Fetching 57 files:  70%|███████   | 40/57 [03:29<01:28,  5.23s/it]Fetching 57 files:  72%|███████▏  | 41/57 [03:53<01:31,  5.70s/it]Fetching 57 files:  74%|███████▎  | 42/57 [04:00<01:25,  5.72s/it]Fetching 57 files:  75%|███████▌  | 43/57 [04:00<01:18,  5.59s/it]Fetching 57 files:  77%|███████▋  | 44/57 [04:01<01:11,  5.48s/it]
+Fetching 57 files:   0%|          | 0/57 [00:00<?, ?it/s]Fetching 57 files:  14%|█▍        | 8/57 [00:03<00:23,  2.10it/s]Fetching 57 files:  16%|█▌        | 9/57 [00:19<01:46,  2.21s/it]Fetching 57 files:  18%|█▊        | 10/57 [00:20<01:35,  2.04s/it]Fetching 57 files:  19%|█▉        | 11/57 [00:23<01:39,  2.16s/it]Fetching 57 files:  21%|██        | 12/57 [00:24<01:32,  2.05s/it]Fetching 57 files:  23%|██▎       | 13/57 [00:43<02:26,  3.33s/it]Fetching 57 files:  25%|██▍       | 14/57 [00:50<02:33,  3.58s/it]Fetching 57 files:  26%|██▋       | 15/57 [00:56<02:37,  3.75s/it]Fetching 57 files:  28%|██▊       | 16/57 [01:35<04:04,  5.97s/it]Fetching 57 files:  30%|██▉       | 17/57 [01:35<03:45,  5.63s/it]Fetching 57 files:  33%|███▎      | 19/57 [01:36<03:13,  5.10s/it]Fetching 57 files:  37%|███▋      | 21/57 [01:37<02:46,  4.64s/it]Fetching 57 files:  40%|████      | 23/57 [01:37<02:24,  4.25s/it]Fetching 57 files:  44%|████▍     | 25/57 [01:37<02:05,  3.92s/it]Fetching 57 files:  47%|████▋     | 27/57 [01:38<01:49,  3.64s/it]Fetching 57 files:  51%|█████     | 29/57 [01:38<01:34,  3.39s/it]Fetching 57 files:  54%|█████▍    | 31/57 [01:40<01:24,  3.24s/it]Fetching 57 files:  58%|█████▊    | 33/57 [01:42<01:14,  3.11s/it]Fetching 57 files:  60%|█████▉    | 34/57 [02:00<01:21,  3.54s/it]Fetching 57 files:  61%|██████▏   | 35/57 [02:12<01:23,  3.80s/it]Fetching 57 files:  63%|██████▎   | 36/57 [02:13<01:17,  3.70s/it]Fetching 57 files:  65%|██████▍   | 37/57 [03:10<01:43,  5.15s/it]Fetching 57 files:  67%|██████▋   | 38/57 [03:16<01:38,  5.18s/it]Fetching 57 files:  68%|██████▊   | 39/57 [03:28<01:36,  5.35s/it]Fetching 57 files:  70%|███████   | 40/57 [03:29<01:28,  5.23s/it]Fetching 57 files:  72%|███████▏  | 41/57 [03:53<01:31,  5.70s/it]Fetching 57 files:  74%|███████▎  | 42/57 [04:00<01:25,  5.72s/it]Fetching 57 files:  75%|███████▌  | 43/57 [04:00<01:18,  5.59s/it]Fetching 57 files:  77%|███████▋  | 44/57 [04:01<01:11,  5.48s/it]Fetching 57 files:  79%|███████▉  | 45/57 [04:05<01:05,  5.44s/it]Fetching 57 files:  81%|████████  | 46/57 [04:05<00:58,  5.34s/it]Fetching 57 files:  82%|████████▏ | 47/57 [04:05<00:52,  5.23s/it]Fetching 57 files:  86%|████████▌ | 49/57 [04:06<00:40,  5.02s/it]Fetching 57 files:  89%|████████▉ | 51/57 [04:07<00:29,  4.86s/it]Fetching 57 files:  93%|█████████▎| 53/57 [04:09<00:18,  4.70s/it]Fetching 57 files:  96%|█████████▋| 55/57 [04:10<00:09,  4.56s/it]Fetching 57 files:  98%|█████████▊| 56/57 [04:30<00:04,  4.83s/it]Fetching 57 files: 100%|██████████| 57/57 [04:34<00:00,  4.81s/it]Fetching 57 files: 100%|██████████| 57/57 [04:34<00:00,  4.81s/it]
+downloading InstantID/ControlNetModel
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/dist-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/api/models/InstantID/ControlNetModel/revision/main
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 5, in <module>
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/_snapshot_download.py", line 245, in snapshot_download
+    raise api_call_error
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/_snapshot_download.py", line 165, in snapshot_download
+    repo_info = api.repo_info(repo_id=repo_id, repo_type=repo_type, revision=revision)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/hf_api.py", line 2867, in repo_info
+    return method(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/hf_api.py", line 2661, in model_info
+    hf_raise_for_status(r)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 453, in hf_raise_for_status
+    raise _format(RepositoryNotFoundError, message, response) from e
+huggingface_hub.errors.RepositoryNotFoundError: 401 Client Error. (Request ID: Root=1-6acb83cc-1fcfdc1278e9ecd3173cdbb5;ad683747-fb1e-4d89-80fd-5b00d71bd5ab)
+
+Repository Not Found for url: https://huggingface.co/api/models/InstantID/ControlNetModel/revision/main.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated. For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+Invalid username or password.
