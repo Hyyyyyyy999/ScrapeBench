@@ -81,6 +81,10 @@ def main():
                                steps=atk_cfg.get("steps", 30), guidance=atk_cfg.get("guidance", 5.0),
                                seed=cfg["run"].get("seed", 0))
         except RuntimeError as e:
+            append_row(res_path, dict(
+                run=run_name, stage="A", pid=pid, method=m, tier=tier, attack="ipfaceid",
+                n_gallery=len(paths), n_samples=0, mean_id="", ci_lo="", ci_hi="", p_lo="", p_hi="",
+                pos_rate=0.0, gen_sec=round(time.time() - t0, 1), sec_per_img="", ts=now()))
             log(f"skip {m}/{pid}/{tier}: {e}", log_path)
             continue
         gen_sec = time.time() - t0

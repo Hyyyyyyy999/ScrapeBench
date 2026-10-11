@@ -1,0 +1,72 @@
+run:
+  name: preview
+  seed: 0
+  data_root: data
+  resolution: 512
+  samples_per_cell: 10
+  ref_per_id: 2
+  tau: 0.3
+  sd_model: stable-diffusion-v1-5/stable-diffusion-v1-5
+  fp16: true
+stage_a:
+  methods:
+  - clean
+  - random
+  - fsmg
+  - aspl
+  tiers:
+  - t0
+  - t1_jpeg95
+  - t1_jpeg85
+  - t1_jpeg75
+  - t1_jpeg65
+  - t1_webp80
+  - t2_canvas_dpr1
+  - t3_agent_facecrop
+  - t4_sr_x2
+  - t5_i2i30
+  ids:
+  - all
+stage_b:
+  methods:
+  - clean
+  - random
+  - fsmg
+  tiers:
+  - t0
+  - t1_jpeg85
+  - t2_canvas_dpr1
+  - t5_i2i30
+  ids:
+  - all
+  steps: 400
+  lora_rank: 16
+  lr: 0.0001
+  prompt: a photo of a sks person
+stage_c:
+  ids:
+  - all
+  mix_ratios:
+  - 0.2
+  - 0.5
+  steps: 400
+  lora_rank: 16
+  lr: 0.0001
+  prompt: a photo of a sks person
+protection:
+  methods:
+  - clean
+  - random
+  - fsmg
+  - aspl
+  eps: 16.0
+  alpha: 1.0
+  surrogate_steps: 250
+  pgd_steps: 100
+  aspl_rounds: 2
+attack:
+  ip_adapter_repo: h94/IP-Adapter-FaceID
+  ip_adapter_weight: ip-adapter-faceid_sd15.bin
+  ip_adapter_scale: 0.8
+  steps: 25
+  guidance: 5.0

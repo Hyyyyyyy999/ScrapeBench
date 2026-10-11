@@ -38,12 +38,13 @@ def main():
     merged.to_csv(os.path.join(run_dir, "summary_ci.csv"), index=False)
     for stage in sorted(df["stage"].unique()):
         sub = merged[merged["stage"] == stage]
+        tiers_s = [t for t in TIER_ORDER if t in set(df[df["stage"] == stage]["tier"])]
         base = sub[(sub["method"] == "clean")].set_index("tier")["mean"]
         rows = []
         for m in sub["method"].unique():
             msub = sub[sub["method"] == m].set_index("tier")
             row = {"method": m}
-            for t in tiers:
+            for t in tiers_s:
                 row[t] = round(float(msub["mean"][t]), 4) if t in msub.index else np.nan
             rows.append(row)
         tab = pd.DataFrame(rows)
@@ -55,7 +56,7 @@ def main():
             msub = sub[sub["method"] == m].set_index("tier")["mean"]
             row = {"method": m}
             base_t0 = base.get("t0", np.nan)
-            for t in tiers:
+            for t in tiers_s:
                 if t not in msub.index or t not in base.index or np.isnan(base_t0):
                     row[t] = np.nan
                     continue
@@ -68,9 +69,12 @@ def main():
             gtab.to_csv(os.path.join(run_dir, f"retention_stage_{stage}.csv"), index=False)
             from .figures import plot_gap, plot_rr, plot_det
             sub_m = sub[sub["method"].isin(list(gtab["method"]) + ["clean"])]
-            plot_gap(sub_m, tiers, stage, "figures")
-            sig = plot_rr(sub_m, tiers, stage, "figures")
-            plot_det(df, tiers, stage, "figures")
+            plot_gap(df, tiers_s, stage, "figures")
+            sig = plot_rr(df, tiers_s, stage, "figures")
+            plot_det(df, tiers_s, stage, "figures")
+            if stage == "B":
+                from .figures import plot_family
+                plot_family(df, "figures")
             with open(os.path.join(run_dir, f"rr_significance_{stage}.txt"), "w") as f:
                 for m, s in sig.items():
                     f.write(f"{m}\t{s}\n")

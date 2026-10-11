@@ -1,0 +1,3 @@
+random	n.s.
+fsmg	sig
+aspl	sig
