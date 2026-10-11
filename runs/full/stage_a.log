@@ -2250,3 +2250,26 @@
 [2026-10-11 15:21:55] A clean/celeb00035/t1_webp80 mean=0.332 det=0.80 98s
 [2026-10-11 15:23:03] A clean/celeb00036/t1_jpeg95 mean=0.211 det=0.90 98s
 [2026-10-11 15:23:12] A fsmgj/celeb00031/t0 mean=0.291 det=0.80 62s
+[2026-10-11 15:23:55] A clean/celeb00035/t2_canvas_dpr1 mean=0.309 det=0.80 64s
+[2026-10-11 15:24:06] skip clean/celeb00035/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 15:24:52] A fsmgj/celeb00031/t1_jpeg95 mean=0.274 det=0.80 74s
+[2026-10-11 15:25:33] A clean/celeb00036/t1_jpeg85 mean=0.211 det=0.90 110s
+[2026-10-11 15:25:57] A clean/celeb00035/t4_sr_x2 mean=0.338 det=0.80 83s
+[2026-10-11 15:26:37] A fsmgj/celeb00031/t1_jpeg85 mean=0.286 det=0.80 78s
+[2026-10-11 15:27:29] A clean/celeb00036/t1_jpeg75 mean=0.162 det=0.90 93s
+[2026-10-11 15:28:17] A fsmgj/celeb00031/t1_jpeg75 mean=0.258 det=0.80 67s
+[2026-10-11 15:28:22] A clean/celeb00035/t5_i2i30 mean=0.188 det=0.70 95s
+[2026-10-11 15:29:23] A clean/celeb00036/t1_jpeg65 mean=0.235 det=0.90 96s
+[2026-10-11 15:29:59] A clean/celeb00036/t0 mean=0.204 det=0.90 56s
+[2026-10-11 15:30:30] A fsmgj/celeb00031/t1_jpeg65 mean=0.278 det=0.80 83s
+[2026-10-11 15:31:11] A clean/celeb00036/t1_webp80 mean=0.207 det=0.90 89s
+[2026-10-11 15:32:03] A fsmgj/celeb00031/t1_webp80 mean=0.276 det=0.80 55s
+[2026-10-11 15:32:14] A clean/celeb00036/t1_jpeg95 mean=0.211 det=0.90 95s
+[2026-10-11 15:32:48] A clean/celeb00036/t2_canvas_dpr1 mean=0.215 det=0.90 60s
+[2026-10-11 15:33:02] skip clean/celeb00036/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 15:33:52] A fsmgj/celeb00031/t2_canvas_dpr1 mean=0.282 det=0.80 88s
+[2026-10-11 15:34:00] skip fsmgj/celeb00031/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 15:34:41] A clean/celeb00036/t1_jpeg85 mean=0.211 det=0.90 103s
+[2026-10-11 15:34:45] A clean/celeb00036/t4_sr_x2 mean=0.208 det=0.90 64s
+[2026-10-11 15:35:56] A fsmgj/celeb00031/t4_sr_x2 mean=0.281 det=0.80 82s
+[2026-10-11 15:36:23] A clean/celeb00036/t1_jpeg75 mean=0.162 det=0.90 75s
