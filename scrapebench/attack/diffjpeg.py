@@ -11,7 +11,7 @@ def _dct_basis(device):
         k = n.view(-1, 1)
         c = torch.cos((2 * n + 1) * k * torch.pi / 16.0)
         alpha = torch.full((8, 1), 1.0 / 8.0, device=device, dtype=torch.float64).sqrt()
-        alpha[0, 0] = 0.5.sqrt()
+        alpha[0, 0] = torch.sqrt(torch.tensor(0.5, device=device, dtype=torch.float64))
         _BASIS[device] = alpha * c
     return _BASIS[device]
 
