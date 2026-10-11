@@ -1,0 +1,4 @@
+method,psnr_db,psnr_ci,lpips,lpips_ci
+random,29.1,0.3,0.061,0.004
+fsmg,28.1,0.4,0.052,0.003
+aspl,28.4,0.4,0.048,0.003

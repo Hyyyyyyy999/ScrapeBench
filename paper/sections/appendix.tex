@@ -12,3 +12,19 @@ This work evaluates \emph{defenses}, not attack tooling: the attack pipelines us
 \subsection{Additional Results}
 \label{sec:extra}
 The released result logs contain, per stage: full per-tier tables (including JPEG-95/65, WebP-80, device-pixel-ratio variants, the inversion tier, and img2img-50), the detection-failure view at thresholds $\tau \in \{0.25, 0.30, 0.35\}$, per-identity collapse curves with bootstrap intervals, quality metrics (PSNR/LPIPS) of every protection under every tier, per-cell wall-clock timings, and the complete Wilcoxon--Holm test table. The preview artefacts accompanying this submission (\texttt{runs/preview/}, \texttt{figures/}) are regenerable with a single \texttt{report} invocation from any results CSV in the same schema.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{../figures/tier_grid.png}
+\caption{The six Stage-A funnel tiers applied to one clean (top) and one FSMG-protected (bottom) gallery image. Platform tiers (T1--T2) preserve both photographs; agent and user tiers transform composition (T3, T4); attacker-side regeneration (T5, strength $0.3$) destroys the protected perturbation along with large parts of the image itself.}
+\label{fig:tier_grid}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{../figures/auc_stage_A.png}
+\caption{Funnel-integrated protection $\overline{\mathrm{RR}}$ for the Stage-A defenses (95\% bootstrap CIs over cells). The integrated view compresses each curve of Figure~\ref{fig:collapse} into a single deployment-relevant number.}
+\label{fig:auc}
+\end{figure}
+
+Figure~\ref{fig:tier_grid} shows the tiers themselves operating on real gallery images, and Figure~\ref{fig:auc} the integrated protection view for Stage A.

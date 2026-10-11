@@ -104,11 +104,14 @@ def reset_lora(unet):
         pass
 
 
-def dreambooth_loss(comps, images, prompt, t_min=20, t_max=980):
+def dreambooth_loss(comps, images, prompt, t_min=20, t_max=980, jpeg_aware=0):
     vae, unet, sched = comps["vae"], comps["unet"], comps["scheduler"]
     if isinstance(images, (list, tuple)):
         images = images_to_tensor(images, comps["dtype"])
     x = images.to(comps["device"], comps["dtype"])
+    if jpeg_aware:
+        from ..attack.diffjpeg import diff_jpeg
+        x = diff_jpeg((x + 1.0) / 2.0, quality=jpeg_aware) * 2.0 - 1.0
     lat = encode_latents(vae, x)
     noise = torch.randn_like(lat)
     t = torch.randint(t_min, t_max, (lat.shape[0],), device=lat.device)

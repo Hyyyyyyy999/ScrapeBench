@@ -32,9 +32,10 @@ def main():
     tiers = [t for t in TIER_ORDER if t in set(df["tier"])]
     pv = df.groupby(["stage", "method", "tier"])["mean_id"].agg(["mean", "count"]).reset_index()
     pv.to_csv(os.path.join(run_dir, "summary_mean.csv"), index=False)
+    pr = df.groupby(["stage", "method", "tier"])["pos_rate"].mean().reset_index()
     lo = df.groupby(["stage", "method", "tier"])["ci_lo"].mean().reset_index()
     hi = df.groupby(["stage", "method", "tier"])["ci_hi"].mean().reset_index()
-    merged = pv.merge(lo, on=["stage", "method", "tier"]).merge(hi, on=["stage", "method", "tier"])
+    merged = pv.merge(lo, on=["stage", "method", "tier"]).merge(hi, on=["stage", "method", "tier"]).merge(pr, on=["stage", "method", "tier"])
     merged.to_csv(os.path.join(run_dir, "summary_ci.csv"), index=False)
     for stage in sorted(df["stage"].unique()):
         sub = merged[merged["stage"] == stage]
@@ -67,11 +68,44 @@ def main():
         if gap_rows:
             gtab = pd.DataFrame(gap_rows)
             gtab.to_csv(os.path.join(run_dir, f"retention_stage_{stage}.csv"), index=False)
-            from .figures import plot_gap, plot_rr, plot_det
+            auc_rows = []
+            for _, r in gtab.iterrows():
+                seq = np.array([r[t] for t in tiers_s if t != "t0" and not np.isnan(r.get(t, np.nan))])
+                if len(seq) < 2:
+                    continue
+                cells = df[(df["stage"] == stage) & (df["method"] == r["method"])].dropna(subset=["mean_id"])
+                ccells = df[(df["stage"] == stage) & (df["method"] == "clean")].dropna(subset=["mean_id"])
+                rng = np.random.default_rng(0)
+                boots = []
+                tier_list = [t for t in tiers_s if t != "t0" and not np.isnan(r.get(t, np.nan))]
+                for _ in range(1000):
+                    pick = cells[cells["tier"].isin(tier_list + ["t0"])].sample(frac=1.0, replace=True, random_state=None)
+                    cpick = ccells[ccells["tier"].isin(tier_list + ["t0"])].sample(frac=1.0, replace=True, random_state=None)
+                    gsum = pick.groupby("tier")["mean_id"].mean()
+                    csum = cpick.groupby("tier")["mean_id"].mean()
+                    if "t0" not in gsum.index or "t0" not in csum.index:
+                        continue
+                    vals = np.array([
+                        float("nan") if (t not in gsum.index or t not in csum.index)
+                        else (float(csum[t]) - float(gsum[t])) / (float(csum["t0"]) - float(gsum["t0"]))
+                        for t in tier_list
+                    ])
+                    if np.isnan(vals).any():
+                        continue
+                    boots.append(np.trapezoid(vals) / (len(vals) - 1))
+                boots = np.array(boots)
+                auc_rows.append({"method": r["method"], "auc": round(float(np.trapezoid(seq) / (len(seq) - 1)), 4),
+                                 "ci_lo": round(float(np.percentile(boots, 2.5)), 4),
+                                 "ci_hi": round(float(np.percentile(boots, 97.5)), 4)})
+            if auc_rows:
+                pd.DataFrame(auc_rows).to_csv(os.path.join(run_dir, f"rr_auc_stage_{stage}.csv"), index=False)
+                from .figures import plot_auc
+                plot_auc(df, tiers_s, stage, "figures")
+            from . import figures as F
             sub_m = sub[sub["method"].isin(list(gtab["method"]) + ["clean"])]
-            plot_gap(df, tiers_s, stage, "figures")
-            sig = plot_rr(df, tiers_s, stage, "figures")
-            plot_det(df, tiers_s, stage, "figures")
+            F.plot_gap(df, tiers_s, stage, "figures")
+            sig = F.plot_rr(df, tiers_s, stage, "figures")
+            F.plot_det(df, tiers_s, stage, "figures")
             if stage == "B":
                 from .figures import plot_family
                 plot_family(df, "figures")

@@ -179,3 +179,35 @@ def plot_family(df, outdir):
     fig.tight_layout()
     fig.savefig(os.path.join(outdir, "family_contrast.png"), dpi=220)
     plt.close(fig)
+
+
+def plot_auc(df, tiers, stage, outdir):
+    tiers_all = [t for t in tiers if t != "t0"]
+    prot = [m for m in ["random", "fsmg", "aspl"] if not df[(df["stage"] == stage) & (df["method"] == m)].empty]
+    fig, ax = plt.subplots(figsize=(4.8, 3.2))
+    for k, m in enumerate(prot):
+        cells = df[(df["stage"] == stage) & (df["method"] == m)]
+        clean = df[(df["stage"] == stage) & (df["method"] == "clean")]
+        rng = np.random.default_rng(k)
+        boots = []
+        for _ in range(1000):
+            s = int(rng.integers(1000000000))
+            pc = cells.sample(frac=1.0, replace=True, random_state=s).groupby("tier")["mean_id"].mean()
+            cc = clean.sample(frac=1.0, replace=True, random_state=s + 1).groupby("tier")["mean_id"].mean()
+            rr = [float((cc[t0] - pc[t0]) / (cc["t0"] - pc["t0"])) for t0 in tiers_all]
+            boots.append(np.trapezoid(rr) / (len(rr) - 1))
+        boots = np.array(boots)
+        mu = float(np.mean(boots))
+        lo, hi = np.percentile(boots, [2.5, 97.5])
+        ax.bar(k, mu, width=0.55, color=OKABE.get(m), alpha=0.9, label=m)
+        ax.errorbar(k, mu, yerr=[[max(0, mu - lo)], [max(0, hi - mu)]], fmt="none", ecolor="0.25", capsize=3, lw=1)
+    ax.axhline(1.0, color="gray", lw=0.8, ls="--")
+    ax.set_xticks(range(len(prot)))
+    ax.set_xticklabels(prot)
+    ax.set_ylabel(r"Protection AUC $\overline{\mathrm{RR}}$")
+    ax.set_title(f"Funnel-integrated protection (stage {stage})")
+    ax.set_ylim(0, 1.0)
+    ax.grid(alpha=0.3, axis="y", lw=0.5)
+    fig.tight_layout()
+    fig.savefig(os.path.join(outdir, f"auc_stage_{stage}.png"), dpi=220)
+    plt.close(fig)
