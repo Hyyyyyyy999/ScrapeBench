@@ -76,3 +76,4 @@
 [2026-10-11 17:50:49] O clean/celeb00025/sr_first mean=0.365 71s
 [2026-10-11 17:52:48] O clean/celeb00025/t5_first mean=0.285 56s
 [2026-10-11 17:55:16] O clean/celeb00025/jpeg_only mean=0.364 99s
+[2026-10-11 17:57:03] O clean/celeb00025/deep_chain mean=0.236 68s
