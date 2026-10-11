@@ -12,3 +12,14 @@
 [2026-10-11 02:36:49] B clean/celeb00003/t2_canvas_dpr1 mean=0.224 train=97s gen=8s
 [2026-10-11 02:39:50] B clean/celeb00003/t5_i2i30 mean=0.191 train=154s gen=8s
 [2026-10-11 02:42:52] B clean/celeb00004/t0 mean=0.076 train=157s gen=8s
+[2026-10-11 02:45:52] B clean/celeb00004/t1_jpeg85 mean=0.098 train=160s gen=8s
+[2026-10-11 02:48:02] B clean/celeb00004/t2_canvas_dpr1 mean=0.080 train=108s gen=8s
+[2026-10-11 02:51:03] B clean/celeb00004/t5_i2i30 mean=0.094 train=156s gen=8s
+[2026-10-11 02:54:04] B clean/celeb00005/t0 mean=0.209 train=151s gen=8s
+[2026-10-11 02:57:02] B clean/celeb00005/t1_jpeg85 mean=0.237 train=151s gen=8s
+[2026-10-11 02:59:31] B clean/celeb00005/t2_canvas_dpr1 mean=0.210 train=120s gen=8s
+[2026-10-11 03:02:32] B clean/celeb00005/t5_i2i30 mean=0.171 train=153s gen=8s
+[2026-10-11 03:05:35] B clean/celeb00006/t0 mean=0.178 train=152s gen=8s
+[2026-10-11 03:08:41] B clean/celeb00006/t1_jpeg85 mean=0.221 train=155s gen=8s
+[2026-10-11 03:11:03] B clean/celeb00006/t2_canvas_dpr1 mean=0.215 train=106s gen=8s
+[2026-10-11 03:13:54] B clean/celeb00006/t5_i2i30 mean=0.181 train=145s gen=8s

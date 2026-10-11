@@ -2,3 +2,5 @@
 2026-10-11 02:08:49 stage_a finished
 2026-10-11 02:12:38 stage_c attempt 1 rc=1; retry 60s
 2026-10-11 02:26:21 stage_c attempt 4 rc=1; retry 60s
+2026-10-11 03:13:23 stage_c finished
+2026-10-11 03:13:23 chain1 done

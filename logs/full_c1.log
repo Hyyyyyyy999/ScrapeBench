@@ -54,3 +54,13 @@ ValueError: Adapter with name default already exists. Please use a different nam
 [2026-10-11 02:37:19] C celeb00027/purify50 mean=0.077 train=174s
 [2026-10-11 02:40:24] C celeb00028/mix20 mean=0.053 train=154s
 [2026-10-11 02:43:27] C celeb00028/mix50 mean=0.025 train=151s
+[2026-10-11 02:46:18] C celeb00028/purify50 mean=0.027 train=150s
+[2026-10-11 02:49:14] C celeb00029/mix20 mean=0.004 train=148s
+[2026-10-11 02:52:08] C celeb00029/mix50 mean=0.028 train=152s
+[2026-10-11 02:55:09] C celeb00029/purify50 mean=0.031 train=158s
+[2026-10-11 02:58:20] C celeb00030/mix20 mean=0.070 train=157s
+[2026-10-11 03:01:21] C celeb00030/mix50 mean=0.012 train=158s
+[2026-10-11 03:04:16] C celeb00030/purify50 mean=0.060 train=153s
+[2026-10-11 03:07:21] C celeb00031/mix20 mean=0.026 train=158s
+[2026-10-11 03:10:23] C celeb00031/mix50 mean=0.025 train=158s
+[2026-10-11 03:13:21] C celeb00031/purify50 mean=0.150 train=162s
