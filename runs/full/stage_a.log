@@ -1384,3 +1384,5 @@
 [2026-10-11 12:38:41] A clean/celeb00025/t1_jpeg95 mean=0.354 det=1.00 103s
 [2026-10-11 12:39:42] A clean/celeb00025/t1_jpeg95 mean=0.354 det=1.00 116s
 [2026-10-11 12:40:53] A clean/celeb00025/t1_jpeg85 mean=0.364 det=0.90 90s
+[2026-10-11 12:41:46] A clean/celeb00025/t1_jpeg85 mean=0.364 det=0.90 95s
+[2026-10-11 12:42:48] A clean/celeb00025/t1_jpeg75 mean=0.359 det=1.00 67s

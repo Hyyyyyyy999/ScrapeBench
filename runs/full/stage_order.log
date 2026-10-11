@@ -31,3 +31,4 @@
 [2026-10-11 12:34:13] O fsmg/celeb00030/t5_only mean=0.233 30s
 [2026-10-11 12:36:35] O fsmg/celeb00031/canonical mean=0.171 53s
 [2026-10-11 12:39:12] O fsmg/celeb00031/sr_first mean=0.282 76s
+[2026-10-11 12:42:38] O fsmg/celeb00031/t5_first mean=0.103 95s
