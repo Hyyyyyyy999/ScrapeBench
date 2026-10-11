@@ -103,3 +103,14 @@ You have disabled the safety checker for <class 'diffusers.pipelines.stable_diff
 [2026-10-11 03:37:55] B random/celeb00003/t0 mean=0.227 train=139s gen=8s
 [2026-10-11 03:40:54] B random/celeb00003/t1_jpeg85 mean=0.234 train=141s gen=8s
 [2026-10-11 03:43:02] B random/celeb00003/t2_canvas_dpr1 mean=0.218 train=95s gen=8s
+[2026-10-11 03:46:03] B random/celeb00003/t5_i2i30 mean=0.158 train=140s gen=8s
+[2026-10-11 03:48:51] B random/celeb00004/t0 mean=0.105 train=138s gen=8s
+[2026-10-11 03:51:36] B random/celeb00004/t1_jpeg85 mean=0.131 train=138s gen=8s
+[2026-10-11 03:53:35] B random/celeb00004/t2_canvas_dpr1 mean=0.074 train=94s gen=8s
+[2026-10-11 03:56:29] B random/celeb00004/t5_i2i30 mean=0.086 train=137s gen=8s
+[2026-10-11 03:59:11] B random/celeb00005/t0 mean=0.227 train=138s gen=8s
+[2026-10-11 04:01:52] B random/celeb00005/t1_jpeg85 mean=0.111 train=136s gen=8s
+[2026-10-11 04:03:56] B random/celeb00005/t2_canvas_dpr1 mean=0.191 train=93s gen=8s
+[2026-10-11 04:06:46] B random/celeb00005/t5_i2i30 mean=0.087 train=136s gen=8s
+[2026-10-11 04:09:29] B random/celeb00006/t0 mean=0.175 train=135s gen=8s
+[2026-10-11 04:12:16] B random/celeb00006/t1_jpeg85 mean=0.201 train=135s gen=8s
