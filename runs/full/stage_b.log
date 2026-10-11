@@ -140,3 +140,9 @@
 [2026-10-11 05:06:32] B fsmg/celeb00029/t2_canvas_dpr1 mean=0.116 train=97s gen=9s
 [2026-10-11 05:09:22] B fsmg/celeb00029/t5_i2i30 mean=0.068 train=142s gen=8s
 [2026-10-11 05:12:24] B fsmg/celeb00030/t0 mean=0.084 train=140s gen=8s
+[2026-10-11 05:15:17] B fsmg/celeb00030/t1_jpeg85 mean=0.131 train=143s gen=9s
+[2026-10-11 05:17:32] B fsmg/celeb00030/t2_canvas_dpr1 mean=0.217 train=97s gen=9s
+[2026-10-11 05:20:28] B fsmg/celeb00030/t5_i2i30 mean=0.126 train=140s gen=8s
+[2026-10-11 05:23:21] B fsmg/celeb00031/t0 mean=0.126 train=140s gen=8s
+[2026-10-11 05:26:10] B fsmg/celeb00031/t1_jpeg85 mean=0.074 train=141s gen=8s
+[2026-10-11 05:29:06] B fsmg/celeb00031/t2_canvas_dpr1 mean=0.174 train=143s gen=9s
