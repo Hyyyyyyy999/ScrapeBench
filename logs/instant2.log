@@ -1,0 +1,6 @@
+2026-10-11 17:04:26 instant2: starting InstantID attack
+Keyword arguments {'safety_checker': None} are not expected by StableDiffusionXLInstantIDPipeline and will be ignored.
+Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]Loading pipeline components...:  14%|█▍        | 1/7 [00:03<00:21,  3.63s/it]Loading pipeline components...:  57%|█████▋    | 4/7 [00:03<00:02,  1.37it/s]Loading pipeline components...:  86%|████████▌ | 6/7 [00:07<00:01,  1.31s/it]Loading pipeline components...: 100%|██████████| 7/7 [00:11<00:00,  1.85s/it]Loading pipeline components...: 100%|██████████| 7/7 [00:11<00:00,  1.64s/it]
+[2026-10-11 17:06:24] stage_a start cells=72 done=1075
+[2026-10-11 17:11:31] A clean/celeb00025/t1_jpeg85 mean=0.321 det=0.70 258s
+2026-10-11 17:14:54 instant2: starting InstantID attack

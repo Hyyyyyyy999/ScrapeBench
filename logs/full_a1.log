@@ -954,3 +954,29 @@ image_encoder is not loaded since `image_encoder_folder=None` passed. You will n
 [2026-10-11 16:42:15] missing gallery clean/celeb00037
 [2026-10-11 16:42:15] missing gallery clean/celeb00037
 [2026-10-11 16:44:35] A clean/celeb00041/t0 mean=0.306 det=0.90 79s
+[2026-10-11 16:46:15] A clean/celeb00041/t1_jpeg95 mean=0.310 det=1.00 66s
+[2026-10-11 16:47:58] A clean/celeb00041/t1_jpeg85 mean=0.304 det=0.90 77s
+[2026-10-11 16:49:24] A clean/celeb00041/t1_jpeg75 mean=0.299 det=1.00 60s
+[2026-10-11 16:50:45] A clean/celeb00041/t1_jpeg65 mean=0.304 det=0.90 57s
+[2026-10-11 16:52:06] A clean/celeb00041/t1_webp80 mean=0.306 det=0.90 59s
+[2026-10-11 16:53:23] A clean/celeb00041/t2_canvas_dpr1 mean=0.296 det=0.90 57s
+[2026-10-11 16:53:28] skip clean/celeb00041/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 16:54:43] A clean/celeb00041/t4_sr_x2 mean=0.320 det=1.00 53s
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]Loading pipeline components...:  17%|█▋        | 1/6 [00:01<00:05,  1.00s/it]Loading pipeline components...:  33%|███▎      | 2/6 [00:01<00:02,  1.56it/s]Loading pipeline components...:  83%|████████▎ | 5/6 [00:01<00:00,  4.53it/s]Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.86it/s]
+You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion_img2img.StableDiffusionImg2ImgPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+[2026-10-11 16:56:48] A clean/celeb00041/t5_i2i30 mean=0.212 det=0.90 48s
+[2026-10-11 16:58:06] A clean/celeb00042/t0 mean=0.448 det=0.50 58s
+[2026-10-11 16:59:18] A clean/celeb00042/t1_jpeg95 mean=0.380 det=0.70 56s
+[2026-10-11 17:00:22] A clean/celeb00042/t1_jpeg85 mean=0.379 det=0.60 42s
+[2026-10-11 17:01:34] A clean/celeb00042/t1_jpeg75 mean=0.441 det=0.60 58s
+[2026-10-11 17:02:45] A clean/celeb00042/t1_jpeg65 mean=0.423 det=0.50 57s
+[2026-10-11 17:03:53] A clean/celeb00042/t1_webp80 mean=0.371 det=0.60 47s
+[2026-10-11 17:04:52] A clean/celeb00042/t2_canvas_dpr1 mean=0.430 det=0.50 46s
+[2026-10-11 17:04:56] skip clean/celeb00042/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 17:06:15] A clean/celeb00042/t4_sr_x2 mean=0.448 det=0.60 63s
+[2026-10-11 17:08:05] A clean/celeb00042/t5_i2i30 mean=0.411 det=0.70 78s
+[2026-10-11 17:09:13] A clean/celeb00043/t0 mean=0.206 det=0.80 42s
+[2026-10-11 17:10:29] A clean/celeb00043/t1_jpeg95 mean=0.206 det=0.80 57s
+[2026-10-11 17:12:08] A clean/celeb00043/t1_jpeg85 mean=0.192 det=0.80 66s
+[2026-10-11 17:13:32] A clean/celeb00043/t1_jpeg75 mean=0.216 det=0.80 59s
+[2026-10-11 17:14:59] A clean/celeb00043/t1_jpeg65 mean=0.224 det=0.80 59s

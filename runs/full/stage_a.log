@@ -2538,3 +2538,29 @@
 [2026-10-11 16:43:10] stage_a start cells=1 done=1046
 [2026-10-11 16:44:16] skip clean/celeb00025/t0: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 2 for tensor number 1 in the list.
 [2026-10-11 16:44:35] A clean/celeb00041/t0 mean=0.306 det=0.90 79s
+[2026-10-11 16:46:15] A clean/celeb00041/t1_jpeg95 mean=0.310 det=1.00 66s
+[2026-10-11 16:47:58] A clean/celeb00041/t1_jpeg85 mean=0.304 det=0.90 77s
+[2026-10-11 16:49:24] A clean/celeb00041/t1_jpeg75 mean=0.299 det=1.00 60s
+[2026-10-11 16:50:45] A clean/celeb00041/t1_jpeg65 mean=0.304 det=0.90 57s
+[2026-10-11 16:52:06] A clean/celeb00041/t1_webp80 mean=0.306 det=0.90 59s
+[2026-10-11 16:53:23] A clean/celeb00041/t2_canvas_dpr1 mean=0.296 det=0.90 57s
+[2026-10-11 16:53:28] skip clean/celeb00041/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 16:54:43] A clean/celeb00041/t4_sr_x2 mean=0.320 det=1.00 53s
+[2026-10-11 16:56:48] A clean/celeb00041/t5_i2i30 mean=0.212 det=0.90 48s
+[2026-10-11 16:58:06] A clean/celeb00042/t0 mean=0.448 det=0.50 58s
+[2026-10-11 16:59:18] A clean/celeb00042/t1_jpeg95 mean=0.380 det=0.70 56s
+[2026-10-11 17:00:22] A clean/celeb00042/t1_jpeg85 mean=0.379 det=0.60 42s
+[2026-10-11 17:01:34] A clean/celeb00042/t1_jpeg75 mean=0.441 det=0.60 58s
+[2026-10-11 17:02:45] A clean/celeb00042/t1_jpeg65 mean=0.423 det=0.50 57s
+[2026-10-11 17:03:53] A clean/celeb00042/t1_webp80 mean=0.371 det=0.60 47s
+[2026-10-11 17:04:52] A clean/celeb00042/t2_canvas_dpr1 mean=0.430 det=0.50 46s
+[2026-10-11 17:04:56] skip clean/celeb00042/t3_agent_facecrop: no face detected in reference images
+[2026-10-11 17:06:15] A clean/celeb00042/t4_sr_x2 mean=0.448 det=0.60 63s
+[2026-10-11 17:06:24] stage_a start cells=72 done=1075
+[2026-10-11 17:08:05] A clean/celeb00042/t5_i2i30 mean=0.411 det=0.70 78s
+[2026-10-11 17:09:13] A clean/celeb00043/t0 mean=0.206 det=0.80 42s
+[2026-10-11 17:10:29] A clean/celeb00043/t1_jpeg95 mean=0.206 det=0.80 57s
+[2026-10-11 17:11:31] A clean/celeb00025/t1_jpeg85 mean=0.321 det=0.70 258s
+[2026-10-11 17:12:08] A clean/celeb00043/t1_jpeg85 mean=0.192 det=0.80 66s
+[2026-10-11 17:13:32] A clean/celeb00043/t1_jpeg75 mean=0.216 det=0.80 59s
+[2026-10-11 17:14:59] A clean/celeb00043/t1_jpeg65 mean=0.224 det=0.80 59s
