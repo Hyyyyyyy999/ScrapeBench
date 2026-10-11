@@ -81,11 +81,27 @@ def reset_lora(unet):
         names = adapters.get("unet", []) if isinstance(adapters, dict) else list(adapters or [])
     except Exception:
         names = []
-    for n in names:
+    if names:
         try:
-            unet.delete_adapters([n])
+            unet.delete_adapters(names)
         except Exception:
             pass
+    if hasattr(unet, "peft_config"):
+        for n in list(unet.peft_config.keys()):
+            unet.peft_config.pop(n, None)
+    try:
+        from peft.tuners.lora import LoraLayer
+        for m in unet.modules():
+            if isinstance(m, LoraLayer):
+                for k in list(m.lora_A.keys()):
+                    del m.lora_A[k]
+                    del m.lora_B[k]
+                if hasattr(m, "lora_embedding_A"):
+                    for k in list(m.lora_embedding_A.keys()):
+                        del m.lora_embedding_A[k]
+                        del m.lora_embedding_B[k]
+    except Exception:
+        pass
 
 
 def dreambooth_loss(comps, images, prompt, t_min=20, t_max=980):
