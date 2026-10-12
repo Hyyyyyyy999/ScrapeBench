@@ -4,12 +4,12 @@ import numpy as np
 import pandas as pd
 
 TIERS = ["t0", "t1_jpeg95", "t1_jpeg85", "t1_jpeg75", "t1_jpeg65", "t1_webp80", "t2_canvas_dpr1",
-         "t3_agent_facecrop", "t4_sr_x2", "t5_i2i30"]
+         "t4_sr_x2", "t5_i2i30"]
 TCOL = {"t0": "T0", "t1_jpeg95": "J95", "t1_jpeg85": "J85", "t1_jpeg75": "J75", "t1_jpeg65": "J65",
-        "t1_webp80": "W80", "t2_canvas_dpr1": "T2", "t3_agent_facecrop": "T3",
+        "t1_webp80": "W80", "t2_canvas_dpr1": "T2",
         "t4_sr_x2": "T4", "t5_i2i30": "T5"}
 TSHORT = {"t0": "to", "t1_jpeg95": "ja", "t1_jpeg85": "jb", "t1_jpeg75": "jc", "t1_jpeg65": "jd",
-          "t1_webp80": "w", "t2_canvas_dpr1": "tb", "t3_agent_facecrop": "tc",
+          "t1_webp80": "w", "t2_canvas_dpr1": "tb",
           "t4_sr_x2": "td", "t5_i2i30": "te"}
 TIER_B = {"t0": "T0", "t1_jpeg85": "J85", "t2_canvas_dpr1": "T2", "t5_i2i30": "T5"}
 MSHORT = {"clean": "cl", "random": "rn", "fsmg": "fg", "aspl": "as", "fsmgj": "fj", "instantid": "in", "ipfaceid": "if"}
@@ -43,7 +43,7 @@ def stage_a_body(df, run_dir):
     a = df[(df.stage == "A") & (df.attack == "ipfaceid")]
     pv = a.groupby(["method", "tier"])["mean_id"].mean()
     ps = a.groupby(["method", "tier"])["pos_rate"].mean()
-    methods = ["clean", "random", "fsmg", "aspl"]
+    methods = ["clean", "random", "fsmg", "aspl", "fsmgj"]
     best = bold_grid(pv, TIERS, methods)
     lines = []
     for m in methods:
@@ -53,19 +53,19 @@ def stage_a_body(df, run_dir):
             if best.get(t) == m:
                 c = f"\\textbf{{{c}}}"
             cells.append(c)
-        name = {"clean": "clean", "random": "random", "fsmg": "FSMG", "aspl": "ASPL"}[m]
+        name = {"clean": "clean", "random": "random", "fsmg": "FSMG", "aspl": "ASPL", "fsmgj": "FSMG-J"}[m]
         lines.append(f"{name} & " + " & ".join(cells) + r" \\")
     auc_path = os.path.join(run_dir, "rr_auc_stage_A.csv")
     if os.path.exists(auc_path):
         au = pd.read_csv(auc_path).set_index("method")
         parts = []
-        for m, label in [("random", "random"), ("fsmg", "FSMG"), ("aspl", "ASPL")]:
+        for m, label in [("random", "random"), ("fsmg", "FSMG"), ("aspl", "ASPL"), ("fsmgj", "FSMG-J")]:
             if m in au.index:
                 r = au.loc[m]
                 parts.append(f"{label} ${r.auc:.3f}\\,[{r.ci_lo:.3f},{r.ci_hi:.3f}]$")
         if parts:
             lines.append(r"\midrule")
-            lines.append(r"\multicolumn{10}{@{}l}{$\overline{\mathrm{RR}}$ (95\% CI): " + " \\quad ".join(parts) + r"} \\")
+            lines.append(r"\multicolumn{9}{@{}l}{$\overline{\mathrm{RR}}$ (95\% CI): " + " \\quad ".join(parts) + r"} \\")
     return "\n".join(lines) + "\n"
 
 
@@ -80,8 +80,6 @@ def stage_b_body(df, run_dir):
     qpath = os.path.join(run_dir, "quality.csv")
     if os.path.exists(qpath):
         q = pd.read_csv(qpath).set_index("method")
-    gpath = os.path.join(run_dir, "retention_stage_B.csv")
-    g = pd.read_csv(gpath).set_index("method") if os.path.exists(gpath) else pd.DataFrame()
     lines = []
     for m in methods:
         cells = []
@@ -90,17 +88,8 @@ def stage_b_body(df, run_dir):
             if best.get(t) == m:
                 c = f"\\textbf{{{c}}}"
             cells.append(c)
-        if m == "clean":
-            quality = "---"
-        elif m in q.index:
-            quality = f"{q.loc[m, 'psnr_db']:.1f}/{q.loc[m, 'lpips']:.3f}"
-        else:
-            quality = "--"
-        rr = "---"
-        if m in g.index and not np.isnan(g.loc[m].get("t1_jpeg85", np.nan)):
-            rr = f"{g.loc[m].get('t1_jpeg85', np.nan):.3f} [{g.loc[m].get('t1_jpeg85_lo', np.nan):.3f},{g.loc[m].get('t1_jpeg85_hi', np.nan):.3f}]" if "t1_jpeg85_lo" in g.columns else f"{g.loc[m].get('t1_jpeg85', np.nan):.3f}"
         name = {"clean": "clean", "random": "random", "fsmg": "FSMG"}[m]
-        lines.append(f"{name} & {quality} & " + " & ".join(cells) + f" & {rr}" + r" \\")
+        lines.append(f"{name} & " + " & ".join(cells) + r" \\")
     return "\n".join(lines) + "\n"
 
 
@@ -112,29 +101,25 @@ def stage_o_body(df, run_dir):
     g = pd.read_csv(gpath)
     lines = []
     for o in orders:
-        cells = []
-        for m in ["fsmg", "random"]:
-            v = g[g["method"] == m]
-            val = v[o].iloc[0] if o in v.columns and len(v) else np.nan
-            c = "--" if val is None or np.isnan(val) else f"{val:.2f}"
-            cells.append(c)
-        lines.append(f"{o.replace(chr(95), chr(92)+chr(95))} & " + " & ".join(cells) + r" \\")
+        v = g[g["method"] == "fsmg"]
+        val = v[o].iloc[0] if o in v.columns and len(v) else np.nan
+        c = "--" if val is None or np.isnan(val) else f"{val:.2f}"
+        lines.append(f"{o.replace(chr(95), chr(92)+chr(95))} & {c}" + r" \\")
     return "\n".join(lines) + "\n"
 
 
 def stress_body(df):
-    lines = []
     tiers = ["t0", "t1_jpeg85", "t2_canvas_dpr1", "t5_i2i30"]
-    for atk in ["ipfaceid", "instantid"]:
-        sub = df[(df.stage == "A") & (df.attack == atk) & (df.pid.isin(OIDS))]
-        pv = sub.groupby(["method", "tier"])["mean_id"].mean()
-        ps = sub.groupby(["method", "tier"])["pos_rate"].mean()
-        for m in ["clean", "fsmg", "fsmgj"]:
-            cells = [cell(pv.get((m, t), np.nan), ps.get((m, t), np.nan)) for t in tiers]
-            label = {"clean": "clean", "fsmg": "FSMG", "fsmgj": "FSMG-J"}[m]
-            lines.append(f"\\multirow{{{3}}}{{*}}{{{ {'ipfaceid': 'IP-Adapter-FaceID', 'instantid': 'InstantID'}[atk] }}} & {label} & " + " & ".join(cells) + r" \\" if m == "clean" else f" & {label} & " + " & ".join(cells) + r" \\")
-        if atk == "ipfaceid":
-            lines.append(r"\midrule")
+    sub = df[(df.stage == "A") & (df.attack == "ipfaceid") & (df.n_samples > 0)]
+    mpids = set(sub[sub.method == "fsmgj"]["pid"])
+    sub = sub[sub.pid.isin(mpids)]
+    pv = sub.groupby(["method", "tier"])["mean_id"].mean()
+    ps = sub.groupby(["method", "tier"])["pos_rate"].mean()
+    lines = []
+    for m in ["clean", "fsmg", "fsmgj"]:
+        cells = [cell(pv.get((m, t), np.nan), ps.get((m, t), np.nan)) for t in tiers]
+        label = {"clean": "clean", "fsmg": "FSMG", "fsmgj": "FSMG-J"}[m]
+        lines.append(f"{label} & " + " & ".join(cells) + r" \\")
     return "\n".join(lines) + "\n"
 
 

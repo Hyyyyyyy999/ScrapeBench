@@ -1,22 +1,30 @@
 \section{Appendix}
 \label{sec:appendix}
 
+\subsection{Data Integrity Notes}
+\label{app:integrity}
+Three planned components were excluded from the reported statistics, and we document each exclusion so that the release can be audited. \emph{(i) Agent face-crop tier (T3).} At full scale, $25$ of $27$ attempted T3 cells produced no usable attack: the generation stack's face detector found no face in the tiered gallery, and the two cells that did generate yielded similarity near zero ($0.014$, $0.030$) for \emph{every} method including the clean control. Because a tier that defeats the clean baseline's own attack is a harness defect rather than a finding about protections, we exclude T3 from all aggregates and release the raw cells. \emph{(ii) Stage C (data-level adaptation).} The full-scale adaptation runs returned attacker similarities of $0.02$--$0.08$ across all three conditions---far below even the protected baseline---indicating a fault in the full-scale gallery-mixing path rather than a defense effect; the preview-scale pilot had behaved sensibly, so the discrepancy is isolated to scale-up code that we did not have compute budget to debug. Stage C is excluded and its runners released as-is. \emph{(iii) InstantID stress grid.} The InstantID replacement attack requires a separate SDXL stack whose conditioning behavior we had to patch for batched prompts; the grid was interrupted by the compute window after one identity completed all four tiers. We report that single paired trajectory as directional evidence in Section~\ref{sec:res_stress} and release the partial log. None of these exclusions weakens the paired-baseline finding of Section~\ref{sec:res_f1}, which rests on the complete Stage-A grid.
+
 \subsection{Reproducibility}
 \label{sec:repro}
-The complete harness (\texttt{scrapebench}) is released under an open license with: (i) the tier registry implementing T0--T6 as pure image functions with deterministic fallbacks; (ii) per-stage runners (\texttt{protection\_run}, \texttt{stage\_a}, \texttt{stage\_b}, \texttt{stage\_c}) writing append-only CSVs keyed by (stage, identity, defense, tier, attack) and resuming deterministically; (iii) the report generator producing collapse curves, retention tables, paired Wilcoxon tests with Holm correction, Cliff's $\delta$, and bootstrap CIs; (iv) a cost ledger emitted per cell. All experiments run on two RTX 4090 (24\,GB); software pins are listed in the repository (Python 3.10, torch 2.x CUDA, diffusers 0.31, transformers 4.44, peft 0.13, insightface 0.7). Surrogate training uses bf16 throughout; random seeds are fixed per cell so that any cell can be reproduced in isolation.
+The complete harness (\texttt{scrapebench}) is released under an open license with: (i) the tier registry implementing the funnel as pure image functions with deterministic fallbacks; (ii) per-stage runners (\texttt{protection\_run}, \texttt{stage\_a}, \texttt{stage\_b}, \texttt{stage\_c}, \texttt{stage\_order}) writing append-only CSVs keyed by (stage, identity, defense, tier, attack) and resuming deterministically; (iii) the report generator producing retention tables against same-identity baselines, paired Wilcoxon tests with Holm correction, bootstrap CIs, and figures; (iv) a cost ledger emitted per cell. All experiments run on two RTX 4090 (24\,GB); software pins are listed in the repository (Python 3.10, torch 2.x CUDA, diffusers 0.31, transformers 4.44, peft 0.13, insightface 0.7). Surrogate training uses bf16 throughout; random seeds are fixed per cell so that any cell can be reproduced in isolation.
 
 \subsection{Ethics Statement}
 \label{sec:ethics}
-This work evaluates \emph{defenses}, not attack tooling: the attack pipelines used are publicly released research artifacts (DreamBooth-LoRA~\cite{ruiz2022dreambooth}; IP-Adapter-FaceID~\cite{ye2023ipadapter}) executed with default settings on a public celebrity face corpus under its license, and no attempt is made to identify or de-anonymize the depicted individuals. Generated images remain within the evaluation harness and are not distributed. The identities are public figures whose images are widely published; we do not publish identity-resolvable outputs, and the released benchmark ships synthetic or license-compliant galleries for reproduction. The funnel tiers emulate commodity transformations (JPEG/WebP encoding, browser rasterization, cropping, super-resolution, consumer diffusion filters); none constitutes a novel attack capability. We hope the measured collapse curves inform platform policy: our results argue for consent manifests and ingestion-time obligations rather than stronger pixel noise, which is precisely the non-adversarial, harm-reducing direction. All re-implemented defense code credits and follows the licenses of the original works.
+This work evaluates \emph{defenses}, not attack tooling: the attack pipelines used are publicly released research artifacts (DreamBooth-LoRA~\cite{ruiz2022dreambooth}; IP-Adapter-FaceID~\cite{ye2023ipadapter}) executed with default settings on a public celebrity face corpus under its license, and no attempt is made to identify or de-anonymize the depicted individuals. Generated images remain within the evaluation harness and are not distributed. The identities are public figures whose images are widely published; we do not publish identity-resolvable outputs, and the released benchmark ships synthetic or license-compliant galleries for reproduction. The funnel tiers emulate commodity transformations (JPEG/WebP encoding, browser rasterization, cropping, super-resolution, consumer diffusion filters); none constitutes a novel attack capability. We hope the measured curves inform platform policy: our results argue for consent manifests and ingestion-time obligations rather than stronger pixel noise, which is precisely the non-adversarial, harm-reducing direction. All re-implemented defense code credits and follows the licenses of the original works.
 
 \subsection{Additional Results}
 \label{sec:extra}
-The released result logs contain, per stage: full per-tier tables (including JPEG-95/65, WebP-80, device-pixel-ratio variants, the inversion tier, and img2img-50), the detection-failure view at thresholds $\tau \in \{0.25, 0.30, 0.35\}$, per-identity collapse curves with bootstrap intervals, quality metrics (PSNR/LPIPS) of every protection under every tier, per-cell wall-clock timings, and the complete Wilcoxon--Holm test table. The preview artefacts accompanying this submission (\texttt{runs/preview/}, \texttt{figures/}) are regenerable with a single \texttt{report} invocation from any results CSV in the same schema.
+The released result logs contain, per stage: full per-tier tables (including JPEG-95/65, WebP-80, device-pixel-ratio variants, the inversion tier, and img2img-50), the detection-failure view at thresholds $\tau \in \{0.25, 0.30, 0.35\}$, per-identity curves with bootstrap intervals, per-cell wall-clock timings, and the complete Wilcoxon--Holm table.
+
+\subsection{Protection Quality}
+\label{app:quality}
+The deployed perturbations respect the $\epsilon=16/255$ ball with PSNR against the source gallery in the high-$20$s\,dB range for every defense (FSMG, ASPL-lite, and the random control), consistent with the visibility budgets of the original works; the JPEG-aware variant operates at the same norm budget. Quality metrics per method are emitted by \texttt{protection\_run} into the released logs.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\columnwidth]{../figures/detfail_stage_A.png}
-\caption{Binary attack success ($\mathrm{SR}$ at $\tau=0.30$) across tiers (Stage A). The clean baseline degrades gracefully while every protection collapses to the clean baseline's level within the platform pipeline.}
+\caption{Binary attack success (SR at $\tau=0.30$) across tiers (Stage A, pooled means over each defense's identity half). The clean baseline degrades gracefully; protections never rise meaningfully above it once the platform tiers are passed.}
 \label{fig:detfail}
 \end{figure}
 \label{app:detfail}
@@ -24,15 +32,14 @@ The released result logs contain, per stage: full per-tier tables (including JPE
 \begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{../figures/tier_grid.png}
-\caption{The six Stage-A funnel tiers applied to one clean (top) and one FSMG-protected (bottom) gallery image. Platform tiers (T1--T2) preserve both photographs; agent and user tiers transform composition (T3, T4); attacker-side regeneration (T5, strength $0.3$) destroys the protected perturbation along with large parts of the image itself.}
+\caption{The funnel tiers applied to one clean (top) and one FSMG-protected (bottom) gallery image. Platform tiers (T1--T2) preserve both photographs; agent and user tiers transform composition (T3, T4); attacker-side regeneration (T5, strength $0.3$) destroys the protected perturbation along with large parts of the image itself.}
 \label{fig:tier_grid}
 \end{figure}
 
+Figure~\ref{fig:tier_grid} shows the tiers themselves operating on real gallery images.
 \begin{figure}[H]
 \centering
-\includegraphics[width=\columnwidth]{../figures/auc_stage_A.png}
-\caption{Funnel-integrated protection $\overline{\mathrm{RR}}$ for the Stage-A defenses (95\% bootstrap CIs over cells). The integrated view compresses each curve of Figure~\ref{fig:collapse} into a single deployment-relevant number.}
-\label{fig:auc}
+\includegraphics[width=0.75\columnwidth]{../figures/qual_grid.png}
+\caption{What the attacker actually receives, on one clean-protected and one FSMG-protected identity (two generations per cell, seed 0). Platform tiers leave both galleries visually intact---which is why they are dangerous: the funnel damages the \emph{perturbation} without damaging the \emph{photograph}. After T5 regeneration the clean identity still yields recognizable faces while the FSMG-protected gallery is degraded past face detectability: protection by destruction, not deception.}
+\label{fig:qual}
 \end{figure}
-
-Figure~\ref{fig:tier_grid} shows the tiers themselves operating on real gallery images, and Figure~\ref{fig:auc} the integrated protection view for Stage A.

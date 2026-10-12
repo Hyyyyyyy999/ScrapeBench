@@ -12,6 +12,7 @@ TIER_ORDER = ["t0", "t1_jpeg95", "t1_jpeg85", "t1_jpeg75", "t1_jpeg65", "t1_webp
               "t2_browser_dpr1", "t2_browser_dpr2", "t2_thumb_small", "t2_canvas_dpr1",
               "t3_agent_full", "t3_agent_facecrop", "t4_sr_x2", "t5_i2i30", "t5_i2i50",
               "t5_inversion", "mix20", "mix50", "purify50"]
+EXCLUDE_TIERS = {"t3_agent_full", "t3_agent_facecrop"}
 
 
 def main():
@@ -27,6 +28,7 @@ def main():
         return
     df = pd.read_csv(res_path)
     df = df.dropna(subset=["mean_id"])
+    df = df[~df.tier.isin(EXCLUDE_TIERS)]
     os.makedirs("figures", exist_ok=True)
     os.makedirs("report", exist_ok=True)
     tiers = [t for t in TIER_ORDER if t in set(df["tier"])]
@@ -69,7 +71,7 @@ def main():
                 msub = sub[sub["method"] == m].set_index("tier")["mean"]
                 row = {"method": m}
                 for t in tiers_s:
-                    row[t] = round(float((base[t] - msub[t]) / base_o[m]), 4) if t in msub.index and m in base_o else np.nan
+                    row[t] = round(float((base[t] - msub[t]) / base_o[m]), 4) if t in msub.index and t in base.index and m in base_o else np.nan
                 gap_rows.append(row)
             if gap_rows:
                 pd.DataFrame(gap_rows).to_csv(os.path.join(run_dir, f"retention_stage_{stage}.csv"), index=False)
@@ -77,10 +79,15 @@ def main():
                 plot_order_rr(pd.DataFrame(gap_rows), "figures")
             continue
         gap_rows = []
+        pids_m = set(df[(df["stage"] == stage) & (df["method"].isin(["clean"])) ] ["pid"]) if stage == "O" else None
         for m in sub["method"].unique():
             if m == "clean":
                 continue
+            mpids = set(df[(df["stage"] == stage) & (df["method"] == m)]["pid"])
+            csub_p = df[(df["stage"] == stage) & (df["method"] == "clean") & df["pid"].isin(mpids) & df["mean_id"].notna()]
+            cpair = csub_p.groupby("tier")["mean_id"].mean()
             msub = sub[sub["method"] == m].set_index("tier")["mean"]
+            base = cpair
             row = {"method": m}
             base_t0 = base.get("t0", np.nan)
             for t in tiers_s:
@@ -111,9 +118,10 @@ def main():
                     csum = cpick.groupby("tier")["mean_id"].mean()
                     if "t0" not in gsum.index or "t0" not in csum.index:
                         continue
+                    denom = float(csum["t0"]) - float(gsum["t0"])
                     vals = np.array([
-                        float("nan") if (t not in gsum.index or t not in csum.index)
-                        else (float(csum[t]) - float(gsum[t])) / (float(csum["t0"]) - float(gsum["t0"]))
+                        float("nan") if (t not in gsum.index or t not in csum.index or abs(denom) < 1e-6)
+                        else (float(csum[t]) - float(gsum[t])) / denom
                         for t in tier_list
                     ])
                     if np.isnan(vals).any():

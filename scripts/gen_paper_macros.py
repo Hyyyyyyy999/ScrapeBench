@@ -37,13 +37,23 @@ def build_macros(df, run_dir):
     def put(k, v):
         m[k] = v
 
-    a = df[(df.stage == "A") & (df.attack == "ipfaceid")]
+    a = df[(df.stage == "A") & (df.attack == "ipfaceid") & (df.n_samples > 0)]
     pv = a.groupby(["method", "tier"])["mean_id"].mean()
     ps = a.groupby(["method", "tier"])["pos_rate"].mean()
-    for met in ["clean", "random", "fsmg", "aspl"]:
+    for met in ["clean", "random", "fsmg", "aspl", "fsmgj"]:
         for t in TIERS:
             put(f"nA{MSHORT[met]}{TSHORT[t]}", fs(pv.get((met, t), np.nan)))
             put(f"pA{MSHORT[met]}{TSHORT[t]}", fsr(ps.get((met, t), np.nan)))
+    pair_clean = {}
+    for met in ["random", "fsmg", "aspl", "fsmgj"]:
+        mpids = set(a[a.method == met]["pid"])
+        csub = a[(a.method == "clean") & (a.pid.isin(mpids))]
+        pc = csub.groupby("tier")["mean_id"].mean()
+        pair_clean[met] = pc
+        for t in TIERS:
+            v = pc.get(t, np.nan)
+            put(f"cA{MSHORT[met]}{TSHORT[t]}", fs(v))
+            put(f"gA{MSHORT[met]}{TSHORT[t]}", fs(v - pv.get((met, t), np.nan)) if not np.isnan(v) else "--")
     gap = os.path.join(run_dir, "retention_stage_A.csv")
     if os.path.exists(gap):
         g = pd.read_csv(gap).set_index("method")
@@ -96,24 +106,25 @@ def build_macros(df, run_dir):
     d0 = cmean - ref[ref.method == "fsmg"]["mean_id"].mean()
     pvc = c.groupby("tier")["mean_id"].mean()
     psc = c.groupby("tier")["pos_rate"].mean()
-    for t in ["mixlo", "mixhi", "purif"]:
-        put(f"nC{t}", fs(pvc.get(t, np.nan)))
-        put(f"pC{t}", fsr(psc.get(t, np.nan)))
-        put(f"qC{t}", fsq(psc.get(t, np.nan)))
+    cmap = {"mixlo": "mix20", "mixhi": "mix50", "purif": "purify50"}
+    for k, t in cmap.items():
+        put(f"nC{k}", fs(pvc.get(t, np.nan)))
+        put(f"pC{k}", fsr(psc.get(t, np.nan)))
+        put(f"qC{k}", fsq(psc.get(t, np.nan)))
         rr = (cmean - pvc.get(t, np.nan)) / d0 if d0 and not np.isnan(pvc.get(t, np.nan)) else np.nan
-        put(f"rC{t}", fs(rr))
+        put(f"rC{k}", fs(rr))
     put("nCref", fs(cmean))
     go = None
     gopath = os.path.join(run_dir, "retention_stage_O.csv")
     if os.path.exists(gopath):
         go = pd.read_csv(gopath).set_index("method")
-    for met in ["fsmg", "random"]:
+    for met in ["fsmg"]:
         for o in ORDERS:
             v = "--"
             if go is not None and met in go.index and o in go.columns and not np.isnan(go.loc[met][o]):
                 v = f"{go.loc[met][o]:.2f}"
             put(f"rO{MSHORT[met]}{OSHORT[o]}", v)
-    s = df[(df.stage == "A") & (df.pid.isin(OIDS)) & (df.tier.isin(TIER_B))]
+    s = df[(df.stage == "A") & (df.pid.isin(OIDS)) & (df.tier.isin(TIER_B)) & (df.n_samples > 0)]
     for atk in ["ipfaceid", "instantid"]:
         su = s[s.attack == atk]
         pvs = su.groupby(["method", "tier"])["mean_id"].mean()

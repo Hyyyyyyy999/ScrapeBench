@@ -1,0 +1,4 @@
+method,canonical,sr_first,t5_first,jpeg_only,deep_chain,t5_only
+clean,0.2445,0.3653,0.2855,0.3636,0.2359,
+fsmg,0.1666,0.2779,0.1352,0.2715,0.1501,0.156
+random,0.1697,0.304,0.201,0.2965,0.1876,0.1933

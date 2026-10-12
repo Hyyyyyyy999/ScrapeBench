@@ -194,7 +194,12 @@ def plot_auc(df, tiers, stage, outdir):
             s = int(rng.integers(1000000000))
             pc = cells.sample(frac=1.0, replace=True, random_state=s).groupby("tier")["mean_id"].mean()
             cc = clean.sample(frac=1.0, replace=True, random_state=s + 1).groupby("tier")["mean_id"].mean()
-            rr = [float((cc[t0] - pc[t0]) / (cc["t0"] - pc["t0"])) for t0 in tiers_all]
+            if "t0" not in pc.index or "t0" not in cc.index or not all(t in pc.index and t in cc.index for t in tiers_all):
+                continue
+            denom = float(cc["t0"]) - float(pc["t0"])
+            if abs(denom) < 1e-6:
+                continue
+            rr = [float((cc[t0] - pc[t0]) / denom) for t0 in tiers_all]
             boots.append(np.trapezoid(rr) / (len(rr) - 1))
         boots = np.array(boots)
         mu = float(np.mean(boots))
