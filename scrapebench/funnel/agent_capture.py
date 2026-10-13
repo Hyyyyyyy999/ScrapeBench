@@ -6,6 +6,7 @@ RESAMPLE_BILINEAR = getattr(getattr(Image, "Resampling", Image), "BILINEAR")
 from .browser import _canvas_shot, _feed_card
 
 T3_TRANSFORMS = {}
+_INSIGHT = {}
 
 
 def register(names):
@@ -14,6 +15,23 @@ def register(names):
             T3_TRANSFORMS[n] = fn
         return fn
     return deco
+
+
+def _insight_box(pil_img):
+    try:
+        from insightface.app import FaceAnalysis
+        if "app" not in _INSIGHT:
+            app = FaceAnalysis(name="buffalo_l", allowed_modules=["detection"], providers=["CPUExecutionProvider"])
+            app.prepare(ctx_id=-1, det_size=(640, 640))
+            _INSIGHT["app"] = app
+        arr = np.array(pil_img.convert("RGB"))[:, :, ::-1]
+        faces = _INSIGHT["app"].get(arr)
+        if not faces:
+            return None
+        b = max(faces, key=lambda f: (f.bbox[2] - f.bbox[0]) * (f.bbox[3] - f.bbox[1])).bbox
+        return (int(b[0]), int(b[1]), int(b[2] - b[0]), int(b[3] - b[1]))
+    except Exception:
+        return None
 
 
 def _haar_crop(pil_img, expand=0.35):
@@ -29,6 +47,8 @@ def _haar_crop(pil_img, expand=0.35):
             box = (x, y, w, h)
     except Exception:
         box = None
+    if box is None:
+        box = _insight_box(pil_img)
     W, H = pil_img.size
     if box is None:
         cx, cy, s = W // 2, int(H * 0.45), min(W, H) // 2
