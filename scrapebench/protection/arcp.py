@@ -34,8 +34,8 @@ def _jnd_amp(x01, eps_min, eps_max):
     gy = F.conv2d(g, ky, padding=1)
     e = torch.sqrt(gx * gx + gy * gy + 1e-12)
     tex = F.avg_pool2d(e, 9, stride=1, padding=4)
-    q = torch.quantile(tex.flatten(1), 0.95, dim=1).view(-1, 1, 1, 1)
-    tex = (tex / (q + 1e-8)).clamp(0.0, 1.0)
+    q = torch.quantile(tex.float().flatten(1), 0.95, dim=1).view(-1, 1, 1, 1)
+    tex = (tex / (q.to(tex.dtype) + 1e-8)).clamp(0.0, 1.0)
     return eps_min + (eps_max - eps_min) * tex
 
 
