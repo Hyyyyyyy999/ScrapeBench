@@ -1,0 +1,26 @@
+\section{ARCP: Acquisition-Robust Camouflage Perturbations}
+\label{sec:defense}
+
+The failure modes measured in Section~\ref{sec:results} are specific enough to be designed against. First, high-frequency noise dies at the platform tiers while the clean signal barely moves: the random control retains only $.31$ of its gap after a single JPEG-85 re-encode and $.27$ after the browser render, whereas the clean baseline loses at most $.01$ absolute similarity at those tiers. Second, a uniform $\epsilon$-ball spends its budget where human vision is most sensitive---smooth skin and gradients---which is why the $16/255$ budget of Section~\ref{sec:experiments} yields perturbations that are simultaneously too weak to survive transcoding and too visible to accumulate. Third, every defense we evaluate optimizes a single objective against a single model at T0: the fine-tuning gradient of a frozen surrogate. The acquisition distribution and the reader population are both ignored. ARCP (Acquisition-Robust Camouflage Perturbation) is the minimal design that answers all three failures at once; we release it as the reference defense the benchmark's reporting standard calls for, not as a claim of impossibility for its competitors.
+
+\paragraph{Band-limited parameterization with perceptual amplitude allocation.}
+The perturbation is parameterized in a low-resolution latent grid $z_i \in [-1,1]^{64\times64\times3}$ and rendered by bilinear upsampling, $\delta_i = A(x_i) \odot U_8(z_i)$, which hard-limits the perturbation spectrum to frequencies that survive resampling, JPEG quantization, and super-resolution by construction. The amplitude map
+\begin{equation}
+A(x) \;=\; \epsilon_{\min} + (\epsilon_{\max}-\epsilon_{\min})\,\hat{t}(x),
+\label{eq:jnd}
+\end{equation}
+allocates budget by texture: $\hat{t}(x)$ is the Sobel-energy map of $x$, Gaussian-smoothed and normalized at its 95th percentile, so that $\epsilon_{\min}=2/255$ is spent on smooth regions and up to $\epsilon_{\max}=16/255$ inside textured regions where contrast masking hides it. The allocation is fixed before optimization and costs one forward pass; no perceptual network is invoked.
+
+\paragraph{Expectation over the acquisition distribution.}
+Each optimization step samples a composition of two differentiable proxies from $\mathcal{T} = \{$diff-JPEG at $q\sim U[65,95]$; bicubic down-and-up resampling at $s\sim U[0.35,1.0]$; a super-resolution surrogate (half-resolution bottleneck, bicubic reconstruction, unsharp masking); an affine face-crop at $f\sim U[0.7,1.0]$ followed by $512^2$ resampling$\}$, standing in for the six representative preprocessing operations of Section~\ref{sec:experiments}. Regeneration is covered in latent space: with probability one half the denoising loss is evaluated at $t\sim U[300,500]$, the noise levels img2img strengths $.3$--$.5$ actually inject, rather than the full $U[20,980]$ sweep of a T0-only attack.
+
+\paragraph{Reader-diverse objective.}
+ARCP optimizes
+\begin{equation}
+\max_{z}\;\; \mathbb{E}_{T\sim\mathcal{T}}\big[\mathcal{L}_{\mathrm{den}}(T(\tilde{x});\theta_{\mathrm{SD}})\big] \;-\; \lambda\,\mathbb{E}_{T\sim\mathcal{T}}\big[\mathrm{relu}\big(\cos\big(f_{\mathrm{CLIP}}(T(\tilde{x})),\,\bar{e}_s\big)-m\big)\big],
+\label{eq:arcp}
+\end{equation}
+where $\mathcal{L}_{\mathrm{den}}$ is the denoising-MSE poisoning loss that FSMG ascends, $f_{\mathrm{CLIP}}$ is the CLIP image encoder that conditions adapter-style readers, $\bar{e}_s$ is the clean-gallery embedding centroid of subject $s$, $m=0.4$ is the repulsion margin, and $\lambda=0.5$. The first term preserves the mechanism that works (Stage B); the second adds the term every evaluated defense lacks---an explicit, transformation-averaged push on the conditioning embedding that zero-shot readers consume. Both surrogates are differentiable and cheap; the readers used for \emph{evaluation} (ArcFace, insightface-conditioned adapters) are never optimized against, so reported gaps are held-out rather than surrogate-fit. Optimization is 150 steps of sign-PGD on $z$ at $\alpha=2/255$---$1.5\times$ the surrogate-plus-PGD cost of FSMG per identity.
+
+\paragraph{Scope.}
+ARCP does not claim to make an invisible perturbation survive arbitrary destruction; no $\ell_\infty$-bounded signal can survive a regeneration tier that the clean signal itself barely survives. Its claim is the one the benchmark's metric can adjudicate: retain the fine-tuning protection that existing methods already deliver (Stage B) and hold a nonzero, per-tier-reported zero-shot gap across all six single-tier preprocessing operations (Stage A), at forging cost within a small factor of FSMG's. Section~\ref{sec:res_arcp} reports exactly these two quantities per tier, alongside the same-identity paired statistics used for every other defense.

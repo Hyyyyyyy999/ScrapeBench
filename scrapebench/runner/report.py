@@ -13,6 +13,17 @@ TIER_ORDER = ["t0", "t1_jpeg95", "t1_jpeg85", "t1_jpeg75", "t1_jpeg65", "t1_webp
               "t3_agent_full", "t3_agent_facecrop", "t4_sr_x2", "t5_i2i30", "t5_i2i50",
               "t5_inversion", "mix20", "mix50", "purify50"]
 EXCLUDE_TIERS = {"t3_agent_full", "t3_agent_facecrop"}
+PILOT_IDS = {"celeb00025", "celeb00027", "celeb00028", "celeb00029", "celeb00030", "celeb00031"}
+PILOT_CUT = "2026-10-12 22:00:00"
+PILOT_RERUN_TIERS = {"t0", "t1_jpeg85", "t2_canvas_dpr1", "t5_i2i30"}
+TRAPZ = getattr(np, "trapz", None) or np.trapezoid
+
+
+def drop_pilot_reruns(df):
+    ts = pd.to_datetime(df["ts"], errors="coerce")
+    mask = (df["pid"].isin(PILOT_IDS) & (ts >= PILOT_CUT) & df["tier"].isin(PILOT_RERUN_TIERS)
+            & df["method"].isin(["clean", "fsmg", "fsmgj"]))
+    return df[~mask]
 
 
 def main():
@@ -29,6 +40,9 @@ def main():
     df = pd.read_csv(res_path)
     df = df.dropna(subset=["mean_id"])
     df = df[~df.tier.isin(EXCLUDE_TIERS)]
+    df = df[~((df["stage"] == "A") & (df["attack"] != "ipfaceid"))]
+    df_raw = df.copy()
+    df = drop_pilot_reruns(df)
     os.makedirs("figures", exist_ok=True)
     os.makedirs("report", exist_ok=True)
     tiers = [t for t in TIER_ORDER if t in set(df["tier"])]
@@ -56,7 +70,7 @@ def main():
         tab = pd.DataFrame(rows)
         tab.to_csv(os.path.join(run_dir, f"table_stage_{stage}.csv"), index=False)
         if stage == "O":
-            a0 = df[(df["stage"] == "A") & (df["tier"] == "t0") & df["mean_id"].notna()]
+            a0 = df_raw[(df_raw["stage"] == "A") & (df_raw["tier"] == "t0") & df_raw["mean_id"].notna()]
             pids_o = set(df[df["stage"] == "O"]["pid"])
             base_o = {}
             for m in ("fsmg", "random"):
@@ -128,11 +142,11 @@ def main():
                         continue
                     # np.trapezoid was added after the NumPy version pinned by
                     # this project. np.trapz is equivalent for this 1-D AUC.
-                    boots.append(np.trapz(vals) / (len(vals) - 1))
+                    boots.append(TRAPZ(vals) / (len(vals) - 1))
                 boots = np.array(boots)
                 if boots.size == 0:
                     continue
-                auc_rows.append({"method": r["method"], "auc": round(float(np.trapz(seq) / (len(seq) - 1)), 4),
+                auc_rows.append({"method": r["method"], "auc": round(float(TRAPZ(seq) / (len(seq) - 1)), 4),
                                  "ci_lo": round(float(np.percentile(boots, 2.5)), 4),
                                  "ci_hi": round(float(np.percentile(boots, 97.5)), 4)})
             if auc_rows:

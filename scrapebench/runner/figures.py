@@ -200,7 +200,7 @@ def plot_auc(df, tiers, stage, outdir):
             if abs(denom) < 1e-6:
                 continue
             rr = [float((cc[t0] - pc[t0]) / denom) for t0 in tiers_all]
-            boots.append(np.trapz(rr) / (len(rr) - 1))
+            boots.append((getattr(np, "trapz", None) or np.trapezoid)(rr) / (len(rr) - 1))
         boots = np.array(boots)
         if boots.size == 0:
             # Sparse/pilot stages can have no bootstrap resample containing

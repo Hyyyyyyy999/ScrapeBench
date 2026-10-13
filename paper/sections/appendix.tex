@@ -15,7 +15,7 @@ This work evaluates \emph{defenses}, not attack tooling: the attack pipelines us
 
 \subsection{Additional Results}
 \label{sec:extra}
-The released result logs contain, per stage: full per-tier tables (including JPEG-95/65, WebP-80, device-pixel-ratio variants, the inversion tier, and img2img-50), conditional and detection-failure-zero views, per-identity curves with bootstrap intervals, per-cell wall-clock timings, and Wilcoxon--Holm tables. Tables~\ref{tab:stageB}--\ref{tab:repaired} report the Stage-B fine-tuning comparison, the completed Stage-O ordering programs, the standard-reader stress grid, and the repaired pilots.
+The released result logs contain, per stage: full per-tier tables (including JPEG-95/65, WebP-80, device-pixel-ratio variants, the inversion tier, and img2img-50), conditional and detection-failure-zero views, per-identity curves with bootstrap intervals, per-cell wall-clock timings, and Wilcoxon--Holm tables. Tables~\ref{tab:stageB}--\ref{tab:repaired} report the Stage-B fine-tuning comparison, the completed Stage-O ordering programs, the standard-reader stress grid, and the repaired pilots. The completed Stage-O composition study (108 cells, matched controls) found that no reordering or deepening of the funnel rescues a protection gap---every program's FSMG gap falls or its clean control collapses---which is why the primary analysis evaluates each preprocessing operation in isolation and reports composition only here.
 
 \begin{table*}[t]
 \centering
@@ -36,7 +36,7 @@ FSMG-J & .286 / 55.0 / .171 / 33.3 & .277 / 51.7 / .153 / 26.7 & .291 / 60.0 / .
 
 \begin{table}[H]
 \centering
-\caption{Stage B (DreamBooth-LoRA, 20 generations per cell, 6 identities per condition): similarity / success rate (SR, \%, rounded) at four tiers. Clean is a held-out-half run on disjoint identities, so the comparison is cross-identity and directional; the same-identity zero-shot contrast is in Table~\ref{tab:stageA}.}
+\caption{Stage B (DreamBooth-LoRA, 20 generations per cell, 6 identities per condition): similarity / success rate (SR, \%, rounded) at four tiers. Clean is a held-out-half run on disjoint identities, so the comparison is cross-identity and directional; the same-identity zero-shot contrast is in Table~\ref{tab:matrix}.}
 \label{tab:stageB}
 \footnotesize
 \setlength{\tabcolsep}{3.4pt}

@@ -9,12 +9,21 @@ TSHORT = {"t0": "to", "t1_jpeg95": "ja", "t1_jpeg85": "jb", "t1_jpeg75": "jc", "
           "t1_webp80": "w", "t2_canvas_dpr1": "tb", "t3_agent_facecrop": "tc",
           "t4_sr_x2": "td", "t5_i2i30": "te"}
 TIER_B = {"t0": "T0", "t1_jpeg85": "J85", "t2_canvas_dpr1": "T2", "t5_i2i30": "T5"}
-MSHORT = {"clean": "cl", "random": "rn", "fsmg": "fg", "aspl": "as", "fsmgj": "fj",
+MSHORT = {"clean": "cl", "random": "rn", "fsmg": "fg", "aspl": "as", "fsmgj": "fj", "arcp": "ac",
           "instantid": "in", "ipfaceid": "if"}
 ORDERS = ["canonical", "jpeg_only", "sr_first", "t5_first", "t5_only", "deep_chain"]
 OSHORT = {"canonical": "ca", "jpeg_only": "jo", "sr_first": "sf", "t5_first": "tf",
           "t5_only": "tvo", "deep_chain": "dc"}
 OIDS = ["celeb00025", "celeb00027", "celeb00028", "celeb00029", "celeb00030", "celeb00031"]
+PILOT_CUT = "2026-10-12 22:00:00"
+PILOT_RERUN_TIERS = {"t0", "t1_jpeg85", "t2_canvas_dpr1", "t5_i2i30"}
+
+
+def drop_pilot_reruns(df):
+    ts = pd.to_datetime(df["ts"], errors="coerce")
+    mask = (df["pid"].isin(OIDS) & (ts >= PILOT_CUT) & df["tier"].isin(PILOT_RERUN_TIERS)
+            & df["method"].isin(["clean", "fsmg", "fsmgj"]))
+    return df[~mask]
 
 
 def fs(x):
@@ -38,14 +47,15 @@ def build_macros(df, run_dir):
         m[k] = v
 
     a = df[(df.stage == "A") & (df.attack == "ipfaceid") & (df.n_samples > 0)]
+    a = drop_pilot_reruns(a)
     pv = a.groupby(["method", "tier"])["mean_id"].mean()
     ps = a.groupby(["method", "tier"])["pos_rate"].mean()
-    for met in ["clean", "random", "fsmg", "aspl", "fsmgj"]:
+    for met in ["clean", "random", "fsmg", "aspl", "fsmgj", "arcp"]:
         for t in TIERS:
             put(f"nA{MSHORT[met]}{TSHORT[t]}", fs(pv.get((met, t), np.nan)))
             put(f"pA{MSHORT[met]}{TSHORT[t]}", fsr(ps.get((met, t), np.nan)))
     pair_clean = {}
-    for met in ["random", "fsmg", "aspl", "fsmgj"]:
+    for met in ["random", "fsmg", "aspl", "fsmgj", "arcp"]:
         mpids = set(a[a.method == met]["pid"])
         csub = a[(a.method == "clean") & (a.pid.isin(mpids))]
         pc = csub.groupby("tier")["mean_id"].mean()
@@ -57,20 +67,24 @@ def build_macros(df, run_dir):
     gap = os.path.join(run_dir, "retention_stage_A.csv")
     if os.path.exists(gap):
         g = pd.read_csv(gap).set_index("method")
-        for met in ["fsmg", "aspl", "random"]:
+        for met in ["fsmg", "aspl", "random", "fsmgj", "arcp"]:
             for t in TIERS[1:]:
                 put(f"rA{MSHORT[met]}{TSHORT[t]}", fs(g.loc[met].get(t, np.nan)) if met in g.index else "--")
         if "fsmg" in g.index:
-            vals = [abs(float(g.loc[x].get("t5_i2i30", np.nan))) for x in ["fsmg", "aspl", "random"] if x in g.index and not np.isnan(g.loc[x].get("t5_i2i30", np.nan))]
+            vals = [abs(float(g.loc[x].get("t5_i2i30", np.nan))) for x in ["fsmg", "aspl", "random", "fsmgj", "arcp"] if x in g.index and not np.isnan(g.loc[x].get("t5_i2i30", np.nan))]
             put("rAmaxte", fs(max(vals)) if vals else "--")
     auc = os.path.join(run_dir, "rr_auc_stage_A.csv")
     if os.path.exists(auc):
         au = pd.read_csv(auc).set_index("method")
-        for met in ["random", "fsmg", "aspl"]:
+        for met in ["random", "fsmg", "aspl", "fsmgj"]:
             if met in au.index:
                 put(f"aA{MSHORT[met]}", f"{au.loc[met].auc:.3f}")
                 put(f"lA{MSHORT[met]}", f"{au.loc[met].ci_lo:.3f}")
                 put(f"hA{MSHORT[met]}", f"{au.loc[met].ci_hi:.3f}")
+        if "arcp" in au.index:
+            put(f"aA{MSHORT['arcp']}", f"{au.loc['arcp'].auc:.3f}")
+            put(f"lA{MSHORT['arcp']}", f"{au.loc['arcp'].ci_lo:.3f}")
+            put(f"hA{MSHORT['arcp']}", f"{au.loc['arcp'].ci_hi:.3f}")
     wpath = os.path.join(run_dir, "wilcoxon.csv")
     if os.path.exists(wpath):
         w = pd.read_csv(wpath)
@@ -81,7 +95,7 @@ def build_macros(df, run_dir):
     b = df[df.stage == "B"]
     pvb = b.groupby(["method", "tier"])["mean_id"].mean()
     psb = b.groupby(["method", "tier"])["pos_rate"].mean()
-    for met in ["clean", "random", "fsmg"]:
+    for met in ["clean", "random", "fsmg", "arcp"]:
         for t in TIER_B:
             put(f"nB{MSHORT[met]}{TSHORT[t]}", fs(pvb.get((met, t), np.nan)))
             put(f"pB{MSHORT[met]}{TSHORT[t]}", fsr(psb.get((met, t), np.nan)))
@@ -137,10 +151,10 @@ def build_macros(df, run_dir):
     qpath = os.path.join(run_dir, "quality.csv")
     if os.path.exists(qpath):
         q = pd.read_csv(qpath).set_index("method")
-        for met in ["fsmg", "random", "aspl"]:
+        for met in ["fsmg", "random", "aspl", "arcp"]:
             if met in q.index:
                 put(f"v{MSHORT[met]}", f"{q.loc[met]['psnr_db']:.1f}")
-    for met in ["fsmg", "clean", "aspl"]:
+    for met in ["fsmg", "clean", "aspl", "arcp"]:
         d = a[(a.method == met) & (a.tier == "t5_i2i30")]
         v = (d["n_samples"] == 0).mean() if len(d) else np.nan
         put(f"iA{MSHORT[met]}", fsr(v))

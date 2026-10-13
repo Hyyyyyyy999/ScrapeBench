@@ -7,6 +7,7 @@ from ..config import load_config
 from ..attack.train_utils import load_sd15
 from ..protection.fsmg import train_surrogate, pgd_fsmg
 from ..protection.random_noise import make_random_noise
+from ..protection.arcp import forge_arcp
 from ..metrics.quality import psnr
 from .results import log
 
@@ -46,6 +47,12 @@ def generate_method(method, comps, gallery_paths, cfg, out_dir):
         jq = int(prot_cfg.get("jpeg_aware", 85))
         train_surrogate(comps, imgs, steps=prot_cfg.get("surrogate_steps", 200), batch_size=4, log_every=50)
         outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100), jpeg_aware=jq)
+    elif method == "arcp":
+        outs = forge_arcp(comps, imgs, eps_max=prot_cfg.get("arcp_eps_max", 16.0) / 255.0,
+                          eps_min=prot_cfg.get("arcp_eps_min", 2.0) / 255.0,
+                          steps=prot_cfg.get("arcp_steps", 150),
+                          alpha=prot_cfg.get("arcp_alpha", 2.0) / 255.0,
+                          lam=prot_cfg.get("arcp_lam", 0.5))
     else:
         raise ValueError(f"unknown method {method}")
     for i, im in enumerate(outs):
@@ -64,7 +71,7 @@ def main():
     methods = (args.methods.split(",") if args.methods else cfg.get("protection", {}).get("methods", ["clean", "random", "fsmg"]))
     galleries = list_galleries(root)
     ids = args.ids.split(",") if args.ids else sorted(galleries)
-    need_model = any(m in ("fsmg", "aspl", "fsmgj") for m in methods)
+    need_model = any(m in ("fsmg", "aspl", "fsmgj", "arcp") for m in methods)
     comps = None
     if need_model:
         comps = load_sd15(cfg["run"]["sd_model"], fp16=cfg["run"].get("fp16", True))

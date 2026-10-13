@@ -14,6 +14,15 @@ TSHORT = {"t0": "to", "t1_jpeg95": "ja", "t1_jpeg85": "jb", "t1_jpeg75": "jc", "
 TIER_B = {"t0": "T0", "t1_jpeg85": "J85", "t2_canvas_dpr1": "T2", "t5_i2i30": "T5"}
 MSHORT = {"clean": "cl", "random": "rn", "fsmg": "fg", "aspl": "as", "fsmgj": "fj", "instantid": "in", "ipfaceid": "if"}
 OIDS = ["celeb00025", "celeb00027", "celeb00028", "celeb00029", "celeb00030", "celeb00031"]
+PILOT_CUT = "2026-10-12 22:00:00"
+PILOT_RERUN_TIERS = {"t0", "t1_jpeg85", "t2_canvas_dpr1", "t5_i2i30"}
+
+
+def drop_pilot_reruns(df):
+    ts = pd.to_datetime(df["ts"], errors="coerce")
+    mask = (df["pid"].isin(OIDS) & (ts >= PILOT_CUT) & df["tier"].isin(PILOT_RERUN_TIERS)
+            & df["method"].isin(["clean", "fsmg", "fsmgj"]))
+    return df[~mask]
 
 
 def fs(x):
@@ -41,6 +50,7 @@ def bold_grid(pv, tiers, methods, skip_t5=True):
 
 def stage_a_body(df, run_dir):
     a = df[(df.stage == "A") & (df.attack == "ipfaceid")]
+    a = drop_pilot_reruns(a)
     pv = a.groupby(["method", "tier"])["mean_id"].mean()
     ps = a.groupby(["method", "tier"])["pos_rate"].mean()
     methods = ["clean", "random", "fsmg", "aspl", "fsmgj"]
@@ -94,23 +104,31 @@ def stage_b_body(df, run_dir):
 
 
 def stage_o_body(df, run_dir):
-    gpath = os.path.join(run_dir, "retention_stage_O.csv")
+    spath = os.path.join(run_dir, "stage_o_complete_summary.csv")
     orders = ["canonical", "jpeg_only", "sr_first", "t5_first", "t5_only", "deep_chain"]
-    if not os.path.exists(gpath):
-        return "\n".join(" & ".join(["--"] * 3) + r" \\" for _ in orders) + "\n"
-    g = pd.read_csv(gpath)
+    if not os.path.exists(spath):
+        return "\n".join(" & ".join(["--"] * 6) + r" \\" for _ in orders) + "\n"
+    s = pd.read_csv(spath)
+    idx = s.set_index(["order", "method"])
     lines = []
     for o in orders:
-        v = g[g["method"] == "fsmg"]
-        val = v[o].iloc[0] if o in v.columns and len(v) else np.nan
-        c = "--" if val is None or np.isnan(val) else f"{val:.2f}"
-        lines.append(f"{o.replace(chr(95), chr(92)+chr(95))} & {c}" + r" \\")
+        def val(method, col):
+            try:
+                v = idx.loc[(o, method), col]
+            except KeyError:
+                return "--"
+            return "--" if pd.isna(v) else f"{v:.3f}" if abs(v) >= 1 or v < 0 else f"{v:.3f}"[1:]
+        c, fg, rd = idx.loc[(o, "clean")], idx.loc[(o, "fsmg")], idx.loc[(o, "random")]
+        lines.append(f"{o.replace(chr(95), chr(92)+chr(95))} & {val('clean','unconditional_id')} / {c.detection_rate*100:.1f} & "
+                     f"{val('fsmg','unconditional_id')} / {fg.detection_rate*100:.1f} & {val('fsmg','paired_gap')} & "
+                     f"{val('fsmg','rr_vs_t0')} & {val('random','rr_vs_t0')} \\\\")
     return "\n".join(lines) + "\n"
 
 
 def stress_body(df):
     tiers = ["t0", "t1_jpeg85", "t2_canvas_dpr1", "t5_i2i30"]
     sub = df[(df.stage == "A") & (df.attack == "ipfaceid") & (df.n_samples > 0)]
+    sub = drop_pilot_reruns(sub)
     mpids = set(sub[sub.method == "fsmgj"]["pid"])
     sub = sub[sub.pid.isin(mpids)]
     pv = sub.groupby(["method", "tier"])["mean_id"].mean()

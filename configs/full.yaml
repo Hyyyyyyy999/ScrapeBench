@@ -10,12 +10,12 @@ run:
   fp16: true
 
 stage_a:
-  methods: [clean, random, fsmg, aspl]
+  methods: [clean, random, fsmg, aspl, fsmgj, arcp]
   tiers: [t0, t1_jpeg95, t1_jpeg85, t1_jpeg75, t1_jpeg65, t1_webp80, t2_canvas_dpr1, t3_agent_facecrop, t4_sr_x2, t5_i2i30]
   ids: [all]
 
 stage_b:
-  methods: [clean, random, fsmg]
+  methods: [clean, random, fsmg, arcp]
   tiers: [t0, t1_jpeg85, t2_canvas_dpr1, t5_i2i30]
   ids: [all]
   steps: 400
@@ -32,12 +32,17 @@ stage_c:
   prompt: "a photo of a sks person"
 
 protection:
-  methods: [clean, random, fsmg, aspl]
+  methods: [clean, random, fsmg, aspl, arcp]
   eps: 16.0
   alpha: 1.0
   surrogate_steps: 250
   pgd_steps: 100
   aspl_rounds: 2
+  arcp_eps_max: 16.0
+  arcp_eps_min: 2.0
+  arcp_steps: 150
+  arcp_alpha: 2.0
+  arcp_lam: 0.5
 
 attack:
   ip_adapter_repo: h94/IP-Adapter-FaceID
