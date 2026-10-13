@@ -1,0 +1,447 @@
+
+===== [2026-10-12 17:41:45] extract code =====
+bootstrap_sb.sh
+bootstrap_v2.out
+configs
+logs
+requirements.txt
+sb_code.tar.gz
+sb_full.sh
+sb_smoke.sh
+scrapebench
+scripts
+slurm
+venv
+
+===== [2026-10-12 17:41:45] venv + deps (skip if already importable) =====
+Unable to symlink '/usr/bin/python3' to '/home/huangyue26/ScrapBench/venv/bin/python3'
+Looking in indexes: https://mirror.nju.edu.cn/pypi/web/simple
+Requirement already satisfied: pip in /home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages (26.2.1)
+Looking in indexes: https://mirror.nju.edu.cn/pypi/web/simple
+Collecting numpy==1.26.4
+  Downloading numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.3/18.3 MB 6.0 MB/s  0:00:03
+Collecting cython==0.29.37
+  Downloading Cython-0.29.37-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl (1.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 4.7 MB/s  0:00:00
+Collecting torch
+  Downloading torch-2.14.0-cp311-cp311-manylinux_2_28_x86_64.whl (554.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 554.6/554.6 MB 5.6 MB/s  0:01:39
+Collecting torchvision
+  Downloading torchvision-0.29.1-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (5.7 kB)
+Collecting diffusers==0.29.2
+  Downloading diffusers-0.29.2-py3-none-any.whl.metadata (19 kB)
+Collecting transformers==4.44.2
+  Downloading transformers-4.44.2-py3-none-any.whl.metadata (43 kB)
+Collecting accelerate
+  Downloading accelerate-1.15.0-py3-none-any.whl (394 kB)
+Collecting peft
+  Downloading peft-0.21.2-py3-none-any.whl.metadata (15 kB)
+Collecting safetensors
+  Using cached safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (516 kB)
+Collecting huggingface_hub
+  Downloading huggingface_hub-2.2.0-py3-none-any.whl.metadata (16 kB)
+Collecting insightface==0.7.3
+  Using cached insightface-0.7.3-cp311-cp311-linux_x86_64.whl
+Collecting onnxruntime
+  Downloading onnxruntime-1.31.0-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (5.7 kB)
+Collecting opencv-python-headless
+  Downloading opencv_python_headless-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl (61.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 MB 4.7 MB/s  0:00:12
+Collecting pandas
+  Downloading pandas-3.0.6-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (79 kB)
+Collecting scipy
+  Using cached scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+Collecting matplotlib
+  Downloading matplotlib-3.11.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.9/9.9 MB 4.0 MB/s  0:00:02
+Collecting pillow
+  Downloading pillow-12.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 4.4 MB/s  0:00:01
+Collecting pyyaml
+  Downloading pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 806.6/806.6 kB 2.7 MB/s  0:00:00
+Collecting tqdm
+  Downloading tqdm-4.70.1-py3-none-any.whl (80 kB)
+Collecting datasets
+  Downloading datasets-5.1.0-py3-none-any.whl.metadata (24 kB)
+Collecting sentencepiece
+  Downloading sentencepiece-0.2.2-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (1.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 2.3 MB/s  0:00:00
+Collecting importlib-metadata (from diffusers==0.29.2)
+  Downloading importlib_metadata-9.0.1-py3-none-any.whl (27 kB)
+Collecting filelock (from diffusers==0.29.2)
+  Downloading filelock-4.1.1-py3-none-any.whl.metadata (2.0 kB)
+Collecting regex!=2019.12.17 (from diffusers==0.29.2)
+  Downloading regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Collecting requests (from diffusers==0.29.2)
+  Using cached requests-2.34.2-py3-none-any.whl (73 kB)
+Collecting huggingface_hub
+  Downloading huggingface_hub-0.36.2-py3-none-any.whl.metadata (15 kB)
+Collecting packaging>=20.0 (from transformers==4.44.2)
+  Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Collecting tokenizers<0.20,>=0.19 (from transformers==4.44.2)
+  Downloading tokenizers-0.19.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.7 kB)
+Collecting onnx (from insightface==0.7.3)
+  Downloading onnx-1.23.2-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.7 kB)
+Collecting scikit-learn (from insightface==0.7.3)
+  Downloading scikit_learn-1.9.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.3 kB)
+Collecting scikit-image (from insightface==0.7.3)
+  Downloading scikit_image-0.26.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (13.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.7/13.7 MB 3.6 MB/s  0:00:03
+Collecting easydict (from insightface==0.7.3)
+  Downloading easydict-1.13-py3-none-any.whl (6.8 kB)
+Collecting albumentations (from insightface==0.7.3)
+  Downloading albumentations-2.0.8-py3-none-any.whl (369 kB)
+Collecting prettytable (from insightface==0.7.3)
+  Downloading prettytable-3.18.0-py3-none-any.whl (37 kB)
+Collecting fsspec>=2023.5.0 (from huggingface_hub)
+  Downloading fsspec-2026.9.0-py3-none-any.whl (221 kB)
+Collecting hf-xet<2.0.0,>=1.1.3 (from huggingface_hub)
+  Downloading hf_xet-1.7.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Collecting typing-extensions>=3.7.4.3 (from huggingface_hub)
+  Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Collecting setuptools>=77.0.3 (from torch)
+  Downloading setuptools-84.0.0-py3-none-any.whl (818 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 818.2/818.2 kB 1.9 MB/s  0:00:00
+Collecting sympy>=1.13.3 (from torch)
+  Using cached sympy-1.14.0-py3-none-any.whl (6.3 MB)
+Collecting networkx>=2.5.1 (from torch)
+  Downloading networkx-3.6.1-py3-none-any.whl (2.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 1.9 MB/s  0:00:01
+Collecting jinja2 (from torch)
+  Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+Collecting cuda-toolkit==13.0.3 (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch)
+  Downloading cuda_toolkit-13.0.3.0-py2.py3-none-any.whl.metadata (17 kB)
+Collecting cuda-bindings<14,>=13.0.3 (from torch)
+  Downloading cuda_bindings-13.4.3-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (7.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.2/7.2 MB 2.4 MB/s  0:00:02
+Collecting nvidia-cudnn-cu13==9.24.0.43 (from torch)
+  Downloading nvidia_cudnn_cu13-9.24.0.43-py3-none-manylinux_2_27_x86_64.whl.metadata (1.9 kB)
+Collecting nvidia-cusparselt-cu13==0.8.1 (from torch)
+  Downloading nvidia_cusparselt_cu13-0.8.1-py3-none-manylinux2014_x86_64.whl.metadata (12 kB)
+Collecting nvidia-nccl-cu13==2.30.7 (from torch)
+  Downloading nvidia_nccl_cu13-2.30.7-py3-none-manylinux_2_18_x86_64.whl (216.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 216.0/216.0 MB 5.8 MB/s  0:00:38
+Collecting nvidia-nvshmem-cu13==3.4.5 (from torch)
+  Using cached nvidia_nvshmem_cu13-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (60.4 MB)
+Collecting triton~=3.8.0 (from torch)
+  Downloading triton-3.8.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (247.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 247.9/247.9 MB 3.3 MB/s  0:00:56
+Collecting nvidia-cublas==13.1.1.3.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch)
+  Downloading nvidia_cublas-13.1.1.3-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cuda-nvrtc==13.0.88.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch)
+  Downloading nvidia_cuda_nvrtc-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cuda-runtime==13.0.96.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch)
+  Downloading nvidia_cuda_runtime-13.0.96-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cufft==12.0.0.61.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch)
+  Downloading nvidia_cufft-12.0.0.61-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-nvjitlink<14,>=13.0.88 (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch)
+  Downloading nvidia_nvjitlink-13.4.92-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cufile==1.15.1.6.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch)
+  Downloading nvidia_cufile-1.15.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cuda-cupti==13.0.85.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch)
+  Downloading nvidia_cuda_cupti-13.0.85-py3-none-manylinux_2_25_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-curand==10.4.0.35.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch)
+  Downloading nvidia_curand-10.4.0.35-py3-none-manylinux_2_27_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cusolver==12.0.4.66.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch)
+  Downloading nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cusparse==12.6.3.3.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch)
+  Downloading nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-nvtx==13.0.85.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch)
+  Downloading nvidia_nvtx-13.0.85-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl.metadata (1.8 kB)
+Collecting cuda-pathfinder>=1.4.2 (from cuda-bindings<14,>=13.0.3->torch)
+  Downloading cuda_pathfinder-1.8.3-py3-none-any.whl.metadata (1.9 kB)
+Collecting psutil (from accelerate)
+  Using cached psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Collecting flatbuffers (from onnxruntime)
+  Using cached flatbuffers-25.12.19-py2.py3-none-any.whl (26 kB)
+Collecting protobuf>=4.25.8 (from onnxruntime)
+  Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+INFO: pip is looking at multiple versions of opencv-python-headless to determine which version is compatible with other requirements. This could take a while.
+Collecting opencv-python-headless
+  Downloading opencv_python_headless-4.14.0.94-cp37-abi3-manylinux_2_28_x86_64.whl (62.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.0/62.0 MB 4.3 MB/s  0:00:14
+  Downloading opencv_python_headless-4.13.0.92-cp37-abi3-manylinux_2_28_x86_64.whl (60.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.4/60.4 MB 4.9 MB/s  0:00:12
+  Downloading opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.5/62.5 MB 5.2 MB/s  0:00:12
+  Downloading opencv_python_headless-4.12.0.88-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (54.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 54.0/54.0 MB 5.9 MB/s  0:00:09
+  Downloading opencv_python_headless-4.11.0.86-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (50.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50.0/50.0 MB 5.8 MB/s  0:00:08
+Collecting python-dateutil>=2.8.2 (from pandas)
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Collecting contourpy>=1.0.1 (from matplotlib)
+  Downloading contourpy-1.3.3-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (355 kB)
+Collecting cycler>=0.10 (from matplotlib)
+  Using cached cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Collecting fonttools>=4.28.2 (from matplotlib)
+  Downloading fonttools-4.66.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (130 kB)
+Collecting kiwisolver>=1.3.1 (from matplotlib)
+  Downloading kiwisolver-1.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 3.0 MB/s  0:00:00
+Collecting pyparsing>=3 (from matplotlib)
+  Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+Collecting pyarrow>=24.0.0 (from datasets)
+  Downloading pyarrow-26.0.0-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+Collecting dill<0.4.2,>=0.3.0 (from datasets)
+  Downloading dill-0.4.1-py3-none-any.whl (120 kB)
+Collecting xxhash (from datasets)
+  Downloading xxhash-4.0.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (261 kB)
+Collecting multiprocess<0.70.20 (from datasets)
+  Downloading multiprocess-0.70.19-py311-none-any.whl (144 kB)
+Collecting fsspec>=2023.5.0 (from huggingface_hub)
+  Using cached fsspec-2026.7.0-py3-none-any.whl (206 kB)
+INFO: pip is looking at multiple versions of datasets to determine which version is compatible with other requirements. This could take a while.
+Collecting datasets
+  Downloading datasets-5.0.1-py3-none-any.whl.metadata (23 kB)
+Collecting httpx<1.0.0 (from datasets)
+  Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+Collecting fsspec>=2023.5.0 (from huggingface_hub)
+  Using cached fsspec-2026.6.0-py3-none-any.whl (203 kB)
+Collecting aiohttp!=4.0.0a0,!=4.0.0a1 (from fsspec[http]<=2026.6.0,>=2023.1.0->datasets)
+  Downloading aiohttp-3.14.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Collecting anyio (from httpx<1.0.0->datasets)
+  Downloading anyio-4.15.1-py3-none-any.whl (132 kB)
+Collecting certifi (from httpx<1.0.0->datasets)
+  Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+Collecting httpcore==1.* (from httpx<1.0.0->datasets)
+  Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+Collecting idna (from httpx<1.0.0->datasets)
+  Downloading idna-3.20-py3-none-any.whl (69 kB)
+Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0->datasets)
+  Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+Collecting aiohappyeyeballs>=2.5.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets)
+  Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Collecting aiosignal>=1.4.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets)
+  Using cached aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Collecting attrs>=17.3.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets)
+  Using cached attrs-26.1.0-py3-none-any.whl (67 kB)
+Collecting frozenlist>=1.1.1 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets)
+  Downloading frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (231 kB)
+Collecting multidict<8.0,>=4.5 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets)
+  Downloading multidict-7.1.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (6.2 kB)
+Collecting propcache>=0.2.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets)
+  Downloading propcache-0.5.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (235 kB)
+Collecting yarl<2.0,>=1.25.1 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.6.0,>=2023.1.0->datasets)
+  Downloading yarl-1.25.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (117 kB)
+Collecting six>=1.5 (from python-dateutil>=2.8.2->pandas)
+  Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Collecting charset_normalizer<4,>=2 (from requests->diffusers==0.29.2)
+  Downloading charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+Collecting urllib3<3,>=1.26 (from requests->diffusers==0.29.2)
+  Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+Collecting mpmath<1.4,>=1.1.0 (from sympy>=1.13.3->torch)
+  Using cached mpmath-1.3.0-py3-none-any.whl (536 kB)
+Collecting pydantic>=2.9.2 (from albumentations->insightface==0.7.3)
+  Downloading pydantic-2.14.1-py3-none-any.whl.metadata (133 kB)
+Collecting albucore==0.0.24 (from albumentations->insightface==0.7.3)
+  Downloading albucore-0.0.24-py3-none-any.whl.metadata (5.3 kB)
+Collecting stringzilla>=3.10.4 (from albucore==0.0.24->albumentations->insightface==0.7.3)
+  Downloading stringzilla-5.2.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (56 kB)
+Collecting simsimd>=5.9.2 (from albucore==0.0.24->albumentations->insightface==0.7.3)
+  Downloading simsimd-6.5.16-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (583 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 583.8/583.8 kB 2.4 MB/s  0:00:00
+Collecting annotated-types>=0.6.0 (from pydantic>=2.9.2->albumentations->insightface==0.7.3)
+  Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Collecting pydantic-core==2.50.1 (from pydantic>=2.9.2->albumentations->insightface==0.7.3)
+  Downloading pydantic_core-2.50.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.5 kB)
+Collecting typing-inspection>=0.4.4 (from pydantic>=2.9.2->albumentations->insightface==0.7.3)
+  Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+Collecting zipp>=3.20 (from importlib-metadata->diffusers==0.29.2)
+  Downloading zipp-4.1.1-py3-none-any.whl.metadata (3.6 kB)
+Collecting MarkupSafe>=2.0 (from jinja2->torch)
+  Downloading markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Collecting ml_dtypes>=0.5.4 (from onnx->insightface==0.7.3)
+  Downloading ml_dtypes-0.6.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (412 kB)
+INFO: pip is looking at multiple versions of ml-dtypes to determine which version is compatible with other requirements. This could take a while.
+  Downloading ml_dtypes-0.5.4-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (5.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.0/5.0 MB 2.6 MB/s  0:00:01
+Collecting wcwidth>=0.3.5 (from prettytable->insightface==0.7.3)
+  Downloading wcwidth-0.9.2-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (23 kB)
+Collecting imageio!=2.35.0,>=2.33 (from scikit-image->insightface==0.7.3)
+  Downloading imageio-2.38.1-py3-none-any.whl.metadata (9.7 kB)
+Collecting tifffile>=2022.8.12 (from scikit-image->insightface==0.7.3)
+  Downloading tifffile-2026.3.3-py3-none-any.whl (243 kB)
+Collecting lazy-loader>=0.4 (from scikit-image->insightface==0.7.3)
+  Downloading lazy_loader-0.6-py3-none-any.whl (8.8 kB)
+Collecting joblib>=1.4.0 (from scikit-learn->insightface==0.7.3)
+  Downloading joblib-1.6.0-py3-none-any.whl (306 kB)
+Collecting narwhals>=2.0.1 (from scikit-learn->insightface==0.7.3)
+  Downloading narwhals-2.27.1-py3-none-any.whl.metadata (15 kB)
+Collecting threadpoolctl>=3.5.0 (from scikit-learn->insightface==0.7.3)
+  Downloading threadpoolctl-3.7.0-py3-none-any.whl (26 kB)
+Collecting cloudpickle>=3.0 (from joblib>=1.4.0->scikit-learn->insightface==0.7.3)
+  Downloading cloudpickle-3.1.2-py3-none-any.whl (22 kB)
+Downloading diffusers-0.29.2-py3-none-any.whl (2.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 2.2 MB/s  0:00:00
+Downloading transformers-4.44.2-py3-none-any.whl (9.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.5/9.5 MB 2.9 MB/s  0:00:03
+Downloading huggingface_hub-0.36.2-py3-none-any.whl (566 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 566.4/566.4 kB 1.9 MB/s  0:00:00
+Downloading hf_xet-1.7.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 3.3 MB/s  0:00:01
+Downloading tokenizers-0.19.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.6/3.6 MB 2.9 MB/s  0:00:01
+Downloading cuda_toolkit-13.0.3.0-py2.py3-none-any.whl (2.5 kB)
+Downloading nvidia_cudnn_cu13-9.24.0.43-py3-none-manylinux_2_27_x86_64.whl (553.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 553.1/553.1 MB 5.6 MB/s  0:01:39
+Downloading nvidia_cusparselt_cu13-0.8.1-py3-none-manylinux2014_x86_64.whl (170.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 170.1/170.1 MB 5.9 MB/s  0:00:29
+Downloading nvidia_cublas-13.1.1.3-py3-none-manylinux_2_27_x86_64.whl (423.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 423.1/423.1 MB 5.7 MB/s  0:01:11
+Downloading nvidia_cuda_cupti-13.0.85-py3-none-manylinux_2_25_x86_64.whl (10.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.7/10.7 MB 6.2 MB/s  0:00:01
+Downloading nvidia_cuda_nvrtc-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (90.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.2/90.2 MB 5.3 MB/s  0:00:17
+Downloading nvidia_cuda_runtime-13.0.96-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 5.2 MB/s  0:00:00
+Downloading nvidia_cufft-12.0.0.61-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (214.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 214.1/214.1 MB 5.8 MB/s  0:00:37
+Downloading nvidia_cufile-1.15.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 3.0 MB/s  0:00:00
+Downloading nvidia_curand-10.4.0.35-py3-none-manylinux_2_27_x86_64.whl (59.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.5/59.5 MB 4.4 MB/s  0:00:13
+Downloading nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_x86_64.whl (200.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 200.9/200.9 MB 5.8 MB/s  0:00:36
+Downloading nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (145.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 145.9/145.9 MB 5.9 MB/s  0:00:24
+Downloading nvidia_nvjitlink-13.4.92-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (42.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.5/42.5 MB 5.0 MB/s  0:00:08
+Downloading nvidia_nvtx-13.0.85-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl (148 kB)
+Downloading torchvision-0.29.1-cp311-cp311-manylinux_2_28_x86_64.whl (7.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.4/7.4 MB 3.1 MB/s  0:00:02
+Downloading peft-0.21.2-py3-none-any.whl (835 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 835.4/835.4 kB 2.9 MB/s  0:00:00
+Downloading onnxruntime-1.31.0-cp311-cp311-manylinux_2_28_x86_64.whl (23.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.8/23.8 MB 3.5 MB/s  0:00:06
+Downloading pandas-3.0.6-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (11.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.1/11.1 MB 3.8 MB/s  0:00:03
+Downloading datasets-5.0.1-py3-none-any.whl (559 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 559.1/559.1 kB 4.0 MB/s  0:00:00
+Downloading aiohttp-3.14.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 2.1 MB/s  0:00:00
+Downloading multidict-7.1.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (480 kB)
+Downloading cuda_pathfinder-1.8.3-py3-none-any.whl (62 kB)
+Downloading fonttools-4.66.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 2.5 MB/s  0:00:02
+Downloading pyarrow-26.0.0-cp311-cp311-manylinux_2_28_x86_64.whl (53.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.9/53.9 MB 3.7 MB/s  0:00:14
+Downloading regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (804 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 805.0/805.0 kB 2.9 MB/s  0:00:00
+Downloading charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (269 kB)
+Downloading albucore-0.0.24-py3-none-any.whl (15 kB)
+Downloading pydantic-2.14.1-py3-none-any.whl (488 kB)
+Downloading pydantic_core-2.50.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 2.5 MB/s  0:00:00
+Downloading stringzilla-5.2.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 2.3 MB/s  0:00:01
+Downloading filelock-4.1.1-py3-none-any.whl (132 kB)
+Downloading zipp-4.1.1-py3-none-any.whl (10 kB)
+Downloading markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+Downloading onnx-1.23.2-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (8.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.9/8.9 MB 2.9 MB/s  0:00:03
+Downloading wcwidth-0.9.2-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (769 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 769.8/769.8 kB 2.1 MB/s  0:00:00
+Downloading imageio-2.38.1-py3-none-any.whl (328 kB)
+Downloading scikit_learn-1.9.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.3/9.3 MB 3.0 MB/s  0:00:03
+Downloading narwhals-2.27.1-py3-none-any.whl (483 kB)
+Installing collected packages: simsimd, nvidia-cusparselt-cu13, mpmath, flatbuffers, easydict, cuda-toolkit, zipp, xxhash, wcwidth, urllib3, typing-extensions, triton, tqdm, threadpoolctl, sympy, stringzilla, six, setuptools, sentencepiece, safetensors, regex, pyyaml, pyparsing, pyarrow, psutil, protobuf, propcache, pillow, packaging, nvidia-nvtx, nvidia-nvshmem-cu13, nvidia-nvjitlink, nvidia-nccl-cu13, nvidia-curand, nvidia-cufile, nvidia-cuda-runtime, nvidia-cuda-nvrtc, nvidia-cuda-cupti, numpy, networkx, narwhals, multidict, MarkupSafe, kiwisolver, idna, hf-xet, h11, fsspec, frozenlist, fonttools, filelock, dill, cython, cycler, cuda-pathfinder, cloudpickle, charset_normalizer, certifi, attrs, annotated-types, aiohappyeyeballs, yarl, typing-inspection, tifffile, scipy, requests, python-dateutil, pydantic-core, prettytable, opencv-python-headless, onnxruntime, nvidia-cusparse, nvidia-cufft, nvidia-cublas, multiprocess, ml_dtypes, lazy-loader, joblib, jinja2, importlib-metadata, imageio, httpcore, cuda-bindings, contourpy, anyio, aiosignal, scikit-learn, scikit-image, pydantic, pandas, onnx, nvidia-cusolver, nvidia-cudnn-cu13, matplotlib, huggingface_hub, httpx, albucore, aiohttp, tokenizers, diffusers, albumentations, transformers, torch, insightface, datasets, torchvision, accelerate, peft
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 66.1.1
+    Uninstalling setuptools-66.1.1:
+      Successfully uninstalled setuptools-66.1.1
+
+Successfully installed MarkupSafe-3.0.4 accelerate-1.15.0 aiohappyeyeballs-2.7.1 aiohttp-3.14.5 aiosignal-1.4.0 albucore-0.0.24 albumentations-2.0.8 annotated-types-0.8.0 anyio-4.15.1 attrs-26.1.0 certifi-2026.7.22 charset_normalizer-3.5.2 cloudpickle-3.1.2 contourpy-1.3.3 cuda-bindings-13.4.3 cuda-pathfinder-1.8.3 cuda-toolkit-13.0.3.0 cycler-0.12.1 cython-0.29.37 datasets-5.0.1 diffusers-0.29.2 dill-0.4.1 easydict-1.13 filelock-4.1.1 flatbuffers-25.12.19 fonttools-4.66.1 frozenlist-1.8.0 fsspec-2026.6.0 h11-0.16.0 hf-xet-1.7.0 httpcore-1.0.9 httpx-0.28.1 huggingface_hub-0.36.2 idna-3.20 imageio-2.38.1 importlib-metadata-9.0.1 insightface-0.7.3 jinja2-3.1.6 joblib-1.6.0 kiwisolver-1.5.1 lazy-loader-0.6 matplotlib-3.11.2 ml_dtypes-0.5.4 mpmath-1.3.0 multidict-7.1.0 multiprocess-0.70.19 narwhals-2.27.1 networkx-3.6.1 numpy-1.26.4 nvidia-cublas-13.1.1.3 nvidia-cuda-cupti-13.0.85 nvidia-cuda-nvrtc-13.0.88 nvidia-cuda-runtime-13.0.96 nvidia-cudnn-cu13-9.24.0.43 nvidia-cufft-12.0.0.61 nvidia-cufile-1.15.1.6 nvidia-curand-10.4.0.35 nvidia-cusolver-12.0.4.66 nvidia-cusparse-12.6.3.3 nvidia-cusparselt-cu13-0.8.1 nvidia-nccl-cu13-2.30.7 nvidia-nvjitlink-13.4.92 nvidia-nvshmem-cu13-3.4.5 nvidia-nvtx-13.0.85 onnx-1.23.2 onnxruntime-1.31.0 opencv-python-headless-4.11.0.86 packaging-26.3 pandas-3.0.6 peft-0.21.2 pillow-12.3.0 prettytable-3.18.0 propcache-0.5.4 protobuf-7.36.2 psutil-7.2.2 pyarrow-26.0.0 pydantic-2.14.1 pydantic-core-2.50.1 pyparsing-3.3.3 python-dateutil-2.9.0.post0 pyyaml-6.0.3 regex-2026.9.29 requests-2.34.2 safetensors-0.8.0 scikit-image-0.26.0 scikit-learn-1.9.1 scipy-1.17.1 sentencepiece-0.2.2 setuptools-84.0.0 simsimd-6.5.16 six-1.17.0 stringzilla-5.2.0 sympy-1.14.0 threadpoolctl-3.7.0 tifffile-2026.3.3 tokenizers-0.19.1 torch-2.14.0 torchvision-0.29.1 tqdm-4.70.1 transformers-4.44.2 triton-3.8.0 typing-extensions-4.16.0 typing-inspection-0.4.4 urllib3-2.8.0 wcwidth-0.9.2 xxhash-4.0.1 yarl-1.25.1 zipp-4.1.1
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/datasets/__init__.py", line 17, in <module>
+    from .arrow_dataset import Column, Dataset
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/datasets/arrow_dataset.py", line 59, in <module>
+    import pyarrow as pa
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/pyarrow/__init__.py", line 59, in <module>
+    from pyarrow.lib import (BuildInfo, CppBuildInfo, RuntimeInfo, set_timezone_db_path,
+  File "pyarrow/lib.pyx", line 42, in init pyarrow.lib
+ImportError: pyarrow requires NumPy 2.0 or newer, found 1.26.4
+
+===== [2026-10-12 17:56:56] instantid pipeline file =====
+curl: (35) Recv failure: Connection reset by peer
+Cloning into '/home/huangyue26/instantid_repo_tmp'...
+786 /home/huangyue26/instantid_repo/pipeline_stable_diffusion_xl_instantid.py
+1
+
+===== [2026-10-12 17:58:03] insightface packs under ScrapBench/face_models =====
+models/antelopev2:
+antelopev2
+
+models/buffalo_l:
+1k3d68.onnx
+2d106det.onnx
+det_10g.onnx
+genderage.onnx
+w600k_r50.onnx
+symlink: ~/.insightface -> /home/huangyue26/ScrapBench/face_models
+total 2
+drwxr-xr-x 4 huangyue26 huangyue26 2 Oct 12 17:59 .
+drwxr-xr-x 3 huangyue26 huangyue26 3 Oct 12 17:59 ..
+drwxr-xr-x 3 huangyue26 huangyue26 1 Oct 12 17:59 antelopev2
+drwxr-xr-x 2 huangyue26 huangyue26 5 Oct 12 17:59 buffalo_l
+
+===== [2026-10-12 18:00:00] InstantID weights via hf-mirror (shared HF cache) =====
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files:  33%|███▎      | 1/3 [00:00<00:01,  1.35it/s]Fetching 3 files:  67%|██████▋   | 2/3 [11:23<05:41, 341.57s/it]Fetching 3 files: 100%|██████████| 3/3 [11:39<00:00, 233.32s/it]Fetching 3 files: 100%|██████████| 3/3 [11:39<00:00, 233.32s/it]
+snapshot at /home/huangyue26/.cache/huggingface/hub/models--InstantX--InstantID/snapshots/57b32dfee076092ad2930c71fd6d439c2c3b1820
+
+===== [2026-10-12 18:11:50] fetch celeba data =====
+Traceback (most recent call last):
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scripts/fetch_celeba.py", line 61, in <module>
+    main()
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scripts/fetch_celeba.py", line 14, in main
+    from datasets import load_dataset
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/datasets/__init__.py", line 17, in <module>
+    from .arrow_dataset import Column, Dataset
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/datasets/arrow_dataset.py", line 59, in <module>
+    import pyarrow as pa
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/pyarrow/__init__.py", line 59, in <module>
+    from pyarrow.lib import (BuildInfo, CppBuildInfo, RuntimeInfo, set_timezone_db_path,
+  File "pyarrow/lib.pyx", line 42, in init pyarrow.lib
+ImportError: pyarrow requires NumPy 2.0 or newer, found 1.26.4
+fetch retry 1
+Traceback (most recent call last):
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scripts/fetch_celeba.py", line 61, in <module>
+    main()
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scripts/fetch_celeba.py", line 14, in main
+    from datasets import load_dataset
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/datasets/__init__.py", line 17, in <module>
+    from .arrow_dataset import Column, Dataset
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/datasets/arrow_dataset.py", line 59, in <module>
+    import pyarrow as pa
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/pyarrow/__init__.py", line 59, in <module>
+    from pyarrow.lib import (BuildInfo, CppBuildInfo, RuntimeInfo, set_timezone_db_path,
+  File "pyarrow/lib.pyx", line 42, in init pyarrow.lib
+ImportError: pyarrow requires NumPy 2.0 or newer, found 1.26.4
+fetch retry 2
+Traceback (most recent call last):
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scripts/fetch_celeba.py", line 61, in <module>
+    main()
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scripts/fetch_celeba.py", line 14, in main
+    from datasets import load_dataset
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/datasets/__init__.py", line 17, in <module>
+    from .arrow_dataset import Column, Dataset
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/datasets/arrow_dataset.py", line 59, in <module>
+    import pyarrow as pa
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/pyarrow/__init__.py", line 59, in <module>
+    from pyarrow.lib import (BuildInfo, CppBuildInfo, RuntimeInfo, set_timezone_db_path,
+  File "pyarrow/lib.pyx", line 42, in init pyarrow.lib
+ImportError: pyarrow requires NumPy 2.0 or newer, found 1.26.4
+fetch retry 3
+--- data counts ---
+celeb00025 raw=0 refs=0
+celeb00027 raw=0 refs=0
+celeb00028 raw=0 refs=0
+celeb00029 raw=0 refs=0
+celeb00030 raw=0 refs=0
+celeb00031 raw=0 refs=0
+
+===== [2026-10-12 18:13:24] ALL DONE =====

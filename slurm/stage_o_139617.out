@@ -1,0 +1,33 @@
+=== complete random galleries ===
+=== matched T0 baselines for Stage O ===
+=== full Stage O: 6 identities x 3 methods x 6 programs ===
+/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scrapebench/runner/report.py", line 186, in <module>
+    main()
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scrapebench/runner/report.py", line 139, in main
+    plot_auc(df, tiers_s, stage, "figures")
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scrapebench/runner/figures.py", line 206, in plot_auc
+    lo, hi = np.percentile(boots, [2.5, 97.5])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/numpy/lib/function_base.py", line 4283, in percentile
+    return _quantile_unchecked(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/numpy/lib/function_base.py", line 4555, in _quantile_unchecked
+    return _ureduce(a,
+           ^^^^^^^^^^^
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/numpy/lib/function_base.py", line 3823, in _ureduce
+    r = func(a, **kwargs)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/numpy/lib/function_base.py", line 4722, in _quantile_ureduce_func
+    result = _quantile(arr,
+             ^^^^^^^^^^^^^^
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/numpy/lib/function_base.py", line 4831, in _quantile
+    slices_having_nans = np.isnan(arr[-1, ...])
+                                  ~~~^^^^^^^^^
+IndexError: index -1 is out of bounds for axis 0 with size 0

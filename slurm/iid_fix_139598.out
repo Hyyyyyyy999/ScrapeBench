@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scrapebench/runner/report.py", line 179, in <module>
+    main()
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scrapebench/runner/report.py", line 139, in main
+    plot_auc(df, tiers_s, stage, "figures")
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scrapebench/runner/figures.py", line 203, in plot_auc
+    boots.append(np.trapezoid(rr) / (len(rr) - 1))
+                 ^^^^^^^^^^^^
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/numpy/__init__.py", line 333, in __getattr__
+    raise AttributeError("module {!r} has no attribute "
+AttributeError: module 'numpy' has no attribute 'trapezoid'

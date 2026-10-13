@@ -1,0 +1,14 @@
+=== repaired T3 integrity pilot: 6 identities x 3 methods ===
+=== repaired Stage C: same-identity mixing + real purify50 ===
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scrapebench/runner/report.py", line 177, in <module>
+    main()
+  File "/mnt/beegfs/home/huangyue26/ScrapBench/scrapebench/runner/report.py", line 129, in main
+    boots.append(np.trapezoid(vals) / (len(vals) - 1))
+                 ^^^^^^^^^^^^
+  File "/home/huangyue26/ScrapBench/venv/lib/python3.11/site-packages/numpy/__init__.py", line 333, in __getattr__
+    raise AttributeError("module {!r} has no attribute "
+AttributeError: module 'numpy' has no attribute 'trapezoid'
+wrote runs/full/new_experiments_report.md: InstantID=72/72 T3=18/18 StageC=18/18
