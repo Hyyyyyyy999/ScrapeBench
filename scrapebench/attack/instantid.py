@@ -67,7 +67,14 @@ class ZeroShotInstantID:
         out = []
         for pr in prompts:
             g = torch.Generator(device=self.device).manual_seed(seed)
-            res = self.pipe([pr] * n_per_prompt, num_inference_steps=steps,
+            # InstantID's image-embedding path expands on
+            # ``num_images_per_prompt``. Passing a repeated prompt list instead
+            # leaves the image embedding at batch size one and makes classifier
+            # free guidance concatenate incompatible batches (text: 2*N,
+            # image: 2). Keep one prompt and let the pipeline expand both
+            # conditioning branches together.
+            res = self.pipe(pr, num_images_per_prompt=n_per_prompt,
+                            num_inference_steps=steps,
                             guidance_scale=guidance, generator=g,
                             height=height, width=width,
                             image_embeds=face_emb, image=face_img,

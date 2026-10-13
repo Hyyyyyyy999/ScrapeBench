@@ -29,7 +29,16 @@ def load_done(path):
         return done
     with open(path, newline="") as f:
         for r in csv.DictReader(f):
-            done.add((r["stage"], r["pid"], r["method"], r["tier"], r["attack"]))
+            # Error rows are useful audit records, but they must remain
+            # resumable. Only a row containing generated samples completes a
+            # cell; otherwise a transient OOM/model/conditioning failure would
+            # be cached forever.
+            try:
+                complete = int(r.get("n_samples") or 0) > 0
+            except ValueError:
+                complete = False
+            if complete:
+                done.add((r["stage"], r["pid"], r["method"], r["tier"], r["attack"]))
     return done
 
 

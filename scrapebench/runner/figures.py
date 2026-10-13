@@ -200,8 +200,13 @@ def plot_auc(df, tiers, stage, outdir):
             if abs(denom) < 1e-6:
                 continue
             rr = [float((cc[t0] - pc[t0]) / denom) for t0 in tiers_all]
-            boots.append(np.trapezoid(rr) / (len(rr) - 1))
+            boots.append(np.trapz(rr) / (len(rr) - 1))
         boots = np.array(boots)
+        if boots.size == 0:
+            # Sparse/pilot stages can have no bootstrap resample containing
+            # every requested tier.  Skip the bar instead of aborting the
+            # entire report after all experiment cells have completed.
+            continue
         mu = float(np.mean(boots))
         lo, hi = np.percentile(boots, [2.5, 97.5])
         ax.bar(k, mu, width=0.55, color=OKABE.get(m), alpha=0.9, label=m)

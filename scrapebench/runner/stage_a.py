@@ -34,6 +34,7 @@ def main():
     ap.add_argument("--methods", default=None)
     ap.add_argument("--ids", default=None)
     ap.add_argument("--attack", default="ipfaceid")
+    ap.add_argument("--force", action="store_true", help="rerun selected cells even when a successful row exists")
     args = ap.parse_args()
     cfg = load_config(args.config)
     root = cfg["run"]["data_root"]
@@ -67,14 +68,16 @@ def main():
         )
     scorer = IdScorer(use_gpu=True)
     ref_cache = {}
+    failed = 0
     cells = [(m, p, t) for m in methods for p in ids for t in tiers]
     log(f"stage_a start cells={len(cells)} done={len(done)}", log_path)
     for m, pid, tier in cells:
         if (m, pid) not in galleries:
             log(f"missing gallery {m}/{pid}", log_path)
+            failed += 1
             continue
         key = ("A", pid, m, tier, args.attack)
-        if key in done:
+        if key in done and not args.force:
             continue
         paths = galleries[(m, pid)]
         ref_dir = os.path.join(root, "refs", pid)
@@ -84,14 +87,17 @@ def main():
         ref_embs = ref_cache[pid]
         if not ref_embs:
             log(f"no refs {m}/{pid}", log_path)
+            failed += 1
             continue
         tier_fn = get_tier(tier)
         imgs = [tier_fn(Image.open(p).convert("RGB")) for p in paths]
         t0 = time.time()
         try:
             prompts = PROMPTS[:2] if args.attack == "instantid" else PROMPTS
+            steps = (atk_cfg.get("instantid_steps", atk_cfg.get("steps", 30))
+                     if args.attack == "instantid" else atk_cfg.get("steps", 30))
             gens = zs.generate(prompts, imgs, n_per_prompt=max(1, cfg["run"]["samples_per_cell"] // len(prompts)),
-                               steps=atk_cfg.get("steps", 30), guidance=atk_cfg.get("guidance", 5.0),
+                               steps=steps, guidance=atk_cfg.get("guidance", 5.0),
                                seed=cfg["run"].get("seed", 0))
         except RuntimeError as e:
             append_row(res_path, dict(
@@ -99,6 +105,7 @@ def main():
                 n_gallery=len(paths), n_samples=0, mean_id="", ci_lo="", ci_hi="", p_lo="", p_hi="",
                 pos_rate=0.0, gen_sec=round(time.time() - t0, 1), sec_per_img="", ts=now()))
             log(f"skip {m}/{pid}/{tier}: {e}", log_path)
+            failed += 1
             continue
         gen_sec = time.time() - t0
         sims = []
@@ -119,6 +126,9 @@ def main():
             gen_sec=round(gen_sec, 1), sec_per_img=round(gen_sec / max(1, len(sims)), 2), ts=now(),
         ))
         log(f"A {m}/{pid}/{tier} mean={mean:.3f} det={det_rate:.2f} {gen_sec:.0f}s", log_path)
+    if failed:
+        log(f"stage_a incomplete failed_cells={failed}", log_path)
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

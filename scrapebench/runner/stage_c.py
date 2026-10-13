@@ -5,6 +5,7 @@ import numpy as np
 import torch
 from PIL import Image
 from ..config import load_config
+from ..funnel import get_tier
 from ..attack.train_utils import load_sd15, build_pipeline, generate_images, add_lora, reset_lora, dreambooth_loss, PROMPTS, seed_all
 from ..metrics.id_sim import IdScorer
 from ..metrics.stats import bootstrap_ci_mean
@@ -57,19 +58,21 @@ def main():
             continue
         imgs = [Image.open(p).convert("RGB").resize((512, 512), Image.LANCZOS) for p in prot]
         if tag.startswith("mix"):
-            others = [q for q in all_ids if q != pid]
-            np.random.shuffle(others)
             n_clean = int(round(r / (1 - r) * len(imgs)))
-            clean_imgs = []
-            for q in others:
-                for p in gallery_paths(root, "clean", q):
-                    clean_imgs.append(Image.open(p).convert("RGB").resize((512, 512), Image.LANCZOS))
-                    if len(clean_imgs) >= n_clean:
-                        break
-                if len(clean_imgs) >= n_clean:
-                    break
+            # Clean-source mixing must preserve the target identity.  The old
+            # path drew clean images from *other* identities, so it measured
+            # identity-label corruption rather than dilution of protection.
+            clean_paths = gallery_paths(root, "clean", pid)
+            clean_imgs = [Image.open(p).convert("RGB").resize((512, 512), Image.LANCZOS)
+                          for p in clean_paths[:n_clean]]
             imgs = imgs + clean_imgs
             np.random.shuffle(imgs)
+        elif tag == "purify50":
+            # The previous branch only changed the result label and trained on
+            # the original protected pixels.  Apply the specified T5
+            # regeneration at strength 0.5 before fine-tuning.
+            purify = get_tier("t5_i2i50")
+            imgs = [purify(im) for im in imgs]
         reset_lora(comps["unet"])
         opt = add_lora(comps["unet"], rank=tr_cfg.get("lora_rank", 16), lr=tr_cfg.get("lr", 1e-4))
         comps["unet"].train()
@@ -94,7 +97,9 @@ def main():
         gens = generate_images(pipe, PROMPTS, n_per_prompt=n_per_prompt, steps=30, guidance=7.5, seed=cfg["run"].get("seed", 0))
         del pipe
         torch.cuda.empty_cache()
-        sims = [scorer.best_sim(g, ref_embs)[0] for g in gens]
+        scored = [scorer.best_sim(g, ref_embs) for g in gens]
+        sims = [score for score, _ in scored]
+        det_rate = float(np.mean([bool(ok) for _, ok in scored]))
         sims = np.array(sims, dtype=np.float64)
         mean, (lo, hi) = bootstrap_ci_mean(sims)
         tau = cfg["run"].get("tau", 0.30)
@@ -106,7 +111,7 @@ def main():
             gen_sec=round(train_sec, 1), sec_per_img=round(train_sec / max(1, len(sims)), 2), ts=now(),
         ))
         reset_lora(comps["unet"])
-        log(f"C {pid}/{tag} mean={mean:.3f} train={train_sec:.0f}s", log_path)
+        log(f"C {pid}/{tag} mean={mean:.3f} det={det_rate:.2f} train={train_sec:.0f}s", log_path)
 
 
 if __name__ == "__main__":

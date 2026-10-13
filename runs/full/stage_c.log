@@ -21,3 +21,22 @@
 [2026-10-11 03:07:21] C celeb00031/mix20 mean=0.026 train=158s
 [2026-10-11 03:10:23] C celeb00031/mix50 mean=0.025 train=158s
 [2026-10-11 03:13:21] C celeb00031/purify50 mean=0.150 train=162s
+[2026-10-12 23:03:32] stage_c start cells=18 done=90
+[2026-10-12 23:06:27] C celeb00025/mix20 mean=0.108 det=0.70 train=135s
+[2026-10-12 23:09:17] C celeb00025/mix50 mean=0.111 det=0.80 train=136s
+[2026-10-12 23:12:17] C celeb00025/purify50 mean=0.083 det=0.90 train=136s
+[2026-10-12 23:15:09] C celeb00027/mix20 mean=0.073 det=0.60 train=133s
+[2026-10-12 23:17:55] C celeb00027/mix50 mean=0.046 det=0.50 train=137s
+[2026-10-12 23:20:53] C celeb00027/purify50 mean=0.083 det=0.80 train=135s
+[2026-10-12 23:23:38] C celeb00028/mix20 mean=0.077 det=0.60 train=133s
+[2026-10-12 23:26:24] C celeb00028/mix50 mean=0.070 det=0.60 train=136s
+[2026-10-12 23:29:09] C celeb00028/purify50 mean=0.018 det=0.50 train=132s
+[2026-10-12 23:32:05] C celeb00029/mix20 mean=0.121 det=0.70 train=137s
+[2026-10-12 23:34:51] C celeb00029/mix50 mean=0.074 det=0.70 train=132s
+[2026-10-12 23:37:45] C celeb00029/purify50 mean=0.102 det=0.80 train=133s
+[2026-10-12 23:40:35] C celeb00030/mix20 mean=0.094 det=0.40 train=134s
+[2026-10-12 23:43:27] C celeb00030/mix50 mean=0.179 det=0.70 train=137s
+[2026-10-12 23:46:12] C celeb00030/purify50 mean=0.075 det=0.40 train=133s
+[2026-10-12 23:49:05] C celeb00031/mix20 mean=0.109 det=0.60 train=132s
+[2026-10-12 23:51:47] C celeb00031/mix50 mean=0.083 det=0.50 train=135s
+[2026-10-12 23:54:31] C celeb00031/purify50 mean=0.015 det=0.50 train=133s

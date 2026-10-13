@@ -3,8 +3,20 @@
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.80\textwidth]{../figures/overview.jpg}
+\fbox{\begin{minipage}{0.93\textwidth}
+\centering\small
+\textbf{Published gallery (T0)} $\longrightarrow$
+\textbf{web acquisition funnel (T1--T6)} $\longrightarrow$
+\textbf{attacker} $\longrightarrow$
+\textbf{ArcFace evaluation}\\[5pt]
+\begin{tabular}{@{}cccccc@{}}
+platform transcode & browser render & agent crop & restoration & regeneration & mixing/purification\\
+T1 & T2 & T3 & T4 & T5 & T6
+\end{tabular}\\[5pt]
+\emph{Outputs:} conditional identity, detection rate, detection-failure-zero identity, success, RR$(T)$, and cost.
+\end{minipage}}
 \caption{The ScrapeBench measurement pipeline. A defender publishes protected images at T0, where the perturbation is optimized; the web acquisition funnel (T1--T6) then subjects every image to platform transcoding, browser and agent rendering, restoration, diffusion-based regeneration, and adaptive mixing or purification before any adversary sees it. Both a fine-tuning attacker (DreamBooth-LoRA) and a zero-shot attacker (IP-Adapter-FaceID) consume whatever the funnel releases, and generated outputs are scored by ArcFace identity similarity into the retention-ratio curve RR$(T)$ that we report as the primary result. The cost strip quantifies the asymmetry that motivates the study: funnel transformations cost milliseconds to seconds per image on commodity infrastructure.}
+\Description{Pipeline diagram: protected images flow from a defender through seven funnel tiers (platform transcode, browser render, agent capture, super-resolution, diffusion regeneration, adaptive mixing) to attackers, whose generated images are scored by ArcFace similarity into a retention-ratio curve, with a cost strip comparing per-image transformation costs to per-identity protection costs.}
 \label{fig:overview}
 \end{figure*}
 
@@ -39,15 +51,15 @@ T6 & attacker & adaptive: clean-source mixing $\rho{\in}\{0.2,0.5\}$, purificati
 \end{tabular}
 \end{table}
 
-Concretely, T1 emulates platform transcoding with libjpeg-quality sweeps plus a composite \texttt{t1\_platform} (JPEG-85 at reduced long side, as served by major social platforms). T2 renders the image as a browser would: the image is rasterized into a viewport under device-pixel-ratio $\mathrm{DPR}\in\{1,2\}$ and re-captured, with a thumbnail variant at $240$\,px; where a headless browser is unavailable we substitute a deterministic canvas-equivalent rasterizer so that the tier is reproducible without browser drift. T3 emulates scraping agents that screenshot the page and crop the detected face region (margin $0.35$) rather than fetch the original file. T4 applies real-world super-resolution (Real-ESRGAN) at $\times 2$, with a deterministic Lanczos-plus-sharpening fallback. T5 applies diffusion-based regeneration: img2img at strengths $s\in\{0.3,0.5\}$ with an empty prompt and guidance $1.0$, and a DDIM-inversion-and-reconstruction path with $\eta=0.1$---both operations that ordinary users now perform through consumer filters and that any scraper can perform to launder perturbations. T6 models adaptive adversaries in two ways: \emph{mixing} (the attacker trains on $\rho$ fraction of clean images harvested from a second source, diluting the poisoned gallery exactly as in the uncontrolled setting of prior evaluations) and \emph{purification} (training on T5-regenerated versions of the protected images, laundering the perturbation before fine-tuning).
+Concretely, T1 emulates platform transcoding with libjpeg quality sweeps plus a composite \texttt{t1\_platform} (JPEG-85 at reduced long side, as served by major social platforms). T2 renders the image as a browser would: rasterized into a viewport under device pixel ratio $\mathrm{DPR}\in\{1,2\}$ and re-captured, with a $240$\,px thumbnail variant; where a headless browser is unavailable a deterministic canvas-equivalent rasterizer keeps the tier reproducible without browser drift. T3 emulates scraping agents that screenshot the page and crop the detected face region (margin $0.35$) rather than fetch the original file. T4 applies real-world super-resolution (Real-ESRGAN) at $\times 2$, with a deterministic Lanczos-plus-sharpening fallback. T5 applies diffusion-based regeneration: img2img at strengths $s\in\{0.3,0.5\}$ with an empty prompt and guidance $1.0$, and a DDIM-inversion-and-reconstruction path with $\eta=0.1$---operations ordinary users now perform through consumer filters and any scraper can use to launder perturbations. T6 models adaptive adversaries in two ways: \emph{mixing} (training on a $\rho$ fraction of clean images harvested from a second source, diluting the poisoned gallery) and \emph{purification} (training on T5-regenerated versions of the protected images, laundering the perturbation before fine-tuning).
 
-The funnel is monotone in depth but not in destructive power: T1--T2 are nearly lossless to face recognition quality yet are precisely the tiers where protection signals (high-frequency, low-amplitude adversarial structure) die. This is the crux: the funnel is a \emph{feature} of the attacker's environment, selected for free by platform economics.\sloppy
+The funnel is monotone in depth but not in destructive power: T1--T2 are nearly lossless to face recognition quality yet are precisely the tiers where protection signals (high-frequency, low-amplitude adversarial structure) die. This is the crux: the funnel is a \emph{feature} of the attacker's environment, selected for free by platform economics.
 
 \subsection{Retention Ratio and Cost Ledger}
 \label{sec:metric}
 Let $g(x; P, r)$ denote the best cosine similarity between the ArcFace embedding~\cite{deng2018arcface} of a generated image $x$ and the reference embeddings of subject $s$ under attack pipeline $P$ with random seed $r$. For a defense $D$ and funnel tier $T$ we define the \emph{protection gap}
 \begin{equation}
-\Delta(T; D, P) \;=\; \mathbb{E}_{r}\big[g(\Phi_T(\mathrm{clean}); P, r)\big] \;-\; \mathbb{E}_{r}\big[g(\Phi_T(D(\mathrm{clean})); P, r)\big],
+\Delta(T; D, P) = \mathbb{E}_{r}\big[g(\Phi_T(\mathrm{clean}); P, r)\big] - \mathbb{E}_{r}\big[g(\Phi_T(D(\mathrm{clean})); P, r)\big],
 \label{eq:gap}
 \end{equation}
 where the expectations are over seeds and the five standard DreamBooth prompts. The first term is how well the attack reproduces $s$ from \emph{unprotected} images at the same tier---the fair baseline, because acquisition transforms hit attacker and defense alike. The \emph{retention ratio} normalizes the gap by its clean-domain value:
@@ -55,32 +67,14 @@ where the expectations are over seeds and the five standard DreamBooth prompts. 
 \mathrm{RR}(T; D, P) \;=\; \Delta(T; D, P)\,/\,\Delta(T_0; D, P).
 \label{eq:rr}
 \end{equation}
-$\mathrm{RR}=1$ means the defense retains its full headline protection at tier $T$; $\mathrm{RR}\to 0$ means the funnel has erased it; negative values mean the funnel hurts the defense more than the attack. RR is robust to tier-level quality effects that confound raw-similarity comparisons, is comparable across defenses with different absolute strength, and yields a single interpretable curve per defense---the \emph{collapse curve} we report as the primary result.
+$\mathrm{RR}=1$ means the defense retains its full headline protection at tier $T$; $\mathrm{RR}\to 0$ means the funnel has erased it; negative values mean the funnel hurts the defense more than the attack. RR is robust to tier-level quality effects that confound raw-similarity comparisons, comparable across defenses of different absolute strength, and yields a single interpretable collapse curve per defense.
 
-Two companion quantities complete the ledger. \emph{Detection-failure rate}: the fraction of generated samples below the recognition threshold $\tau$ (calibrated on clean data, $\tau=0.30$ with sensitivity analysis at $0.25/0.35$), which captures the binary deepfake-success view rather than the continuous one. \emph{Infeasibility rate}: the fraction of cells in which the attack stack cannot operate at all because no face is detectable in the tiered gallery---the regime where the funnel has not merely bypassed a defense but destroyed the image's identity content. Keeping these two failure modes apart is essential for honest interpretation: a defense whose gallery survives T5 regeneration has not been \emph{bypassed} if the regeneration also destroyed the photograph's subject, and a platform that regenerates uploads aggressively protects nobody's face while harming every user. \emph{Cost asymmetry}: the GPU-seconds per identity to generate the protection ($c_{\mathrm{prot}}$) versus the CPU/GPU-seconds per image to execute the funnel transformations ($c_{\mathrm{funnel}}$); the ratio $\kappa = c_{\mathrm{prot}} / c_{\mathrm{funnel}}$ is the economic inversion that Section~\ref{sec:results} quantifies. We report 95\% bootstrap confidence intervals over identities, paired two-sided Wilcoxon tests against the clean baseline at matched tiers with Holm correction across tiers, and Cliff's $\delta$ effect sizes.
+Two companion quantities complete the ledger. \emph{Detection-failure rate}: the fraction of generated samples below the recognition threshold $\tau$ (calibrated on clean data, $\tau=0.30$ with sensitivity analysis at $0.25/0.35$). \emph{Infeasibility rate}: the fraction of cells in which no face is detectable in the tiered gallery. Keeping the two failure modes apart matters: a defense whose gallery survives T5 regeneration has not been \emph{bypassed} if the regeneration also destroyed the photograph's subject---infeasibility is destruction, not bypass. \emph{Cost asymmetry}: the GPU-seconds per identity to generate the protection ($c_{\mathrm{prot}}$) versus the CPU/GPU-seconds per image to execute the funnel transformations ($c_{\mathrm{funnel}}$); the ratio $\kappa = c_{\mathrm{prot}} / c_{\mathrm{funnel}}$ is the economic inversion that Section~\ref{sec:results} quantifies. We report 95\% bootstrap confidence intervals over identities, paired two-sided Wilcoxon tests against the clean baseline at matched tiers with Holm correction across tiers, and Cliff's $\delta$ effect sizes.
 
 \subsection{Anchoring the Funnel in Measured Platform Behavior}
 \label{sec:reality}
-A tier definition is only as credible as its parameter range, so we probe four production image pipelines directly: GitHub's avatar service, Gravatar, WordPress's Photon CDN, and the open proxy \texttt{wsrv.nl}. For each response we estimate the JPEG quality factor by matching quantization tables against a reference encoding sweep (Table~\ref{tab:reality}). GitHub re-encodes JPEG avatars at quality ${\approx}75$ and clamps oversized requests to the stored resolution; Gravatar serves quality ${\approx}90$; Photon honors an explicit quality parameter (measured exact at 60/80/90); the proxy exposes the whole 60--90 band. Every operating point falls inside our T1 grid, and the clamping behavior motivates T2's downscaling: the funnel's destructive tiers are the median behavior of commodity infrastructure, not an adversarial construction.
+A tier definition is only as credible as its parameter range, so we probe four production image pipelines directly: GitHub's avatar service, Gravatar, WordPress's Photon CDN, and the open proxy \texttt{wsrv.nl}. For each response we estimate the JPEG quality factor by matching quantization tables against a reference encoding sweep (HTTP probes, October 2026). GitHub re-encodes JPEG avatars at quality ${\approx}75$ and clamps oversized requests to the stored resolution; Gravatar serves quality ${\approx}90$; Photon honors an explicit quality parameter (measured exactly at 60/80/90); the proxy exposes the whole 60--90 band. Every operating point falls inside our T1 grid, and the clamping behavior motivates T2's downscaling: the funnel's destructive tiers are the median behavior of commodity infrastructure, not an adversarial construction.
 
 \subsection{A Consent Layer That Survives the Funnel}
 \label{sec:consent}
-If perturbations do not survive acquisition but metadata does, the durable fix is to make consent ride with the image rather than inside it. We specify \texttt{face-consent.txt}, a robots.txt-style manifest at \texttt{/.well-known/face-consent.txt}: per-subject blocks with salted hashes, image globs, a use registry (\texttt{fine-tuning} and \texttt{embedding-extraction} mirror our two attack families), expiry, revocation endpoints, optional detached signatures, and default-deny for unmatched paths and uses. A reference validator (under 200 lines) validates manifests, issues per-URL allow/deny decisions citing the deciding rule, emits a manifest hash a scraper can prove it acted on, and audits directories for coverage. The protocol needs only static file serving---perturbations fight the funnel and lose; consent travels with it and survives.
-
-\begin{table}[t]
-\centering
-\caption{Measured re-encoding behavior of four production image pipelines (HTTP probes with quantization-table quality estimation, October 2026). Every operating point falls inside the T1 transcode grid of Table~\ref{tab:funnel}.}
-\label{tab:reality}
-\small
-\setlength{\tabcolsep}{4.5pt}
-\begin{tabular}{@{}llll@{}}
-\toprule
-Service & Behavior & Quality & Clamp \\
-\midrule
-GitHub avatars & JPEG re-encode & ${\approx}75$ & yes (s$\to$stored) \\
-Gravatar & JPEG re-encode & ${\approx}90$ & no \\
-Photon CDN & resize + JPEG & exact 60/80/90 & no \\
-wsrv.nl proxy & resize + JPEG & exact 60--90 sweep & no \\
-\bottomrule
-\end{tabular}
-\end{table}
+If perturbations do not survive acquisition but metadata does, the durable fix is to make consent ride with the image rather than inside it. We specify \texttt{face-consent.txt}, a robots.txt-style manifest at \texttt{/.well-known/face-consent.txt}: per-subject blocks with salted hashes, image globs, a use registry mirroring our two attack families, expiry, revocation endpoints, optional detached signatures, and default-deny for unmatched paths and uses. A reference validator (under 200 lines) issues per-URL allow/deny decisions citing the deciding rule, emits a manifest hash a scraper can prove it acted on, and audits directories for coverage. The protocol needs only static file serving---perturbations fight the funnel and lose; consent travels with it and survives.

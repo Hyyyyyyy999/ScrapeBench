@@ -126,9 +126,13 @@ def main():
                     ])
                     if np.isnan(vals).any():
                         continue
-                    boots.append(np.trapezoid(vals) / (len(vals) - 1))
+                    # np.trapezoid was added after the NumPy version pinned by
+                    # this project. np.trapz is equivalent for this 1-D AUC.
+                    boots.append(np.trapz(vals) / (len(vals) - 1))
                 boots = np.array(boots)
-                auc_rows.append({"method": r["method"], "auc": round(float(np.trapezoid(seq) / (len(seq) - 1)), 4),
+                if boots.size == 0:
+                    continue
+                auc_rows.append({"method": r["method"], "auc": round(float(np.trapz(seq) / (len(seq) - 1)), 4),
                                  "ci_lo": round(float(np.percentile(boots, 2.5)), 4),
                                  "ci_hi": round(float(np.percentile(boots, 97.5)), 4)})
             if auc_rows:
@@ -168,7 +172,14 @@ def main():
     with open(os.path.join("report", "report.md"), "w") as f:
         f.write(f"# ScrapeBench run {run_name}\n\nGenerated {pd.Timestamp.now()}\n\n")
         f.write("## Mean identity similarity by method and tier\n\n")
-        f.write(merged.to_markdown(index=False))
+        try:
+            f.write(merged.to_markdown(index=False))
+        except ImportError:
+            # pandas delegates Markdown rendering to the optional `tabulate`
+            # package. Keep report generation usable in the pinned runtime.
+            f.write("```text\n")
+            f.write(merged.to_string(index=False))
+            f.write("\n```")
         f.write("\n\nSee figures/ for collapse curves and runs/*/retention_stage_*.csv for RR tables.\n")
     log("report written", os.path.join(run_dir, "report.log"))
 

@@ -34,7 +34,11 @@ def _haar_crop(pil_img, expand=0.35):
         cx, cy, s = W // 2, int(H * 0.45), min(W, H) // 2
     else:
         x, y, w, h = box
-        cx, cy, s = x + w // 2, y + h // 2, int(max(w, h) * (1 + expand))
+        # ``expand`` is a margin on each side of the detected face.  Treating
+        # it as the total expansion only leaves 17.5% per side for the
+        # protocol's 0.35 setting and crops away landmarks needed by the
+        # downstream face detector.
+        cx, cy, s = x + w // 2, y + h // 2, int(max(w, h) * (1 + 2 * expand))
     x0, y0 = max(0, cx - s // 2), max(0, cy - s // 2)
     x1, y1 = min(W, x0 + s), min(H, y0 + s)
     return pil_img.crop((x0, y0, x1, y1))

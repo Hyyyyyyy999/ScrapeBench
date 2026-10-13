@@ -3,7 +3,7 @@
 
 \subsection{Data Integrity Notes}
 \label{app:integrity}
-Three planned components were excluded from the reported statistics, and we document each exclusion so that the release can be audited. \emph{(i) Agent face-crop tier (T3).} At full scale, $25$ of $27$ attempted T3 cells produced no usable attack: the generation stack's face detector found no face in the tiered gallery, and the two cells that did generate yielded similarity near zero ($0.014$, $0.030$) for \emph{every} method including the clean control. Because a tier that defeats the clean baseline's own attack is a harness defect rather than a finding about protections, we exclude T3 from all aggregates and release the raw cells. \emph{(ii) Stage C (data-level adaptation).} The full-scale adaptation runs returned attacker similarities of $0.02$--$0.08$ across all three conditions---far below even the protected baseline---indicating a fault in the full-scale gallery-mixing path rather than a defense effect; the preview-scale pilot had behaved sensibly, so the discrepancy is isolated to scale-up code that we did not have compute budget to debug. Stage C is excluded and its runners released as-is. \emph{(iii) InstantID stress grid.} The InstantID replacement attack requires a separate SDXL stack whose conditioning behavior we had to patch for batched prompts; the grid was interrupted by the compute window after one identity completed all four tiers. We report that single paired trajectory as directional evidence in Section~\ref{sec:res_stress} and release the partial log. None of these exclusions weakens the paired-baseline finding of Section~\ref{sec:res_f1}, which rests on the complete Stage-A grid.
+The first execution exposed three faults, all subsequently repaired and rerun. \emph{(i) Agent face-crop tier (T3).} The original crop implementation interpreted a per-side margin of $.35$ as a total width/height multiplier, producing undersized galleries and $25/27$ unusable cells. Correcting the crop extent restores the clean control (conditional identity $.376$, detection $81.7\%$) and completes $6\times3=18$ cells (Table~\ref{tab:repaired}). We retain T3 as a separate pilot rather than pooling it into the original 40-identity table. \emph{(ii) Stage C.} The original mixer drew clean images from other identities and the purification label did not execute the intended img2img-50 path. Same-identity mixing and true strength-$.5$ purification complete all 18 pilot cells; the low attack success and absence of matched endpoints limit causal interpretation. \emph{(iii) InstantID.} Batched prompt conditioning was inconsistent with the adapter embedding batch. Passing one prompt with an explicit images-per-prompt count fixes the mismatch; a $6$-identity $\times3$-method $\times4$-tier grid now completes all 72 cells at 30 denoising steps (Table~\ref{tab:instantid}). The append-only log preserves the failed and pre-protocol rows, while analysis selects the latest successful row per key.
 
 \subsection{Reproducibility}
 \label{sec:repro}
@@ -15,7 +15,87 @@ This work evaluates \emph{defenses}, not attack tooling: the attack pipelines us
 
 \subsection{Additional Results}
 \label{sec:extra}
-The released result logs contain, per stage: full per-tier tables (including JPEG-95/65, WebP-80, device-pixel-ratio variants, the inversion tier, and img2img-50), the detection-failure view at thresholds $\tau \in \{0.25, 0.30, 0.35\}$, per-identity curves with bootstrap intervals, per-cell wall-clock timings, and the complete Wilcoxon--Holm table.
+The released result logs contain, per stage: full per-tier tables (including JPEG-95/65, WebP-80, device-pixel-ratio variants, the inversion tier, and img2img-50), conditional and detection-failure-zero views, per-identity curves with bootstrap intervals, per-cell wall-clock timings, and Wilcoxon--Holm tables. Tables~\ref{tab:stageB}--\ref{tab:repaired} report the Stage-B fine-tuning comparison, the completed Stage-O ordering programs, the standard-reader stress grid, and the repaired pilots.
+
+\begin{table*}[t]
+\centering
+\caption{Completed InstantID pilot (6 identities, 10 generations/cell). Each entry reports conditional identity similarity / face-detection rate / detection-failure-zero identity similarity / attack success at $\tau=.30$. Reporting all four prevents detector failure from being credited as identity-specific protection.}
+\label{tab:instantid}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Method & T0 & JPEG-85 & T2 canvas & T5 img2img-30 \\
+\midrule
+Clean  & .514 / 80.0 / .406 / 78.3 & .541 / 76.7 / .413 / 76.7 & .547 / 61.7 / .336 / 61.7 & .256 / 50.0 / .139 / 26.7 \\
+FSMG   & .276 / 63.3 / .178 / 28.3 & .262 / 65.0 / .182 / 21.7 & .277 / 66.7 / .194 / 35.0 & .101 / 6.7 / .007 / 0.0 \\
+FSMG-J & .286 / 55.0 / .171 / 33.3 & .277 / 51.7 / .153 / 26.7 & .291 / 60.0 / .178 / 31.7 & .115 / 3.3 / .004 / 0.0 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table}[H]
+\centering
+\caption{Stage B (DreamBooth-LoRA, 20 generations per cell, 6 identities per condition): similarity / success rate (SR, \%, rounded) at four tiers. Clean is a held-out-half run on disjoint identities, so the comparison is cross-identity and directional; the same-identity zero-shot contrast is in Table~\ref{tab:stageA}.}
+\label{tab:stageB}
+\footnotesize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Defense & T0 & J85 & T2 & T5 \\
+\midrule
+\input{tables_auto/stageB_body}
+\end{tabular}
+\end{table}
+
+\begin{table*}[t]
+\centering
+\caption{Completed Stage O (zero-shot attack, 6 matched identities, 10 generations/cell). Clean and FSMG entries report detection-failure-zero identity similarity / face-detection rate (\%). Gaps are paired within identity; RR normalizes each program gap by the matched T0 gap (.062 for FSMG and .036 for random). Values above one indicate greater separation than T0, but can reflect program-induced detection loss rather than stronger identity-specific protection.}
+\label{tab:stageO}
+\scriptsize
+\setlength{\tabcolsep}{2.6pt}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Program & Clean uID / det. & FSMG uID / det. & FSMG gap & FSMG RR & Random RR \\
+\midrule
+\input{tables_auto/stageO_body}
+\end{tabular}
+\end{table*}
+
+\begin{table}[H]
+\centering
+\caption{Stress test (the six-identity Stage-O subset, 4 tiers): similarity / success rate at $\tau=0.30$ under the standard zero-shot attack. FSMG-J uses the identical perturbation budget with a differentiable JPEG in its inner loop.}
+\label{tab:stress}
+\footnotesize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Defense & T0 & J85 & T2 & T5 \\
+\midrule
+\input{tables_auto/stress_body}
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Repaired six-identity pilots. T3 rows report conditional identity / detection rate / detection-failure-zero identity / success. Stage-C rows use the same order; the original invalid conditional mean is shown last for auditability.}
+\label{tab:repaired}
+\footnotesize
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{@{}llccccc@{}}
+\toprule
+Pilot & Condition & Cond. & Det.\,(\%) & Uncond. & SR\,(\%) & Old \\
+\midrule
+T3 & clean  & .376 & 81.7 & .308 & 61.7 & -- \\
+T3 & FSMG   & .329 & 76.7 & .254 & 43.3 & -- \\
+T3 & FSMG-J & .328 & 78.3 & .258 & 45.0 & -- \\
+\midrule
+Stage C & mix20    & .097 & 60.0 & .059 & 0.0 & .042 \\
+Stage C & mix50    & .094 & 63.3 & .062 & 5.0 & .022 \\
+Stage C & purify50 & .063 & 65.0 & .045 & 0.0 & .078 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{Protection Quality}
 \label{app:quality}
@@ -25,21 +105,9 @@ The deployed perturbations respect the $\epsilon=16/255$ ball with PSNR against 
 \centering
 \includegraphics[width=0.85\columnwidth]{../figures/detfail_stage_A.png}
 \caption{Binary attack success (SR at $\tau=0.30$) across tiers (Stage A, pooled means over each defense's identity half). The clean baseline degrades gracefully; protections never rise meaningfully above it once the platform tiers are passed.}
+\Description{Line chart of attack success rate across funnel tiers: the clean control declines gradually while protected defenses track it closely after the platform tiers.}
 \label{fig:detfail}
 \end{figure}
 \label{app:detfail}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\columnwidth]{../figures/tier_grid.png}
-\caption{The funnel tiers applied to one clean (top) and one FSMG-protected (bottom) gallery image. Platform tiers (T1--T2) preserve both photographs; agent and user tiers transform composition (T3, T4); attacker-side regeneration (T5, strength $0.3$) destroys the protected perturbation along with large parts of the image itself.}
-\label{fig:tier_grid}
-\end{figure}
-
-Figure~\ref{fig:tier_grid} shows the tiers themselves operating on real gallery images.
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\columnwidth]{../figures/qual_grid.png}
-\caption{What the attacker actually receives, on one clean-protected and one FSMG-protected identity (two generations per cell, seed 0). Platform tiers leave both galleries visually intact---which is why they are dangerous: the funnel damages the \emph{perturbation} without damaging the \emph{photograph}. After T5 regeneration the clean identity still yields recognizable faces while the FSMG-protected gallery is degraded past face detectability: protection by destruction, not deception.}
-\label{fig:qual}
-\end{figure}
+The released per-cell logs retain detection outcomes alongside identity scores. This audit trail is the quantitative basis for separating bypass from destruction; no conclusion depends on manual selection of qualitative generations.

@@ -43,5 +43,6 @@ attack:
   ip_adapter_repo: h94/IP-Adapter-FaceID
   ip_adapter_weight: ip-adapter-faceid_sd15.bin
   ip_adapter_scale: 0.8
-  steps: 25
+  steps: 30
+  instantid_steps: 30
   guidance: 5.0
