@@ -5,25 +5,22 @@ from .base import pil_to_tensor, tensor_to_pil, clamp_eps
 from .fsmg import text_embed, encode_latents, CLASS_PROMPT
 from ..attack.diffjpeg import diff_jpeg
 
-_CLIP = {}
-CLIP_MEAN = (0.48145466, 0.4578275, 0.40821073)
-CLIP_STD = (0.26862954, 0.26130258, 0.27577711)
+_FN = {}
 
 
-def _clip(device, dtype):
-    if "m" not in _CLIP:
-        from transformers import CLIPVisionModelWithProjection
-        m = CLIPVisionModelWithProjection.from_pretrained("openai/clip-vit-base-patch32")
-        _CLIP["m"] = m.to(device).eval().requires_grad_(False)
-    return _CLIP["m"].to(dtype)
+def _fn(device, dtype):
+    if "m" not in _FN:
+        from facenet_pytorch import InceptionResnetV1
+        m = InceptionResnetV1(pretrained="vggface2").eval().requires_grad_(False)
+        _FN["m"] = m.to(device)
+    return _FN["m"].to(dtype)
 
 
-def _clip_emb(model, x):
+def _fn_emb(model, x):
     x01 = (x + 1.0) / 2.0
-    x224 = F.interpolate(x01, size=(224, 224), mode="bicubic", align_corners=False)
-    mean = torch.tensor(CLIP_MEAN, device=x.device, dtype=x.dtype).view(1, 3, 1, 1)
-    std = torch.tensor(CLIP_STD, device=x.device, dtype=x.dtype).view(1, 3, 1, 1)
-    return model(pixel_values=(x224 - mean) / std).image_embeds
+    x160 = F.interpolate(x01, size=(160, 160), mode="bicubic", align_corners=False)
+    x160 = (x160 - 0.5) / 0.5
+    return model(x160)
 
 
 def _jnd_amp(x01, eps_min, eps_max):
@@ -91,13 +88,13 @@ def forge_arcp(comps, imgs, out_dir=None, eps_max=16.0 / 255.0, eps_min=2.0 / 25
     z.requires_grad_(True)
     emb = text_embed(comps, [CLASS_PROMPT] * n)
     with torch.no_grad():
-        ref = _clip_emb(_clip(device, dtype), x).mean(0, keepdim=True)
+        ref = _fn_emb(_fn(device, dtype), x).mean(0, keepdim=True)
         ref = ref / ref.norm(dim=-1, keepdim=True)
     for step in range(steps):
         delta = F.interpolate(z, size=(512, 512), mode="bilinear", align_corners=False) * amp_up
         xp = clamp_eps(x + delta, x, eps_max)
         xa = _eot(xp, rng)
-        e = _clip_emb(_clip(device, dtype), xa)
+        e = _fn_emb(_fn(device, dtype), xa)
         e = e / e.norm(dim=-1, keepdim=True)
         sim = (e * ref).sum(-1)
         loss_reader = F.relu(sim - margin).mean()
