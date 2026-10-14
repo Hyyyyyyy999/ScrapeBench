@@ -23,6 +23,7 @@ def drop_pilot_reruns(df):
     ts = pd.to_datetime(df["ts"], errors="coerce")
     mask = (df["pid"].isin(OIDS) & (ts >= PILOT_CUT) & df["tier"].isin(PILOT_RERUN_TIERS)
             & df["method"].isin(["clean", "fsmg", "fsmgj"]))
+    mask = mask | ((df["method"] == "arcp") & (ts < pd.Timestamp("2026-10-13 00:00:00")))
     return df[~mask]
 
 
