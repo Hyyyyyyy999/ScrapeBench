@@ -3003,3 +3003,27 @@
 [2026-10-14 10:28:42] A arcp2/celeb00047/t3_agent_facecrop mean=0.287 det=0.70 43s
 [2026-10-14 10:30:05] A arcp2/celeb00047/t4_sr_x2 mean=0.278 det=0.80 45s
 [2026-10-14 10:31:24] A arcp2/celeb00047/t5_i2i30 mean=0.203 det=0.60 43s
+[2026-10-14 10:31:50] stage_a start cells=24 done=1524
+[2026-10-14 10:33:32] skip arcp2/celeb00025/t2_canvas_dpr1: CUDA out of memory. Tried to allocate 1.25 GiB. GPU 0 has a total capacity of 23.52 GiB of which 366.44 MiB is free. Including non-PyTorch memory, this process has 13.65 GiB memory in use. Process 73210 has 9.50 GiB memory in use. Of the allocated memory 12.38 GiB is allocated by PyTorch, and 830.40 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+[2026-10-14 10:35:18] skip arcp2/celeb00025/t5_i2i30: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:36:34] skip arcp2/celeb00027/t0: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:37:29] skip arcp2/celeb00027/t1_jpeg85: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:38:34] skip arcp2/celeb00027/t2_canvas_dpr1: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:39:30] skip arcp2/celeb00027/t5_i2i30: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:40:35] skip arcp2/celeb00028/t0: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:41:34] skip arcp2/celeb00028/t1_jpeg85: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:42:37] skip arcp2/celeb00028/t2_canvas_dpr1: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:43:46] skip arcp2/celeb00028/t5_i2i30: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:45:07] skip arcp2/celeb00029/t0: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:45:54] skip arcp2/celeb00029/t1_jpeg85: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:46:45] skip arcp2/celeb00029/t2_canvas_dpr1: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:47:47] skip arcp2/celeb00029/t5_i2i30: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:48:42] skip arcp2/celeb00030/t0: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:49:29] skip arcp2/celeb00030/t1_jpeg85: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:50:18] skip arcp2/celeb00030/t2_canvas_dpr1: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:51:16] skip arcp2/celeb00030/t5_i2i30: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:52:23] skip arcp2/celeb00031/t0: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:53:11] skip arcp2/celeb00031/t1_jpeg85: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:53:57] skip arcp2/celeb00031/t2_canvas_dpr1: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:54:42] skip arcp2/celeb00031/t5_i2i30: Input type (c10::Half) and bias type (float) should be the same
+[2026-10-14 10:54:42] stage_a incomplete failed_cells=22
