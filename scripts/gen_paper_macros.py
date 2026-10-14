@@ -1,7 +1,12 @@
 import argparse
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import numpy as np
 import pandas as pd
+from scrapebench.runner.analysis import primary_frame, repaired_frame
 
 TIERS = ["t0", "t1_jpeg95", "t1_jpeg85", "t1_jpeg75", "t1_jpeg65", "t1_webp80", "t2_canvas_dpr1",
          "t3_agent_facecrop", "t4_sr_x2", "t5_i2i30"]
@@ -15,16 +20,6 @@ ORDERS = ["canonical", "jpeg_only", "sr_first", "t5_first", "t5_only", "deep_cha
 OSHORT = {"canonical": "ca", "jpeg_only": "jo", "sr_first": "sf", "t5_first": "tf",
           "t5_only": "tvo", "deep_chain": "dc"}
 OIDS = ["celeb00025", "celeb00027", "celeb00028", "celeb00029", "celeb00030", "celeb00031"]
-PILOT_CUT = "2026-10-12 22:00:00"
-PILOT_RERUN_TIERS = {"t0", "t1_jpeg85", "t2_canvas_dpr1", "t5_i2i30"}
-
-
-def drop_pilot_reruns(df):
-    ts = pd.to_datetime(df["ts"], errors="coerce")
-    mask = (df["pid"].isin(OIDS) & (ts >= PILOT_CUT) & df["tier"].isin(PILOT_RERUN_TIERS)
-            & df["method"].isin(["clean", "fsmg", "fsmgj"]))
-    mask = mask | ((df["method"] == "arcp") & (ts < pd.Timestamp("2026-10-13 00:00:00")))
-    return df[~mask]
 
 
 def fs(x):
@@ -47,8 +42,9 @@ def build_macros(df, run_dir):
     def put(k, v):
         m[k] = v
 
-    a = df[(df.stage == "A") & (df.attack == "ipfaceid") & (df.n_samples > 0)]
-    a = drop_pilot_reruns(a)
+    prim = primary_frame(df)
+    rep = repaired_frame(df)
+    a = prim[(prim.stage == "A") & (prim.attack == "ipfaceid")]
     pv = a.groupby(["method", "tier"])["mean_id"].mean()
     ps = a.groupby(["method", "tier"])["pos_rate"].mean()
     for met in ["clean", "random", "fsmg", "aspl", "fsmgj", "arcp"]:
@@ -98,7 +94,7 @@ def build_macros(df, run_dir):
                 continue
             p = r.p_holm
             put(f"wA{MSHORT[r.method]}{TSHORT.get(r.tier, '')}", (f"{p:.3f}" if p >= 0.001 else f"{p:.1e}"))
-    b = df[df.stage == "B"]
+    b = prim[prim.stage == "B"]
     pvb = b.groupby(["method", "tier"])["mean_id"].mean()
     psb = b.groupby(["method", "tier"])["pos_rate"].mean()
     for met in ["clean", "random", "fsmg", "arcp"]:
@@ -120,7 +116,7 @@ def build_macros(df, run_dir):
                 put(f"aB{MSHORT[met]}", f"{bu.loc[met].auc:.3f}")
                 put(f"lB{MSHORT[met]}", f"{bu.loc[met].ci_lo:.3f}")
                 put(f"hB{MSHORT[met]}", f"{bu.loc[met].ci_hi:.3f}")
-    c = df[df.stage == "C"]
+    c = rep[rep.stage == "C"]
     ref = a[(a.tier == "t0") & (a.pid.isin(set(c.pid)))] if len(c) else a[a.tier == "t0"]
     cmean = ref[ref.method == "clean"]["mean_id"].mean()
     d0 = cmean - ref[ref.method == "fsmg"]["mean_id"].mean()
@@ -144,8 +140,12 @@ def build_macros(df, run_dir):
             if go is not None and met in go.index and o in go.columns and not np.isnan(go.loc[met][o]):
                 v = f"{go.loc[met][o]:.2f}"
             put(f"rO{MSHORT[met]}{OSHORT[o]}", v)
-    s = df[(df.stage == "A") & (df.pid.isin(OIDS)) & (df.tier.isin(TIER_B)) & (df.n_samples > 0)]
     for atk in ["ipfaceid", "instantid"]:
+        # Stage-A primary era for the standard reader; the completed
+        # InstantID grid is a post-repair pilot, so it reads the latest
+        # successful row per key.
+        frame = prim if atk == "ipfaceid" else rep
+        s = frame[(frame.stage == "A") & (frame.pid.isin(OIDS)) & (frame.tier.isin(TIER_B))]
         su = s[s.attack == atk]
         pvs = su.groupby(["method", "tier"])["mean_id"].mean()
         pss = su.groupby(["method", "tier"])["pos_rate"].mean()

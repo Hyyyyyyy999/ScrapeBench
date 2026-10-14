@@ -1,7 +1,12 @@
 import argparse
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import numpy as np
 import pandas as pd
+from scrapebench.runner.analysis import primary_frame
 
 TIERS = ["t0", "t1_jpeg95", "t1_jpeg85", "t1_jpeg75", "t1_jpeg65", "t1_webp80", "t2_canvas_dpr1",
          "t4_sr_x2", "t5_i2i30"]
@@ -14,16 +19,6 @@ TSHORT = {"t0": "to", "t1_jpeg95": "ja", "t1_jpeg85": "jb", "t1_jpeg75": "jc", "
 TIER_B = {"t0": "T0", "t1_jpeg85": "J85", "t2_canvas_dpr1": "T2", "t5_i2i30": "T5"}
 MSHORT = {"clean": "cl", "random": "rn", "fsmg": "fg", "aspl": "as", "fsmgj": "fj", "instantid": "in", "ipfaceid": "if"}
 OIDS = ["celeb00025", "celeb00027", "celeb00028", "celeb00029", "celeb00030", "celeb00031"]
-PILOT_CUT = "2026-10-12 22:00:00"
-PILOT_RERUN_TIERS = {"t0", "t1_jpeg85", "t2_canvas_dpr1", "t5_i2i30"}
-
-
-def drop_pilot_reruns(df):
-    ts = pd.to_datetime(df["ts"], errors="coerce")
-    mask = (df["pid"].isin(OIDS) & (ts >= PILOT_CUT) & df["tier"].isin(PILOT_RERUN_TIERS)
-            & df["method"].isin(["clean", "fsmg", "fsmgj"]))
-    mask = mask | ((df["method"] == "arcp") & (ts < pd.Timestamp("2026-10-13 00:00:00")))
-    return df[~mask]
 
 
 def fs(x):
@@ -50,8 +45,8 @@ def bold_grid(pv, tiers, methods, skip_t5=True):
 
 
 def stage_a_body(df, run_dir):
-    a = df[(df.stage == "A") & (df.attack == "ipfaceid")]
-    a = drop_pilot_reruns(a)
+    a = primary_frame(df)
+    a = a[(a.stage == "A") & (a.attack == "ipfaceid")]
     pv = a.groupby(["method", "tier"])["mean_id"].mean()
     ps = a.groupby(["method", "tier"])["pos_rate"].mean()
     methods = ["clean", "random", "fsmg", "aspl", "fsmgj"]
@@ -81,16 +76,13 @@ def stage_a_body(df, run_dir):
 
 
 def stage_b_body(df, run_dir):
-    b = df[(df.stage == "B")]
+    b = primary_frame(df)
+    b = b[(b.stage == "B")]
     pv = b.groupby(["method", "tier"])["mean_id"].mean()
     ps = b.groupby(["method", "tier"])["pos_rate"].mean()
     tiers = list(TIER_B)
     methods = ["clean", "random", "fsmg"]
     best = bold_grid(pv, tiers, methods, skip_t5=False)
-    q = pd.DataFrame(columns=["psnr", "lpips"])
-    qpath = os.path.join(run_dir, "quality.csv")
-    if os.path.exists(qpath):
-        q = pd.read_csv(qpath).set_index("method")
     lines = []
     for m in methods:
         cells = []
@@ -128,8 +120,8 @@ def stage_o_body(df, run_dir):
 
 def stress_body(df):
     tiers = ["t0", "t1_jpeg85", "t2_canvas_dpr1", "t5_i2i30"]
-    sub = df[(df.stage == "A") & (df.attack == "ipfaceid") & (df.n_samples > 0)]
-    sub = drop_pilot_reruns(sub)
+    sub = primary_frame(df)
+    sub = sub[(sub.stage == "A") & (sub.attack == "ipfaceid")]
     mpids = set(sub[sub.method == "fsmgj"]["pid"])
     sub = sub[sub.pid.isin(mpids)]
     pv = sub.groupby(["method", "tier"])["mean_id"].mean()

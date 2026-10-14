@@ -30,6 +30,8 @@ def load_config(path=None, overrides=None):
     if path and os.path.exists(path):
         with open(path) as f:
             cfg = _merge(cfg, yaml.safe_load(f) or {})
+    elif path and not os.path.exists(path):
+        raise FileNotFoundError(f"config file not found: {path}")
     for kv in overrides or []:
         key, _, val = kv.partition("=")
         node = cfg

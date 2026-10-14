@@ -37,7 +37,7 @@ vendor/          第三方组件（见 ATTRIBUTION.md）
 
 ```bash
 bash scripts/setup_lab.sh          # 依赖安装
-python scripts/prepare_data.py --mode kaggle_celeba --out data/identities --n-ids 40 --per-id 8
+python scripts/prepare_data.py --source kaggle --data-root data --n-ids 40 --per-id 8
 bash scripts/run_smoke.sh          # 2 身份端到端烟测
 bash scripts/run_all.sh            # Stage A (GPU0) + Stage B (GPU1) + Stage C，结束自动推 GitHub
 ```

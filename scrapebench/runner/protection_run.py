@@ -4,7 +4,7 @@ import shutil
 import numpy as np
 from PIL import Image
 from ..config import load_config
-from ..attack.train_utils import load_sd15
+from ..attack.train_utils import load_gallery, load_sd15
 from ..protection.fsmg import train_surrogate, pgd_fsmg
 from ..protection.random_noise import make_random_noise
 from ..protection.arcp import forge_arcp
@@ -28,37 +28,42 @@ def list_galleries(data_root):
 def generate_method(method, comps, gallery_paths, cfg, out_dir):
     os.makedirs(out_dir, exist_ok=True)
     res = cfg["run"].get("resolution", 512)
-    if method == "clean":
-        for i, p in enumerate(gallery_paths):
-            im = Image.open(p).convert("RGB")
-            s = min(im.size)
-            im = im.crop(((im.width - s) // 2, (im.height - s) // 2, (im.width + s) // 2, (im.height + s) // 2)).resize((res, res), Image.LANCZOS)
-            im.save(os.path.join(out_dir, f"{i:04d}.png"))
-        return None
-    imgs = [Image.open(p).convert("RGB").resize((res, res), Image.LANCZOS) for p in gallery_paths]
+    # Uniform ingestion for every method: center-crop to square, then resize.
+    # Earlier campaigns stretched non-clean methods instead (see paper
+    # Appendix A.1, integrity note iv); the corrected path ships with the
+    # benchmark and applies to all newly generated galleries.
+    imgs = load_gallery(gallery_paths, res)
     prot_cfg = cfg.get("protection", {})
     eps = prot_cfg.get("eps", 8.0) / 255.0
-    if method == "random":
-        outs = make_random_noise(imgs, eps=eps, seed=0)
-    elif method == "fsmg":
-        train_surrogate(comps, imgs, steps=prot_cfg.get("surrogate_steps", 200), batch_size=4, log_every=50)
-        outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100), seed=cfg["run"].get("seed", 0))
-    elif method == "fsmgj":
-        jq = int(prot_cfg.get("jpeg_aware", 85))
-        train_surrogate(comps, imgs, steps=prot_cfg.get("surrogate_steps", 200), batch_size=4, log_every=50)
-        outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100), jpeg_aware=jq, seed=cfg["run"].get("seed", 0))
-    elif method in ("arcp", "arcp2"):
-        k = method + "_"
-        outs = forge_arcp(comps, imgs, eps_max=prot_cfg.get(k + "eps_max", 16.0) / 255.0,
-                          eps_min=prot_cfg.get(k + "eps_min", 2.0) / 255.0,
-                          steps=prot_cfg.get(k + "steps", 150),
-                          alpha=prot_cfg.get(k + "alpha", 2.0) / 255.0,
-                          lam=prot_cfg.get(k + "lam", 2.0 if method == "arcp2" else 0.5),
-                          seed=cfg["run"].get("seed", 0))
+    if method == "clean":
+        outs = imgs
     else:
-        raise ValueError(f"unknown method {method}")
+        if method == "random":
+            # random_eps keeps the control's [0,1]-scale amplitude explicit;
+            # it falls back to eps so legacy configs reproduce frozen data.
+            eps = prot_cfg.get("random_eps", prot_cfg.get("eps", 8.0)) / 255.0
+            outs = make_random_noise(imgs, eps=eps, seed=0)
+        elif method == "fsmg":
+            train_surrogate(comps, imgs, steps=prot_cfg.get("surrogate_steps", 200), batch_size=4, log_every=50)
+            outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100), seed=cfg["run"].get("seed", 0))
+        elif method == "fsmgj":
+            jq = int(prot_cfg.get("jpeg_aware", 85))
+            train_surrogate(comps, imgs, steps=prot_cfg.get("surrogate_steps", 200), batch_size=4, log_every=50)
+            outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100), jpeg_aware=jq, seed=cfg["run"].get("seed", 0))
+        elif method in ("arcp", "arcp2"):
+            k = method + "_"
+            outs = forge_arcp(comps, imgs, eps_max=prot_cfg.get(k + "eps_max", 16.0) / 255.0,
+                              eps_min=prot_cfg.get(k + "eps_min", 2.0) / 255.0,
+                              steps=prot_cfg.get(k + "steps", 150),
+                              alpha=prot_cfg.get(k + "alpha", 2.0) / 255.0,
+                              lam=prot_cfg.get(k + "lam", 2.0 if method == "arcp2" else 0.5),
+                              seed=cfg["run"].get("seed", 0))
+        else:
+            raise ValueError(f"unknown method {method}")
     for i, im in enumerate(outs):
         im.save(os.path.join(out_dir, f"{i:04d}.png"))
+    if method == "clean":
+        return None
     return float(np.mean([psnr(a, b) for a, b in zip(imgs, outs)]))
 
 

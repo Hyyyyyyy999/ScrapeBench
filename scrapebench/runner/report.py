@@ -6,6 +6,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from ..config import load_config
+from .analysis import primary_frame, repaired_frame
 from .results import log
 
 TIER_ORDER = ["t0", "t1_jpeg95", "t1_jpeg85", "t1_jpeg75", "t1_jpeg65", "t1_webp80", "t1_platform",
@@ -13,17 +14,7 @@ TIER_ORDER = ["t0", "t1_jpeg95", "t1_jpeg85", "t1_jpeg75", "t1_jpeg65", "t1_webp
               "t3_agent_full", "t3_agent_facecrop", "t4_sr_x2", "t5_i2i30", "t5_i2i50",
               "t5_inversion", "mix20", "mix50", "purify50"]
 EXCLUDE_TIERS = {"t3_agent_full", "t3_agent_facecrop"}
-PILOT_IDS = {"celeb00025", "celeb00027", "celeb00028", "celeb00029", "celeb00030", "celeb00031"}
-PILOT_CUT = "2026-10-12 22:00:00"
-PILOT_RERUN_TIERS = {"t0", "t1_jpeg85", "t2_canvas_dpr1", "t5_i2i30"}
 TRAPZ = getattr(np, "trapz", None) or np.trapezoid
-
-
-def drop_pilot_reruns(df):
-    ts = pd.to_datetime(df["ts"], errors="coerce")
-    mask = (df["pid"].isin(PILOT_IDS) & (ts >= PILOT_CUT) & df["tier"].isin(PILOT_RERUN_TIERS)
-            & df["method"].isin(["clean", "fsmg", "fsmgj"]))
-    return df[~mask]
 
 
 def pid_level_ci(df, stage, method, tier, n_boot=2000, seed=0):
@@ -50,12 +41,17 @@ def main():
     if not os.path.exists(res_path):
         print("no results yet")
         return
-    df = pd.read_csv(res_path)
-    df = df.dropna(subset=["mean_id"])
-    df = df[~df.tier.isin(EXCLUDE_TIERS)]
-    df = df[~((df["stage"] == "A") & (df["attack"] != "ipfaceid"))]
-    df_raw = df.copy()
-    df = drop_pilot_reruns(df)
+    df_all = pd.read_csv(res_path)
+    df_all = df_all[~df_all.tier.isin(EXCLUDE_TIERS)]
+    df_all = df_all[~((df_all["stage"] == "A") & (df_all["attack"] != "ipfaceid"))]
+    # One row per key: the primary grid keeps the original campaign era;
+    # the repaired pilots, Stage C, and Stage O use the latest post-repair
+    # run (Appendix A.1).
+    df_raw = primary_frame(df_all)
+    df_rep = repaired_frame(df_all)
+    df = pd.concat([df_raw[df_raw["stage"].isin(["A", "B"])],
+                    df_rep[df_rep["stage"].isin(["C", "O"])]])
+    df = df[df["mean_id"].notna()]
     os.makedirs("figures", exist_ok=True)
     os.makedirs("report", exist_ok=True)
     tiers = [t for t in TIER_ORDER if t in set(df["tier"])]
@@ -98,6 +94,11 @@ def main():
             gap_rows = []
             for m in sub["method"].unique():
                 if m == "clean":
+                    continue
+                if m not in base_o or abs(base_o[m]) < 0.01:
+                    print(f"[report] stage O: method {m} has no meaningful stage-A T0 gap "
+                          f"on the order identities (|gap| < 0.01, within identity "
+                          f"variance); retention row omitted")
                     continue
                 msub = sub[sub["method"] == m].set_index("tier")["mean"]
                 row = {"method": m}

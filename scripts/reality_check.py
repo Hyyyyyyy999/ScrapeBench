@@ -54,10 +54,15 @@ def main():
         rows.append(probe(f"https://www.gravatar.com/avatar/{h}", f"gravatar_default_s{s}", {"s": s, "d": "mp"}))
     for q in [60, 70, 80, 90]:
         rows.append(probe("https://wsrv.nl/", f"wsrv_q{q}", {"url": "upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg", "w": 512, "q": q, "output": "jpg"}))
+    # Photon proxies a REMOTE image path appended after the host:
+    # https://i0.wp.com/<path>?resize=...&quality=...  (probing the bare
+    # host returns 400 for every parameter combination).
     for q in [60, 80, 90]:
-        rows.append(probe("https://i0.wp.com/", f"photon_q{q}", {"resize": "512,384", "quality": q}))
+        rows.append(probe("https://i0.wp.com/upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg",
+                          f"photon_q{q}", {"resize": "512,384", "quality": q}))
     for w in [320, 640]:
-        rows.append(probe("https://i0.wp.com/", f"photon_w{w}", {"resize": f"{w},{w}", "quality": ""}))
+        rows.append(probe("https://i0.wp.com/upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg",
+                          f"photon_w{w}", {"resize": f"{w},{w}"}))
     os.makedirs("runs/reality", exist_ok=True)
     with open("runs/reality/platform_cdn.csv", "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=["target", "url", "status", "bytes", "format", "width", "height", "est_q", "note"])

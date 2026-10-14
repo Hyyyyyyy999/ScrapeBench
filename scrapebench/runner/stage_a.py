@@ -50,7 +50,6 @@ def main():
     ids = args.ids.split(",") if args.ids else cfg["stage_a"]["ids"]
     if ids == ["all"]:
         ids = sorted({p for _, p in galleries})
-    n_per_prompt = max(1, cfg["run"]["samples_per_cell"] // len(PROMPTS))
     ref_per_id = cfg["run"].get("ref_per_id", 2)
     atk_cfg = cfg.get("attack", {})
     if args.attack == "instantid":

@@ -20,12 +20,8 @@ wsrv_q60,https://wsrv.nl/?url=upload.wikimedia.org%2Fwikipedia%2Fcommons%2F3%2F3
 wsrv_q70,https://wsrv.nl/?url=upload.wikimedia.org%2Fwikipedia%2Fcommons%2F3%2F3a%2FCat03.jpg&w=512&q=70&output=jpg,200,26229,JPEG,512,511,70,
 wsrv_q80,https://wsrv.nl/?url=upload.wikimedia.org%2Fwikipedia%2Fcommons%2F3%2F3a%2FCat03.jpg&w=512&q=80&output=jpg,200,33558,JPEG,512,511,80,
 wsrv_q90,https://wsrv.nl/?url=upload.wikimedia.org%2Fwikipedia%2Fcommons%2F3%2F3a%2FCat03.jpg&w=512&q=90&output=jpg,200,66417,JPEG,512,511,90,
-photon_q60,https://i0.wp.com/?resize=512%2C384&quality=60,400,87,,,,,small-or-error
-photon_q80,https://i0.wp.com/?resize=512%2C384&quality=80,400,87,,,,,small-or-error
-photon_q90,https://i0.wp.com/?resize=512%2C384&quality=90,400,87,,,,,small-or-error
-photon_w320,https://i0.wp.com/?resize=320%2C320&quality=,400,87,,,,,small-or-error
-photon_w640,https://i0.wp.com/?resize=640%2C640&quality=,400,87,,,,,small-or-error
-photon_q60,https://i0.wp.com/?url=upload.wikimedia.org%2Fwikipedia%2Fcommons%2F3%2F3a%2FCat03.jpg&resize=512%2C384&quality=60,400,87,,,,,small-or-error
-photon_q80,https://i0.wp.com/?url=upload.wikimedia.org%2Fwikipedia%2Fcommons%2F3%2F3a%2FCat03.jpg&resize=512%2C384&quality=80,400,87,,,,,small-or-error
-photon_q90,https://i0.wp.com/?url=upload.wikimedia.org%2Fwikipedia%2Fcommons%2F3%2F3a%2FCat03.jpg&resize=512%2C384&quality=90,400,87,,,,,small-or-error
-photon_direct,https://i0.wp.com/.../Cat03.jpg?resize=512,384&quality=80,200,27116,JPEG,512,384,80
+photon_q60,https://i0.wp.com/upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg?resize=512%2C384&quality=60,200,17933,JPEG,512,384,60,
+photon_q80,https://i0.wp.com/upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg?resize=512%2C384&quality=80,200,27116,JPEG,512,384,80,
+photon_q90,https://i0.wp.com/upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg?resize=512%2C384&quality=90,200,37375,JPEG,512,384,89,
+photon_w320,https://i0.wp.com/upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg?resize=320%2C320,200,21134,JPEG,320,320,89,
+photon_w640,https://i0.wp.com/upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg?resize=640%2C640,200,65056,JPEG,640,640,89,
