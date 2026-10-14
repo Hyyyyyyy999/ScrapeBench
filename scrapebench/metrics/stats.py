@@ -46,3 +46,18 @@ def cliffs_delta(a, b):
     gt = sum((x > b).sum() for x in a)
     lt = sum((x < b).sum() for x in a)
     return float((gt - lt) / (len(a) * len(b)))
+
+
+def mde_paired(diffs, alpha=0.05, power=0.80):
+    """Minimal detectable mean paired difference at the given power.
+
+    Returns (n, sd_of_differences, mde) where
+    mde = (z_{1-alpha/2} + z_{power}) * sd / sqrt(n).
+    """
+    d = np.asarray(diffs, dtype=np.float64)
+    d = d[~np.isnan(d)]
+    if len(d) < 2:
+        return len(d), float("nan"), float("nan")
+    z = stats.norm.ppf(1 - alpha / 2) + stats.norm.ppf(power)
+    sd = float(d.std(ddof=1))
+    return len(d), sd, float(z * sd / np.sqrt(len(d)))

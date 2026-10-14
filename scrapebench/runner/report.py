@@ -188,7 +188,8 @@ def main():
                 for m, s in sig.items():
                     f.write(f"{m}\t{s}\n")
     wil_rows = []
-    from ..metrics.stats import cliffs_delta
+    mde_rows = []
+    from ..metrics.stats import cliffs_delta, mde_paired
     for (stage, tier), g in df.groupby(["stage", "tier"]):
         clean = g[g["method"] == "clean"].groupby("pid")["mean_id"].mean()
         for m in g["method"].unique():
@@ -203,11 +204,16 @@ def main():
             wil_rows.append(dict(stage=stage, tier=tier, method=m, n=len(common),
                                  stat=float(stat), p=float(p),
                                  cliffs_delta=round(cliffs_delta(clean[common].values, prot[common].values), 3)))
+            n_m, sd_d, mde = mde_paired((clean[common] - prot[common]).values)
+            mde_rows.append(dict(stage=stage, tier=tier, method=m, n=n_m,
+                                 sd_diff=round(sd_d, 3), mde80=round(mde, 3)))
     if wil_rows:
         wdf = pd.DataFrame(wil_rows)
         from ..metrics.stats import holm
         wdf["p_holm"] = holm(wdf["p"].values)
         wdf.to_csv(os.path.join(run_dir, "wilcoxon.csv"), index=False)
+    if mde_rows:
+        pd.DataFrame(mde_rows).to_csv(os.path.join(run_dir, "mde.csv"), index=False)
     with open(os.path.join("report", "report.md"), "w") as f:
         f.write(f"# ScrapeBench run {run_name}\n\nGenerated {pd.Timestamp.now()}\n\n")
         f.write("## Mean identity similarity by method and tier\n\n")

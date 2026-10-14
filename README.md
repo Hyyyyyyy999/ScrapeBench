@@ -52,7 +52,7 @@ bash scripts/run_all.sh            # Stage A (GPU0) + Stage B (GPU1) + Stage C�
 - **P@τ**：ID-sim < τ 的比例（τ=0.30 主阈值 + 敏感性 0.25/0.35）
 - **RR(T_k)**：漏斗层级 k 的保护效果保留率 = Δ(T_k)/Δ(T0)，Δ = 无保护−有保护的 ID-sim 差
 - 攻击质量：KID、CLIP-T（可选）；公平性：LPIPS/PSNR（扰动 vs 原图）
-- 统计：身份级配对 bootstrap 95% CI + Wilcoxon signed-rank + Holm 校正
+- 统计：身份级配对 bootstrap 95% CI + Wilcoxon signed-rank + Holm 校正 + 配对 MDE（80% 功效，`runs/*/mde.csv`）
 
 ## 评测协议对齐
 

@@ -1,24 +1,13 @@
 \section{The Web Acquisition Funnel as an Attack Surface}
 \label{sec:method}
 
-\begin{figure*}[t]
+\begin{figure}[t]
 \centering
-\begin{minipage}{0.96\textwidth}
-\centering\small
-\textbf{Published gallery (T0)} $\longrightarrow$
-\textbf{web acquisition funnel (T1--T6)} $\longrightarrow$
-\textbf{attacker} $\longrightarrow$
-\textbf{ArcFace evaluation}\\[3pt]
-\begin{tabular}{@{}cccccc@{}}
-platform transcode & browser render & agent crop & restoration & regeneration & mixing/purification\\
-T1 & T2 & T3 & T4 & T5 & T6
-\end{tabular}\\[3pt]
-\emph{Outputs:} conditional identity, detection rate, detection-failure-zero identity, success, RR$(T)$, and cost.
-\end{minipage}
-\caption{The ScrapeBench measurement pipeline. A defender publishes protected images at T0, where the perturbation is optimized; the acquisition funnel (T1--T6) then subjects every image to platform transcoding, browser and agent rendering, restoration, regeneration, and adaptive mixing or purification before any adversary sees it. Both a fine-tuning attacker (DreamBooth-LoRA) and a zero-shot attacker (IP-Adapter-FaceID) consume whatever the funnel releases, and outputs are scored by ArcFace similarity into the retention-ratio curve RR$(T)$. The cost strip quantifies the motivating asymmetry: funnel transformations cost milliseconds to seconds per image.}
-\Description{Pipeline diagram: protected images flow from a defender through seven funnel tiers (platform transcode, browser render, agent capture, super-resolution, diffusion regeneration, adaptive mixing) to attackers, whose generated images are scored by ArcFace similarity into a retention-ratio curve, with a cost strip comparing per-image transformation costs to per-identity protection costs.}
+\includegraphics[width=\columnwidth]{figures/funnel_overview.png}
+\caption{The ScrapeBench acquisition funnel. A defender publishes protected images at T0, where the perturbation budget is spent ($\|\delta\|_\infty \le 16/255$); the acquisition funnel (T1--T6) then subjects every image to platform transcoding (anchored in measured platform behavior), browser and agent rendering, restoration, regeneration, and adaptive mixing or purification before any adversary sees it. Both a fine-tuning attacker (DreamBooth-LoRA) and a zero-shot attacker (IP-Adapter-FaceID, InstantID) consume whatever the funnel releases, and outputs are scored by ArcFace similarity into the retention-ratio curve RR$(T)$. Per-image attacker budgets are printed in each box.}
+\Description{Pipeline diagram: protected images flow from a defender through seven funnel tiers (platform transcode, browser render, agent capture, super-resolution, diffusion regeneration, adaptive mixing) to attackers, whose generated images are scored by ArcFace similarity into a retention-ratio curve, with a per-image cost strip comparing transformation costs to per-identity protection costs.}
 \label{fig:overview}
-\end{figure*}
+\end{figure}
 
 \subsection{Threat Model}
 \label{sec:threat}
