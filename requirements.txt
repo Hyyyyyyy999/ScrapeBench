@@ -21,3 +21,4 @@ gdown
 kaggle
 datasets
 sentencepiece
+facenet-pytorch
