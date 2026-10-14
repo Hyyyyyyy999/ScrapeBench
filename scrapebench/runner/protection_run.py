@@ -47,12 +47,13 @@ def generate_method(method, comps, gallery_paths, cfg, out_dir):
         jq = int(prot_cfg.get("jpeg_aware", 85))
         train_surrogate(comps, imgs, steps=prot_cfg.get("surrogate_steps", 200), batch_size=4, log_every=50)
         outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100), jpeg_aware=jq)
-    elif method == "arcp":
-        outs = forge_arcp(comps, imgs, eps_max=prot_cfg.get("arcp_eps_max", 16.0) / 255.0,
-                          eps_min=prot_cfg.get("arcp_eps_min", 2.0) / 255.0,
-                          steps=prot_cfg.get("arcp_steps", 150),
-                          alpha=prot_cfg.get("arcp_alpha", 2.0) / 255.0,
-                          lam=prot_cfg.get("arcp_lam", 0.5))
+    elif method in ("arcp", "arcp2"):
+        k = method + "_"
+        outs = forge_arcp(comps, imgs, eps_max=prot_cfg.get(k + "eps_max", 16.0) / 255.0,
+                          eps_min=prot_cfg.get(k + "eps_min", 2.0) / 255.0,
+                          steps=prot_cfg.get(k + "steps", 150),
+                          alpha=prot_cfg.get(k + "alpha", 2.0) / 255.0,
+                          lam=prot_cfg.get(k + "lam", 2.0 if method == "arcp2" else 0.5))
     else:
         raise ValueError(f"unknown method {method}")
     for i, im in enumerate(outs):
