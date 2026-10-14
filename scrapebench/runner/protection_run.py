@@ -72,7 +72,7 @@ def main():
     methods = (args.methods.split(",") if args.methods else cfg.get("protection", {}).get("methods", ["clean", "random", "fsmg"]))
     galleries = list_galleries(root)
     ids = args.ids.split(",") if args.ids else sorted(galleries)
-    need_model = any(m in ("fsmg", "aspl", "fsmgj", "arcp") for m in methods)
+    need_model = any(m in ("fsmg", "aspl", "fsmgj", "arcp", "arcp2") for m in methods)
     comps = None
     if need_model:
         comps = load_sd15(cfg["run"]["sd_model"], fp16=cfg["run"].get("fp16", True))
