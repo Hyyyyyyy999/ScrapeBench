@@ -70,9 +70,12 @@ def build_macros(df, run_dir):
         g = pd.read_csv(gap).set_index("method")
         for met in ["fsmg", "aspl", "random", "fsmgj", "arcp"]:
             for t in TIERS[1:]:
-                put(f"rA{MSHORT[met]}{TSHORT[t]}", fs(g.loc[met].get(t, np.nan)) if met in g.index else "--")
+                if met == "arcp":
+                    put(f"rA{MSHORT[met]}{TSHORT[t]}", "--")
+                else:
+                    put(f"rA{MSHORT[met]}{TSHORT[t]}", fs(g.loc[met].get(t, np.nan)) if met in g.index else "--")
         if "fsmg" in g.index:
-            vals = [abs(float(g.loc[x].get("t5_i2i30", np.nan))) for x in ["fsmg", "aspl", "random", "fsmgj", "arcp"] if x in g.index and not np.isnan(g.loc[x].get("t5_i2i30", np.nan))]
+            vals = [abs(float(g.loc[x].get("t5_i2i30", np.nan))) for x in ["fsmg", "aspl", "random", "fsmgj"] if x in g.index and not np.isnan(g.loc[x].get("t5_i2i30", np.nan))]
             put("rAmaxte", fs(max(vals)) if vals else "--")
     auc = os.path.join(run_dir, "rr_auc_stage_A.csv")
     if os.path.exists(auc):
@@ -91,8 +94,10 @@ def build_macros(df, run_dir):
         w = pd.read_csv(wpath)
         w = w[w.stage == "A"]
         for _, r in w.iterrows():
+            if r.method not in MSHORT:
+                continue
             p = r.p_holm
-            put(f"wA{MSHORT.get(r.method, '')}{TSHORT.get(r.tier, '')}", (f"{p:.3f}" if p >= 0.001 else f"{p:.1e}"))
+            put(f"wA{MSHORT[r.method]}{TSHORT.get(r.tier, '')}", (f"{p:.3f}" if p >= 0.001 else f"{p:.1e}"))
     b = df[df.stage == "B"]
     pvb = b.groupby(["method", "tier"])["mean_id"].mean()
     psb = b.groupby(["method", "tier"])["pos_rate"].mean()

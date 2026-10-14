@@ -26,6 +26,19 @@ def drop_pilot_reruns(df):
     return df[~mask]
 
 
+def pid_level_ci(df, stage, method, tier, n_boot=2000, seed=0):
+    per_pid = df[(df["stage"] == stage) & (df["method"] == method) & (df["tier"] == tier)
+                 & df["mean_id"].notna()].groupby("pid")["mean_id"].mean().dropna()
+    vals = per_pid.values
+    if len(vals) < 2:
+        return float("nan"), (float("nan"), float("nan"))
+    rng = np.random.default_rng(seed)
+    idx = rng.integers(0, len(vals), size=(n_boot, len(vals)))
+    means = vals[idx].mean(axis=1)
+    lo, hi = np.quantile(means, [0.025, 0.975])
+    return float(vals.mean()), (float(lo), float(hi))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True)
@@ -49,9 +62,13 @@ def main():
     pv = df.groupby(["stage", "method", "tier"])["mean_id"].agg(["mean", "count"]).reset_index()
     pv.to_csv(os.path.join(run_dir, "summary_mean.csv"), index=False)
     pr = df.groupby(["stage", "method", "tier"])["pos_rate"].mean().reset_index()
-    lo = df.groupby(["stage", "method", "tier"])["ci_lo"].mean().reset_index()
-    hi = df.groupby(["stage", "method", "tier"])["ci_hi"].mean().reset_index()
-    merged = pv.merge(lo, on=["stage", "method", "tier"]).merge(hi, on=["stage", "method", "tier"]).merge(pr, on=["stage", "method", "tier"])
+    ci_rows = []
+    for (stage, method, tier), _ in df.groupby(["stage", "method", "tier"]):
+        mean, (lo, hi) = pid_level_ci(df, stage, method, tier)
+        ci_rows.append({"stage": stage, "method": method, "tier": tier,
+                        "pid_mean": round(mean, 4), "ci_lo": round(lo, 4), "ci_hi": round(hi, 4)})
+    merged = pv.merge(pd.DataFrame(ci_rows)[["stage", "method", "tier", "ci_lo", "ci_hi"]],
+                      on=["stage", "method", "tier"]).merge(pr, on=["stage", "method", "tier"])
     merged.to_csv(os.path.join(run_dir, "summary_ci.csv"), index=False)
     for stage in sorted(df["stage"].unique()):
         sub = merged[merged["stage"] == stage]
@@ -93,7 +110,6 @@ def main():
                 plot_order_rr(pd.DataFrame(gap_rows), "figures")
             continue
         gap_rows = []
-        pids_m = set(df[(df["stage"] == stage) & (df["method"].isin(["clean"])) ] ["pid"]) if stage == "O" else None
         for m in sub["method"].unique():
             if m == "clean":
                 continue
@@ -120,16 +136,22 @@ def main():
                 seq = np.array([r[t] for t in tiers_s if t != "t0" and not np.isnan(r.get(t, np.nan))])
                 if len(seq) < 2:
                     continue
-                cells = df[(df["stage"] == stage) & (df["method"] == r["method"])].dropna(subset=["mean_id"])
-                ccells = df[(df["stage"] == stage) & (df["method"] == "clean")].dropna(subset=["mean_id"])
+                tier_list = [t for t in tiers_s if t != "t0" and not np.isnan(r.get(t, np.nan))]
+                pids = sorted(set(df[(df["stage"] == stage) & (df["method"] == r["method"])]["pid"])
+                              & set(df[(df["stage"] == stage) & (df["method"] == "clean")]["pid"]))
+                pv_pid = {}
+                cp_pid = {}
+                for pid in pids:
+                    g = df[(df["stage"] == stage) & (df["method"] == r["method"]) & (df["pid"] == pid) & df["mean_id"].notna()]
+                    c = df[(df["stage"] == stage) & (df["method"] == "clean") & (df["pid"] == pid) & df["mean_id"].notna()]
+                    pv_pid[pid] = g.groupby("tier")["mean_id"].mean()
+                    cp_pid[pid] = c.groupby("tier")["mean_id"].mean()
                 rng = np.random.default_rng(0)
                 boots = []
-                tier_list = [t for t in tiers_s if t != "t0" and not np.isnan(r.get(t, np.nan))]
                 for _ in range(1000):
-                    pick = cells[cells["tier"].isin(tier_list + ["t0"])].sample(frac=1.0, replace=True, random_state=None)
-                    cpick = ccells[ccells["tier"].isin(tier_list + ["t0"])].sample(frac=1.0, replace=True, random_state=None)
-                    gsum = pick.groupby("tier")["mean_id"].mean()
-                    csum = cpick.groupby("tier")["mean_id"].mean()
+                    pick = rng.integers(0, len(pids), size=len(pids))
+                    gsum = pd.concat([pv_pid[pids[i]] for i in pick]).groupby(level=0).mean()
+                    csum = pd.concat([cp_pid[pids[i]] for i in pick]).groupby(level=0).mean()
                     if "t0" not in gsum.index or "t0" not in csum.index:
                         continue
                     denom = float(csum["t0"]) - float(gsum["t0"])
@@ -165,6 +187,7 @@ def main():
                 for m, s in sig.items():
                     f.write(f"{m}\t{s}\n")
     wil_rows = []
+    from ..metrics.stats import cliffs_delta
     for (stage, tier), g in df.groupby(["stage", "tier"]):
         clean = g[g["method"] == "clean"].groupby("pid")["mean_id"].mean()
         for m in g["method"].unique():
@@ -177,7 +200,8 @@ def main():
             from scipy import stats
             stat, p = stats.wilcoxon(clean[common], prot[common])
             wil_rows.append(dict(stage=stage, tier=tier, method=m, n=len(common),
-                                 stat=float(stat), p=float(p)))
+                                 stat=float(stat), p=float(p),
+                                 cliffs_delta=round(cliffs_delta(clean[common].values, prot[common].values), 3)))
     if wil_rows:
         wdf = pd.DataFrame(wil_rows)
         from ..metrics.stats import holm

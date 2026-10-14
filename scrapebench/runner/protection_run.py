@@ -42,18 +42,19 @@ def generate_method(method, comps, gallery_paths, cfg, out_dir):
         outs = make_random_noise(imgs, eps=eps, seed=0)
     elif method == "fsmg":
         train_surrogate(comps, imgs, steps=prot_cfg.get("surrogate_steps", 200), batch_size=4, log_every=50)
-        outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100))
+        outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100), seed=cfg["run"].get("seed", 0))
     elif method == "fsmgj":
         jq = int(prot_cfg.get("jpeg_aware", 85))
         train_surrogate(comps, imgs, steps=prot_cfg.get("surrogate_steps", 200), batch_size=4, log_every=50)
-        outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100), jpeg_aware=jq)
+        outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100), jpeg_aware=jq, seed=cfg["run"].get("seed", 0))
     elif method in ("arcp", "arcp2"):
         k = method + "_"
         outs = forge_arcp(comps, imgs, eps_max=prot_cfg.get(k + "eps_max", 16.0) / 255.0,
                           eps_min=prot_cfg.get(k + "eps_min", 2.0) / 255.0,
                           steps=prot_cfg.get(k + "steps", 150),
                           alpha=prot_cfg.get(k + "alpha", 2.0) / 255.0,
-                          lam=prot_cfg.get(k + "lam", 2.0 if method == "arcp2" else 0.5))
+                          lam=prot_cfg.get(k + "lam", 2.0 if method == "arcp2" else 0.5),
+                          seed=cfg["run"].get("seed", 0))
     else:
         raise ValueError(f"unknown method {method}")
     for i, im in enumerate(outs):
@@ -94,9 +95,10 @@ def main():
                 continue
             if m == "aspl":
                 p = cfg.get("protection", {})
-                aspl_lite(comps, paths, out_dir, eps=p.get("eps", 8) / 255.0, alpha=p.get("alpha", 1.0) / 255.0,
-                          outer_rounds=p.get("aspl_rounds", 2), surrogate_steps=p.get("surrogate_steps", 200),
-                          pgd_steps=p.get("pgd_steps", 100))
+                _, aspl_psnr = aspl_lite(comps, paths, out_dir, eps=p.get("eps", 8) / 255.0, alpha=p.get("alpha", 1.0) / 255.0,
+                                         outer_rounds=p.get("aspl_rounds", 2), surrogate_steps=p.get("surrogate_steps", 200),
+                                         pgd_steps=p.get("pgd_steps", 100), seed=cfg["run"].get("seed", 0))
+                log(f"{m}/{pid} psnr={aspl_psnr:.2f}", cfg["run"].get("log_file"))
                 continue
             psnr_val = generate_method(m, comps, paths, cfg, out_dir)
             if psnr_val is not None:

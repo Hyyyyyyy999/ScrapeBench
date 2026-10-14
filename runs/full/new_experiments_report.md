@@ -1,16 +1,16 @@
 # New and repaired ScrapeBench experiments
 
-InstantID generated cells: 72/72.
+InstantID generated cells: 122/72.
 
 ## InstantID multi-identity aggregate
 
 | Method | Tier | IDs | Conditional ID | Detection | Unconditional ID | Success | 95% CI (uncond.) |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| clean | T0 | 6 | 0.514 | 83.3% | 0.421 | 78.3% | [0.374, 0.477] |
+| clean | T0 | 6 | 0.514 | 80.0% | 0.406 | 78.3% | [0.341, 0.473] |
 | clean | J85 | 6 | 0.541 | 76.7% | 0.413 | 76.7% | [0.313, 0.508] |
 | clean | T2 | 6 | 0.547 | 61.7% | 0.336 | 61.7% | [0.247, 0.436] |
 | clean | T5 | 6 | 0.256 | 50.0% | 0.139 | 26.7% | [0.065, 0.224] |
-| fsmg | T0 | 6 | 0.276 | 76.7% | 0.214 | 28.3% | [0.148, 0.280] |
+| fsmg | T0 | 6 | 0.276 | 63.3% | 0.178 | 28.3% | [0.112, 0.253] |
 | fsmg | J85 | 6 | 0.262 | 65.0% | 0.182 | 21.7% | [0.103, 0.266] |
 | fsmg | T2 | 6 | 0.277 | 66.7% | 0.194 | 35.0% | [0.115, 0.272] |
 | fsmg | T5 | 6 | 0.101 | 6.7% | 0.007 | 0.0% | [0.000, 0.018] |
@@ -36,14 +36,14 @@ InstantID generated cells: 72/72.
 
 | Method | Tier | Paired IDs | clean-protected gap | RR vs T0 |
 |---|---:|---:|---:|---:|
-| fsmg | T0 | 6 | 0.207 | 1.000 |
-| fsmg | J85 | 6 | 0.232 | 1.120 |
-| fsmg | T2 | 6 | 0.142 | 0.687 |
-| fsmg | T5 | 6 | 0.132 | 0.637 |
-| fsmgj | T0 | 6 | 0.250 | 1.000 |
-| fsmgj | J85 | 6 | 0.260 | 1.040 |
-| fsmgj | T2 | 6 | 0.159 | 0.635 |
-| fsmgj | T5 | 6 | 0.135 | 0.539 |
+| fsmg | T0 | 6 | 0.228 | 1.000 |
+| fsmg | J85 | 6 | 0.232 | 1.018 |
+| fsmg | T2 | 6 | 0.142 | 0.624 |
+| fsmg | T5 | 6 | 0.132 | 0.578 |
+| fsmgj | T0 | 6 | 0.235 | 1.000 |
+| fsmgj | J85 | 6 | 0.260 | 1.108 |
+| fsmgj | T2 | 6 | 0.159 | 0.677 |
+| fsmgj | T5 | 6 | 0.135 | 0.574 |
 
 ## Comparison with the paper's one-identity InstantID probe
 

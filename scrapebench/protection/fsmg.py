@@ -28,28 +28,28 @@ def train_surrogate(comps, images, steps=200, batch_size=4, lr=1e-4, rank=16, pr
 
 
 @torch.enable_grad()
-def pgd_fsmg(comps, images, eps=8.0 / 255.0, alpha=1.0 / 255.0, steps=100, prompt=CLASS_PROMPT, batch_all=True, jpeg_aware=0):
+def pgd_fsmg(comps, images, eps=8.0 / 255.0, alpha=1.0 / 255.0, steps=100, prompt=CLASS_PROMPT, batch_all=True, jpeg_aware=0, seed=0):
     vae, unet, sched = comps["vae"], comps["unet"], comps["scheduler"]
     device, dtype = comps["device"], comps["dtype"]
     orig = pil_to_tensor(images, device, dtype)
     x = orig.clone().detach().requires_grad_(True)
     emb = text_embed(comps, [prompt] * orig.shape[0])
+    gen = torch.Generator(device=device).manual_seed(seed)
     for step in range(steps):
         xa = x
         if jpeg_aware:
             from ..attack.diffjpeg import diff_jpeg
             xa = diff_jpeg((x + 1.0) / 2.0, quality=jpeg_aware) * 2.0 - 1.0
         lat = encode_latents(vae, xa)
-        noise = torch.randn(lat.shape, device=device, dtype=dtype)
-        t = torch.randint(20, 980, (lat.shape[0],), device=device)
+        noise = torch.randn(lat.shape, device=device, dtype=dtype, generator=gen)
+        t = torch.randint(20, 980, (lat.shape[0],), device=device, generator=gen)
         noisy = sched.add_noise(lat, noise, t)
         pred = unet(noisy, t, encoder_hidden_states=emb).sample
         loss = torch.nn.functional.mse_loss(pred.float(), noise.float(), reduction="mean")
         grad, = torch.autograd.grad(loss, x)
         with torch.no_grad():
             x.add_(alpha * grad.sign())
-            x.clamp_(-1, 1)
-            clamp_eps(x, orig, eps)
+            x.copy_(clamp_eps(x, orig, eps))
             x.clamp_(-1, 1)
         x.requires_grad_(True)
     return tensor_to_pil(x)

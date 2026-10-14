@@ -78,6 +78,7 @@ def forge_arcp(comps, imgs, out_dir=None, eps_max=16.0 / 255.0, eps_min=2.0 / 25
     device, dtype = comps["device"], comps["dtype"]
     vae, unet, sched = comps["vae"], comps["unet"], comps["scheduler"]
     rng = rng or random.Random(seed)
+    tgen = torch.Generator(device=device).manual_seed(seed)
     x = pil_to_tensor(imgs, device, dtype)
     n = x.shape[0]
     x01 = (x + 1.0) / 2.0
@@ -100,10 +101,10 @@ def forge_arcp(comps, imgs, out_dir=None, eps_max=16.0 / 255.0, eps_min=2.0 / 25
         loss_reader = F.relu(sim - margin).mean()
         lat = encode_latents(vae, xa)
         if rng.random() < 0.5:
-            t = torch.randint(300, 500, (n,), device=device)
+            t = torch.randint(300, 500, (n,), device=device, generator=tgen)
         else:
-            t = torch.randint(20, 980, (n,), device=device)
-        noise = torch.randn(lat.shape, device=device, dtype=dtype)
+            t = torch.randint(20, 980, (n,), device=device, generator=tgen)
+        noise = torch.randn(lat.shape, device=device, dtype=dtype, generator=tgen)
         noisy = sched.add_noise(lat, noise, t)
         pred = unet(noisy, t, encoder_hidden_states=emb).sample
         loss_ft = torch.nn.functional.mse_loss(pred.float(), noise.float(), reduction="mean")

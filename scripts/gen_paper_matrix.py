@@ -104,6 +104,9 @@ def main():
             else:
                 r = paired_rr(prim, met, t, gap0, mpids=mpids)
             rrs.append(fs(r))
+        rvals = [abs(float(x)) for x in rrs[1:] if x != "--"]
+        if rvals and max(rvals) > 10.0:
+            rrs = ["1.00"] + ["--"] * (len(TIERS) - 1)
         name = LABELS[met] + ("" if met == "clean" else "$^{\\dagger}$")
         sim_rows.append(name + " & " + " & ".join(sims) + " \\\\")
         rr_rows.append(name + " & " + " & ".join(rrs) + " \\\\")

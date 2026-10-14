@@ -6,6 +6,7 @@ import csv
 import math
 import re
 from collections import defaultdict
+from datetime import datetime
 from pathlib import Path
 
 import numpy as np
@@ -50,10 +51,14 @@ def latest_rows(path):
 
 def detection_rates(paths):
     # The append-only stage logs contain the detector fraction even though the
-    # legacy CSV schema does not.  Last occurrence wins, matching latest_rows.
+    # legacy CSV schema does not.  Log lines carry no attack field, so the
+    # rates are keyed by timestamp and joined to result rows on ``ts``; the
+    # (stage, pid, method, tier) map is kept only as a last-resort fallback
+    # for rows whose timestamp cannot be matched.  Last occurrence wins,
+    # matching latest_rows.
     rates = {}
     pattern = re.compile(
-        r"\] (?P<stage>A|C) (?:(?P<method>[^/ ]+)/)?(?P<pid>celeb\d+)/(?P<tier>[^ ]+) "
+        r"^\[(?P<ts>[0-9-]+ [0-9:.]+)\] (?P<stage>A|C) (?:(?P<method>[^/ ]+)/)?(?P<pid>celeb\d+)/(?P<tier>[^ ]+) "
         r"mean=(?:nan|[-+.0-9]+) det=(?P<det>[0-9.]+)"
     )
     for path in paths:
@@ -65,8 +70,37 @@ def detection_rates(paths):
                 continue
             stage = match.group("stage")
             method = match.group("method") or "fsmg"
-            rates[(stage, match.group("pid"), method, match.group("tier"))] = float(match.group("det"))
+            det = float(match.group("det"))
+            rates[(match.group("ts"), stage)] = det
+            rates[(stage, match.group("pid"), method, match.group("tier"))] = det
     return rates
+
+
+def det_for(row, rates):
+    ts = row.get("ts") or ""
+    stage = row["stage"]
+    if (ts, stage) in rates:
+        return rates[(ts, stage)]
+    try:
+        stamp = datetime.strptime(ts[:19], "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        stamp = None
+    if stamp is not None:
+        best, best_gap = None, None
+        for key, det in rates.items():
+            if not (isinstance(key, tuple) and len(key) == 2 and isinstance(key[0], str) and key[1] == stage):
+                continue
+            try:
+                other = datetime.strptime(key[0][:19], "%Y-%m-%d %H:%M:%S")
+            except ValueError:
+                continue
+            gap = abs((other - stamp).total_seconds())
+            if gap <= 5.0 and (best_gap is None or gap < best_gap):
+                best, best_gap = det, gap
+        if best is not None:
+            return best
+    key = (stage, row["pid"], row["method"], row["tier"])
+    return rates.get(key, math.nan)
 
 
 def bootstrap(values, seed=0, n_boot=10000):
@@ -89,7 +123,7 @@ def summarize_cells(rows, detections):
         if int(row.get("n_samples") or 0) <= 0:
             continue
         conditional = as_float(row.get("mean_id"))
-        det = detections.get((stage, pid, method, tier), math.nan)
+        det = det_for(row, detections)
         unconditional = conditional * det if np.isfinite(conditional) and np.isfinite(det) else (
             0.0 if np.isfinite(det) and det == 0 else math.nan
         )
@@ -142,7 +176,7 @@ def paired_gaps(cells, value_name):
 
 def write_report(path, cells, summary):
     lines = ["# New and repaired ScrapeBench experiments", ""]
-    instant = [v for k, v in cells.items() if k[0] == "A" and k[1] in PILOT_IDS and k[4] == "instantid"]
+    instant = [v for k, v in cells.items() if k[0] == "A" and k[1] in PILOT_IDS and k[4] == "instantid" and k[2] in METHODS]
     lines += [f"InstantID generated cells: {len(instant)}/72.", ""]
     lines += ["## InstantID multi-identity aggregate", "",
               "| Method | Tier | IDs | Conditional ID | Detection | Unconditional ID | Success | 95% CI (uncond.) |",
@@ -238,9 +272,9 @@ def main():
     rows = latest_rows(run_dir / "results.csv")
     detections = detection_rates((run_dir / "stage_a.log", run_dir / "stage_c.log"))
     cells = summarize_cells(rows, detections)
-    instant_count = sum(k[0] == "A" and k[1] in PILOT_IDS and k[4] == "instantid" for k in cells)
-    t3_count = sum(k[0] == "A" and k[1] in PILOT_IDS and k[4] == "ipfaceid" and k[3] == "t3_agent_facecrop" for k in cells)
-    stage_c_count = sum(k[0] == "C" and k[1] in PILOT_IDS for k in cells)
+    instant_count = sum(k[0] == "A" and k[1] in PILOT_IDS and k[4] == "instantid" and k[2] in METHODS for k in cells)
+    t3_count = sum(k[0] == "A" and k[1] in PILOT_IDS and k[4] == "ipfaceid" and k[3] == "t3_agent_facecrop" and k[2] in METHODS for k in cells)
+    stage_c_count = sum(k[0] == "C" and k[1] in PILOT_IDS and k[2] in METHODS for k in cells)
     if args.require_complete and (instant_count, t3_count, stage_c_count) != (72, 18, 18):
         raise SystemExit(f"incomplete: InstantID={instant_count}/72 T3={t3_count}/18 StageC={stage_c_count}/18")
     summary = instant_table(cells)

@@ -28,14 +28,17 @@ def gap_boot(sub, m, t, M, n_boot=500, seed=0):
     rm = M.get((m, t))
     if rc is None or rm is None:
         return np.nan, np.nan
-    rcv, rmv = rc.values, rm.values
+    common = rc.index.intersection(rm.index)
+    if len(common) == 0:
+        return np.nan, np.nan
+    rcv = rc.loc[common].values
+    rmv = rm.loc[common].values
     gaps = []
     for _ in range(n_boot):
-        a = rng.choice(rcv, len(rcv), replace=True)
-        b = rng.choice(rmv, len(rmv), replace=True)
-        gaps.append(a.mean() - b.mean())
+        pick = rng.integers(0, len(common), size=len(common))
+        gaps.append(rcv[pick].mean() - rmv[pick].mean())
     gaps = np.array(gaps)
-    return float(np.mean([rcv.mean() - rmv.mean()])), float(np.std(gaps))
+    return float(rcv.mean() - rmv.mean()), float(np.std(gaps))
 
 
 def rr_curve(df, stage, m, tiers, seed=0):

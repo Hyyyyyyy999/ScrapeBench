@@ -1,4 +1,6 @@
 random	n.s.
 fsmg	sig
-aspl	sig
-fsmgj	sig
+aspl	n.s.
+fsmgj	n.s.
+arcp	n.s.
+arcp2	n.s.
