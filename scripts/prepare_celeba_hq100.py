@@ -39,11 +39,13 @@ def main():
             wanted[filename] = (pid, index)
 
     root = Path(args.out)
-    extracted = 0
+    extracted_names = set()
     with tarfile.open(args.archive, "r:gz") as archive:
         for member in archive:
             filename = Path(member.name).name
-            if filename not in wanted:
+            # Some distributed CelebA-HQ tarballs contain duplicate archive
+            # members. Count and write each logical image exactly once.
+            if filename not in wanted or filename in extracted_names:
                 continue
             pid, index = wanted[filename]
             identity_name = f"celeb{pid:05d}"
@@ -56,11 +58,12 @@ def main():
             if source is None:
                 raise RuntimeError(f"cannot extract {member.name}")
             target.write_bytes(source.read())
-            extracted += 1
+            extracted_names.add(filename)
 
+    extracted = len(extracted_names)
     if extracted != args.n_ids * needed:
         raise SystemExit(f"expected {args.n_ids * needed} images, extracted {extracted}")
-    print(f"prepared {args.n_ids} identities and {extracted} images at {root}")
+    print(f"prepared {args.n_ids} identities and {extracted} unique images at {root}")
 
 
 if __name__ == "__main__":

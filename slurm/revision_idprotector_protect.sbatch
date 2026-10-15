@@ -1,11 +1,11 @@
 #!/bin/bash
 #SBATCH -J sb_idprotector
-#SBATCH -p a800
+#SBATCH -p rtx4090
 #SBATCH --gres=gpu:1
-#SBATCH -c 8
-#SBATCH --mem=48G
+#SBATCH -c 1
+#SBATCH --mem=20G
 #SBATCH -t 1-00:00:00
-#SBATCH --array=0-17%6
+#SBATCH --array=0-17%2
 #SBATCH -o /home/huangyue26/ScrapBench/slurm/revision_idprotector_%A_%a.out
 set -euo pipefail
 cd /home/huangyue26/IDProtector
