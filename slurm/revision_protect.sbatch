@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH -J sb_rev_prot
 #SBATCH -p rtx4090
+#SBATCH --qos=emerg5
 #SBATCH --gres=gpu:1
 #SBATCH -c 1
 #SBATCH --mem=8G
