@@ -26,7 +26,9 @@ The review's central objections are reasonable and publication-critical.
 
 ## Experiment committed in code
 
-- CelebA-100: 8 gallery images and 2 held-out references per identity.
+- CelebA-HQ-100: 8 gallery images and 2 held-out references per identity,
+  prepared entirely from the server's local 3.9-GB archive and public identity
+  metadata so compute jobs do not depend on outbound network access.
 - Seven independent conditions: T0 raw; T1 JPEG Q70; T2 browser raster; T3
   agent face crop; T4 Real-ESRGAN; T5 img2img; T6 diffusion purification.
 - Equal processing for clean and protected branches.

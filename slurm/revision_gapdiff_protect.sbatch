@@ -10,15 +10,17 @@
 set -euo pipefail
 cd /home/huangyue26/ScrapBench
 export PYTHONUNBUFFERED=1
-IDS=$(venv/bin/python scripts/make_identity_split.py --print-set test --shard "$SLURM_ARRAY_TASK_ID" --num-shards 18)
+IDS=$(venv/bin/python scripts/make_identity_split.py --data-root data/celeba_hq100 \
+  --out protocol/celeba_hq100_split.json --print-set test \
+  --shard "$SLURM_ARRAY_TASK_ID" --num-shards 18)
 IFS=',' read -ra ID_ARRAY <<< "$IDS"
 for PID in "${ID_ARRAY[@]}"; do
-  OUT=/home/huangyue26/ScrapBench/data/protected/gapdiff/$PID
+  OUT=/home/huangyue26/ScrapBench/data/celeba_hq100/protected/gapdiff/$PID
   if [ "$(find "$OUT" -maxdepth 1 -type f 2>/dev/null | wc -l)" -ge 8 ]; then
     continue
   fi
   mkdir -p "$OUT"
   external/gapdiff_env/bin/python external/GAP-Diff/generate.py \
     --generator_path=external/GAP-Diff/weights/model/G_per16_pretrain.pth \
-    --source_path="data/raw/$PID" --save_path="$OUT" --noise_budget=16.0
+    --source_path="data/celeba_hq100/raw/$PID" --save_path="$OUT" --noise_budget=16.0
 done

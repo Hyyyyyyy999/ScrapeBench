@@ -7,10 +7,11 @@
 #SBATCH -o /home/huangyue26/ScrapBench/slurm/revision_prepare_%j.out
 set -euo pipefail
 cd /home/huangyue26/ScrapBench
-source venv/bin/activate
-unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy ALL_PROXY all_proxy
-export HF_ENDPOINT=https://huggingface.co
-export HF_HUB_ENABLE_HF_TRANSFER=0
 export PYTHONUNBUFFERED=1
-python scripts/fetch_celeba.py --out data --n-ids 100 --per-id 8 --max-scan 202599
-python scripts/make_identity_split.py --data-root data --n 100
+venv/bin/python scripts/prepare_celeba_hq100.py \
+  --archive /mnt/beegfs/home/huangyue26/anti-dreambooth/data/celeba-hq/CelebA-HQ.tar.gz \
+  --mapping data/metadata/CelebA-HQ-to-CelebA-mapping.txt \
+  --identities data/metadata/identity_CelebA.txt \
+  --out data/celeba_hq100 --n-ids 100 --gallery 8 --refs 2
+venv/bin/python scripts/make_identity_split.py --data-root data/celeba_hq100 \
+  --out protocol/celeba_hq100_split.json --n 100

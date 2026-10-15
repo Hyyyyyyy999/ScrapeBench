@@ -1,7 +1,7 @@
 run:
   name: revision_single_tier
   seed: 20261015
-  data_root: data
+  data_root: data/celeba_hq100
   resolution: 512
   samples_per_cell: 12
   ref_per_id: 2

@@ -19,7 +19,10 @@ purification of the protected upload, not T5 followed by another operation.
 
 ## Primary comparison
 
-The GAP-Diff-compatible block uses 30 held-out VGGFace2 identities, JPEG Q=70,
+The main benchmark uses a locally available CelebA-HQ archive with 100
+identity-labelled subjects (8 gallery and 2 held-out reference images each),
+split into 10 development, 80 core-test, and 10 audit identities. The
+GAP-Diff-compatible block uses 30 held-out VGGFace2 identities, JPEG Q=70,
 DreamBooth for 1,000 steps and 30 generations for each of its four original
 prompts. The CelebA-100 main block instead uses four deployment scenarios:
 social-avatar portrait, smartphone selfie, low-light indoor social photo, and

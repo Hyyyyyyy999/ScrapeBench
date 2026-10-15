@@ -14,5 +14,7 @@ export HF_ENDPOINT=https://hf-mirror.com
 export HF_HUB_ENABLE_HF_TRANSFER=0
 export HF_HUB_OFFLINE=1
 export PYTHONUNBUFFERED=1
-IDS=$(python scripts/make_identity_split.py --print-set test --shard "$SLURM_ARRAY_TASK_ID" --num-shards 10)
+IDS=$(python scripts/make_identity_split.py --data-root data/celeba_hq100 \
+  --out protocol/celeba_hq100_split.json --print-set test \
+  --shard "$SLURM_ARRAY_TASK_ID" --num-shards 10)
 python -m scrapebench.runner.protection_run --config configs/revision_single_tier.yaml --methods clean,arcp_v2 --ids "$IDS"
