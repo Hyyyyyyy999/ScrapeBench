@@ -50,14 +50,17 @@ finish. The code intentionally does not insert anticipated superiority claims.
 ## Live execution snapshot (2026-10-15, Asia/Shanghai)
 
 - GAP-Diff protection: 90/90 evaluation identities, 720/720 images complete.
-- ARCP-v2 protection: 7/90 identities complete at the 19:13 snapshot. Their
-  mean PSNR is 34.21 dB (range 34.05--34.47 dB); this partial quality audit is not a
+- ARCP-v2 protection: 90/90 identities and 720/720 images complete. Mean PSNR
+  is 34.28 dB (range 33.64--34.99 dB). This is a visibility result, not a
   defense-performance estimate.
-- IDProtector protection: 0/90 complete. The first submission selected an
-  environment without PyTorch; the corrected submission uses the previously
-  validated UMO environment and the official 0.07 setting (about 9/255).
-- Stage A and Stage B: waiting for their protected-gallery dependencies; no
-  revised FDFR/ISM/BRISQUE/SER-FIQ result exists yet.
-- Scheduler constraint: the account QOS currently permits one GPU at a time.
-  Protection and Stage A use an RTX 4090; full-UNet Stage B uses an RTX Pro
-  6000. Idle GPUs elsewhere in the cluster do not raise this per-user limit.
+- IDProtector protection: 68/90 identities complete at the 22:30 snapshot. It
+  uses the official 0.07 setting (about 9/255); aligned CelebA-HQ images missed
+  by SCRFD use a recorded full-frame prior and are labelled as an engineering
+  fallback rather than strict official reproduction.
+- Stage A is running, but the partial clean sanity check currently fails:
+  mean cell-level ISM is 0.0158 for IP-Adapter-FaceID and 0.0235 for InstantID,
+  with zero cells above the preregistered 0.30 threshold. No defense comparison
+  is interpretable until the clean attack is repaired and revalidated.
+- Stage B is queued. The account is currently using up to ten GPUs across the
+  permitted RTX and A800 QoS limits; full-UNet Stage B is limited to one RTX
+  Pro 6000 by the available account QoS.

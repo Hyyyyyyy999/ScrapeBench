@@ -14,11 +14,13 @@ block will be reported separately so that training-based and zero-shot attacks
 are not pooled.
 
 \paragraph{Completed artifacts.}
-The official GAP-Diff protected gallery is complete for 90 identities (720
-images). These are protection artifacts, not attack outcomes: without the
+The official GAP-Diff and ARCP-v2 protected galleries are complete for 90
+identities (720 images per method). ARCP-v2 has mean PSNR 34.28 dB (range
+33.64--34.99 dB) against the clean gallery. These are protection and visibility
+artifacts, not attack outcomes: without the
 matched generated images and held-out identity scores they do not establish
-defense efficacy. Partial ARCP-v2 gallery measurements are used only for
-runtime and integrity checks and are excluded from inferential statistics.
+defense efficacy. The partial clean sanity check also does not yet establish a
+valid attack baseline, so it is excluded from inferential comparisons.
 
 \paragraph{Planned qualitative comparison.}
 The final Figure-8-style panel will use the same four fixed seeds and Web
