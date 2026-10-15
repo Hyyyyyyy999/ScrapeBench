@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -J sb_rev_B
 #SBATCH -p pro6000
-#SBATCH --qos=emerg5
+#SBATCH --qos=a800-2
 #SBATCH --gres=gpu:1
 #SBATCH -c 1
 #SBATCH --mem=16G

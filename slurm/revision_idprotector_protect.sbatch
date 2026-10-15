@@ -28,5 +28,6 @@ for PID in "${ID_ARRAY[@]}"; do
     --output-root "$OUT" \
     --checkpoint /home/huangyue26/IDProtector/protector_model.pt \
     --insightface-root /home/huangyue26/IDProtector/generation_methods/InstantID \
-    --epsilon 0.07 --det-thresholds 0.5 --on-detection-failure error
+    --epsilon 0.07 --det-thresholds 0.5 0.3 0.1 \
+    --on-detection-failure full-frame
 done
