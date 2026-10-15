@@ -1,4 +1,5 @@
 import csv
+import fcntl
 import os
 import time
 
@@ -20,7 +21,11 @@ def ensure_csv(path, fields=FIELDS):
 
 def append_row(path, row):
     with open(path, "a", newline="") as f:
+        fcntl.flock(f.fileno(), fcntl.LOCK_EX)
         csv.DictWriter(f, fieldnames=FIELDS).writerow(row)
+        f.flush()
+        os.fsync(f.fileno())
+        fcntl.flock(f.fileno(), fcntl.LOCK_UN)
 
 
 def load_done(path):

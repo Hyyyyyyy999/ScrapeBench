@@ -15,14 +15,21 @@ def main():
     root = os.path.join(args.out, "raw")
     refs = os.path.join(args.out, "refs")
     have = defaultdict(int)
+    keys = set()
     if os.path.isdir(root):
-        for d in os.listdir(root):
-            have[d] = len([f for f in os.listdir(os.path.join(root, d)) if f.endswith((".png", ".jpg"))])
-    need = {}
+        keys.update(os.listdir(root))
+    if os.path.isdir(refs):
+        keys.update(os.listdir(refs))
+    for key in keys:
+        raw_n = len([f for f in os.listdir(os.path.join(root, key))
+                     if f.endswith((".png", ".jpg"))]) if os.path.isdir(os.path.join(root, key)) else 0
+        ref_n = len([f for f in os.listdir(os.path.join(refs, key))
+                     if f.endswith((".png", ".jpg"))]) if os.path.isdir(os.path.join(refs, key)) else 0
+        have[key] = raw_n + ref_n
     ds = load_dataset("flwrlabs/celeba", split="train", streaming=True)
     it = iter(ds)
     scanned = 0
-    quota_done = 0
+    quota_done = sum(v >= args.per_id + 2 for v in have.values())
     while scanned < args.max_scan and quota_done < args.n_ids:
         try:
             row = next(it)

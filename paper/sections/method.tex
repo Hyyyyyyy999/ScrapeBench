@@ -1,27 +1,19 @@
-\section{The Web Acquisition Funnel as an Attack Surface}
+\section{Real-Web Acquisition as Independent Interventions}
 \label{sec:method}
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{figures/funnel_overview.png}
-\caption{The ScrapeBench acquisition funnel. A defender publishes protected images at T0, where the perturbation budget is spent ($\|\delta\|_\infty \le 16/255$); the acquisition funnel (T1--T6) then subjects every image to platform transcoding (anchored in measured platform behavior), browser and agent rendering, restoration, regeneration, and adaptive mixing or purification before any adversary sees it. Both a fine-tuning attacker (DreamBooth-LoRA) and a zero-shot attacker (IP-Adapter-FaceID, InstantID) consume whatever the funnel releases, and outputs are scored by ArcFace similarity into the retention-ratio curve RR$(T)$. Per-image attacker budgets are printed in each box.}
-\Description{Pipeline diagram: protected images flow from a defender through seven funnel tiers (platform transcode, browser render, agent capture, super-resolution, diffusion regeneration, adaptive mixing) to attackers, whose generated images are scored by ArcFace similarity into a retention-ratio curve, with a per-image cost strip comparing transformation costs to per-identity protection costs.}
-\label{fig:overview}
-\end{figure}
 
 \subsection{Threat Model}
 \label{sec:threat}
-We consider a subject $s$ whose face images $\{x_i\}_{i=1}^{m}$ are publicly reachable on the web, and a defense $D$ that releases protected images $\tilde{x}_i = x_i + \delta_i$, $\|\delta_i\|_\infty \le \epsilon$, claiming that downstream customization of $\{\tilde{x}_i\}$ fails to reproduce $s$. The adversary $\mathcal{A}$ harvests images of $s$ through the funnel $\Phi$ (Section~\ref{sec:funnel}), then attempts identity reconstruction with a pipeline $P$---fine-tuning-based (\emph{DreamBooth-LoRA}~\cite{ruiz2022dreambooth}) or zero-shot (\emph{IP-Adapter-FaceID}~\cite{ye2023ipadapter}, \emph{InstantID}~\cite{wang2024instantid}). We assume a \emph{resource-bounded} adversary: $P$ runs on one consumer GPU (24\,GB) with 25--30 denoising steps and does not adversarially optimize against $D$---the deployment-relevant threat of an opportunistic scraper rather than a defense-aware red team; adaptive extensions are captured at T6.
+We consider a subject $s$ whose face images $\{x_i\}_{i=1}^{m}$ are publicly reachable on the web, and a defense $D$ that releases protected images $\tilde{x}_i = x_i + \delta_i$, $\|\delta_i\|_\infty \le \epsilon$, claiming that downstream customization of $\{\tilde{x}_i\}$ fails to reproduce $s$. The adversary $\mathcal{A}$ obtains each image through one acquisition intervention $\phi_k$ (Section~\ref{sec:funnel}), then attempts identity reconstruction with a fine-tuning or zero-shot pipeline $P$. Every intervention consumes the same T0 source; T1--T6 are not a cascade and do not consume one another's outputs. This isolates the marginal effect of a realistic web operation and avoids attributing cumulative image destruction to defense bypass.
 
-The defender's implicit assumptions, which the funnel dismantles one by one, are: (A1) the adversary trains on the exact pixels the defender perturbed; (A2) the adversary must fine-tune, so poisoning the fine-tuning gradient suffices; (A3) robustness budgets are spent on transformations the defender chooses rather than those platforms and users choose. Each tier violates one of these assumptions \emph{upstream} of the defense (Figure~\ref{fig:overview}).
+The defender's implicit assumptions are: (A1) the adversary trains on the exact pixels the defender perturbed; (A2) the adversary must fine-tune, so poisoning the fine-tuning gradient suffices; and (A3) robustness budgets are spent on transformations the defender chooses rather than those platforms and users choose. The independent interventions test these assumptions without imposing an artificial processing order.
 
-\subsection{Funnel Formalization}
+\subsection{Single-Intervention Formalization}
 \label{sec:funnel}
-The funnel is a sequence of transformations $\Phi = \phi_T \circ \cdots \circ \phi_1$ applied between upload and training-batch ingestion, grouped into seven tiers ordered by who controls them and what they cost. Each tier carries a per-image attacker budget $c_T$ (GPU/CPU seconds on commodity hardware) and a perceptual-budget constraint $Q_T$ (minimum visual quality), because an attacker who destroys image quality destroys the value of the scrape.
+Let $\Phi=\{\phi_0,\ldots,\phi_6\}$ be a set of acquisition interventions, with $\phi_0$ the identity map. A benchmark cell is $\phi_k(x)$, never $\phi_k\!\circ\!\cdots\!\circ\!\phi_1(x)$. Each intervention has a per-image compute budget $c_k$ and quality constraint $Q_k$, because an operation that destroys the subject also destroys the value of the scrape.
 
 \begin{table}[t]
 \centering
-\caption{The ScrapeBench acquisition funnel. Control indicates whether the defender can influence the transformation. Budgets are per image, measured on our hardware.}
+\caption{Canonical single-layer ScrapeBench interventions. Every row starts from T0 independently. Budgets are per image.}
 \label{tab:funnel}
 \footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -30,19 +22,17 @@ The funnel is a sequence of transformations $\Phi = \phi_T \circ \cdots \circ \p
 Tier & Control & Transformation & Budget & Purpose \\
 \midrule
 T0 & defender & original upload, PNG & --- & lab condition \\
-T1 & platform & JPEG $q{\in}\{95,85,75,65\}$, WebP $q{=}80$, platform resize & $<10$\,ms & storage cost \\
-T2 & platform & browser/thumbnail render, DPR $\in\{1,2\}$, $240$\,px thumbs & $<100$\,ms & serving \\
+T1 & platform & JPEG $q{=}70$, 4:2:0, 512 px & $<10$\,ms & CDN transcode \\
+T2 & platform & browser card render, 360 CSS px, DPR 1 & $<100$\,ms & serving \\
 T3 & agent & headless page capture, face crop (margin 0.35) & $<200$\,ms & scraping agents \\
 T4 & user/agent & super-resolution $\times 2$ & $\sim$1\,s & ``enhancement'' \\
-T5 & user & diffusion regeneration: img2img $s{\in}\{0.3,0.5\}$, DDIM inversion & $\sim$5\,s & filters, re-upload \\
-T6 & attacker & adaptive: clean-source mixing $\rho{\in}\{0.2,0.5\}$, purification & variable & bypass poisoning \\
+T5 & user & SD1.5 img2img, strength $0.30$ & $\sim$5\,s & filters, re-upload \\
+T6 & attacker & DDIM inversion/reconstruction, 50 steps & variable & purification \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Concretely (Table~\ref{tab:funnel} lists the full registry): T1 emulates platform transcoding with libjpeg quality sweeps plus a composite \texttt{t1\_platform} (JPEG-85 at reduced long side, as major social platforms serve). T2 renders the image as a browser would---rasterized into a viewport under device pixel ratio $\mathrm{DPR}\in\{1,2\}$ and re-captured, with a $240$\,px thumbnail variant; where a headless browser is unavailable, a deterministic canvas-equivalent rasterizer keeps the tier reproducible. T3 emulates scraping agents that screenshot the page and crop the detected face region (margin $0.35$) rather than fetch the original file. T4 applies Real-ESRGAN super-resolution at $\times 2$ (deterministic Lanczos-plus-sharpening fallback). T5 applies diffusion regeneration: img2img at strengths $s\in\{0.3,0.5\}$ with an empty prompt and guidance $1.0$, plus a DDIM-inversion-and-reconstruction path with $\eta=0.1$---operations ordinary users now perform through consumer filters and any scraper can use to launder perturbations. T6 models adaptive adversaries via \emph{mixing} (training on a $\rho$ fraction of clean images harvested from a second source) and \emph{purification} (training on T5-regenerated versions of the protected images).
-
-The funnel is monotone in depth but not in destructive power: T1--T2 are nearly lossless to face recognition quality, yet are exactly where protection signals (high-frequency, low-amplitude adversarial structure) die. The funnel is a \emph{feature} of the attacker's environment, selected for free by platform economics.
+T1 is fixed at JPEG quality 70 for direct comparison with GAP-Diff; supplementary sweeps retain qualities 65--95 and WebP 80. T2 renders a 360-CSS-pixel feed card at DPR 1. T3 screenshots and face-crops with margin $0.35$, then encodes WebP 80. T4 applies Real-ESRGAN $\times2$. T5 is semantic img2img regeneration at strength $.30$. T6 is diffusion purification by inversion and 50-step reconstruction. The registry enforces that all six functions receive the original protected upload. Clean and protected branches share an identical loader, center crop, resize, intervention, prompt, seed, attacker, and metric implementation.
 
 \subsection{Retention Ratio and Cost Ledger}
 \label{sec:metric}

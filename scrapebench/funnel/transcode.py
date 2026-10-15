@@ -49,6 +49,12 @@ def t1_jpeg75(img):
     return jpeg_compress(resize_to(img, 512), 75)
 
 
+@register(["t1_jpeg70"])
+def t1_jpeg70(img):
+    """GAP-Diff Table-I compatible platform transcode."""
+    return jpeg_compress(resize_to(img, 512), 70)
+
+
 @register(["t1_jpeg65"])
 def t1_jpeg65(img):
     return jpeg_compress(resize_to(img, 512), 65)

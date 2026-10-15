@@ -28,3 +28,15 @@ def build_mixpool(protected_dir, clean_pool_dir, ratio_clean, out_dir, seed=0):
         dst = out / f"clean_{i:03d}{src.suffix}"
         dst.write_bytes(src.read_bytes())
     return out, len(prot), len(picked_clean)
+
+
+@register(["t6_diffpure50"])
+def t6_diffpure50(img):
+    """One-shot diffusion purification, applied directly to the T0 image.
+
+    This is deliberately a single intervention rather than the last element
+    of a T0->...->T6 cascade.  The import is lazy to avoid loading a diffusion
+    model when another tier is evaluated.
+    """
+    from .regenerate import _get_regen
+    return _get_regen().inversion_regen([img], eta=0.1, substeps=50)[0]

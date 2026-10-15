@@ -11,6 +11,14 @@ PROMPTS = [
     "a photo of sks person in front of eiffel tower",
     "a selfie photo of sks person on top of mount fuji",
 ]
+
+# Exact prompt set used by GAP-Diff Table I and Figure 8.
+GAPDIFF_PROMPTS = [
+    "a photo of sks person",
+    "a dslr portrait of sks person",
+    "a photo of sks person looking at the mirror",
+    "a photo of sks person in front of eiffel tower",
+]
 CLASS_PROMPT = "a photo of a person"
 
 

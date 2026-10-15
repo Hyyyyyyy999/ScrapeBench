@@ -1,0 +1,23 @@
+#!/bin/bash
+#SBATCH -J sb_rev_A
+#SBATCH -p rtx4090
+#SBATCH --gres=gpu:1
+#SBATCH -c 8
+#SBATCH --mem=48G
+#SBATCH -t 2-00:00:00
+#SBATCH --array=0-17%10
+#SBATCH -o /home/huangyue26/ScrapBench/slurm/revision_stage_a_%A_%a.out
+set -euo pipefail
+cd /home/huangyue26/ScrapBench
+source venv/bin/activate
+export HF_ENDPOINT=https://hf-mirror.com
+export HF_HUB_ENABLE_HF_TRANSFER=0
+export HF_HUB_OFFLINE=1
+export PYTHONUNBUFFERED=1
+IDS=$(python scripts/make_identity_split.py --print-set test --shard "$SLURM_ARRAY_TASK_ID" --num-shards 18)
+ATTACK=${ATTACK:-ipfaceid}
+METHODS=${METHODS:-clean,arcp_v2}
+python -m scrapebench.runner.stage_a --config configs/revision_single_tier.yaml \
+  --methods "$METHODS" --ids "$IDS" \
+  --tiers t0,t1_jpeg70,t2_canvas_dpr1,t3_agent_facecrop,t4_sr_x2,t5_i2i30,t6_diffpure50 \
+  --attack "$ATTACK"

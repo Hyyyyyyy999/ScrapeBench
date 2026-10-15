@@ -26,3 +26,5 @@ paper/main.fdb_latexmk
 paper/main.fls
 paper/main.log
 paper/main.out
+external/
+slurm/*.out

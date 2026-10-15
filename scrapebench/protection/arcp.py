@@ -74,7 +74,7 @@ def _eot(x, rng, n_comp=2):
 
 def forge_arcp(comps, imgs, out_dir=None, eps_max=16.0 / 255.0, eps_min=2.0 / 255.0,
                steps=150, alpha=2.0 / 255.0, lam=0.5, margin=0.4, grid=64, seed=0,
-               rng=None):
+               rng=None, pixel_space=False, random_start=False, eot_depth=2):
     device, dtype = comps["device"], comps["dtype"]
     vae, unet, sched = comps["vae"], comps["unet"], comps["scheduler"]
     rng = rng or random.Random(seed)
@@ -82,10 +82,19 @@ def forge_arcp(comps, imgs, out_dir=None, eps_max=16.0 / 255.0, eps_min=2.0 / 25
     x = pil_to_tensor(imgs, device, dtype)
     n = x.shape[0]
     x01 = (x + 1.0) / 2.0
-    amp = _jnd_amp(x01, eps_min, eps_max)
+    # ``x`` is in [-1, 1].  New experiments specify epsilon in conventional
+    # [0, 1] pixel units, hence the factor of two.  ``pixel_space=False`` is
+    # retained solely to reproduce the frozen legacy ARCP pilot.
+    scale = 2.0 if pixel_space else 1.0
+    eps_max_model = eps_max * scale
+    eps_min_model = eps_min * scale
+    amp = _jnd_amp(x01, eps_min_model, eps_max_model)
     amp_low = F.interpolate(amp, size=(grid, grid), mode="area")
     amp_up = F.interpolate(amp_low, size=(512, 512), mode="bilinear", align_corners=False)
-    z = torch.zeros(n, 3, grid, grid, device=device, dtype=dtype)
+    if random_start:
+        z = torch.empty(n, 3, grid, grid, device=device, dtype=dtype).uniform_(-1.0, 1.0)
+    else:
+        z = torch.zeros(n, 3, grid, grid, device=device, dtype=dtype)
     z.requires_grad_(True)
     emb = text_embed(comps, [CLASS_PROMPT] * n)
     with torch.no_grad():
@@ -93,8 +102,8 @@ def forge_arcp(comps, imgs, out_dir=None, eps_max=16.0 / 255.0, eps_min=2.0 / 25
         ref = ref / ref.norm(dim=-1, keepdim=True)
     for step in range(steps):
         delta = F.interpolate(z, size=(512, 512), mode="bilinear", align_corners=False) * amp_up
-        xp = clamp_eps(x + delta, x, eps_max)
-        xa = _eot(xp, rng)
+        xp = clamp_eps(x + delta, x, eps_max_model).clamp(-1.0, 1.0)
+        xa = _eot(xp, rng, n_comp=eot_depth)
         e = _fn_emb(_fn(device, dtype), xa)
         e = e / e.norm(dim=-1, keepdim=True)
         sim = (e * ref).sum(-1)
@@ -118,7 +127,7 @@ def forge_arcp(comps, imgs, out_dir=None, eps_max=16.0 / 255.0, eps_min=2.0 / 25
             print(f"[arcp] step {step + 1}/{steps} ft {loss_ft.item():.4f} reader {loss_reader.item():.4f}", flush=True)
     with torch.no_grad():
         delta = F.interpolate(z, size=(512, 512), mode="bilinear", align_corners=False) * amp_up
-        out = clamp_eps(x + delta, x, eps_max)
+        out = clamp_eps(x + delta, x, eps_max_model).clamp(-1.0, 1.0)
     outs = tensor_to_pil(out)
     if out_dir is not None:
         import os

@@ -1,0 +1,54 @@
+run:
+  name: vggface2_gapdiff
+  seed: 20261015
+  data_root: data/vggface2_protocol
+  resolution: 512
+  samples_per_cell: 120
+  ref_per_id: 2
+  tau: 0.30
+  sd_model: stable-diffusion-v1-5/stable-diffusion-v1-5
+  fp16: true
+
+stage_a:
+  methods: [clean, gapdiff, idprotector, arcp_v2]
+  tiers: [t0, t1_jpeg70, t2_canvas_dpr1, t3_agent_facecrop, t4_sr_x2, t5_i2i30, t6_diffpure50]
+  ids: [all]
+
+stage_b:
+  methods: [clean, gapdiff, idprotector, arcp_v2]
+  tiers: [t1_jpeg70]
+  ids: [all]
+  steps: 1000
+  training_mode: full_unet
+  batch_size: 2
+  lora_rank: 16
+  lr: 0.0000005
+  prompt: "a photo of sks person"
+  prompts:
+    - "a photo of sks person"
+    - "a dslr portrait of sks person"
+    - "a photo of sks person looking at the mirror"
+    - "a photo of sks person in front of eiffel tower"
+  samples_per_prompt: 30
+  generation_steps: 30
+  save_outputs: true
+
+protection:
+  methods: [clean, arcp_v2]
+  eps: 16.0
+  arcp_v2_eps_max: 16.0
+  arcp_v2_eps_min: 2.0
+  arcp_v2_steps: 200
+  arcp_v2_z_step: 0.10
+  arcp_v2_lam: 0.75
+  arcp_v2_margin: 0.35
+  arcp_v2_grid: 64
+  arcp_v2_eot_depth: 1
+
+attack:
+  ip_adapter_repo: h94/IP-Adapter-FaceID
+  ip_adapter_weight: ip-adapter-faceid_sd15.bin
+  ip_adapter_scale: 0.8
+  steps: 30
+  instantid_steps: 30
+  guidance: 5.0
