@@ -62,7 +62,15 @@ class Regenerator:
             im = im.resize((512, 512), Image.LANCZOS).convert("RGB")
             x0 = torch.from_numpy((np.asarray(im, np.float32) / 127.5 - 1.0)).permute(2, 0, 1)[None].to(self.device, dtype)
             z0 = vae.encode(x0).latent_dist.mode() * vae.config.scaling_factor
-            emb = self.pipe._encode_prompt("", self.device, 1, False, None) if hasattr(self.pipe, "_encode_prompt") else self.pipe.encode_prompt("", self.device, 1, False, None)[0]
+            # ``_encode_prompt`` is deprecated and, in recent diffusers,
+            # concatenates a ``None`` negative embedding when classifier-free
+            # guidance is disabled.  The public API returns prompt embeddings
+            # as the first tuple item without that invalid concatenation.
+            encoded = self.pipe.encode_prompt(
+                prompt="", device=self.device, num_images_per_prompt=1,
+                do_classifier_free_guidance=False,
+            )
+            emb = encoded[0] if isinstance(encoded, tuple) else encoded
             timesteps = sched.timesteps
             z = z0
             eps_store = []
