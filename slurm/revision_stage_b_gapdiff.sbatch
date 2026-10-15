@@ -3,9 +3,9 @@
 #SBATCH -p pro6000
 #SBATCH --gres=gpu:1
 #SBATCH -c 1
-#SBATCH --mem=32G
+#SBATCH --mem=16G
 #SBATCH -t 2-00:00:00
-#SBATCH --array=0-17%2
+#SBATCH --array=0-17%1
 #SBATCH -o /home/huangyue26/ScrapBench/slurm/revision_stage_b_%A_%a.out
 set -euo pipefail
 cd /home/huangyue26/ScrapBench

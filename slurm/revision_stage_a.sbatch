@@ -3,7 +3,7 @@
 #SBATCH -p rtx4090
 #SBATCH --gres=gpu:1
 #SBATCH -c 1
-#SBATCH --mem=20G
+#SBATCH --mem=10G
 #SBATCH -t 2-00:00:00
 #SBATCH --array=0-17%2
 #SBATCH -o /home/huangyue26/ScrapBench/slurm/revision_stage_a_%A_%a.out

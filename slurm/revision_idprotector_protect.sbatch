@@ -3,7 +3,7 @@
 #SBATCH -p rtx4090
 #SBATCH --gres=gpu:1
 #SBATCH -c 1
-#SBATCH --mem=20G
+#SBATCH --mem=8G
 #SBATCH -t 1-00:00:00
 #SBATCH --array=0-17%2
 #SBATCH -o /home/huangyue26/ScrapBench/slurm/revision_idprotector_%A_%a.out
@@ -17,15 +17,15 @@ IDS=$($ROOT/venv/bin/python $ROOT/scripts/make_identity_split.py \
 IFS=',' read -ra ID_ARRAY <<< "$IDS"
 for PID in "${ID_ARRAY[@]}"; do
   OUT=$ROOT/data/celeba_hq100/protected/idprotector/$PID
-  if [ "$(find "$OUT" -maxdepth 1 -type f 2>/dev/null | wc -l)" -ge 8 ]; then
+  if [ "$(find "$OUT" -maxdepth 1 -type f -name '*.png' 2>/dev/null | wc -l)" -ge 8 ]; then
     continue
   fi
   mkdir -p "$OUT"
-  /home/huangyue26/IDProtector/venv/bin/python \
-    -m scripts.evaluation.perturb_get_metric \
-    --in_channels 5 --epsilon 0.125490196 --clip_epsilon 1 \
-    --clean_data_dir "$ROOT/data/celeba_hq100/raw/$PID" --save_dir "$OUT" \
-    --path_to_state_dict /home/huangyue26/IDProtector/protector_model.pt \
-    --metrics_save_path "$OUT/metrics.csv" \
-    --batch_size 1 --cuda 0
+  /home/huangyue26/UMO/venv/UMO_UNO/bin/python \
+    scripts/protect_recursive.py \
+    --input-root "$ROOT/data/celeba_hq100/raw/$PID" \
+    --output-root "$OUT" \
+    --checkpoint /home/huangyue26/IDProtector/protector_model.pt \
+    --insightface-root /home/huangyue26/IDProtector/generation_methods/InstantID \
+    --epsilon 0.07 --det-thresholds 0.5 --on-detection-failure error
 done

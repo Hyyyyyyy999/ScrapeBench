@@ -12,7 +12,9 @@ The review's central objections are reasonable and publication-critical.
    RR with CIs, change from T0, and TOST equivalence at a preregistered 0.03 ISM
    bound. The title and claims no longer presume collapse.
 3. Omitting GAP-Diff and IDProtector makes a 2027 comparison incomplete. Both
-   will be run from official checkpoints at a matched 16/255 pixel budget.
+   are run from official checkpoints at their released settings; measured
+   pixel budgets are reported explicitly instead of calling different internal
+   scalings a matched budget.
    AntiPure has no verified public executable artifact in the repository audit;
    it will be marked unavailable rather than approximated and mislabeled.
 4. Simulated web operations alone do not establish platform fidelity. JPEG Q70
@@ -44,3 +46,18 @@ The review's central objections are reasonable and publication-critical.
 
 Numerical tables in the manuscript must only be replaced after the new jobs
 finish. The code intentionally does not insert anticipated superiority claims.
+
+## Live execution snapshot (2026-10-15, Asia/Shanghai)
+
+- GAP-Diff protection: 90/90 evaluation identities, 720/720 images complete.
+- ARCP-v2 protection: 7/90 identities complete at the 19:13 snapshot. Their
+  mean PSNR is 34.21 dB (range 34.05--34.47 dB); this partial quality audit is not a
+  defense-performance estimate.
+- IDProtector protection: 0/90 complete. The first submission selected an
+  environment without PyTorch; the corrected submission uses the previously
+  validated UMO environment and the official 0.07 setting (about 9/255).
+- Stage A and Stage B: waiting for their protected-gallery dependencies; no
+  revised FDFR/ISM/BRISQUE/SER-FIQ result exists yet.
+- Scheduler constraint: the account QOS currently permits one GPU at a time.
+  Protection and Stage A use an RTX 4090; full-UNet Stage B uses an RTX Pro
+  6000. Idle GPUs elsewhere in the cluster do not raise this per-user limit.

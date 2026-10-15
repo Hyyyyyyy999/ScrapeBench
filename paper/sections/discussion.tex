@@ -1,14 +1,18 @@
-\section{Discussion: What Survives the Funnel}
+\section{Discussion}
 \label{sec:discussion}
 
-\subsection{Why the Reported Protection Does Not Survive Contact}
-Our diagnosis locates the primary failure in the protocol: a protection gap is a \emph{difference}, and when its two terms are instantiated on different identities it absorbs identity-difficulty variance of the same order as the claimed effect. What remains is too small to survive single-tier preprocessing with statistical dignity: across the five signal-preserving operations no defense--tier pair retains a Holm-corrected gap, retention scatters within identity noise across neighboring JPEG qualities, and the retrain shows at matched budget that the failure is not a missing augmentation. Mechanism alone is also insufficient: embedding-injection readers remove the poisoned fine-tuning path, yet the two zero-shot readers respond differently to the same galleries (F3). The regeneration tier manufactures \emph{pseudo-protection} by degrading face detectability---which our conditional, detection, and unconditional views separate---and ARCP (F4) starts from these measured failure modes.
+The revised protocol addresses the review's central validity concerns: every
+defense has a same-identity clean control, clean and protected images undergo
+identical processing, each Web operation is isolated, and recent official
+baselines are evaluated without pooling incompatible budgets or attacks. The
+design separates a protection failure from destruction of face detectability
+and separates statistical non-significance from evidence of equivalence.
 
-\subsection{A Reporting Standard: RR@T}
-Protection papers should report, alongside T0 numbers: (i) the collapse curve RR$(T)$ over the public funnel tiers, computed against \emph{same-identity} clean controls, (ii) the tier where the Holm-corrected gap becomes statistically indistinguishable from zero, and (iii) the cost ledger---so a T0-only defense can no longer headline a single number or borrow significance from an unmatched baseline.
-
-\subsection{The Durable Fix: Consent Provenance, Not Stronger Noise}
-The marginal return on stronger perturbations is bounded but not zero: ARCP is the strongest pixel-level response the measured failure modes suggest. The durable fix is provenance: data owners have no effective way to say no~\cite{lee2025data}; a manifest compatible with content-credential infrastructure~\cite{c2pa2026spec} is the missing instrument, because consent is metadata the funnel carries with the image.
-
-\subsection{Limitations}
-Our galleries use aligned celebrity corpora rather than in-the-wild profiles, and the tiers are faithful reconstructions, not captured traces. We test two published defenses, one JPEG-aware variant, two controls, and two zero-shot attackers~\cite{wang2024instantid}; the 2026 injection-hardening and perceptual-degradation designs may behave differently. The repaired T3, InstantID, and Stage-C grids contain only six identities and ten generations per cell, with no InstantID contrast surviving correction; Stage B remains cross-identity and directional; Stage C lacks matched mix0/mix100 endpoints. ARCP's scope is reader-conditional: the IP-Adapter-FaceID grids show the gap does not transfer (turning negative at $\lambda=2$), and its texture budget is argued from contrast masking, not a human study. Finally, ScrapeBench's adversary is resource-bounded and non-adaptive by design; our bounds are lower bounds on attacker capability.
+The current artifact counts are not evidence that one defense is better. A
+protected gallery becomes a result only after the matched attacker, held-out
+identity scorer, image-quality metrics, and paired uncertainty analysis have
+completed. The principal remaining limitation is that T1--T6 are controlled
+reconstructions of Web acquisition; claims about named platforms additionally
+require paired upload/download traces. CelebA-HQ also cannot represent all
+demographic and in-the-wild capture conditions, so subgroup and external-data
+audits remain necessary.

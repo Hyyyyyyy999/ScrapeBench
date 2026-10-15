@@ -1,19 +1,53 @@
 \section{ScrapeBench: Experimental Setup}
 \label{sec:experiments}
 
-\subsection{Implementation}
-ScrapeBench is a single Python harness built on the Hugging Face stack (\texttt{diffusers}, \texttt{transformers}, \texttt{peft}), \texttt{insightface}, and Pillow. Tiers are pure image functions in a registry (\texttt{scrapebench.funnel}); any (defense, tier, attack) cell can be replayed, cached, and audited, and the runner writes an append-only CSV keyed by (stage, identity, defense, tier, attack) that resumes interrupted runs. Protections use a per-identity LoRA surrogate (rank 16, 250 steps, bf16) followed by 100-step sign-PGD at $\epsilon=16/255$ on the pipeline's $[-1,1]$ scale, $\alpha=1/255$, against a frozen SD1.5 backbone (FSMG~\cite{le2023antidreambooth}); ASPL-lite alternates two surrogate--perturbation rounds at the same budget; the random control draws uniform noise at the same nominal $\epsilon=16/255$, but on the $[0,1]$ pixel scale---a factor-two amplitude difference we document explicitly in Appendix~\ref{app:quality}; the clean control resizes and re-encodes without perturbation. \emph{ARCP} (Section~\ref{sec:defense}) forges with the same backbone, a $64^2$ band-limited grid, texture-allocated amplitudes $\epsilon\in[2,16]/255$ on the $[-1,1]$ scale, and the proxy composition of Section~\ref{sec:defense}; the reader weight ($\lambda=.5$) and margin $m=0.4$ are fixed on a six-identity forging pilot excluded from all reported statistics; a $\lambda=2$ variant is evaluated as a sensitivity ablation (Section~\ref{sec:res_arcp}).
+\subsection{Implementation and independent interventions}
+ScrapeBench is a resumable Python harness built on \texttt{diffusers},
+\texttt{transformers}, \texttt{insightface}, and Pillow. Every condition starts
+from the same T0 gallery; T1--T6 are independent interventions rather than a
+seven-stage cascade. We evaluate T0 (unaltered), T1 (JPEG Q70, 4:2:0), T2
+(360-CSS-pixel browser raster at DPR 1), T3 (face crop followed by WebP 80), T4
+(Real-ESRGAN x2 and JPEG 92), T5 (SD1.5 img2img at strength .30), and T6 (50-step
+diffusion purification). Clean and protected branches share the loader, crop,
+intervention, attacker, prompt, seed, and scorer.
 
-\subsection{Attack Pipelines}
-\emph{DreamBooth-LoRA} (Stage B) fine-tunes the SD1.5 UNet on a tiered gallery for 400 steps (rank-16 LoRA, lr $10^{-4}$, batch 4) and generates 20 images per cell (5 prompts, 4 draws per prompt from a fixed generator seed) at 30 steps, guidance 7.5. \emph{IP-Adapter-FaceID} (Stage A) loads the released FaceID adapter~\cite{ye2023ipadapter} on SD1.5 at scale 0.8, embeds every gallery image through insightface/buffalo\_l, and conditions generation on all reference embeddings jointly, producing 10 images per cell (5 prompts, 2 draws per prompt from a fixed generator seed) at 30 steps, guidance 5.0.
+\subsection{Data, defenses, and attackers}
+The fixed CelebA-HQ-100 protocol contains 100 identity-labelled subjects, each
+with eight gallery images and two held-out references. The public split is 10
+development, 80 core-test, and 10 untouched audit identities; hyperparameters
+are frozen on development before the 90 non-development identities are run.
+The primary comparison uses the clean control, official GAP-Diff and
+IDProtector checkpoints, and ARCP-v2. Each published baseline is run at its
+official released setting and its measured pixel budget is reported, rather
+than silently forcing methods to a nominal but implementation-dependent
+budget. ARCP-v2 applies its bound in 8-bit pixel space, with
+$\epsilon_{\min}=2/255$, $\epsilon_{\max}=16/255$, a $64^2$ band-limited grid,
+200 optimization steps, reader weight $.75$, and margin $.35$. The older
+40-identity FSMG/ASPL-lite experiment is retained only as a legacy diagnostic
+and is not mixed with the revised tables.
 
-\subsection{Protocol and Data}
-We sample 40 identities from the CelebA face corpus~\cite{liu2015deep}, each contributing 8 gallery images and 2 held-out reference images for identity scoring. To balance compute across two GPUs, defenses are assigned to disjoint 20-identity halves (clean/random on one, FSMG/ASPL on the other), with clean galleries generated on both halves (plus a two-identity random extension on the FSMG half) so that every defense has a same-identity clean control for paired statistics. Identity scoring uses the ArcFace embedding (buffalo\_l)~\cite{deng2018arcface} with $\tau=0.30$ calibrated so that unrelated-identity similarity is below $\tau$ for all clean generations. The primary analysis (\emph{Stage A}) applies each preprocessing operation \emph{in isolation}: cells are 20 identities per defense half $\times$ defense variants (clean, random, FSMG, ASPL-lite, the JPEG-aware retrained \emph{FSMG-J} on a 6-identity pilot, and \emph{ARCP}) $\times$ the six representative operations (T1 JPEG-85; T1 WebP-80; T2 canvas DPR-1; T3 agent face-crop via a repaired six-identity pilot; T4 SR; T5 img2img-30), each cell 10 generations (5 prompts, 2 draws per prompt from a fixed generator seed), with the full JPEG $q{\in}\{95,75,65\}$ sweep and T0 reported alongside; a repaired T3 pilot covers 6 identities $\times$ \{clean, FSMG, FSMG-J\} (Appendix~\ref{app:integrity}). \emph{Stage A-instant}: InstantID~\cite{wang2024instantid} (SDXL-base, InstantX adapter at IP scale $0.8$, keypoint ControlNet at $0.8$, $512^{2}$, 30 steps, guidance 5.0) on a completed 6-identity $\times$ \{clean, FSMG, FSMG-J, ARCP\} $\times$ 4-tier grid. A completed order-and-composition study (\emph{Stage O}) is reported in the appendix and excluded from the primary analysis. \emph{Stage B} cells: a 12-identity design spanning both halves $\times$ \{clean, random, FSMG\} $\times$ 4 tiers, each a full 400-step DreamBooth-LoRA fine-tune; scheduling placed clean on one half's identities and FSMG on the other's, so the Stage-B comparison is cross-identity and directional (Section~\ref{sec:res_f2}). A repaired 6-identity Stage-C pilot evaluates same-identity clean-source mixing at $20\%/50\%$ and true img2img-50 purification. All experiments run on RTX 4090 GPUs; total compute exceeds 160 GPU-hours, of which the original attacker-side grid is under 35.
+Stage A tests two zero-shot readers: IP-Adapter-FaceID on SD1.5 and InstantID on
+SDXL, both with 30 denoising steps and guidance 5.0. Stage B trains the SD1.5
+UNet for 1,000 steps on each acquired gallery and generates 30 images for each
+of four preregistered Web scenarios: social-media avatar, smartphone selfie,
+low-light indoor social photograph, and outdoor travel photograph. A separate
+VGGFace2/JPEG-Q70 block preserves GAP-Diff's four original prompts for direct
+comparison with its Table I and Figure 8 protocol.
 
-For the repaired pilots we report four quantities because face detection is itself affected by the funnel: identity similarity conditional on a detected face; face-detection rate; attack success at $\tau=0.30$; and an unconditional leakage score assigning zero similarity to detector failures, which prevents a tier that merely destroys detectability from being credited as an identity-specific defense.
+\subsection{Metrics and statistical contract}
+The four headline output metrics are face-detection failure rate (FDFR),
+identity similarity (ISM), BRISQUE, and SER-FIQ. We additionally report the
+same-identity clean-minus-protected ISM gap, its identity-bootstrap 95\% CI,
+retention $\mathrm{RR}(T)=\Delta(T)/\Delta(T0)$ with a bootstrap CI, change from
+T0, Holm-adjusted paired tests, and a TOST equivalence test at the preregistered
+0.03 ISM bound. Non-significance is not described as equivalence or collapse.
+The primary tables will be generated only from the append-only revised run log;
+legacy and revised rows are never pooled.
 
-\subsection{What We Claim and What We Do Not}
-ScrapeBench measures \emph{retention of protection under realistic acquisition}, not attack strength: the funnel tiers are deliberately non-adversarial, mirroring what platforms, browsers, agents, and users already do. Findings therefore bound the \emph{deployment} value of T0-optimized protections; they do not claim that funnel-robust protections are impossible---Section~\ref{sec:defense} designs one---nor that the defenses tested are the strongest instantiations of their families. FSMG and ASPL represent the gradient-poisoning family on which the 2023--2026 defenses build; the newer generation of injection-hardening, perceptual-degradation, and purification-robust designs~\cite{qiu2026void,wang2026hierarchical,wang2025antiaesthetics,yang2025towards} targets named adversaries rather than the acquisition path, and our Stage-C purification condition probes exactly that operator class. Ethical considerations for the celebrity corpus and synthetic outputs are documented in Appendix~\ref{sec:ethics}.
-
-% paragraph closed explicitly to avoid column-break edge case
-
+\subsection{Execution status}
+At manuscript revision time the 100-identity dataset and split are frozen, and
+the official GAP-Diff protected gallery is complete for all 90 evaluation
+identities. ARCP-v2 and IDProtector galleries and the downstream Stage-A and
+Stage-B evaluations are still running. Consequently, this draft intentionally
+contains no revised performance numbers or superiority claim; Section~\ref{sec:results}
+defines the tables that will be populated from the completed run.
