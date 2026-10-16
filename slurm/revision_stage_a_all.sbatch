@@ -20,8 +20,11 @@ export PYTHONUNBUFFERED=1
 # Six experiment groups x 18 identity shards.  Keeping them in one Slurm
 # array makes %6 a true global concurrency limit instead of six independent
 # per-array limits.
-GROUP=$((SLURM_ARRAY_TASK_ID / 18))
-SHARD=$((SLURM_ARRAY_TASK_ID % 18))
+# Interleave groups so every wave of six tasks covers all attack/method groups.
+# This yields an early balanced comparison instead of finishing all clean
+# IP-Adapter shards before any defense or InstantID shard starts.
+GROUP=$((SLURM_ARRAY_TASK_ID % 6))
+SHARD=$((SLURM_ARRAY_TASK_ID / 6))
 case "$GROUP" in
   0) ATTACK=ipfaceid; METHODS=clean ;;
   1) ATTACK=instantid; METHODS=clean ;;
