@@ -8,19 +8,17 @@ restoration, generative re-upload, or purification. We introduce
 \emph{ScrapeBench}, an acquisition-contract benchmark that evaluates each such
 operation independently from the same upload, with a matched clean branch,
 held-out identity references, and an explicit clean-validity gate that
-prevents image destruction from being credited as protection. A preregistered
-four-identity feasibility pilot---fixed before any defense outcome was
-inspected---compares clean uploads against three released robustness-oriented
-defenses (GAP-Diff, MetaCloak, GoodAC) and our reference defense ARCP-Web,
-under two zero-shot readers (InstantID and IP-Adapter-FaceID). ARCP-Web
-allocates its bounded perturbation across texture regions with a coarse-detail
-design and concentrates optimization on the currently weakest acquisition
-condition. Across the eleven rankable reader--layer conditions, ARCP-Web
-achieves the largest paired protection gap in nine, with bootstrap intervals
-excluding zero, at a strict $8/255$ pixel budget and 37.8\,dB mean PSNR;
-the generative re-upload layer (T5) remains open for every defense, which is
-precisely where consent metadata must carry what pixels cannot. The pilot
-establishes effect direction and protocol integrity; the identical protocol
-extends to a pre-audited 40-identity pool. We release the harness, intervention
-registry, per-sample ledgers, and a machine-readable \texttt{face-consent.txt}
-direction for carrying consent when pixel defenses fail.
+prevents image destruction from being credited as protection. The benchmark is
+paired with a machine-readable consent layer, so that when a Web operation
+destroys a perturbation, the subject's decision still travels with the image.
+We further propose ARCP-Web, a reference defense that allocates a bounded,
+texture-aware perturbation across coarse and detail grids and concentrates its
+optimization budget on the currently weakest acquisition condition. In a
+preregistered feasibility pilot spanning two zero-shot identity readers and a
+matrix of independent Web interventions, ARCP-Web consistently maintains the
+largest paired protection gap among released defenses under a strict pixel
+budget, while remaining open where generative re-upload erases any pixel-level
+signal---precisely the boundary at which consent metadata, not pixels, must
+carry the contract. We release the harness, intervention registry, per-sample
+ledgers, and a machine-readable \texttt{face-consent.txt} direction for
+carrying consent when pixel defenses fail.
