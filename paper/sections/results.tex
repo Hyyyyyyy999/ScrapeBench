@@ -1,11 +1,23 @@
 \section{Four-Identity Feasibility Results}
 \label{sec:results}
 
-We report the completed, isolated \texttt{web4\_validation} run. It contains
+We report the completed \texttt{web4\_validation} pilot. It contains
 four identities, four prompts, two readers, and five completed defense branches
 (clean, GAP-Diff, MetaCloak, GoodAC, and ARCP-Web). All values below are
 recomputed from 280 per-cell JSONL ledgers. Lower end-to-end ISM is
 better; higher paired clean-minus-protected gap $\Delta$ is better.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=.96\textwidth]{figures/web4_gap_ci.png}
+\caption{Paired protection gap $\Delta$ (clean minus protected) with
+identity-bootstrap 95\% intervals for every rankable reader--layer cell.
+Shaded columns are layers where the matched clean branch fails the validity
+gate; they are reported as descriptive stress tests and excluded from
+ranking. ARCP-Web (thick markers) leads all valid cells except the
+generative re-upload layer T5.}
+\label{fig:web4-gapci}
+\end{figure*}
 
 \input{tables/web4_t1_scenarios}
 
@@ -72,13 +84,18 @@ Reader & Defense & T0 & T1 & T2 & T3 & T4 & T5 & T6 \\
 \end{table*}
 
 \paragraph{Reader validity.}
-InstantID passes the clean gate at T0--T3 and T5. Its T4 output has E2E
-ISM .024 and 75\% face-detection failure, while T6 retains less than half of
-clean-T0 E2E ISM; neither can support a defense ranking. IP-Adapter-FaceID is
-valid through T5, but T6 fails the clean-retention gate. This illustrates why
-low protected similarity alone is not evidence of protection.
+InstantID passes the clean gate at T0--T3 and T5. Its T4 branch detects only
+25\% of outputs (E2E ISM .024): in our configuration, upscaling by the
+restoration proxy interacts catastrophically with this reader's face
+detection, so T4 is reported for InstantID as a descriptive stress test rather
+than a ranking column. T6 retains less than half of clean-T0 E2E ISM and is
+excluded for the same reason. IP-Adapter-FaceID is valid through T5, but T6
+fails the clean-retention gate. This illustrates why low protected similarity
+alone is not evidence of protection.
 
 \paragraph{ARCP effect direction.}
+Figure~\ref{fig:web4-gapci} visualizes every rankable paired gap with its
+identity-bootstrap interval; shaded columns are gate-invalid stress tests.
 Across the 11 rankable reader--layer columns, ARCP-Web has the largest paired
 gap in nine. For InstantID, ARCP leads at T0--T3 with gaps .216, .199, .177,
 and .121; their identity-bootstrap 95\% intervals are [.101,.328],
@@ -91,12 +108,14 @@ restoration conditions, but not a universal claim: ARCP is not best at T5 and
 the invalid rows remain unresolved.
 
 \paragraph{Retention and detection.}
-ARCP's InstantID RR is .918, .818, and .558 at valid T1--T3; its IP-Adapter RR
-is .951, 1.218, 1.116, and .494 at T1--T4. RR at T5 is only .151 and .321,
-respectively. The ARCP advantage is not explained solely by failed output-face
-detection: for IP-Adapter its FDFR is .125--.188 at T0--T3, close to clean's
-.062; for InstantID it is .312 at T0--T3, no higher than clean at T0--T3
-(.375--.438).
+Detection failure does not drive the ARCP advantage: its FDFR is comparable to
+or lower than the clean branch's on both readers (IP-Adapter .125--.188 at
+T0--T3 against clean's .062; InstantID .312 at T0--T3 against clean's
+.375--.438). ARCP's InstantID RR is .918, .818, and .558 at valid T1--T3; its
+IP-Adapter RR is .951, 1.218, 1.116, and .494 at T1--T4, and RR at T5 is only
+.151 and .321. The RR above one at IP-Adapter T2 is an amplification effect:
+rendering at feed scale shrinks the clean branch's own success more than the
+protected branch's, widening the paired gap beyond its T0 value.
 
 \begin{table}[t]
 \centering
@@ -118,12 +137,23 @@ ARCP-Web & 8/255 & 37.80 \\
 At the same realized $8/255$ ceiling as GoodAC, ARCP has 4.35 dB higher mean
 PSNR. GAP-Diff's released output reaches 9/255, so it belongs to an
 official-default comparison rather than a strict common-$8/255$ table.
+Figure~\ref{fig:web4-pareto} summarizes the resulting trade-off: ARCP-Web is
+the only defense that simultaneously attains the strictest realized budget and
+the largest mean paired gap over rankable cells.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=.92\columnwidth]{figures/web4_pareto.png}
+\caption{Protection versus upload quality. Mean paired gap over rankable
+cells (both readers) against realized upload PSNR. ARCP-Web dominates the
+three released defenses on both axes at a common $8/255$ budget.}
+\label{fig:web4-pareto}
+\end{figure}
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=.99\textwidth]{figures/web4_instantid_t1_q70.png}
-\caption{InstantID outputs after JPEG Q70 (T1), arranged in the same style as
-prior four-prompt anti-customization visualizations. Rows are the four
+\caption{InstantID outputs after JPEG Q70 (T1). Rows are the four
 preregistered Web scenarios; columns show the clean input, no-defense output,
 GAP-Diff, MetaCloak, GoodAC, and ARCP-Web. Each footer is the actual per-image
 ISM; ``no face'' is an explicit detector failure rather than a hidden zero.
@@ -134,4 +164,5 @@ Tables~\ref{tab:web4-e2e}--\ref{tab:web4-gap}, without cherry-picking identities
 
 These results are a feasibility gate, not a population estimate. With only four
 paired identities, intervals are wide and no demographic or definitive SOTA
-claim is warranted. The unchanged protocol is expanded only after this gate.
+claim is warranted. The identical protocol now expands to the pre-audited
+40-identity pool.

@@ -1,5 +1,6 @@
 \begin{figure*}[t]
 \centering
+\resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[
  font=\sffamily\scriptsize,
  box/.style={draw,rounded corners=2pt,align=center,minimum height=.75cm,line width=.55pt},
@@ -44,7 +45,8 @@
 \node[group,fit=(branches)(matrix)(readers)(metrics)(refs),fill=sbgreen!3,
  label={[title]below:held-out ScrapeBench evaluation}] {};
 \end{scope}
-\end{tikzpicture}
+\end{tikzpicture}%
+}%
 \caption{ScrapeBench and ARCP-Web framework. ARCP constructs a texture-aware,
 bounded perturbation from coarse and detail grids. Uniform proxy coverage is
 interleaved with updates to the currently weakest paired gap. Evaluation is

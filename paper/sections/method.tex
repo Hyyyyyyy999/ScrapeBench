@@ -14,8 +14,8 @@ seed. Thus a platform operation cannot be mistaken for protection.
 
 \subsection{Seven independent interventions}
 \label{sec:interventions}
-The intervention set $\Phi=\{\phi_0,\ldots,\phi_6\}$ is a matrix, not a funnel:
-$\phi_k$ always consumes T0 and never the output of another row.
+The intervention set $\Phi=\{\phi_0,\ldots,\phi_6\}$ is a flat matrix, not a
+funnel: each $\phi_k$ consumes T0 and never the output of another row.
 
 \begin{table}[t]
 \centering
@@ -30,18 +30,20 @@ Layer & Intervention & Web actor or behavior \\
 \midrule
 T0 & original protected upload & publisher \\
 T1 & JPEG Q70, 4:2:0, 512 px & CDN transcode \\
-T2 & 360-CSS-pixel raster, DPR 1 & feed/thumbnail render \\
+T2 & 360-px CSS raster, DPR 1 & feed/thumbnail render \\
 T3 & detector crop, margin .35, WebP 80 & screenshot agent \\
 T4 & Real-ESRGAN $\times2$ & restoration service \\
 T5 & SD1.5 img2img, strength .30 & generative re-upload \\
-T6 & prompt-free SD1.5 reconstruction, strength .50, 50 steps & purification \\
+T6 & prompt-free SD1.5 reconstruction, strength .50 & purification \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-T1 matches GAP-Diff's primary JPEG setting. T2 approximates a common feed card;
-T3 represents an agent that sees rendered pixels rather than the origin file;
-T4--T6 test increasingly model-mediated acquisition. T6 is explicitly a
+T1 matches GAP-Diff's primary JPEG setting and sits at the pessimistic end of
+the CDN qualities we measured (GitHub$\approx$75, WordPress$\approx$80). T2
+approximates a common feed card; T3 represents an agent that sees rendered
+pixels rather than the origin file; T4--T6 test increasingly model-mediated
+acquisition. T6 is explicitly a
 prompt-free reconstruction proxy, not an implementation claimed to be the
 official DiffPure algorithm. Each layer has a usability check on its input face.
 
@@ -59,9 +61,8 @@ For defense $D$, attack $P$, and layer $k$, the paired protection gap is
 Higher $\Delta$ is better. Retention ratio is
 $\mathrm{RR}_{k,D,P}=\Delta_{k,D,P}/\Delta_{0,D,P}$, accompanied by a paired
 identity-bootstrap interval and the absolute change $\Delta_k-\Delta_0$.
-We report realized 8-bit $L_\infty$ and PSNR for protected uploads. BRISQUE and
-SER-FIQ are included only when their exact reference implementations are
-available; no substitute metric is silently given the same name. A layer is
+Protected uploads are audited by their realized per-image $L_\infty$ after
+8-bit quantization and by PSNR. A layer is
 rankable only when the matched clean attack detects at least 50\% of outputs
 and retains at least 50\% of its clean-T0 end-to-end ISM. A defense is called
 effective only when that gate passes and the 95\% interval for $\Delta$
@@ -69,7 +70,7 @@ excludes zero.
 
 \subsection{Beyond pixels: consent carried by the Web}
 No bounded perturbation can guarantee survival under arbitrary reconstruction.
-We therefore specify \texttt{/.well-known/face-consent.txt}, a machine-readable
+We therefore specify \path{/.well-known/face-consent.txt}, a machine-readable
 manifest mapping image patterns and subject hashes to permitted uses, expiry,
 revocation, and optional signatures. ScrapeBench supplies the empirical test for
 pixel defenses; the manifest supplies an auditable obligation for compliant

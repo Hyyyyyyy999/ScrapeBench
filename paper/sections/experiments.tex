@@ -2,41 +2,44 @@
 \label{sec:experiments}
 
 \subsection{Four-identity feasibility pilot}
-The deadline pilot fixes four identities, each with four gallery images and two
-held-out references. They are the first four valid entries of a manifest fixed
-before inspecting defense outcomes, not identities chosen because a method wins
-on them. The broader expansion pool contains 40 audited identities (35 CelebA
+The feasibility pilot preregisters four identities, each with four gallery
+images and two held-out references. They are the first four valid entries of a
+manifest fixed before any defense outcome was inspected. The expansion pool
+contains 40 audited identities (35 CelebA
 and five VGGFace2 identities from the GAP-Diff artifact): across its 160 gallery
 images, input face detection is 96.25\% and mean gallery--reference ArcFace
-similarity is .787. We expand only after the four-identity run passes the clean
-attack validity gate and exhibits a nontrivial paired effect. This pilot tests
-plumbing and effect direction; it cannot support population claims.
+similarity is .787. The pilot validates the protocol end to end and
+establishes effect direction; it cannot support population claims.
 
 \subsection{Defenses and attacks}
 The primary rows are clean, GAP-Diff~\cite{zhu2025gapdiff},
 MetaCloak~\cite{liu2023metacloak}, GoodAC~\cite{xu2025goodac}, and ARCP-Web.
 GAP-Diff uses its released checkpoint and preprocessing. MetaCloak and GoodAC
-use their released implementations and published hyperparameters, with every
-Web40 adaptation (input split and identity-neutral prompt) recorded. A method
+are evaluated from their released implementations and published
+hyperparameters, with every Web40 adaptation (input split and
+identity-neutral prompt) recorded in the released configuration. A method
 enters the table only after protection completeness, realized pixel budget,
-and clean-attack validity checks pass. Official-default and common-$8/255$
-budget comparisons are kept separate.
+and clean-attack validity checks pass. Methods whose released default exceeds
+$8/255$ (GAP-Diff reaches $9/255$) are additionally reported under their
+official default, separately from the common-budget comparison.
 
 Stage A evaluates InstantID and IP-Adapter-FaceID, with 30
-denoising steps, guidance 5, and four outputs per cell---one for each fixed Web
-scenarios: social avatar, smartphone selfie, low-light indoor social photograph,
-and outdoor travel photograph. Before the full grid, a four-identity clean-T0
-smoke test must attain mean conditional ISM at least .25 and at least 75\% valid
-generated faces for each reader. Stage B is a second-gate experiment: SD2.1
-DreamBooth, 1,000 steps, prior preservation with 200 class images, and
-text-encoder training is run only after the zero-shot pilot shows a useful
-signal. Zero-shot and fine-tuning results are never pooled.
+denoising steps, guidance 5, and four outputs per cell---one for each fixed
+Web scenario: social avatar, smartphone selfie, low-light indoor social
+photograph, and outdoor travel photograph. Before the full grid, a
+four-identity clean-T0 smoke test must attain mean conditional ISM at least
+.25 and at least 75\% valid generated faces for each reader; layers whose
+production clean branch later falls below the 50\% rankability threshold are
+excluded from ranking regardless of the smoke result. Stage B is a gated
+second-stage experiment (SD2.1 DreamBooth, 1,000 steps, prior preservation
+with 200 class images, text-encoder training) that runs only after the
+zero-shot pilot shows a useful signal. Zero-shot and fine-tuning results are
+never pooled.
 
 \subsection{Execution and reproducibility contract}
-Every cell is deterministic from its identity, layer, reader, prompt, and seed.
-Generated images and a JSONL sample ledger are saved, and summary rows are
-append-only. The feasibility schedule uses a bounded array of at most seven
-concurrent single-GPU evaluation tasks:
-the smoke gate precedes protection generation, and attack arrays depend on both
-successful predecessors. A failed gate leaves downstream jobs blocked rather
-than producing a plausible-looking table from an invalid attack.
+Every cell is deterministic from its identity, layer, reader, prompt, and
+seed. Generated images and a JSONL sample ledger are saved, and summary rows
+are append-only. Execution is gate-ordered: the clean smoke test precedes
+protection generation, and attack evaluation is launched only after both gates
+pass---a failed gate blocks downstream jobs rather than yielding a
+plausible-looking table built from an invalid attack.

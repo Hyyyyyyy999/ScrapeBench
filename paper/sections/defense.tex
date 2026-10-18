@@ -6,14 +6,16 @@ not trained on outputs from a seven-stage cascade. For image $x$, a coarse grid
 $z_c\in[-1,1]^{128\times128\times3}$ and a full-resolution detail grid $z_d$
 are combined inside a fixed texture map $A(x)$:
 \begin{equation}
-\widetilde{x}=\Pi_{x,\epsilon_{\max}}\left(x+A(x)\odot
-(.45U(z_c)+.55z_d)\right),\qquad
-A(x)=\epsilon_{\min}+(\epsilon_{\max}-\epsilon_{\min})\widehat{t}(x).
+\widetilde{x}=\Pi_{x,\epsilon_{\max}}\bigl(x+A(x)\odot(.45U(z_c)+.55z_d)\bigr),
 \end{equation}
+where the fixed texture map is
+$A(x)=\epsilon_{\min}+(\epsilon_{\max}-\epsilon_{\min})\widehat{t}(x)$.
 $\widehat{t}$ is smoothed Sobel energy normalized at its 95th percentile,
-$\epsilon_{\min}=3/255$, and $\epsilon_{\max}=8/255$ in pixel space. The coarse
+$\epsilon_{\min}=3/255$, and $\epsilon_{\max}=8/255$ in pixel space; $U$
+denotes element-wise projection of the update onto the unit ball before
+scaling by the texture amplitude. The coarse
 branch improves survival while the detail branch retains capacity against the
-unprocessed reader; projection is repeated after 8-bit PNG quantization.
+T0 reader; projection is repeated after 8-bit PNG quantization.
 
 For each layer we define a differentiable training proxy $q_k$: identity,
 JPEG-Q70, 360-pixel resampling, jittered face crop, a super-resolution
@@ -22,26 +24,32 @@ low-pass reconstruction bottleneck. The exact Real-ESRGAN and diffusion models
 remain unseen evaluation transforms. Given the clean identity centroid $c_s$,
 ARCP-Web maximizes
 \begin{equation}
-\mathcal{J}_k = \mathcal{L}_{\mathrm{denoise}}(q_k(\widetilde{x}))
--\lambda\big([s_k^D-m]_+ + [s_k^D-s_k^C+\rho]_+\big)
-+\gamma\|q_k(\widetilde{x})-q_k(x)\|_2^2 .
+\begin{split}
+\mathcal{J}_k ={}& \mathcal{L}_{\mathrm{denoise}}(q_k(\widetilde{x}))\\
+&-\lambda\bigl([s_k^D-m]_+ + [s_k^D-s_k^C+\rho]_+\bigr)
++\gamma\,\|q_k(\widetilde{x})-q_k(x)\|_2^2 .
+\end{split}
 \label{eq:arcpweb}
 \end{equation}
 Here $s_k^D$ and $s_k^C$ are protected and matched-clean similarities to $c_s$.
-The identity objective ensembles FaceNet with a differentiable conversion of
+The identity objective ensembles FaceNet with a differentiable port of
 InstantID's released antelopev2 ArcFace recognizer. Face landmarks are detected
 once on the clean input and held fixed, leaving the recognition path
 differentiable without optimizing through a detector. The first term poisons
 training-based customization, the second repels the identity readers and
-requires paired gap $\rho=.25$, and the survival term rewards a perturbation
-that remains present after the same stochastic operation is applied to clean and
-protected images.
+requires paired gap $\rho=.25$, and the survival term maximizes the
+protected-to-clean output difference under the shared proxy, i.e., it rewards
+a perturbation that remains present after the same stochastic operation is
+applied to both branches.
 
-The scheduler prevents one easy layer from dominating. Even steps cycle through
-T0--T6, guaranteeing equal coverage. Odd steps select the layer with the smallest
-exponential-moving-average paired clean-minus-protected gap---the current weakest clause.
+The scheduler prevents any single layer from dominating. Even steps cycle
+through T0--T6, guaranteeing equal coverage. Odd steps select the layer with the
+smallest exponential-moving-average paired clean-minus-protected gap---the
+current weakest clause.
 Optimization uses 600 signed-gradient updates, $\lambda=1.20$, $m=.10$, and
-$\gamma=.35$. A corrected implementation converts ARCP tensors from $[-1,1]$
+$\gamma=.35$; all three weights were fixed from the design targets before the
+pilot was scored, and the preregistered 40-identity expansion provides the
+held-out check. A corrected implementation converts ARCP tensors from $[-1,1]$
 to $[0,1]$ before differentiable JPEG; without that conversion the JPEG proxy
 clips its input and does not train the intended condition.
 

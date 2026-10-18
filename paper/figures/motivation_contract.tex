@@ -1,5 +1,6 @@
 \begin{figure*}[t]
 \centering
+\resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[
   font=\sffamily\footnotesize,
   box/.style={draw,rounded corners=2pt,minimum width=1.75cm,minimum height=.78cm,align=center,line width=.6pt},
@@ -33,7 +34,8 @@
 \node[box,fill=sbgreen!16,minimum width=2.05cm] (s4) at (8.35,-1.10) {paired gap $\Delta$\\+ retention RR};
 \draw[arr] (s1)--(s2); \draw[arr] (s2)--(s3); \draw[arr] (s3)--(s4);
 \node[note,text=sbgreen!50!black] at (4.70,-2.02) {one operation at a time $\Rightarrow$ attributable failures and actionable Web responsibility};
-\end{tikzpicture}
+\end{tikzpicture}%
+}%
 \caption{Research motivation. Pristine-file evaluation assumes that a protected
 upload reaches customization unchanged. On the agentic Web, ordinary acquisition
 operations intervene first. ScrapeBench turns each operation into an independent,

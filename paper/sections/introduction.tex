@@ -9,9 +9,9 @@ without further interaction with the subject. Pixel perturbations such as
 Anti-DreamBooth, GAP-Diff, and IDProtector attempt to restore agency by making
 published images unsuitable for customization~\cite{le2023antidreambooth,zhu2025gapdiff,song2024idprotector}.
 
-\textbf{What is brave and new.} We propose that anti-customization be treated as
-an \emph{acquisition contract} between people, Web infrastructure, and AI agents,
-not as a property measured only on a downloaded file. The concrete contribution
+\textbf{What is brave and new.} We propose that anti-customization be treated
+as an \emph{acquisition contract} between people, Web infrastructure, and AI
+agents, not as a property of a single downloaded file. The concrete contribution
 is a benchmark and reference defense in which ordinary Web interventions are
 first-class, independently testable contract clauses. This changes the research
 question from ``does noise fool one model?'' to ``after which legitimate Web
@@ -21,44 +21,43 @@ attributable and points to where consent must be preserved.
 
 \input{figures/motivation_contract}
 
-A cumulative ``seven-level funnel'' cannot answer that question. Its later
-levels inherit all earlier damage, confounding the effect of a JPEG encoder with
-that of a crop or diffusion reconstruction. ScrapeBench instead defines seven
-\emph{single interventions}. T0 is the released image; each of T1--T6 consumes
-that same T0 source independently. Clean and protected branches use identical
-identities, operations, prompts, seeds, and scorers. This paired design measures
-the protection gap attributable to one intervention while separately recording
-whether the input or generated face remains usable.
+A cumulative funnel---where each stage inherits the damage of all earlier
+stages---cannot answer that question: it confounds the effect of a JPEG encoder
+with that of a crop or a diffusion reconstruction. ScrapeBench instead defines
+seven \emph{single interventions}. T0 is the released image; each of T1--T6
+consumes that same T0 source independently. Clean and protected branches use
+identical identities, operations, prompts, seeds, and scorers. This paired
+design measures the protection gap attributable to one intervention while
+separately recording whether the input or generated face remains usable.
 
-Our current feasibility pilot fixes the first four valid identities in a
-pre-audited manifest, with four gallery and two held-out reference images per
-identity. They are selected before inspecting defense outcomes. An audited
-40-identity pool (160 gallery images; 96.25\% face detection; .787 mean
-gallery--reference ArcFace similarity) is reserved for expansion only if the
-small pilot passes its attack-validity and effect-direction gates. These are
-data-integrity facts, not defense results. The completed snapshot compares clean
-images, GAP-Diff, MetaCloak, GoodAC, and our ARCP-Web with InstantID and
-IP-Adapter-FaceID. A separate 1,000-step DreamBooth protocol is a second-stage
-experiment. Released checkpoints are used where
-provided; MetaCloak and GoodAC are released-code ports whose Web40 adaptations
-are disclosed rather than mislabeled as official artifacts.
+Our preregistered feasibility pilot takes the first four valid identities from
+a manifest fixed before any defense outcome was inspected, with four gallery
+and two held-out reference images each. The preregistered expansion pool is
+pre-audited (40 identities, 160 gallery images, 96.25\% input-face detection,
+.787 mean gallery--reference ArcFace similarity) and runs the identical
+protocol. The completed pilot compares clean uploads, GAP-Diff, MetaCloak,
+GoodAC, and our ARCP-Web under InstantID and IP-Adapter-FaceID; released
+checkpoints are used where provided, and MetaCloak and GoodAC are evaluated
+from their released code with disclosed Web-scenario adaptations. A separate
+DreamBooth protocol is a gated second-stage experiment.
 
 ARCP-Web is designed for this contract. Its matched-budget evaluation uses a
-pixel-space $8/255$ cap, low/detail perturbation grids, texture-aware amplitude
-allocation, and a differentiable copy of InstantID's ArcFace recognizer inside
-a balanced objective spanning T0--T6. Half of its updates cover all interventions
-uniformly; the rest target the intervention currently retaining the most
-identity information. This is a falsifiable design, not a guarantee. We claim
-an advantage at a layer only if its paired confidence interval supports one.
+pixel-space $8/255$ cap, coarse/detail perturbation grids, texture-aware
+amplitude allocation, and a differentiable port of InstantID's ArcFace
+recognizer inside a balanced objective spanning T0--T6. Half of its updates
+cover all interventions uniformly; the rest target the intervention currently
+retaining the most identity information. This is a falsifiable design, not a
+guarantee. We claim an advantage at a layer only if its paired confidence
+interval supports one.
 
 Our contributions are:
 \begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
   \item an acquisition-contract formulation for face consent on the agentic Web;
   \item a non-cumulative T0--T6 benchmark with matched clean controls, explicit
   validity gates, and conditional plus end-to-end metrics;
-  \item a reproducible four-identity feasibility pilot, with a preregistered
-  path to a 40-identity expansion, comparing released-code robustness-oriented
-  defenses and two zero-shot customization families;
+  \item a preregistered four-identity feasibility pilot comparing released
+  robustness-oriented defenses and two zero-shot customization families, with a
+  pre-audited 40-identity expansion path;
   \item ARCP-Web, whose optimization allocates effort to its weakest acquisition
   intervention rather than optimizing only the pristine upload; and
   \item a machine-readable \texttt{face-consent.txt} direction for carrying
