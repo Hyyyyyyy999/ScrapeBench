@@ -7,7 +7,7 @@ import torch
 from PIL import Image
 from ..config import load_config
 from ..funnel import get_tier
-from ..attack.train_utils import load_sd15, load_gallery, build_pipeline, generate_images, add_lora, reset_lora, dreambooth_loss, PROMPTS, CLASS_PROMPT
+from ..attack.train_utils import load_sd15, load_gallery, build_pipeline, generate_images, add_lora, reset_lora, dreambooth_loss, dreambooth_prior_loss, PROMPTS, CLASS_PROMPT
 from ..attack.train_utils import seed_all
 from ..metrics.id_sim import IdScorer
 from ..metrics.stats import bootstrap_ci_mean
@@ -32,6 +32,8 @@ def main():
     ap.add_argument("--tiers", default=None)
     ap.add_argument("--methods", default=None)
     ap.add_argument("--ids", default=None)
+    ap.add_argument("--steps", type=int, default=None)
+    ap.add_argument("--samples-per-prompt", type=int, default=None)
     ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
     cfg = load_config(args.config)
@@ -51,17 +53,29 @@ def main():
         ids = sorted({p for _, p in galleries})
     tr_cfg = cfg["stage_b"]
     prompts = tr_cfg.get("prompts", PROMPTS)
-    n_per_prompt = tr_cfg.get(
+    n_per_prompt = args.samples_per_prompt or tr_cfg.get(
         "samples_per_prompt", max(1, cfg["run"]["samples_per_cell"] // len(prompts))
     )
     ref_per_id = cfg["run"].get("ref_per_id", 2)
-    comps = load_sd15(cfg["run"]["sd_model"], fp16=cfg["run"].get("fp16", True))
+    comps = load_sd15(tr_cfg.get("model", cfg["run"]["sd_model"]),
+                      fp16=cfg["run"].get("fp16", True))
     training_mode = tr_cfg.get("training_mode", "lora")
     base_unet_state = None
+    base_text_state = None
     if training_mode == "full_unet":
         # GAP-Diff trains DreamBooth's UNet rather than a LoRA adapter.  Keep a
         # CPU checkpoint so every method/tier/identity cell starts identically.
         base_unet_state = {k: v.detach().cpu().clone() for k, v in comps["unet"].state_dict().items()}
+        base_text_state = {k: v.detach().cpu().clone() for k, v in comps["text_encoder"].state_dict().items()}
+    class_dir = tr_cfg.get("class_data_dir")
+    if not class_dir or not os.path.isdir(class_dir):
+        raise RuntimeError(f"DreamBooth class_data_dir is missing: {class_dir}")
+    class_paths = [os.path.join(class_dir, name) for name in sorted(os.listdir(class_dir))
+                   if name.lower().endswith((".png", ".jpg", ".jpeg", ".webp"))]
+    if len(class_paths) < tr_cfg.get("num_class_images", 200):
+        raise RuntimeError(f"need {tr_cfg.get('num_class_images', 200)} class images, found {len(class_paths)}")
+    class_images = [Image.open(path).convert("RGB").resize((512, 512))
+                    for path in class_paths[:tr_cfg.get("num_class_images", 200)]]
     scorer = IdScorer(use_gpu=True)
     cells = [(m, p, t) for m in methods for p in ids for t in tiers]
     log(f"stage_b start cells={len(cells)} done={len(done)}", log_path)
@@ -78,21 +92,35 @@ def main():
         reset_lora(comps["unet"])
         if training_mode == "full_unet":
             comps["unet"].load_state_dict(base_unet_state)
+            comps["text_encoder"].load_state_dict(base_text_state)
             comps["unet"].requires_grad_(True)
-            opt = torch.optim.AdamW(comps["unet"].parameters(), lr=tr_cfg.get("lr", 5e-7))
+            comps["text_encoder"].requires_grad_(True)
+            params = list(comps["unet"].parameters()) + list(comps["text_encoder"].parameters())
+            opt = torch.optim.AdamW(params, lr=tr_cfg.get("lr", 5e-7))
         else:
             opt = add_lora(comps["unet"], rank=tr_cfg.get("lora_rank", 16), lr=tr_cfg.get("lr", 1e-4))
         comps["unet"].train()
         t0 = time.time()
         rng = np.random.default_rng(0)
-        steps = tr_cfg.get("steps", 400)
+        steps = args.steps or tr_cfg.get("steps", 400)
         for st in range(steps):
-            batch_size = tr_cfg.get("batch_size", 2 if training_mode == "full_unet" else 4)
+            batch_size = tr_cfg.get("batch_size", 1 if training_mode == "full_unet" else 4)
             idx = rng.integers(0, len(imgs), size=min(batch_size, len(imgs)))
-            loss = dreambooth_loss(comps, [imgs[i] for i in idx], tr_cfg.get("prompt", PROMPTS[0]))
+            if training_mode == "full_unet":
+                class_idx = rng.integers(0, len(class_images), size=len(idx))
+                loss = dreambooth_prior_loss(
+                    comps, [imgs[i] for i in idx], [class_images[i] for i in class_idx],
+                    tr_cfg.get("prompt", PROMPTS[0]),
+                    tr_cfg.get("class_prompt", CLASS_PROMPT),
+                    tr_cfg.get("prior_loss_weight", 1.0),
+                )
+            else:
+                loss = dreambooth_loss(comps, [imgs[i] for i in idx], tr_cfg.get("prompt", PROMPTS[0]))
             opt.zero_grad(set_to_none=True)
             loss.backward()
-            torch.nn.utils.clip_grad_norm_([p for p in comps["unet"].parameters() if p.requires_grad], 1.0)
+            trainable = ([p for p in comps["unet"].parameters() if p.requires_grad] +
+                         [p for p in comps["text_encoder"].parameters() if p.requires_grad])
+            torch.nn.utils.clip_grad_norm_(trainable, 1.0)
             opt.step()
         train_sec = time.time() - t0
         comps["unet"].eval()
@@ -150,6 +178,7 @@ def main():
         reset_lora(comps["unet"])
         if training_mode == "full_unet":
             comps["unet"].requires_grad_(False)
+            comps["text_encoder"].requires_grad_(False)
         torch.cuda.empty_cache()
         log(f"B {m}/{pid}/{tier} mean={mean:.3f} train={train_sec:.0f}s gen={gen_sec:.0f}s", log_path)
 

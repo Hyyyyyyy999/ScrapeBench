@@ -15,6 +15,9 @@ runs/**/checkpoints/
 runs/**/class_images/
 runs/**/*.png
 runs/**/*.jpg
+runs/
+logs/
+*.out
 .cache/
 venv/
 nohup.out

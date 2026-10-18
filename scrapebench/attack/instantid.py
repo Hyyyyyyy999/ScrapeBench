@@ -52,28 +52,33 @@ class ZeroShotInstantID:
                 best_score, best, best_arr = score, f, np.array(im.convert("RGB"))[:, :, ::-1]
         if best is None:
             raise RuntimeError("no face detected in reference images")
-        return best.embedding.astype(np.float32), best_arr
+        return best.embedding.astype(np.float32), best_arr, best.kps
 
     @torch.no_grad()
     def generate(self, prompts, ref_imgs, n_per_prompt=1, steps=25, guidance=5.0, seed=0,
                  height=512, width=512, controlnet_scale=0.8):
-        emb, ref_arr = self.ref_cond(ref_imgs)
+        emb, ref_arr, keypoints = self.ref_cond(ref_imgs)
         face_emb = torch.from_numpy(emb)[None].to(self.device, self.dtype)
-        f = self.face.get(ref_arr)
         face_img = Image.fromarray(cv2.resize(ref_arr[:, :, ::-1], (width, height)))
-        if f:
+        if keypoints is not None:
             from pipeline_stable_diffusion_xl_instantid import draw_kps
-            face_img = draw_kps(Image.fromarray(ref_arr[:, :, ::-1]), f[0].kps)
+            face_img = draw_kps(Image.fromarray(ref_arr[:, :, ::-1]), keypoints)
         out = []
-        for pr in prompts:
-            g = torch.Generator(device=self.device).manual_seed(seed)
+        negative_prompt = (
+            "lowres, low quality, worst quality, jpeg artifacts, deformed, "
+            "distorted, disfigured, extra limbs, extra fingers, fused fingers, "
+            "poorly drawn face, bad anatomy, blurry, text, watermark"
+        )
+        for prompt_index, pr in enumerate(prompts):
+            g = torch.Generator(device=self.device).manual_seed(seed + prompt_index)
             # InstantID's image-embedding path expands on
             # ``num_images_per_prompt``. Passing a repeated prompt list instead
             # leaves the image embedding at batch size one and makes classifier
             # free guidance concatenate incompatible batches (text: 2*N,
             # image: 2). Keep one prompt and let the pipeline expand both
             # conditioning branches together.
-            res = self.pipe(pr, num_images_per_prompt=n_per_prompt,
+            res = self.pipe(pr, negative_prompt=negative_prompt,
+                            num_images_per_prompt=n_per_prompt,
                             num_inference_steps=steps,
                             guidance_scale=guidance, generator=g,
                             height=height, width=width,

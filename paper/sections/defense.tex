@@ -1,51 +1,51 @@
-\section{ARCP: Acquisition-Robust Camouflage Perturbations}
+\section{ARCP-Web: Optimizing the Weakest Contract Clause}
 \label{sec:defense}
 
-ARCP-v2 is designed for the revised threat model rather than inferred from the
-legacy 40-identity results. A uniform high-frequency perturbation is vulnerable
-to transcoding and resizing, a uniform amplitude wastes visibility budget in
-smooth facial regions, and a T0-only objective ignores both acquisition and the
-reader population. ARCP-v2 addresses these mechanisms with band limitation,
-texture allocation, and an acquisition-averaged reader-diverse objective. These
-are design choices, not evidence of superiority; Section~\ref{sec:results}
-withholds that claim until the paired 90-identity evaluation finishes.
-
-\paragraph{Band-limited parameterization with perceptual amplitude allocation.}
-The perturbation is parameterized in a low-resolution latent grid $z_i \in [-1,1]^{64\times64\times3}$ and rendered by bilinear upsampling, $\delta_i = A(x_i) \odot U_8(z_i)$, which hard-limits the perturbation spectrum to frequencies that survive resampling, JPEG quantization, and super-resolution by construction. The amplitude map
+ARCP-Web is a reference defense for the independent intervention matrix. It is
+not trained on outputs from a seven-stage cascade. For image $x$, a coarse grid
+$z_c\in[-1,1]^{128\times128\times3}$ and a full-resolution detail grid $z_d$
+are combined inside a fixed texture map $A(x)$:
 \begin{equation}
-A(x) \;=\; \epsilon_{\min} + (\epsilon_{\max}-\epsilon_{\min})\,\hat{t}(x),
-\label{eq:jnd}
+\widetilde{x}=\Pi_{x,\epsilon_{\max}}\left(x+A(x)\odot
+(.45U(z_c)+.55z_d)\right),\qquad
+A(x)=\epsilon_{\min}+(\epsilon_{\max}-\epsilon_{\min})\widehat{t}(x).
 \end{equation}
-allocates budget by texture: $\hat{t}(x)$ is the Sobel-energy map of $x$, Gaussian-smoothed and normalized at its 95th percentile, so that $\epsilon_{\min}=2/255$ is spent on smooth regions and up to $\epsilon_{\max}=16/255$ inside textured regions where contrast masking hides it. The allocation is fixed before optimization and costs one forward pass; no perceptual network is invoked.
+$\widehat{t}$ is smoothed Sobel energy normalized at its 95th percentile,
+$\epsilon_{\min}=3/255$, and $\epsilon_{\max}=8/255$ in pixel space. The coarse
+branch improves survival while the detail branch retains capacity against the
+unprocessed reader; projection is repeated after 8-bit PNG quantization.
 
-\paragraph{Expectation over the acquisition distribution.}
-Each ARCP-v2 optimization step samples one differentiable proxy from
-$\mathcal{T}$: diff-JPEG at $q\sim U[65,95]$, bicubic down-and-up resampling at
-$s\sim U[0.35,1.0]$, a half-resolution super-resolution surrogate, or an
-affine face crop at $f\sim U[0.7,1.0]$. These directly approximate T1--T4.
-T5 and T6 are covered only approximately in latent space: with probability one
-half the denoising loss uses $t\sim U[300,500]$, rather than differentiating
-through the exact img2img or purification pipeline. Their robustness is
-therefore an empirical question, not guaranteed by the training objective.
-
-\paragraph{Reader-diverse objective.}
-ARCP optimizes
+For each layer we define a differentiable training proxy $q_k$: identity,
+JPEG-Q70, 360-pixel resampling, jittered face crop, a super-resolution
+down/up-sharpen proxy, a mild reconstruction bottleneck, and a stronger
+low-pass reconstruction bottleneck. The exact Real-ESRGAN and diffusion models
+remain unseen evaluation transforms. Given the clean identity centroid $c_s$,
+ARCP-Web maximizes
 \begin{equation}
-\max_{z}\;\; \mathbb{E}_{T}\big[\mathcal{L}_{\mathrm{den}}(T(\tilde{x}))\big] \;-\; \lambda\,\mathbb{E}_{T}\big[\mathrm{relu}\big(\cos\big(f_{\mathrm{face}}(T(\tilde{x})),\,\bar{e}_s\big)-m\big)\big],
-\label{eq:arcp}
+\mathcal{J}_k = \mathcal{L}_{\mathrm{denoise}}(q_k(\widetilde{x}))
+-\lambda\big([s_k^D-m]_+ + [s_k^D-s_k^C+\rho]_+\big)
++\gamma\|q_k(\widetilde{x})-q_k(x)\|_2^2 .
+\label{eq:arcpweb}
 \end{equation}
-where expectations are over proxy compositions $T\sim\mathcal{T}$,
-$\mathcal{L}_{\mathrm{den}}$ is the denoising-MSE poisoning objective,
-$f_{\mathrm{face}}$ is an InceptionResnetV1 face-metric surrogate, and
-$\bar{e}_s$ is the clean-gallery centroid. The frozen revised setting uses
-$m=.35$, $\lambda=.75$, and 200 optimization steps. Evaluation readers are not
-optimized against. The first term targets training-based customization while
-the second explicitly repels the identity representation consumed by zero-shot
-readers.
+Here $s_k^D$ and $s_k^C$ are protected and matched-clean similarities to $c_s$.
+The identity objective ensembles FaceNet with a differentiable conversion of
+InstantID's released antelopev2 ArcFace recognizer. Face landmarks are detected
+once on the clean input and held fixed, leaving the recognition path
+differentiable without optimizing through a detector. The first term poisons
+training-based customization, the second repels the identity readers and
+requires paired gap $\rho=.25$, and the survival term rewards a perturbation
+that remains present after the same stochastic operation is applied to clean and
+protected images.
 
-\paragraph{Scope.}
-ARCP-v2 does not claim in advance that an invisible perturbation survives every
-operation. T0 is the unaltered baseline and each of T1--T6 independently consumes
-the same protected source. Its testable objective is a nonzero paired protection
-gap under each intervention while preserving image quality; the completed run,
-not the optimization objective, determines whether that objective is met.
+The scheduler prevents one easy layer from dominating. Even steps cycle through
+T0--T6, guaranteeing equal coverage. Odd steps select the layer with the smallest
+exponential-moving-average paired clean-minus-protected gap---the current weakest clause.
+Optimization uses 600 signed-gradient updates, $\lambda=1.20$, $m=.10$, and
+$\gamma=.35$. A corrected implementation converts ARCP tensors from $[-1,1]$
+to $[0,1]$ before differentiable JPEG; without that conversion the JPEG proxy
+clips its input and does not train the intended condition.
+
+This construction aims for a positive paired gap at every T0--T6 layer. It does
+not make that outcome true by definition: only held-out InstantID,
+IP-Adapter-FaceID, and DreamBooth measurements can establish it. Failed layers
+remain in the table and determine the next design iteration.

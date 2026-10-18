@@ -30,13 +30,34 @@ def build_mixpool(protected_dir, clean_pool_dir, ratio_clean, out_dir, seed=0):
     return out, len(prot), len(picked_clean)
 
 
-@register(["t6_diffpure50"])
+@register(["t6_sde50", "t6_diffpure50"])
 def t6_diffpure50(img):
-    """One-shot diffusion purification, applied directly to the T0 image.
+    """One-shot SD1.5 reconstruction proxy, applied directly to T0.
 
-    This is deliberately a single intervention rather than the last element
-    of a T0->...->T6 cascade.  The import is lazy to avoid loading a diffusion
-    model when another tier is evaluated.
+    This is not claimed to reproduce the official DiffPure classifier-defense
+    implementation. It is a deterministic, prompt-free img2img reconstruction
+    at strength .50, representative of an attacker-side diffusion purifier.
     """
     from .regenerate import _get_regen
-    return _get_regen().inversion_regen([img], eta=0.1, substeps=50)[0]
+    return _get_regen().i2i([img], strength=0.5, steps=50, guidance=1.0, seed=0, prompt="")[0]
+
+
+@register(["t6_sde30"])
+def t6_sde30(img):
+    """Clean-calibration candidate; never selected using defense outcomes."""
+    from .regenerate import _get_regen
+    return _get_regen().i2i([img], strength=0.30, steps=50, guidance=1.0, seed=0, prompt="")[0]
+
+
+@register(["t6_sde35"])
+def t6_sde35(img):
+    """Clean-calibration candidate; never selected using defense outcomes."""
+    from .regenerate import _get_regen
+    return _get_regen().i2i([img], strength=0.35, steps=50, guidance=1.0, seed=0, prompt="")[0]
+
+
+@register(["t6_sde40"])
+def t6_sde40(img):
+    """Clean-calibration candidate; never selected using defense outcomes."""
+    from .regenerate import _get_regen
+    return _get_regen().i2i([img], strength=0.40, steps=50, guidance=1.0, seed=0, prompt="")[0]

@@ -36,6 +36,7 @@ def load_sd15(model_id, device="cuda", fp16=True):
     tok = CLIPTokenizer.from_pretrained(model_id, subfolder="tokenizer")
     te = CLIPTextModel.from_pretrained(model_id, subfolder="text_encoder").to(device, dtype=dtype)
     vae = AutoencoderKL.from_pretrained(model_id, subfolder="vae").to(device, dtype=dtype)
+    vae.requires_grad_(False)
     unet = UNet2DConditionModel.from_pretrained(model_id, subfolder="unet").to(device, dtype=dtype)
     sched = DDPMScheduler.from_pretrained(model_id, subfolder="scheduler")
     comps = dict(tokenizer=tok, text_encoder=te, vae=vae, unet=unet, scheduler=sched, dtype=dtype, device=device)
@@ -127,6 +128,28 @@ def dreambooth_loss(comps, images, prompt, t_min=20, t_max=980, jpeg_aware=0):
     emb = text_embed(comps, [prompt] * lat.shape[0])
     pred = unet(noisy, t, encoder_hidden_states=emb).sample
     return torch.nn.functional.mse_loss(pred.float(), noise.float(), reduction="mean")
+
+
+def dreambooth_prior_loss(comps, instance_images, class_images, instance_prompt,
+                          class_prompt="a photo of person", prior_weight=1.0,
+                          t_min=20, t_max=980):
+    """DreamBooth instance plus class-prior loss with trainable text encoder."""
+    vae, unet, sched = comps["vae"], comps["unet"], comps["scheduler"]
+    images = list(instance_images) + list(class_images)
+    x = images_to_tensor(images, comps["dtype"]).to(comps["device"])
+    with torch.no_grad():
+        lat = encode_latents(vae, x)
+    noise = torch.randn_like(lat)
+    t = torch.randint(t_min, t_max, (lat.shape[0],), device=lat.device)
+    noisy = sched.add_noise(lat, noise, t)
+    prompts = ([instance_prompt] * len(instance_images) +
+               [class_prompt] * len(class_images))
+    emb = text_embed(comps, prompts)
+    pred = unet(noisy, t, encoder_hidden_states=emb).sample
+    n = len(instance_images)
+    instance_loss = torch.nn.functional.mse_loss(pred[:n].float(), noise[:n].float())
+    prior_loss = torch.nn.functional.mse_loss(pred[n:].float(), noise[n:].float())
+    return instance_loss + prior_weight * prior_loss
 
 
 def build_pipeline(comps):

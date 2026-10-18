@@ -28,17 +28,27 @@ class ZeroShotFaceID:
         pos = [e for e in (self._embed(im) for im in ref_imgs) if e is not None]
         if not pos:
             raise RuntimeError("no face detected in reference images")
-        return torch.cat(pos, 0)
+        # IP-Adapter-FaceID consumes one identity vector per prompt. Treating
+        # gallery images as a prompt batch silently misaligns CFG and text
+        # batches. Average normalized embeddings into one identity centroid.
+        centroid = torch.cat(pos, 0).mean(dim=0, keepdim=True)
+        return torch.nn.functional.normalize(centroid.float(), dim=-1).to(self.device, self.pipe.dtype)
 
     @torch.no_grad()
     def generate(self, prompts, ref_imgs, n_per_prompt=1, steps=30, guidance=5.0, seed=0, height=512, width=512):
         emb = self.ref_embeds(ref_imgs)
         pair = torch.cat([torch.zeros_like(emb), emb], dim=0).unsqueeze(1)
         out = []
-        for pr in prompts:
-            g = torch.Generator(device=self.device).manual_seed(seed)
+        negative_prompt = (
+            "lowres, low quality, deformed, distorted, disfigured, poorly drawn "
+            "face, bad anatomy, blurry, text, watermark"
+        )
+        for prompt_index, pr in enumerate(prompts):
+            g = torch.Generator(device=self.device).manual_seed(seed + prompt_index)
             res = self.pipe(
-                [pr] * n_per_prompt, num_inference_steps=steps, guidance_scale=guidance,
+                pr, negative_prompt=negative_prompt,
+                num_images_per_prompt=n_per_prompt,
+                num_inference_steps=steps, guidance_scale=guidance,
                 generator=g, height=height, width=width,
                 ip_adapter_image_embeds=[pair],
             )

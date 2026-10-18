@@ -1,14 +1,20 @@
-Face anti-customization methods are usually evaluated on clean files, although
-images scraped from the Web may first be transcoded, rendered, cropped,
-restored, regenerated, or purified. We introduce ScrapeBench, a paired benchmark
-that applies each acquisition operation independently to the same source and
-measures the retained protection gap against a same-identity clean control. The
-revised protocol uses 100 CelebA-HQ identities (eight gallery and two held-out
-reference images each), official GAP-Diff and IDProtector baselines, ARCP-v2,
-two zero-shot readers, and 1,000-step DreamBooth customization. It fixes four
-Web scenarios and reports FDFR, identity similarity, BRISQUE, and SER-FIQ with
-identity-level uncertainty and equivalence tests. ARCP-v2 combines a true
-pixel-space $16/255$ cap, band-limited perturbations, texture-aware allocation,
-and acquisition-averaged face-reader objectives. The current revision freezes
-the protocol before evaluation: numerical comparisons and superiority claims
-will be populated only from the completed paired run.
+On a Web increasingly read by generative agents, publishing a face and consenting
+to model customization have become technically indistinguishable. Existing
+anti-customization methods are evaluated on pristine files, although an agent
+may acquire a photograph after a single ordinary Web operation such as CDN
+transcoding, thumbnail rendering, screenshot cropping, restoration,
+regeneration, or purification. We introduce \emph{ScrapeBench}, an acquisition
+contract that evaluates each such operation independently from the same upload,
+with a matched clean branch and held-out identity references. Our feasibility
+pilot fixes four identities, with four gallery and two reference images per
+identity, before inspecting defense outcomes. Completed comparisons cover
+clean, GAP-Diff, MetaCloak, GoodAC, and ARCP-Web under InstantID and IP-Adapter-FaceID.
+ARCP-Web allocates a bounded perturbation by texture and explicitly
+optimizes the currently weakest of seven independent acquisition conditions.
+We report conditional and end-to-end identity similarity, face-detection
+failure, image quality, and paired identity-bootstrap intervals. Among 11
+reader--layer conditions passing the clean validity gate, ARCP-Web obtains the
+largest paired protection gap in nine, while respecting an 8/255 pixel budget
+and attaining 37.80 dB PSNR. The small pilot is an effect-direction and systems
+check, not a population estimate; a pre-audited 40-identity pool is used only
+after its gates pass.

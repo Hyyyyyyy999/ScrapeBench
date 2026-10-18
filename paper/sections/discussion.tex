@@ -1,18 +1,26 @@
 \section{Discussion}
 \label{sec:discussion}
 
-The revised protocol addresses the review's central validity concerns: every
-defense has a same-identity clean control, clean and protected images undergo
-identical processing, each Web operation is isolated, and recent official
-baselines are evaluated without pooling incompatible budgets or attacks. The
-design separates a protection failure from destruction of face detectability
-and separates statistical non-significance from evidence of equivalence.
+The acquisition-contract view connects an algorithmic privacy question to Web
+architecture. A failure at T1 implicates image-serving infrastructure; a failure
+at T3 implicates what an agent observes after browser rendering; a failure at
+T5 or T6 shows that a pixel-only refusal cannot survive generative mediation.
+Independent layers make those diagnoses possible, while a cascade would not.
 
-The current artifact counts are not evidence that one defense is better. A
-protected gallery becomes a result only after the matched attacker, held-out
-identity scorer, image-quality metrics, and paired uncertainty analysis have
-completed. The principal remaining limitation is that T1--T6 are controlled
-reconstructions of Web acquisition; claims about named platforms additionally
-require paired upload/download traces. CelebA-HQ also cannot represent all
-demographic and in-the-wild capture conditions, so subgroup and external-data
-audits remain necessary.
+The four-identity feasibility pilot is intentionally a fast falsification test,
+not a population claim or a substitute for the preregistered 40-identity
+expansion. It is far too small for confidence-heavy ranking or demographic
+subgroup conclusions.
+Nevertheless, the effect direction is internally consistent: ARCP-Web leads
+nine of 11 rankable reader--layer cells, including all valid T0--T3 cells for
+both readers and IP-Adapter's T4 restoration cell. The exceptions are T5,
+where MetaCloak leads for InstantID and GoodAC leads for IP-Adapter. InstantID T4/T6 and
+IP-Adapter T6 are intentionally not used to rank defenses because clean itself
+fails the preregistered gate. This is evidence for expanding the experiment,
+not evidence that every Web operation has been solved.
+Real platform upload/download traces, additional identity distributions, and
+adaptive attacks remain necessary. ARCP-Web's training proxies approximate T4--T6
+rather than differentiating through their exact evaluation implementations, so
+transfer is an empirical risk. Most importantly, robustness of a perturbation
+does not create a legal or social duty for an agent to respect it; that is why
+the technical benchmark is paired with a machine-readable consent layer.

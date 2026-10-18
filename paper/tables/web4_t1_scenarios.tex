@@ -1,0 +1,44 @@
+\begin{table*}[t]
+\centering
+\caption{Four-scenario comparison under the InstantID reader after JPEG
+compression at quality 70 (T1), averaged over the four preregistered identities.
+FDFR is reported as a percentage; conditional ISM averages only detected faces,
+whereas end-to-end (E2E) ISM assigns zero to a detection failure.  The paired
+gap is $\Delta=\mathrm{E2E\ ISM}_{\mathrm{clean}}-
+\mathrm{E2E\ ISM}_{\mathrm{defense}}$.  Lower ISM and higher $\Delta$ indicate
+stronger protection.  FDFR is diagnostic rather than a stand-alone success
+criterion.  Bold marks the strongest non-tied defense result; the avatar row is
+not ranked because all four defenses produce 100\% detection failure.}
+\label{tab:web4-t1-scenarios}
+\footnotesize
+\renewcommand{\arraystretch}{1.16}
+\setlength{\tabcolsep}{4.0pt}
+\begin{tabular}{lrrrrrrrr}
+\toprule
+& \multicolumn{4}{c}{\textbf{Social-media avatar}} &
+  \multicolumn{4}{c}{\textbf{Ordinary smartphone selfie}} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+Method & FDFR $\uparrow$ & Cond. ISM $\downarrow$ & E2E ISM $\downarrow$ & $\Delta\uparrow$
+       & FDFR $\uparrow$ & Cond. ISM $\downarrow$ & E2E ISM $\downarrow$ & $\Delta\uparrow$ \\
+\midrule
+No defense & 75.0 & 0.583 & 0.146 & -- & 25.0 & 0.495 & 0.371 & -- \\
+GAP-Diff   & 100.0 & -- & 0.000 & 0.146 & 25.0 & 0.494 & 0.370 & 0.000 \\
+MetaCloak  & 100.0 & -- & 0.000 & 0.146 &  0.0 & 0.494 & 0.494 & $-0.123$ \\
+GoodAC     & 100.0 & -- & 0.000 & 0.146 &  0.0 & 0.479 & 0.479 & $-0.108$ \\
+ARCP-Web   & 100.0 & -- & 0.000 & 0.146 &  0.0 & \textbf{0.129} & \textbf{0.129} & \textbf{0.242} \\
+\midrule
+& \multicolumn{4}{c}{\textbf{Low-light indoor social photo}} &
+  \multicolumn{4}{c}{\textbf{Outdoor travel photo with complex background}} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+Method & FDFR $\uparrow$ & Cond. ISM $\downarrow$ & E2E ISM $\downarrow$ & $\Delta\uparrow$
+       & FDFR $\uparrow$ & Cond. ISM $\downarrow$ & E2E ISM $\downarrow$ & $\Delta\uparrow$ \\
+\midrule
+No defense & 25.0 & 0.519 & 0.389 & -- & 25.0 & 0.510 & 0.382 & -- \\
+GAP-Diff   &  0.0 & 0.413 & 0.413 & $-0.024$ &  0.0 & 0.422 & 0.422 & $-0.040$ \\
+MetaCloak  & 25.0 & 0.499 & 0.374 & 0.015 &  0.0 & 0.499 & 0.499 & $-0.117$ \\
+GoodAC     &  0.0 & 0.451 & 0.451 & $-0.062$ &  0.0 & 0.470 & 0.470 & $-0.087$ \\
+ARCP-Web   & 25.0 & \textbf{0.248} & \textbf{0.186} & \textbf{0.203}
+           &  0.0 & \textbf{0.178} & \textbf{0.178} & \textbf{0.204} \\
+\bottomrule
+\end{tabular}
+\end{table*}

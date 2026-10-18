@@ -1,59 +1,77 @@
-\section{Real-Web Acquisition as Independent Interventions}
+\section{The ScrapeBench Acquisition Contract}
 \label{sec:method}
 
-\subsection{Threat Model}
-\label{sec:threat}
-We consider a subject $s$ whose face images $\{x_i\}_{i=1}^{m}$ are publicly reachable on the web, and a defense $D$ that releases protected images $\tilde{x}_i = x_i + \delta_i$, $\|\delta_i\|_\infty \le \epsilon$, claiming that downstream customization of $\{\tilde{x}_i\}$ fails to reproduce $s$. The adversary $\mathcal{A}$ obtains each image through one acquisition intervention $\phi_k$ (Section~\ref{sec:funnel}), then attempts identity reconstruction with a fine-tuning or zero-shot pipeline $P$. Every intervention consumes the same T0 source; T1--T6 are not a cascade and do not consume one another's outputs. This isolates the marginal effect of a realistic web operation and avoids attributing cumulative image destruction to defense bypass.
+\subsection{Threat model}
+Let subject $s$ publish gallery $X_s$ and defense $D$ release
+$\widetilde{X}_s=D(X_s)$. An agent obtains either branch through exactly one
+acquisition intervention $\phi_k$ and passes it to customization pipeline $P$.
+The held-out reference set $R_s$ is never protected, transformed, or supplied to
+$P$; it is used only for evaluation. The benchmark pairs
+$P(\phi_k(X_s))$ with $P(\phi_k(\widetilde{X}_s))$ using the same prompt and
+seed. Thus a platform operation cannot be mistaken for protection.
 
-The defender's implicit assumptions are: (A1) the adversary trains on the exact pixels the defender perturbed; (A2) the adversary must fine-tune, so poisoning the fine-tuning gradient suffices; and (A3) robustness budgets are spent on transformations the defender chooses rather than those platforms and users choose. The independent interventions test these assumptions without imposing an artificial processing order.
+\input{figures/framework_arcp}
 
-\subsection{Single-Intervention Formalization}
-\label{sec:funnel}
-Let $\Phi=\{\phi_0,\ldots,\phi_6\}$ be a set of acquisition interventions, with $\phi_0$ the identity map. A benchmark cell is $\phi_k(x)$, never $\phi_k\!\circ\!\cdots\!\circ\!\phi_1(x)$. Each intervention has a per-image compute budget $c_k$ and quality constraint $Q_k$, because an operation that destroys the subject also destroys the value of the scrape.
+\subsection{Seven independent interventions}
+\label{sec:interventions}
+The intervention set $\Phi=\{\phi_0,\ldots,\phi_6\}$ is a matrix, not a funnel:
+$\phi_k$ always consumes T0 and never the output of another row.
 
 \begin{table}[t]
 \centering
-\caption{Canonical single-layer ScrapeBench interventions. Every row starts from T0 independently. Budgets are per image.}
-\label{tab:funnel}
+\caption{Independent acquisition conditions. Every row starts from the same T0
+image; T1--T6 are never composed in the primary analysis.}
+\label{tab:interventions}
 \footnotesize
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}llp{3.35cm}ll@{}}
+\begin{tabular}{@{}lll@{}}
 \toprule
-Tier & Control & Transformation & Budget & Purpose \\
+Layer & Intervention & Web actor or behavior \\
 \midrule
-T0 & defender & original upload, PNG & --- & lab condition \\
-T1 & platform & JPEG $q{=}70$, 4:2:0, 512 px & $<10$\,ms & CDN transcode \\
-T2 & platform & browser card render, 360 CSS px, DPR 1 & $<100$\,ms & serving \\
-T3 & agent & headless page capture, face crop (margin 0.35) & $<200$\,ms & scraping agents \\
-T4 & user/agent & super-resolution $\times 2$ & $\sim$1\,s & ``enhancement'' \\
-T5 & user & SD1.5 img2img, strength $0.30$ & $\sim$5\,s & filters, re-upload \\
-T6 & attacker & DDIM inversion/reconstruction, 50 steps & variable & purification \\
+T0 & original protected upload & publisher \\
+T1 & JPEG Q70, 4:2:0, 512 px & CDN transcode \\
+T2 & 360-CSS-pixel raster, DPR 1 & feed/thumbnail render \\
+T3 & detector crop, margin .35, WebP 80 & screenshot agent \\
+T4 & Real-ESRGAN $\times2$ & restoration service \\
+T5 & SD1.5 img2img, strength .30 & generative re-upload \\
+T6 & prompt-free SD1.5 reconstruction, strength .50, 50 steps & purification \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-T1 is fixed at JPEG quality 70 for direct comparison with GAP-Diff; supplementary sweeps retain qualities 65--95 and WebP 80. T2 renders a 360-CSS-pixel feed card at DPR 1. T3 screenshots and face-crops with margin $0.35$, then encodes WebP 80. T4 applies Real-ESRGAN $\times2$. T5 is semantic img2img regeneration at strength $.30$. T6 is diffusion purification by inversion and 50-step reconstruction. The registry enforces that all six functions receive the original protected upload. Clean and protected branches share an identical loader, center crop, resize, intervention, prompt, seed, attacker, and metric implementation.
+T1 matches GAP-Diff's primary JPEG setting. T2 approximates a common feed card;
+T3 represents an agent that sees rendered pixels rather than the origin file;
+T4--T6 test increasingly model-mediated acquisition. T6 is explicitly a
+prompt-free reconstruction proxy, not an implementation claimed to be the
+official DiffPure algorithm. Each layer has a usability check on its input face.
 
-\subsection{Retention Ratio and Cost Ledger}
-\label{sec:metric}
-Let $g(x; P, r)$ denote the best cosine similarity between the ArcFace embedding~\cite{deng2018arcface} of a generated image $x$ and the reference embeddings of subject $s$ under attack pipeline $P$ with random seed $r$. For a defense $D$ and funnel tier $T$ we define the \emph{protection gap}
+\subsection{Metrics and validity gates}
+Let $e(y,R_s)$ be the maximum ArcFace cosine similarity between generated image
+$y$ and valid references of $s$. We report conditional identity similarity
+(ISM) over detected generated faces and end-to-end ISM, where detection failures
+receive zero. Face-detection failure rate (FDFR) is reported separately, so an
+undetectable image is never silently credited as identity-specific protection.
+For defense $D$, attack $P$, and layer $k$, the paired protection gap is
 \begin{equation}
-\Delta(T; D, P) = \mathbb{E}_{r}\big[g(\Phi_T(\mathrm{clean}); P, r)\big] - \mathbb{E}_{r}\big[g(\Phi_T(D(\mathrm{clean})); P, r)\big],
-\label{eq:gap}
+\Delta_{k,D,P}=\mathbb{E}_s[\mathrm{ISM}_{k,\mathrm{clean},P}(s)-
+\mathrm{ISM}_{k,D,P}(s)].
 \end{equation}
-where the expectations are over seeds and the five standard DreamBooth prompts. The first term is how well the attack reproduces $s$ from \emph{unprotected} images at the same tier---the fair baseline, because acquisition transforms hit attacker and defense alike. The \emph{retention ratio} normalizes the gap by its clean-domain value:
-\begin{equation}
-\mathrm{RR}(T; D, P) \;=\; \Delta(T; D, P)\,/\,\Delta(T_0; D, P).
-\label{eq:rr}
-\end{equation}
-$\mathrm{RR}=1$ means the defense retains its full headline protection at tier $T$; $\mathrm{RR}\to 0$ means the funnel has erased it; negative values mean the funnel hurts the defense more than the attack. RR is robust to tier-level quality effects, comparable across defenses of different absolute strength, and yields a single interpretable collapse curve per defense.
+Higher $\Delta$ is better. Retention ratio is
+$\mathrm{RR}_{k,D,P}=\Delta_{k,D,P}/\Delta_{0,D,P}$, accompanied by a paired
+identity-bootstrap interval and the absolute change $\Delta_k-\Delta_0$.
+We report realized 8-bit $L_\infty$ and PSNR for protected uploads. BRISQUE and
+SER-FIQ are included only when their exact reference implementations are
+available; no substitute metric is silently given the same name. A layer is
+rankable only when the matched clean attack detects at least 50\% of outputs
+and retains at least 50\% of its clean-T0 end-to-end ISM. A defense is called
+effective only when that gate passes and the 95\% interval for $\Delta$
+excludes zero.
 
-Two companion quantities complete the ledger. \emph{Detection-failure rate}: the fraction of generated samples below the recognition threshold $\tau$, calibrated once on clean data ($\tau=0.30$). \emph{Infeasibility rate}: the fraction of cells in which no face is detectable in the tiered gallery. Keeping the two failure modes apart matters: a defense whose gallery survives T5 regeneration has not been \emph{bypassed} if the regeneration also destroyed the photograph's subject---infeasibility is destruction, not bypass. \emph{Cost asymmetry}: GPU-seconds per identity to forge the protection ($c_{\mathrm{prot}}$) versus CPU/GPU-seconds per image to execute the funnel ($c_{\mathrm{funnel}}$); $\kappa = c_{\mathrm{prot}} / c_{\mathrm{funnel}}$ is the economic inversion that Section~\ref{sec:results} quantifies. We report 95\% bootstrap confidence intervals over identities, paired two-sided Wilcoxon tests against the clean baseline at matched tiers, Cliff's $\delta$ effect sizes, and Holm correction applied once over the full family of stage-by-tier-by-method contrasts.
-
-\subsection{Anchoring the Funnel in Measured Platform Behavior}
-\label{sec:reality}
-A tier definition is only as credible as its parameter range, so we probe four production image pipelines directly: GitHub's avatar service, Gravatar, WordPress's Photon CDN, and the open proxy \texttt{wsrv.nl}. For each response we estimate the JPEG quality factor by matching quantization tables against a reference encoding sweep (HTTP probes, October 2026): GitHub re-encodes JPEG avatars at quality ${\approx}75$ and clamps oversized requests to the stored resolution; Gravatar serves quality ${\approx}90$; Photon honors an explicit quality parameter (estimated quality 60/80/89 at requested 60/80/90); the proxy exposes the whole 60--90 band. Every operating point falls inside our T1 grid, and the clamping behavior motivates T2's downscaling: the destructive tiers are the median behavior of commodity infrastructure, not an adversarial construction.
-
-\subsection{A Consent Layer That Survives the Funnel}
-\label{sec:consent}
-If perturbations do not survive acquisition but metadata does, the durable fix is to make consent ride with the image rather than inside it. We specify \texttt{face-consent.txt}, a robots.txt-style manifest at \texttt{/.well-known/face-consent.txt}: per-subject blocks with salted hashes, image globs, a use registry mirroring our two attack families, expiry, revocation endpoints, optional detached signatures, and default-deny for unmatched paths and uses. A reference validator (under 200 lines) issues per-URL allow/deny decisions citing the deciding rule, emits a provable manifest hash, and audits directories for coverage; the protocol needs only static file serving.
+\subsection{Beyond pixels: consent carried by the Web}
+No bounded perturbation can guarantee survival under arbitrary reconstruction.
+We therefore specify \texttt{/.well-known/face-consent.txt}, a machine-readable
+manifest mapping image patterns and subject hashes to permitted uses, expiry,
+revocation, and optional signatures. ScrapeBench supplies the empirical test for
+pixel defenses; the manifest supplies an auditable obligation for compliant
+agents and platforms when pixels fail. Together they make consent an acquisition
+contract rather than an informal property of one file.

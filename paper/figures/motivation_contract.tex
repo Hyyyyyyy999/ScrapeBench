@@ -1,0 +1,43 @@
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[
+  font=\sffamily\footnotesize,
+  box/.style={draw,rounded corners=2pt,minimum width=1.75cm,minimum height=.78cm,align=center,line width=.6pt},
+  arr/.style={-{Latex[length=2.1mm]},line width=.75pt},
+  lab/.style={font=\sffamily\bfseries\footnotesize,anchor=east},
+  note/.style={font=\sffamily\scriptsize,align=center}
+]
+\definecolor{sbblue}{RGB}{45,105,170}
+\definecolor{sborange}{RGB}{224,125,48}
+\definecolor{sbgreen}{RGB}{67,145,88}
+\definecolor{sbred}{RGB}{188,69,63}
+\node[lab] at (-.25,2.20) {Laboratory assumption};
+\node[box,fill=sbblue!12] (l1) at (1.0,2.20) {protected\\portrait};
+\node[box,fill=gray!12] (l2) at (3.45,2.20) {direct file\\download};
+\node[box,fill=sborange!13] (l3) at (5.90,2.20) {face\\customization};
+\node[box,fill=sbgreen!14] (l4) at (8.35,2.20) {identity recovery\\appears blocked};
+\draw[arr] (l1)--(l2); \draw[arr] (l2)--(l3); \draw[arr] (l3)--(l4);
+\node[lab] at (-.25,.75) {Agentic-Web reality};
+\node[box,fill=sbblue!12] (w1) at (1.0,.75) {protected\\portrait};
+\node[box,fill=sbred!12,minimum width=2.2cm] (w2) at (3.45,.75) {CDN / canvas / crop\\restore / regenerate};
+\node[box,fill=sborange!13] (w3) at (5.90,.75) {agent-selected\\customization};
+\node[box,fill=sbred!14] (w4) at (8.35,.75) {protection may\\not survive};
+\draw[arr] (w1)--(w2);
+\draw[arr] (w2)--(w3); \draw[arr] (w3)--(w4);
+\draw[decorate,decoration={brace,amplitude=4pt},sbred,line width=.7pt]
+  (.1,.18)--(9.25,.18) node[midway,below=5pt,note,text=sbred]{the acquisition gap is invisible to pristine-file evaluation};
+\node[lab] at (-.25,-1.10) {ScrapeBench contract};
+\node[box,fill=sbblue!12] (s1) at (1.0,-1.10) {matched clean /\\protected branches};
+\node[box,fill=gray!12,minimum width=2.2cm] (s2) at (3.45,-1.10) {independent clauses\\T0, T1, $\ldots$, T6};
+\node[box,fill=sbgreen!12] (s3) at (5.90,-1.10) {clean validity\\gate};
+\node[box,fill=sbgreen!16,minimum width=2.05cm] (s4) at (8.35,-1.10) {paired gap $\Delta$\\+ retention RR};
+\draw[arr] (s1)--(s2); \draw[arr] (s2)--(s3); \draw[arr] (s3)--(s4);
+\node[note,text=sbgreen!50!black] at (4.70,-2.02) {one operation at a time $\Rightarrow$ attributable failures and actionable Web responsibility};
+\end{tikzpicture}
+\caption{Research motivation. Pristine-file evaluation assumes that a protected
+upload reaches customization unchanged. On the agentic Web, ordinary acquisition
+operations intervene first. ScrapeBench turns each operation into an independent,
+paired contract clause with a clean validity gate, so a low score is credited to
+the defense only when the corresponding clean attack still works.}
+\label{fig:motivation}
+\end{figure*}

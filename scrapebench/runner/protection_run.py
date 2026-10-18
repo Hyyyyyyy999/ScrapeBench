@@ -50,9 +50,9 @@ def generate_method(method, comps, gallery_paths, cfg, out_dir):
             jq = int(prot_cfg.get("jpeg_aware", 85))
             train_surrogate(comps, imgs, steps=prot_cfg.get("surrogate_steps", 200), batch_size=4, log_every=50)
             outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100), jpeg_aware=jq, seed=cfg["run"].get("seed", 0))
-        elif method in ("arcp", "arcp2", "arcp_v2"):
+        elif method in ("arcp", "arcp2", "arcp_v2", "arcp_web", "arcp_web_v2", "arcp_web_v3", "arcp_web_v4"):
             k = method + "_"
-            is_v2 = method == "arcp_v2"
+            is_v2 = method in ("arcp_v2", "arcp_web", "arcp_web_v2", "arcp_web_v3", "arcp_web_v4")
             outs = forge_arcp(comps, imgs, eps_max=prot_cfg.get(k + "eps_max", 16.0) / 255.0,
                               eps_min=prot_cfg.get(k + "eps_min", 2.0) / 255.0,
                               steps=prot_cfg.get(k + "steps", 150),
@@ -62,8 +62,18 @@ def generate_method(method, comps, gallery_paths, cfg, out_dir):
                               margin=prot_cfg.get(k + "margin", 0.4),
                               grid=prot_cfg.get(k + "grid", 64),
                               pixel_space=is_v2,
-                              random_start=is_v2,
+                              random_start=prot_cfg.get(k + "random_start", is_v2),
                               eot_depth=prot_cfg.get(k + "eot_depth", 1 if is_v2 else 2),
+                              balanced_web=method.startswith("arcp_web"),
+                              survival_weight=prot_cfg.get(k + "survival_weight", 0.10),
+                              gap_margin=prot_cfg.get(k + "gap_margin", 0.15),
+                              reader_softplus_beta=prot_cfg.get(k + "reader_softplus_beta", 0.0),
+                              detail_grid=prot_cfg.get(k + "detail_grid", 0),
+                              detail_weight=prot_cfg.get(k + "detail_weight", 0.0),
+                              dual_t0=prot_cfg.get(k + "dual_t0", False),
+                              t0_weight=prot_cfg.get(k + "t0_weight", 1.0),
+                              reader_multiview=prot_cfg.get(k + "reader_multiview", False),
+                              arcface_weight=prot_cfg.get(k + "arcface_weight", 0.0),
                               seed=cfg["run"].get("seed", 0))
         else:
             raise ValueError(f"unknown method {method}")
@@ -85,7 +95,7 @@ def main():
     methods = (args.methods.split(",") if args.methods else cfg.get("protection", {}).get("methods", ["clean", "random", "fsmg"]))
     galleries = list_galleries(root)
     ids = args.ids.split(",") if args.ids else sorted(galleries)
-    need_model = any(m in ("fsmg", "aspl", "fsmgj", "arcp", "arcp2", "arcp_v2") for m in methods)
+    need_model = any(m in ("fsmg", "aspl", "fsmgj", "arcp", "arcp2", "arcp_v2", "arcp_web", "arcp_web_v2", "arcp_web_v3", "arcp_web_v4") for m in methods)
     comps = None
     if need_model:
         comps = load_sd15(cfg["run"]["sd_model"], fp16=cfg["run"].get("fp16", True))

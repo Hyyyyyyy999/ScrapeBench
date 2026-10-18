@@ -1,5 +1,7 @@
 import argparse
+import json
 import os
+import shutil
 import time
 import numpy as np
 from PIL import Image
@@ -7,7 +9,7 @@ from ..config import load_config
 from ..funnel import get_tier
 from ..attack.ip_adapter import ZeroShotFaceID
 from ..attack.instantid import ZeroShotInstantID
-from ..attack.train_utils import PROMPTS
+from ..attack.train_utils import GAPDIFF_PROMPTS
 from ..metrics.id_sim import IdScorer
 from ..metrics.stats import bootstrap_ci_mean
 from .results import ensure_csv, append_row, load_done, log, FIELDS, now
@@ -34,11 +36,13 @@ def main():
     ap.add_argument("--methods", default=None)
     ap.add_argument("--ids", default=None)
     ap.add_argument("--attack", default="ipfaceid")
+    ap.add_argument("--run-name", default=None,
+                    help="override config run name so pilot results cannot mix with legacy runs")
     ap.add_argument("--force", action="store_true", help="rerun selected cells even when a successful row exists")
     args = ap.parse_args()
     cfg = load_config(args.config)
     root = cfg["run"]["data_root"]
-    run_name = cfg["run"]["name"]
+    run_name = args.run_name or cfg["run"]["name"]
     run_dir = os.path.join("runs", run_name)
     os.makedirs(run_dir, exist_ok=True)
     res_path = ensure_csv(os.path.join(run_dir, "results.csv"))
@@ -92,7 +96,10 @@ def main():
         imgs = [tier_fn(Image.open(p).convert("RGB")) for p in paths]
         t0 = time.time()
         try:
-            prompts = PROMPTS[:2] if args.attack == "instantid" else PROMPTS
+            # Both readers must see the identical preregistered scenario set;
+            # earlier smoke runs used 2 prompts for InstantID and 5 for
+            # IP-Adapter, which was suitable only for plumbing validation.
+            prompts = cfg["stage_a"].get("prompts", GAPDIFF_PROMPTS)
             steps = (atk_cfg.get("instantid_steps", atk_cfg.get("steps", 30))
                      if args.attack == "instantid" else atk_cfg.get("steps", 30))
             gens = zs.generate(prompts, imgs, n_per_prompt=max(1, cfg["run"]["samples_per_cell"] // len(prompts)),
@@ -109,10 +116,31 @@ def main():
         gen_sec = time.time() - t0
         sims = []
         dets = []
-        for g in gens:
+        save_outputs = bool(cfg["stage_a"].get("save_outputs", False))
+        output_dir = os.path.join(run_dir, "generations", args.attack, m, tier, pid)
+        if save_outputs:
+            if args.force and os.path.isdir(output_dir):
+                shutil.rmtree(output_dir)
+            os.makedirs(output_dir, exist_ok=True)
+        sample_rows = []
+        for idx, g in enumerate(gens):
             s, ok = scorer.best_sim(g, ref_embs)
             sims.append(s)
             dets.append(bool(ok))
+            if save_outputs:
+                prompt_idx = idx // max(1, cfg["run"]["samples_per_cell"] // len(prompts))
+                filename = f"p{prompt_idx:02d}_s{idx:03d}.png"
+                g.save(os.path.join(output_dir, filename))
+                sample_rows.append({
+                    "pid": pid, "method": m, "tier": tier, "attack": args.attack,
+                    "prompt_id": prompt_idx, "prompt": prompts[min(prompt_idx, len(prompts) - 1)],
+                    "file": filename, "ism": None if np.isnan(s) else round(float(s), 6),
+                    "detected": bool(ok),
+                })
+        if save_outputs:
+            with open(os.path.join(output_dir, "samples.jsonl"), "w") as handle:
+                for row in sample_rows:
+                    handle.write(json.dumps(row, ensure_ascii=False) + "\n")
         sims = np.array(sims, dtype=np.float64)
         mean, (lo, hi) = bootstrap_ci_mean(sims)
         det_rate = float(np.mean(dets))

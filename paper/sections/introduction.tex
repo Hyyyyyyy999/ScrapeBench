@@ -1,31 +1,66 @@
 \section{Introduction}
 
-The web has become the default training corpus for identity-hungry generative models, and faces are its most sensitive commodity. A handful of public portraits suffices to synthesize a person in any context: DreamBooth-style fine-tuning binds a rare token to an identity with four to eight images~\cite{ruiz2022dreambooth}, while zero-shot adapters such as InstantID and IP-Adapter-FaceID inject a face embedding from a single reference image directly into the denoising process~\cite{wang2024instantid,ye2023ipadapter}. The consent asymmetry is severe---the subject never agreed---and it has triggered an arms race in \emph{protective perturbation}: cloaks added to a photo before upload that break the customization pipeline. Anti-DreamBooth established the category~\cite{le2023antidreambooth}, and a fast-growing successor literature hardens it along every laboratory axis~\cite{liu2023metacloak,zheng2023targeted,onikubo2024highfrequency,li2024promptindependent,song2024idprotector}. The narrative is reassuring: with the right perturbation, your face is yours again.
+The Web's old social contract was written for human readers. A person could
+publish a portrait to be seen without thereby authorizing anyone to construct a
+generator of their identity. On the agentic Web, that distinction is collapsing:
+crawlers can collect a few images and invoke DreamBooth~\cite{ruiz2022dreambooth},
+InstantID~\cite{wang2024instantid}, or IP-Adapter-FaceID~\cite{ye2023ipadapter}
+without further interaction with the subject. Pixel perturbations such as
+Anti-DreamBooth, GAP-Diff, and IDProtector attempt to restore agency by making
+published images unsuitable for customization~\cite{le2023antidreambooth,zhu2025gapdiff,song2024idprotector}.
 
-\textbf{Relevance to the Web.} Every component of this study is Web infrastructure: the protection gap is created and erased by platform image pipelines (CDNs, avatar services, thumbnailers), browser rendering, and crawling agents; the adversary is any scraper harvesting faces the way the Web serves them; and the proposed remedy is a machine-readable consent manifest served over the Web's ingestion layer. The paper answers a Responsible Web research challenge---measuring, then repairing, the distance between the privacy users believe they control and the acquisition pipeline the Web actually executes.
+\textbf{What is brave and new.} We propose that anti-customization be treated as
+an \emph{acquisition contract} between people, Web infrastructure, and AI agents,
+not as a property measured only on a downloaded file. The concrete contribution
+is a benchmark and reference defense in which ordinary Web interventions are
+first-class, independently testable contract clauses. This changes the research
+question from ``does noise fool one model?'' to ``after which legitimate Web
+operation does a person's refusal cease to be enforceable?'' The distinction
+matters for future browsers, CDNs, agents, and policy: it makes failures
+attributable and points to where consent must be preserved.
 
-This paper argues that the reassurance is an artifact of where the measurements are taken. Every published protection is evaluated on \emph{T0-images}: clean, full-resolution, uncompressed files that the adversary kindly provides to the defense. That world does not exist on the web. An identity that is ``public'' has already been transformed before a scraper ever sees it: platforms re-encode uploads, browsers rasterize under device pixel ratios, crawling agents screenshot and crop faces rather than download files, and users regenerate photos through diffusion filters before posting. Each transformation is individually harmless to recognition; jointly, they describe the actual data distribution any real adversary can harvest. We call this pipeline the \emph{web acquisition funnel} and the resulting blind spot the \emph{Web Acquisition Gap}: the difference between the protection a defense delivers on the files it was handed and the protection that survives on the files an adversary can actually obtain---an attack surface that requires no adversarial optimization, costs milliseconds to seconds per image, and operates \emph{before} the defense is ever consulted.
+\input{figures/motivation_contract}
 
-Two observations sharpen the claim. First, the funnel is not hypothetical: a single JPEG re-encode at quality 85--95 neutralizes a broad class of protection perturbations~\cite{sandovalsegura2023jpeg}, common image transformations systematically suppress unlearnable-example attacks~\cite{qin2023learning,sandovalsegura2023what}, and robustness under diffusion-aware adversaries remains unfavorable~\cite{peng2025contrastive}. Nor is the funnel's parameter range speculative: our probes of production image pipelines (Section~\ref{sec:reality}) land squarely inside the transcode tiers we evaluate. What is missing is a systematic, tiered, budget-aware account of the whole funnel. Meanwhile evaluation practice drifts the other way: newest defenses arrive with ever-cleaner galleries under ever-stronger laboratory attackers~\cite{fardin2026metacloakjpeg,chen2025fragile}, and the first cross-method studies still hold the acquisition side fixed~\cite{wang2025privacy}---a literature optimizing for an adversary that does not exist.
+A cumulative ``seven-level funnel'' cannot answer that question. Its later
+levels inherit all earlier damage, confounding the effect of a JPEG encoder with
+that of a crop or diffusion reconstruction. ScrapeBench instead defines seven
+\emph{single interventions}. T0 is the released image; each of T1--T6 consumes
+that same T0 source independently. Clean and protected branches use identical
+identities, operations, prompts, seeds, and scorers. This paired design measures
+the protection gap attributable to one intervention while separately recording
+whether the input or generated face remains usable.
 
-We build the missing instrument. \emph{ScrapeBench} reconstructs the funnel in software: seven tiers (T0 original; T1 platform transcode; T2 browser and thumbnail rendering; T3 agent-style capture; T4 super-resolution; T5 diffusion regeneration; T6 adaptive mixing and purification), each with an explicit attacker budget. On top of it we define the \emph{retention ratio} $\mathrm{RR}(T)=\Delta(T)/\Delta(T_0)$, where $\Delta(T)$ is the protection gap (clean minus protected identity similarity under a fixed attack) at tier $T$: RR is the fraction of a defense's T0 gap that survives acquisition reality, computed against a same-identity clean control. The primary evaluation applies each of six representative preprocessing operations (JPEG-85, WebP-80, browser render, agent face-crop, super-resolution, diffusion regeneration) \emph{in isolation}, because the marginal damage of a single operation is the quantity a defender can act on; a completed composition study (Appendix~\ref{sec:extra}) confirms that reordering or deepening the chain does not rescue a gap. The metric is paired with a cost ledger of defender versus attacker spend.
+Our current feasibility pilot fixes the first four valid identities in a
+pre-audited manifest, with four gallery and two held-out reference images per
+identity. They are selected before inspecting defense outcomes. An audited
+40-identity pool (160 gallery images; 96.25\% face detection; .787 mean
+gallery--reference ArcFace similarity) is reserved for expansion only if the
+small pilot passes its attack-validity and effect-direction gates. These are
+data-integrity facts, not defense results. The completed snapshot compares clean
+images, GAP-Diff, MetaCloak, GoodAC, and our ARCP-Web with InstantID and
+IP-Adapter-FaceID. A separate 1,000-step DreamBooth protocol is a second-stage
+experiment. Released checkpoints are used where
+provided; MetaCloak and GoodAC are released-code ports whose Web40 adaptations
+are disclosed rather than mislabeled as official artifacts.
 
-The revised evaluation scales to 100 CelebA-HQ identities and compares clean,
-official GAP-Diff, official IDProtector, and ARCP-v2 galleries under three
-attack families. It applies T0--T6 independently, uses same-identity controls,
-and fixes four deployment scenarios and four headline metrics before inspecting
-the result. This paper draft deliberately separates the frozen protocol from
-the still-running evaluation: legacy 40-identity results are not presented as
-evidence for the revised claims.
+ARCP-Web is designed for this contract. Its matched-budget evaluation uses a
+pixel-space $8/255$ cap, low/detail perturbation grids, texture-aware amplitude
+allocation, and a differentiable copy of InstantID's ArcFace recognizer inside
+a balanced objective spanning T0--T6. Half of its updates cover all interventions
+uniformly; the rest target the intervention currently retaining the most
+identity information. This is a falsifiable design, not a guarantee. We claim
+an advantage at a layer only if its paired confidence interval supports one.
 
 Our contributions are:
 \begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
-\item \textbf{The Web Acquisition Gap and a funnel threat model, anchored in platform reality}: a seven-tier funnel with per-tier attacker budgets, instrumented against public image services (GitHub avatars, Gravatar, WordPress Photon, an open proxy) whose measured re-encoding and resizing covers exactly the tiers that collapse the defenses.
-\item \textbf{The retention-ratio metric and collapse-curve protocol}: $\mathrm{RR}(T)$ reduces robustness under acquisition to one interpretable curve per defense; a cost ledger exposes the defender--attacker asymmetry; an infeasibility view separates defense bypass from image destruction.
-\item \textbf{ScrapeBench, an open harness}: transcoding, browser and agent rendering, restoration, regeneration, and adaptive pooling, integrated with DreamBooth-LoRA and two zero-shot attackers, ArcFace scoring, paired statistics, and automatic result publication.
-\item \textbf{A preregistered large-scale comparison}: 100 identities, official
-GAP-Diff and IDProtector checkpoints, ARCP-v2, two zero-shot readers and
-DreamBooth, with numerical claims emitted only after the paired run completes.
-\item \textbf{ARCP, an acquisition-robust reference defense}: a band-limited, texture-allocated perturbation optimized in expectation over differentiable acquisition proxies with a reader-diverse objective---the first protection whose training objective is the acquisition distribution rather than the T0 file, released under the benchmark's own reporting contract.
-\item \textbf{A consent layer that survives the funnel}: \texttt{face-consent.txt}, a machine-readable consent manifest with a reference validator, shifting the durable line of defense from perturbations the funnel erases to acquisition-layer provenance the funnel carries with the image.
+  \item an acquisition-contract formulation for face consent on the agentic Web;
+  \item a non-cumulative T0--T6 benchmark with matched clean controls, explicit
+  validity gates, and conditional plus end-to-end metrics;
+  \item a reproducible four-identity feasibility pilot, with a preregistered
+  path to a 40-identity expansion, comparing released-code robustness-oriented
+  defenses and two zero-shot customization families;
+  \item ARCP-Web, whose optimization allocates effort to its weakest acquisition
+  intervention rather than optimizing only the pristine upload; and
+  \item a machine-readable \texttt{face-consent.txt} direction for carrying
+  consent when no pixel-only defense can satisfy the contract.
 \end{itemize}

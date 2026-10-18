@@ -1,53 +1,42 @@
-\section{ScrapeBench: Experimental Setup}
+\section{Experimental Protocol}
 \label{sec:experiments}
 
-\subsection{Implementation and independent interventions}
-ScrapeBench is a resumable Python harness built on \texttt{diffusers},
-\texttt{transformers}, \texttt{insightface}, and Pillow. Every condition starts
-from the same T0 gallery; T1--T6 are independent interventions rather than a
-seven-stage cascade. We evaluate T0 (unaltered), T1 (JPEG Q70, 4:2:0), T2
-(360-CSS-pixel browser raster at DPR 1), T3 (face crop followed by WebP 80), T4
-(Real-ESRGAN x2 and JPEG 92), T5 (SD1.5 img2img at strength .30), and T6 (50-step
-diffusion purification). Clean and protected branches share the loader, crop,
-intervention, attacker, prompt, seed, and scorer.
+\subsection{Four-identity feasibility pilot}
+The deadline pilot fixes four identities, each with four gallery images and two
+held-out references. They are the first four valid entries of a manifest fixed
+before inspecting defense outcomes, not identities chosen because a method wins
+on them. The broader expansion pool contains 40 audited identities (35 CelebA
+and five VGGFace2 identities from the GAP-Diff artifact): across its 160 gallery
+images, input face detection is 96.25\% and mean gallery--reference ArcFace
+similarity is .787. We expand only after the four-identity run passes the clean
+attack validity gate and exhibits a nontrivial paired effect. This pilot tests
+plumbing and effect direction; it cannot support population claims.
 
-\subsection{Data, defenses, and attackers}
-The fixed CelebA-HQ-100 protocol contains 100 identity-labelled subjects, each
-with eight gallery images and two held-out references. The public split is 10
-development, 80 core-test, and 10 untouched audit identities; hyperparameters
-are frozen on development before the 90 non-development identities are run.
-The primary comparison uses the clean control, official GAP-Diff and
-IDProtector checkpoints, and ARCP-v2. Each published baseline is run at its
-official released setting and its measured pixel budget is reported, rather
-than silently forcing methods to a nominal but implementation-dependent
-budget. ARCP-v2 applies its bound in 8-bit pixel space, with
-$\epsilon_{\min}=2/255$, $\epsilon_{\max}=16/255$, a $64^2$ band-limited grid,
-200 optimization steps, reader weight $.75$, and margin $.35$. The older
-40-identity FSMG/ASPL-lite experiment is retained only as a legacy diagnostic
-and is not mixed with the revised tables.
+\subsection{Defenses and attacks}
+The primary rows are clean, GAP-Diff~\cite{zhu2025gapdiff},
+MetaCloak~\cite{liu2023metacloak}, GoodAC~\cite{xu2025goodac}, and ARCP-Web.
+GAP-Diff uses its released checkpoint and preprocessing. MetaCloak and GoodAC
+use their released implementations and published hyperparameters, with every
+Web40 adaptation (input split and identity-neutral prompt) recorded. A method
+enters the table only after protection completeness, realized pixel budget,
+and clean-attack validity checks pass. Official-default and common-$8/255$
+budget comparisons are kept separate.
 
-Stage A tests two zero-shot readers: IP-Adapter-FaceID on SD1.5 and InstantID on
-SDXL, both with 30 denoising steps and guidance 5.0. Stage B trains the SD1.5
-UNet for 1,000 steps on each acquired gallery and generates 30 images for each
-of four preregistered Web scenarios: social-media avatar, smartphone selfie,
-low-light indoor social photograph, and outdoor travel photograph. A separate
-VGGFace2/JPEG-Q70 block preserves GAP-Diff's four original prompts for direct
-comparison with its Table I and Figure 8 protocol.
+Stage A evaluates InstantID and IP-Adapter-FaceID, with 30
+denoising steps, guidance 5, and four outputs per cell---one for each fixed Web
+scenarios: social avatar, smartphone selfie, low-light indoor social photograph,
+and outdoor travel photograph. Before the full grid, a four-identity clean-T0
+smoke test must attain mean conditional ISM at least .25 and at least 75\% valid
+generated faces for each reader. Stage B is a second-gate experiment: SD2.1
+DreamBooth, 1,000 steps, prior preservation with 200 class images, and
+text-encoder training is run only after the zero-shot pilot shows a useful
+signal. Zero-shot and fine-tuning results are never pooled.
 
-\subsection{Metrics and statistical contract}
-The four headline output metrics are face-detection failure rate (FDFR),
-identity similarity (ISM), BRISQUE, and SER-FIQ. We additionally report the
-same-identity clean-minus-protected ISM gap, its identity-bootstrap 95\% CI,
-retention $\mathrm{RR}(T)=\Delta(T)/\Delta(T0)$ with a bootstrap CI, change from
-T0, Holm-adjusted paired tests, and a TOST equivalence test at the preregistered
-0.03 ISM bound. Non-significance is not described as equivalence or collapse.
-The primary tables will be generated only from the append-only revised run log;
-legacy and revised rows are never pooled.
-
-\subsection{Execution status}
-At manuscript revision time the 100-identity dataset and split are frozen, and
-the official GAP-Diff and ARCP-v2 protected galleries are complete for all 90
-evaluation identities. IDProtector and the downstream Stage-A and Stage-B
-evaluations are still running. Consequently, this draft intentionally
-contains no revised performance numbers or superiority claim; Section~\ref{sec:results}
-defines the tables that will be populated from the completed run.
+\subsection{Execution and reproducibility contract}
+Every cell is deterministic from its identity, layer, reader, prompt, and seed.
+Generated images and a JSONL sample ledger are saved, and summary rows are
+append-only. The feasibility schedule uses a bounded array of at most seven
+concurrent single-GPU evaluation tasks:
+the smoke gate precedes protection generation, and attack arrays depend on both
+successful predecessors. A failed gate leaves downstream jobs blocked rather
+than producing a plausible-looking table from an invalid attack.
