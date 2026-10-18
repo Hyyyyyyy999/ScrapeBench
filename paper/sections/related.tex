@@ -1,11 +1,88 @@
 \section{Related Work}
 \label{sec:related}
 
-\paragraph{Unauthorized customization and its defenders.}
-Personalization of text-to-image diffusion models has collapsed the cost of fabricating a person's likeness~\cite{cao2024controllable}: DreamBooth binds a subject to a rare token through a handful of images~\cite{ruiz2022dreambooth}, while IP-Adapter-FaceID and InstantID inject identity without subject-specific training~\cite{ye2023ipadapter,wang2024instantid}. Protective perturbations begin with Anti-DreamBooth~\cite{le2023antidreambooth} and PhotoGuard~\cite{salman2023raising}, followed by meta-learned, targeted, frequency-aware, and prompt-independent variants~\cite{liu2023metacloak,zheng2023targeted,onikubo2024highfrequency,li2024promptindependent}. Our primary baselines span complementary robustness mechanisms: GAP-Diff targets JPEG-robust training-based protection~\cite{zhu2025gapdiff}, MetaCloak uses robust meta-learning~\cite{liu2023metacloak}, and GoodAC provides a recent global--local anti-customization objective~\cite{xu2025goodac}. IDProtector~\cite{song2024idprotector} and AntiPure~\cite{yang2025towards} remain relevant related work but are not silently substituted for the requested main comparison. We distinguish released checkpoints from disclosed released-code ports and never pool incompatible attackers.
+\paragraph{Customization and identity readers.}
+Personalized diffusion has matured from latent diffusion backbones deployed at
+Web scale~\cite{rombach2021highresolution,shin2026latent} into a family of
+subject-driven methods~\cite{cao2024controllable,wei2025personalized}.
+DreamBooth binds a subject to a rare token from a handful of
+images~\cite{ruiz2022dreambooth}, textual inversion encodes the subject into a
+word embedding~\cite{gal2023inversion}, and multi-concept customization
+composes several subjects at
+once~\cite{kumari2023custom}. Zero-shot readers remove training entirely:
+InstantID injects a face embedding through a decoupled cross-attention
+branch~\cite{wang2024instantid}, and IP-Adapter-FaceID feeds a face identity
+embedding as a prompt adapter~\cite{ye2023ipadapter}. Because these readers
+run in seconds on a single photograph, a scraped portrait is immediately
+actionable, which is precisely the threat model our benchmark evaluates.
 
-\paragraph{The fragility literature.}
-Protective perturbations are fragile under distribution shift. JPEG compression can bypass protections~\cite{sandovalsegura2023jpeg}, and benign augmentations or adaptive preprocessing can defeat unlearnable examples~\cite{sandovalsegura2023what,qin2023learning}. Prior studies establish the phenomenon; ScrapeBench changes the unit of analysis. It assigns one independently executed Web intervention to each benchmark cell, measures a matched clean branch, and refuses to call detector failure successful identity protection.
+\paragraph{Adversarial face and identity protection.}
+Pixel-space defenses perturb images so that customization fails while the
+image still looks natural. The line began with Anti-DreamBooth's
+initialization-level attack on DreamBooth
+fine-tuning~\cite{le2023antidreambooth} and PhotoGuard's encoder
+attacks~\cite{salman2023raising}, and has since specialized along several
+axes: face-specific robustness~\cite{wang2026hierarchical,qiu2026void},
+face-swap pathways~\cite{wang2026safeguarding}, JPEG-robust
+perturbations~\cite{fardin2026metacloakjpeg,kim2025blurguard}, real-time
+identity defense~\cite{guo2024realtime}, and deepfake-oriented
+shielding~\cite{jeong2025faceshield}. MetaCloak meta-learns perturbations that
+survive diverse surrogate losses~\cite{liu2023metacloak}; GoodAC couples
+global and local adversarial objectives for anti-customization~\cite{xu2025goodac};
+GAP-Diff targets the JPEG-transcoded setting directly~\cite{zhu2025gapdiff};
+IDProtector trains an adversarial noise encoder against zero-shot identity
+readers~\cite{song2024idprotector}; and robust purification-resistant
+objectives extend protection to diffusion-based
+restoration~\cite{yang2025towards,wang2025antiaesthetics,salar2025enhancing,yahn2026personalized}.
+Our pilot benchmarks the three defenses with released code or checkpoints
+(GAP-Diff, MetaCloak, GoodAC) and contributes ARCP-Web as a reference defense;
+the remaining variants share the same blind spot we quantify---they are
+validated on pristine uploads.
 
-\paragraph{Benchmarks and reporting standards.}
-Benchmarks change field behavior: face-quality challenges standardized degradation models for recognition under capture conditions~\cite{bei2024largescale}. Anti-customization still lacks a common acquisition contract: papers choose different identities, attackers, budgets, and success definitions. ScrapeBench fixes the intervention, compute budget, clean control, validity gate, and reporting schema. It is a measurement layer for deciding whether a pixel defense can carry consent through the Web, and where infrastructure-level consent becomes necessary.
+\paragraph{Protection beyond perturbations.}
+A parallel line changes the generation pathway rather than the pixels.
+Latent-diffusion unlearning shifts denoising trajectories away from
+personalized reproduction~\cite{devulapally2025latent}, Anti-Diffusion blocks
+model modifications~\cite{li2025antidiffusion}, and dual-domain
+anti-personalization attacks the biometric feature
+space~\cite{yang2024ddap}. Immunization against instruction-driven editing and
+optimization-free diffusion vaccines broaden the
+attack surface~\cite{trippodo2025immunizing,ozden2024diffvax}, while
+contrastive training probes the robustness of protective perturbations under
+latent noise~\cite{peng2025contrastive}. Identity-unextractable synthesis,
+cross-image consistency, and dual-layer defenses mix generative and
+adversarial mechanisms~\cite{wang2025make,wang2025privacy,jia2025dladiff}, and
+recent analyses quantify how fragile adversarial defenses remain under
+distribution shift~\cite{chen2025fragile}. Extension to video protection
+shows the same acquisition problem appearing in temporal
+generators~\cite{huang2026delving,he2026chronolock}.
+
+\paragraph{Unlearnable examples and data poisoning.}
+Availability attacks predate customization defenses: unlearnable examples
+degrade training from the data side~\cite{huang2021unlearnable}, with robust
+variants~\cite{fu2022robust} and autoregressive
+perturbations~\cite{sandovalsegura2022autoregressive}. Augmentation-aware
+analyses then showed that benign preprocessing defeats many such
+poisons~\cite{qin2023learning,jiang2023false}. The modern toolbox spans
+provably unlearnable data~\cite{wang2025provably}, temporal unlearnable
+videos~\cite{wu2025temporal}, trigger-free poisoning~\cite{jang2025silent},
+adversarial mislabeling~\cite{wu2025feasibility}, face-privacy unlearnable
+synthesis~\cite{wu2025myopia}, detection of convolution-based
+poisons~\cite{li2025detecting}, augmentation-shielded
+designs~\cite{gong2026armor}, and systematizations of the
+field~\cite{zhang2026unlearnability,li2025survey}. Artist protection shares
+the adversarial mechanics~\cite{shan2023glaze} and inherits the same
+robustness questions raised by Fawkes-style cloaking~\cite{shan2020fawkes}.
+
+\paragraph{Evaluation, recognition, and consent.}
+Large-scale benchmarks standardized face-forgery evaluation under realistic
+degradations~\cite{bei2024largescale,pei2024deepfake}, but no benchmark fixes
+the Web acquisition channel for anti-customization. Recognition metrics
+ground our measurements in face embeddings~\cite{deng2018arcface}, evaluated
+on in-the-wild face collections~\cite{liu2015deep}. On the governance side,
+empirical studies document how rarely Web-scraped corpora carry consent
+signals~\cite{lee2025data}, and content-provenance specifications provide a
+machine-readable channel for them~\cite{c2pa2026spec}. ScrapeBench connects
+these threads: it fixes the acquisition contract as the unit of measurement
+and pairs pixel-level robustness with consent metadata that survives when
+perturbations do not.

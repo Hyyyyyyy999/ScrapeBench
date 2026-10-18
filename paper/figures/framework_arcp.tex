@@ -1,57 +1,12 @@
 \begin{figure*}[t]
 \centering
-\resizebox{\textwidth}{!}{%
-\begin{tikzpicture}[
- font=\sffamily\scriptsize,
- box/.style={draw,rounded corners=2pt,align=center,minimum height=.75cm,line width=.55pt},
- arr/.style={-{Latex[length=1.9mm]},line width=.7pt},
- group/.style={draw,dashed,rounded corners=3pt,inner sep=5pt},
- title/.style={font=\sffamily\bfseries\footnotesize}
-]
-\definecolor{sbblue}{RGB}{45,105,170}
-\definecolor{sborange}{RGB}{224,125,48}
-\definecolor{sbgreen}{RGB}{67,145,88}
-\definecolor{sbpurple}{RGB}{126,83,164}
-\node[box,fill=sbblue!12,minimum width=1.55cm] (gallery) at (0,0) {gallery $X_s$\\4 images};
-\node[box,fill=sborange!12,minimum width=1.85cm] (texture) at (2.35,0) {JND texture mask\\coarse + detail grids};
-\node[box,fill=sborange!18,minimum width=1.75cm] (project) at (4.85,0) {mix + project\\$\|\delta\|_\infty\leq8/255$};
-\draw[arr] (gallery)--(texture); \draw[arr] (texture)--(project);
-
-\node[box,fill=sbpurple!11,minimum width=1.75cm] (proxy) at (2.35,1.55) {balanced proxies\\$q_0,\ldots,q_6$};
-\node[box,fill=sbpurple!11,minimum width=1.95cm] (loss) at (4.85,1.55) {diffusion + paired\\identity losses};
-\node[box,fill=sbpurple!16,minimum width=1.85cm] (weak) at (7.30,1.55) {target current\\weakest layer};
-\draw[arr] (texture)--(proxy); \draw[arr] (proxy)--(loss); \draw[arr] (loss)--(weak);
-\draw[arr,rounded corners=5pt] (weak.south)--++(0,-.45)-|(project.north);
-
-\node[box,fill=sbgreen!16,minimum width=1.95cm] (branches) at (7.30,0)
-  {matched branches\\clean / protected};
-\draw[arr] (project)--(branches);
-\draw[arr,rounded corners=5pt] (gallery.south)--++(0,-.90)-|
-  node[pos=.55,below,font=\sffamily\tiny]{clean bypass}(branches.south);
-
-\node[box,fill=gray!12,minimum width=1.95cm] (matrix) at (9.85,0)
-  {independent Web clauses\\T0--T6, never cascaded};
-\node[box,fill=sbblue!10,minimum width=1.75cm] (readers) at (12.25,0)
-  {InstantID\\IP-Adapter-FaceID};
-\node[box,fill=sbgreen!16,minimum width=1.75cm] (metrics) at (14.55,0)
-  {validity gate\\ISM, FDFR, $\Delta$, RR};
-\node[box,fill=sbblue!8,minimum width=1.75cm] (refs) at (14.55,-1.35)
-  {held-out $R_s$\\score only};
-\draw[arr] (branches)--(matrix); \draw[arr] (matrix)--(readers);
-\draw[arr] (readers)--(metrics); \draw[arr] (refs)--(metrics);
-\begin{scope}[on background layer]
-\node[group,fit=(texture)(project)(proxy)(loss)(weak),fill=sborange!3,
- label={[title]above:ARCP-Web optimization}] {};
-\node[group,fit=(branches)(matrix)(readers)(metrics)(refs),fill=sbgreen!3,
- label={[title]below:held-out ScrapeBench evaluation}] {};
-\end{scope}
-\end{tikzpicture}%
-}%
-\caption{ScrapeBench and ARCP-Web framework. ARCP constructs a texture-aware,
-bounded perturbation from coarse and detail grids. Uniform proxy coverage is
-interleaved with updates to the currently weakest paired gap. Evaluation is
-strictly held out: clean and protected branches undergo the same single Web
-operation, then the same reader, prompts, and seeds; references are used only
-for scoring.}
+\includegraphics[width=.98\textwidth]{figures/framework_ai.png}
+\caption{ScrapeBench and ARCP-Web framework. The evaluation panel assigns each
+of the seven acquisition layers an independently executed Web intervention from
+one common upload, with matched clean and protected branches, two zero-shot
+identity readers, and a validity gate that refuses to rank layers where the
+clean branch itself fails; T4--T6 are reported as gate-invalid stress tests in
+the pilot. The optimizer panel shows ARCP-Web's texture-aware coarse--detail
+perturbation and weakest-clause scheduler under a realized $8/255$ budget.}
 \label{fig:framework}
 \end{figure*}

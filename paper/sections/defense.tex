@@ -33,7 +33,8 @@ ARCP-Web maximizes
 \end{equation}
 Here $s_k^D$ and $s_k^C$ are protected and matched-clean similarities to $c_s$.
 The identity objective ensembles FaceNet with a differentiable port of
-InstantID's released antelopev2 ArcFace recognizer. Face landmarks are detected
+InstantID's released antelopev2 ArcFace
+recognizer~\cite{deng2018arcface}. Face landmarks are detected
 once on the clean input and held fixed, leaving the recognition path
 differentiable without optimizing through a detector. The first term poisons
 training-based customization, the second repels the identity readers and
