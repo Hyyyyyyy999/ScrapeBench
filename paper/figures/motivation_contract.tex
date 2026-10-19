@@ -1,10 +1,31 @@
 \begin{figure*}[t]
 \centering
-\includegraphics[width=.94\textwidth]{figures/motivation_ai.png}
-\caption{Research motivation. Pristine-file evaluation assumes that a protected
-upload reaches customization unchanged. On the agentic Web, ordinary acquisition
-operations intervene first. ScrapeBench turns each operation into an independent,
-paired contract clause with a clean validity gate, so a low score is credited to
-the defense only when the corresponding clean attack still works.}
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[font=\scriptsize,>=Latex,node distance=2mm,
+ box/.style={draw,rounded corners,align=center,minimum height=8mm,fill=blue!5},
+ layer/.style={draw,rounded corners,align=center,minimum width=18mm,minimum height=9mm,fill=orange!10},
+ arr/.style={->,thick}]
+\node[box,minimum width=28mm] (upload) {one clean/protected\\upload pair};
+\node[box,minimum width=25mm,right=7mm of upload] (fork) {independent\\acquisition};
+\draw[arr] (upload)--(fork);
+\node[layer,right=7mm of fork,yshift=18mm] (t0) {T0\\original};
+\node[layer,right=2mm of t0] (t1) {T1\\JPEG Q70};
+\node[layer,right=2mm of t1] (t2) {T2\\360-px raster};
+\node[layer,right=2mm of t2] (t3) {T3\\agent crop};
+\node[layer,right=2mm of t3] (t4) {T4\\SR $\times2$};
+\node[layer,right=2mm of t4] (t5) {T5\\img2img .30};
+\node[layer,right=2mm of t5] (t6) {T6\\reconstruct .35};
+\foreach \x in {t0,t1,t2,t3,t4,t5,t6}{\draw[arr] (fork.east) -- ++(3mm,0) |- (\x.west);}
+\node[box,minimum width=26mm,below=7mm of t3] (reader) {same prompt/seed\\identity reader};
+\node[box,minimum width=27mm,right=5mm of reader] (gate) {clean-validity gate\\paired identity gap};
+\draw[arr] (t3)--(reader); \draw[arr] (reader)--(gate);
+\node[align=center,below=4mm of reader] {Each T row starts from the upload; rows are never composed.};
+\end{tikzpicture}
+}
+\caption{ScrapeBench motivation and acquisition contract. Conventional
+pristine-file evaluation observes only T0. ScrapeBench instead forks the same
+upload into seven independently executed Web interventions, pairs clean and
+protected branches, and ranks a layer only when its clean attack remains
+valid. The labels here are the exact registry used in the experiments.}
 \label{fig:motivation}
 \end{figure*}

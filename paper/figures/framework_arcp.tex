@@ -1,12 +1,28 @@
 \begin{figure*}[t]
 \centering
-\includegraphics[width=.98\textwidth]{figures/framework_ai.png}
-\caption{ScrapeBench and ARCP-Web framework. The evaluation panel assigns each
-of the seven acquisition layers an independently executed Web intervention from
-one common upload, with matched clean and protected branches, two zero-shot
-identity readers, and a validity gate that refuses to rank layers where the
-clean branch itself fails; T4--T6 are reported as gate-invalid stress tests in
-the pilot. The optimizer panel shows ARCP-Web's texture-aware coarse--detail
-perturbation and weakest-clause scheduler under a realized $8/255$ budget.}
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[font=\scriptsize,>=Latex,node distance=5mm,
+ box/.style={draw,rounded corners,align=center,minimum height=10mm,minimum width=25mm},
+ arr/.style={->,thick}]
+\node[box,fill=green!8] (x) {clean gallery $X_s$};
+\node[box,fill=purple!8,right=of x] (param) {texture-aware\\coarse--detail $\delta$};
+\node[box,fill=purple!8,right=of param] (proj) {$8/255$ projection\\$\widetilde X_s=X_s+\delta$};
+\draw[arr] (x)--(param); \draw[arr] (param)--(proj);
+\node[box,fill=orange!10,right=9mm of proj] (eot) {T0--T6 proxies\\uniform + weakest clause};
+\node[box,fill=blue!8,right=of eot] (loss) {identity-reader loss\\+ denoising loss};
+\draw[arr] (proj)--(eot); \draw[arr] (eot)--(loss);
+\draw[arr] (loss.south) -- ++(0,-5mm) -| (param.south);
+\node[box,fill=gray!8,below=13mm of proj,minimum width=38mm] (attack) {InstantID / IP-Adapter-FaceID\\same scenarios and seeds};
+\node[box,fill=gray!8,left=of attack] (clean) {matched clean branch\\$P(\phi_k(X_s))$};
+\node[box,fill=gray!8,right=of attack] (protected) {protected branch\\$P(\phi_k(\widetilde X_s))$};
+\node[box,fill=red!6,right=of protected] (metric) {clean gate + E2E ISM\\FDFR, gap, RR, CI};
+\draw[arr] (clean)--(attack); \draw[arr] (attack)--(protected); \draw[arr] (protected)--(metric);
+\end{tikzpicture}
+}
+\caption{ARCP-Web optimization (top) and paired ScrapeBench evaluation
+(bottom). ARCP-Web is a self-contained clean-to-protected method. Its adaptive
+scheduler alternates coverage of every registered intervention with the
+currently weakest paired clause. Validity is decided separately for each
+reader and layer; no fixed subset of T4--T6 is declared invalid in advance.}
 \label{fig:framework}
 \end{figure*}

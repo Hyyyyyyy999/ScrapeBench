@@ -220,7 +220,8 @@ def forge_arcp(comps, imgs, out_dir=None, eps_max=16.0 / 255.0, eps_min=2.0 / 25
                balanced_web=False, survival_weight=0.10, gap_margin=0.15,
                reader_softplus_beta=0.0, detail_grid=0, detail_weight=0.0,
                dual_t0=False, t0_weight=1.0, reader_multiview=False,
-               arcface_weight=0.0):
+               arcface_weight=0.0, adaptive_weak=True, texture_aware=True,
+               coarse_weight=None, identity_weight=1.0, denoise_weight=1.0):
     device, dtype = comps["device"], comps["dtype"]
     vae, unet, sched = comps["vae"], comps["unet"], comps["scheduler"]
     rng = rng or random.Random(seed)
@@ -234,7 +235,8 @@ def forge_arcp(comps, imgs, out_dir=None, eps_max=16.0 / 255.0, eps_min=2.0 / 25
     scale = 2.0 if pixel_space else 1.0
     eps_max_model = eps_max * scale
     eps_min_model = eps_min * scale
-    amp = _jnd_amp(x01, eps_min_model, eps_max_model)
+    amp = (_jnd_amp(x01, eps_min_model, eps_max_model) if texture_aware else
+           torch.full_like(x01[:, :1], eps_max_model))
     amp_low = F.interpolate(amp, size=(grid, grid), mode="area")
     amp_up = F.interpolate(amp_low, size=(512, 512), mode="bilinear", align_corners=False)
     if random_start:
@@ -255,8 +257,12 @@ def forge_arcp(comps, imgs, out_dir=None, eps_max=16.0 / 255.0, eps_min=2.0 / 25
         if z_detail is None:
             return low * amp_up
         detail = F.interpolate(z_detail, size=(512, 512), mode="bilinear", align_corners=False)
-        # A convex mixture preserves the same per-pixel JND/L_inf envelope.
-        return ((1.0 - detail_weight) * low + detail_weight * detail) * amp_up
+        cw = (1.0 - detail_weight) if coarse_weight is None else float(coarse_weight)
+        # Ablations may zero either branch.  Keeping the sum <= 1 preserves the
+        # same per-pixel JND/L_inf envelope as the complete method.
+        if cw < 0 or detail_weight < 0 or cw + detail_weight > 1.0 + 1e-8:
+            raise ValueError("coarse/detail weights must be non-negative and sum to at most one")
+        return (cw * low + detail_weight * detail) * amp_up
 
     def reader_violation(similarity, clean_similarity):
         violations = [similarity - margin, similarity - clean_similarity.detach() + gap_margin]
@@ -289,7 +295,9 @@ def forge_arcp(comps, imgs, out_dir=None, eps_max=16.0 / 255.0, eps_min=2.0 / 25
             # clean-minus-protected identity gap). Using a paired gap is
             # essential: reconstruction may reduce identity in both branches,
             # so absolute protected similarity would select the wrong layer.
-            if step % 2 == 0:
+            if not adaptive_weak:
+                proxy_idx = step % len(WEB_PROXIES)
+            elif step % 2 == 0:
                 proxy_idx = (step // 2) % len(WEB_PROXIES)
             else:
                 seen = torch.where(~torch.isnan(proxy_gap_ema))[0]
@@ -359,7 +367,8 @@ def forge_arcp(comps, imgs, out_dir=None, eps_max=16.0 / 255.0, eps_min=2.0 / 25
         pred = unet(noisy, t, encoder_hidden_states=emb).sample
         loss_ft = torch.nn.functional.mse_loss(pred.float(), noise.float(), reduction="mean")
         survival = ((xa - clean_a) ** 2).mean() if clean_a is not None else torch.zeros((), device=device)
-        obj = loss_ft - lam * loss_reader + survival_weight * survival
+        obj = (denoise_weight * loss_ft - lam * identity_weight * loss_reader +
+               survival_weight * survival)
         params = [z] + ([z_detail] if z_detail is not None else [])
         grads = torch.autograd.grad(obj, params)
         with torch.no_grad():

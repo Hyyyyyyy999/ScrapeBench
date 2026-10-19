@@ -1,0 +1,621 @@
+attack,method,tier,prompt_id,prompt,n,conditional_ism,e2e_ism,fdfr
+instantid,clean,t0,0,a clean profile portrait of a person for a social media avatar,127,0.5581302660550459,0.47902518897637797,0.1417322834645669
+instantid,clean,t0,1,a casual smartphone selfie of a person,11,0.5813965555555556,0.47568809090909087,0.18181818181818177
+instantid,clean,t0,2,a low-light indoor social photo of a person,11,0.5818315555555555,0.47604399999999997,0.18181818181818177
+instantid,clean,t0,3,an outdoor travel photo of a person with a detailed background,11,0.591176,0.42994618181818184,0.2727272727272727
+instantid,clean,t1_jpeg70,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",139,0.5476450517241379,0.4570275251798561,0.16546762589928055
+instantid,clean,t1_jpeg70,1,a casual smartphone selfie of a person,7,0.5722891666666666,0.4905335714285714,0.1428571428571429
+instantid,clean,t1_jpeg70,2,a low-light indoor social photo of a person,7,0.5932093999999999,0.42372099999999996,0.2857142857142857
+instantid,clean,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,7,0.5753438,0.41095985714285715,0.2857142857142857
+instantid,clean,t2_canvas_dpr1,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",139,0.5679224636363636,0.4494350431654675,0.2086330935251799
+instantid,clean,t2_canvas_dpr1,1,a casual smartphone selfie of a person,7,0.5923588000000001,0.4231134285714286,0.2857142857142857
+instantid,clean,t2_canvas_dpr1,2,a low-light indoor social photo of a person,7,0.573933,0.4099521428571428,0.2857142857142857
+instantid,clean,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,7,0.5705600000000001,0.40754285714285715,0.2857142857142857
+instantid,clean,t3_agent_facecrop,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",139,0.5726855535714286,0.4614444748201439,0.19424460431654678
+instantid,clean,t3_agent_facecrop,1,a casual smartphone selfie of a person,7,0.5761406666666667,0.4938348571428572,0.1428571428571429
+instantid,clean,t3_agent_facecrop,2,a low-light indoor social photo of a person,7,0.5662053333333333,0.4853188571428571,0.1428571428571429
+instantid,clean,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,7,0.5628428333333333,0.4824367142857143,0.1428571428571429
+instantid,clean,t4_sr_x2,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",139,0.17283976470588233,0.06341602877697841,0.6330935251798562
+instantid,clean,t4_sr_x2,1,a casual smartphone selfie of a person,7,0.0975225,0.08359071428571428,0.1428571428571429
+instantid,clean,t4_sr_x2,2,a low-light indoor social photo of a person,7,nan,0.0,1.0
+instantid,clean,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,7,nan,0.0,1.0
+instantid,clean,t5_i2i30,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",142,0.3186375,0.20644119718309858,0.352112676056338
+instantid,clean,t5_i2i30,1,a casual smartphone selfie of a person,6,0.279547,0.23295583333333333,0.16666666666666663
+instantid,clean,t5_i2i30,2,a low-light indoor social photo of a person,6,0.3111296,0.25927466666666665,0.16666666666666663
+instantid,clean,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,6,0.2893485,0.19289900000000001,0.33333333333333337
+instantid,clean,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,40,0.315824,0.0078956,0.975
+instantid,clean,t6_sde35,1,a casual smartphone selfie of a person,40,0.3096089714285714,0.27090785,0.125
+instantid,clean,t6_sde35,2,a low-light indoor social photo of a person,40,0.31705663888888885,0.28535097499999995,0.09999999999999998
+instantid,clean,t6_sde35,3,an outdoor travel photo of a person with a detailed background,40,0.3064225,0.260459125,0.15000000000000002
+instantid,clean,t6_sde50,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",142,0.1758359880952381,0.10401565492957746,0.4084507042253521
+instantid,clean,t6_sde50,1,a casual smartphone selfie of a person,6,0.22501383333333333,0.22501383333333333,0.0
+instantid,clean,t6_sde50,2,a low-light indoor social photo of a person,6,0.15495940000000002,0.12913283333333334,0.16666666666666663
+instantid,clean,t6_sde50,3,an outdoor travel photo of a person with a detailed background,6,0.221621,0.18468416666666668,0.16666666666666663
+instantid,gapdiff,t0,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.5523737938931297,0.45225604374999995,0.18125000000000002
+instantid,gapdiff,t1_jpeg70,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.5584535590551182,0.4432725125,0.20625000000000004
+instantid,gapdiff,t2_canvas_dpr1,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.5511081451612904,0.42710881250000005,0.22499999999999998
+instantid,gapdiff,t3_agent_facecrop,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.5560094615384615,0.45175768749999995,0.1875
+instantid,gapdiff,t4_sr_x2,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.18207044642857145,0.06372465625000001,0.65
+instantid,gapdiff,t5_i2i30,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.2670927625,0.13354638125,0.5
+instantid,gapdiff,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,40,0.299268,0.014963399999999998,0.95
+instantid,gapdiff,t6_sde35,1,a casual smartphone selfie of a person,40,0.23713911764705883,0.20156825,0.15000000000000002
+instantid,gapdiff,t6_sde35,2,a low-light indoor social photo of a person,40,0.2480535945945946,0.22944957500000002,0.07499999999999996
+instantid,gapdiff,t6_sde35,3,an outdoor travel photo of a person with a detailed background,40,0.24727348484848488,0.20400062500000002,0.17500000000000004
+instantid,gapdiff,t6_sde50,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.13220861904761905,0.069409525,0.475
+instantid,idprotector,t0,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.14882025396825393,0.05859797499999999,0.60625
+instantid,idprotector,t1_jpeg70,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.16456040983606554,0.06273865625,0.61875
+instantid,idprotector,t2_canvas_dpr1,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.15068611290322578,0.05839086874999999,0.6125
+instantid,idprotector,t3_agent_facecrop,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.15460113114754098,0.05894168125,0.61875
+instantid,idprotector,t4_sr_x2,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.13153659374999999,0.026307318749999996,0.8
+instantid,idprotector,t5_i2i30,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.21231923076923073,0.06900374999999999,0.675
+instantid,idprotector,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,40,0.347128,0.0086782,0.975
+instantid,idprotector,t6_sde35,1,a casual smartphone selfie of a person,40,0.20560842857142858,0.1439259,0.30000000000000004
+instantid,idprotector,t6_sde35,2,a low-light indoor social photo of a person,40,0.21000079166666666,0.126000475,0.4
+instantid,idprotector,t6_sde35,3,an outdoor travel photo of a person with a detailed background,40,0.19943433333333332,0.134618175,0.32499999999999996
+instantid,idprotector,t6_sde50,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.12314921666666669,0.04618095625,0.625
+instantid,gapdiff_8,t0,0,a clean front-facing portrait of a person for a social media avatar,40,0.47276,0.070914,0.85
+instantid,gapdiff_8,t0,1,a casual smartphone selfie of a person,40,0.5604024324324325,0.51837225,0.07499999999999996
+instantid,gapdiff_8,t0,2,a low-light indoor social photo of a person,40,0.542264027027027,0.5015942250000001,0.07499999999999996
+instantid,gapdiff_8,t0,3,an outdoor travel photo of a person with a detailed background,40,0.5529085142857143,0.48379494999999995,0.125
+instantid,gapdiff_8,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,40,0.47151449999999995,0.04715145,0.9
+instantid,gapdiff_8,t1_jpeg70,1,a casual smartphone selfie of a person,40,0.5485791315789473,0.521150175,0.050000000000000044
+instantid,gapdiff_8,t1_jpeg70,2,a low-light indoor social photo of a person,40,0.5489358333333334,0.49404225,0.09999999999999998
+instantid,gapdiff_8,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,40,0.5536432777777778,0.49827895,0.09999999999999998
+instantid,gapdiff_8,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,40,0.4646091666666667,0.069691375,0.85
+instantid,gapdiff_8,t2_canvas_dpr1,1,a casual smartphone selfie of a person,40,0.5649575428571428,0.49433784999999997,0.125
+instantid,gapdiff_8,t2_canvas_dpr1,2,a low-light indoor social photo of a person,40,0.5484144411764705,0.46615227499999995,0.15000000000000002
+instantid,gapdiff_8,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,40,0.5686420606060606,0.4691297,0.17500000000000004
+instantid,gapdiff_8,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,40,0.47233962500000004,0.09446792500000001,0.8
+instantid,gapdiff_8,t3_agent_facecrop,1,a casual smartphone selfie of a person,40,0.5520169210526316,0.524416075,0.050000000000000044
+instantid,gapdiff_8,t3_agent_facecrop,2,a low-light indoor social photo of a person,40,0.5464192972972973,0.5054378500000001,0.07499999999999996
+instantid,gapdiff_8,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,40,0.5361925897435896,0.522787775,0.025000000000000022
+instantid,gapdiff_8,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,40,nan,0.0,1.0
+instantid,gapdiff_8,t4_sr_x2,1,a casual smartphone selfie of a person,40,0.06381032352941175,0.054238774999999996,0.15000000000000002
+instantid,gapdiff_8,t4_sr_x2,2,a low-light indoor social photo of a person,40,nan,0.0,1.0
+instantid,gapdiff_8,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,40,0.238236,0.0059559,0.975
+instantid,gapdiff_8,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,40,0.2775975,0.013879875,0.95
+instantid,gapdiff_8,t5_i2i30,1,a casual smartphone selfie of a person,40,0.2958040625,0.23664325000000003,0.19999999999999996
+instantid,gapdiff_8,t5_i2i30,2,a low-light indoor social photo of a person,40,0.2880430333333333,0.21603227499999997,0.25
+instantid,gapdiff_8,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,40,0.2888152666666667,0.21661144999999998,0.25
+instantid,gapdiff_8,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,40,0.253153,0.018986475,0.925
+instantid,gapdiff_8,t6_sde35,1,a casual smartphone selfie of a person,40,0.2504734571428571,0.21916427499999996,0.125
+instantid,gapdiff_8,t6_sde35,2,a low-light indoor social photo of a person,40,0.2570538571428571,0.22492212499999997,0.125
+instantid,gapdiff_8,t6_sde35,3,an outdoor travel photo of a person with a detailed background,40,0.24380265625,0.195042125,0.19999999999999996
+instantid,idprotector_8,t0,0,a clean front-facing portrait of a person for a social media avatar,40,0.3660005,0.018300025,0.95
+instantid,idprotector_8,t0,1,a casual smartphone selfie of a person,40,0.15859166666666663,0.10704937499999997,0.32499999999999996
+instantid,idprotector_8,t0,2,a low-light indoor social photo of a person,40,0.19505733333333333,0.11703440000000001,0.4
+instantid,idprotector_8,t0,3,an outdoor travel photo of a person with a detailed background,40,0.16201496153846154,0.10530972499999999,0.35
+instantid,idprotector_8,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,40,0.3538696666666667,0.026540225,0.925
+instantid,idprotector_8,t1_jpeg70,1,a casual smartphone selfie of a person,40,0.17700206896551726,0.1283265,0.275
+instantid,idprotector_8,t1_jpeg70,2,a low-light indoor social photo of a person,40,0.21015584,0.1313474,0.375
+instantid,idprotector_8,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,40,0.16951373076923074,0.11018392499999999,0.35
+instantid,idprotector_8,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,40,0.3301255,0.016506275,0.95
+instantid,idprotector_8,t2_canvas_dpr1,1,a casual smartphone selfie of a person,40,0.1802763181818182,0.099151975,0.44999999999999996
+instantid,idprotector_8,t2_canvas_dpr1,2,a low-light indoor social photo of a person,40,0.19660570833333332,0.11796342499999998,0.4
+instantid,idprotector_8,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,40,0.17435266666666668,0.1046116,0.4
+instantid,idprotector_8,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,40,0.22362200000000002,0.022362200000000002,0.9
+instantid,idprotector_8,t3_agent_facecrop,1,a casual smartphone selfie of a person,40,0.1795729375,0.14365835,0.19999999999999996
+instantid,idprotector_8,t3_agent_facecrop,2,a low-light indoor social photo of a person,40,0.18721057142857142,0.13104739999999998,0.30000000000000004
+instantid,idprotector_8,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,40,0.17338826923076922,0.112702375,0.35
+instantid,idprotector_8,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,40,nan,0.0,1.0
+instantid,idprotector_8,t4_sr_x2,1,a casual smartphone selfie of a person,40,0.03906920689655173,0.028325175,0.275
+instantid,idprotector_8,t4_sr_x2,2,a low-light indoor social photo of a person,40,-0.011366,-0.00028415,0.975
+instantid,idprotector_8,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,40,0.051367,0.001284175,0.975
+instantid,idprotector_8,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,40,0.3484,0.008709999999999999,0.975
+instantid,idprotector_8,t5_i2i30,1,a casual smartphone selfie of a person,40,0.21844610344827586,0.158373425,0.275
+instantid,idprotector_8,t5_i2i30,2,a low-light indoor social photo of a person,40,0.22915915384615385,0.14895345,0.35
+instantid,idprotector_8,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,40,0.22202362500000003,0.13321417500000002,0.4
+instantid,idprotector_8,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,40,0.355715,0.008892875,0.975
+instantid,idprotector_8,t6_sde35,1,a casual smartphone selfie of a person,40,0.22919564516129032,0.17762662499999998,0.22499999999999998
+instantid,idprotector_8,t6_sde35,2,a low-light indoor social photo of a person,40,0.22030532142857143,0.154213725,0.30000000000000004
+instantid,idprotector_8,t6_sde35,3,an outdoor travel photo of a person with a detailed background,40,0.20937692,0.13086057499999998,0.375
+instantid,arcp_web_v4,t0,0,a clean front-facing portrait of a person for a social media avatar,40,0.19482283333333336,0.029223425000000004,0.85
+instantid,arcp_web_v4,t0,1,a casual smartphone selfie of a person,40,0.2368952162162162,0.21912807499999998,0.07499999999999996
+instantid,arcp_web_v4,t0,2,a low-light indoor social photo of a person,40,0.251669,0.23908554999999998,0.050000000000000044
+instantid,arcp_web_v4,t0,3,an outdoor travel photo of a person with a detailed background,40,0.23657265714285716,0.20700107500000003,0.125
+instantid,arcp_web_v4,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,40,0.2401014,0.030012675,0.875
+instantid,arcp_web_v4,t1_jpeg70,1,a casual smartphone selfie of a person,40,0.25968355555555556,0.2337152,0.09999999999999998
+instantid,arcp_web_v4,t1_jpeg70,2,a low-light indoor social photo of a person,40,0.2774057027027027,0.256600275,0.07499999999999996
+instantid,arcp_web_v4,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,40,0.26547202941176473,0.225651225,0.15000000000000002
+instantid,arcp_web_v4,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,40,0.2056842,0.025710525,0.875
+instantid,arcp_web_v4,t2_canvas_dpr1,1,a casual smartphone selfie of a person,40,0.24058602702702703,0.222542075,0.07499999999999996
+instantid,arcp_web_v4,t2_canvas_dpr1,2,a low-light indoor social photo of a person,40,0.26333402857142857,0.23041727500000003,0.125
+instantid,arcp_web_v4,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,40,0.2514755151515151,0.20746729999999997,0.17500000000000004
+instantid,arcp_web_v4,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,40,0.2806595714285714,0.049115425,0.825
+instantid,arcp_web_v4,t3_agent_facecrop,1,a casual smartphone selfie of a person,40,0.28484186842105264,0.270599775,0.050000000000000044
+instantid,arcp_web_v4,t3_agent_facecrop,2,a low-light indoor social photo of a person,40,0.28906023076923076,0.281833725,0.025000000000000022
+instantid,arcp_web_v4,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,40,0.2593954871794872,0.2529106,0.025000000000000022
+instantid,arcp_web_v4,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,40,nan,0.0,1.0
+instantid,arcp_web_v4,t4_sr_x2,1,a casual smartphone selfie of a person,40,0.0596226,0.052169774999999995,0.125
+instantid,arcp_web_v4,t4_sr_x2,2,a low-light indoor social photo of a person,40,nan,0.0,1.0
+instantid,arcp_web_v4,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,40,nan,0.0,1.0
+instantid,arcp_web_v4,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,40,0.285732,0.0071433,0.975
+instantid,arcp_web_v4,t5_i2i30,1,a casual smartphone selfie of a person,40,0.2545327272727273,0.2099895,0.17500000000000004
+instantid,arcp_web_v4,t5_i2i30,2,a low-light indoor social photo of a person,40,0.24883720588235292,0.21151162499999998,0.15000000000000002
+instantid,arcp_web_v4,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,40,0.23659436666666667,0.177445775,0.25
+instantid,arcp_web_v4,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,40,0.285266,0.007131650000000001,0.975
+instantid,arcp_web_v4,t6_sde35,1,a casual smartphone selfie of a person,40,0.2538100967741936,0.19670282500000003,0.22499999999999998
+instantid,arcp_web_v4,t6_sde35,2,a low-light indoor social photo of a person,40,0.24748865625000002,0.197990925,0.19999999999999996
+instantid,arcp_web_v4,t6_sde35,3,an outdoor travel photo of a person with a detailed background,40,0.2289467741935484,0.17743375,0.22499999999999998
+instantid,arcp_web_v4,t6_sde50,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4,t6_sde50,1,a casual smartphone selfie of a person,4,0.06292924999999999,0.06292924999999999,0.0
+instantid,arcp_web_v4,t6_sde50,2,a low-light indoor social photo of a person,4,0.09485475000000002,0.09485475000000002,0.0
+instantid,arcp_web_v4,t6_sde50,3,an outdoor travel photo of a person with a detailed background,4,0.06934975,0.06934975,0.0
+instantid,arcp_web_v4_uniform,t0,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_uniform,t0,1,a casual smartphone selfie of a person,4,0.21270300000000003,0.21270300000000003,0.0
+instantid,arcp_web_v4_uniform,t0,2,a low-light indoor social photo of a person,4,0.23306933333333335,0.174802,0.25
+instantid,arcp_web_v4_uniform,t0,3,an outdoor travel photo of a person with a detailed background,4,0.21197325,0.21197325,0.0
+instantid,arcp_web_v4_uniform,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,4,0.044829,0.01120725,0.75
+instantid,arcp_web_v4_uniform,t1_jpeg70,1,a casual smartphone selfie of a person,4,0.1685845,0.1685845,0.0
+instantid,arcp_web_v4_uniform,t1_jpeg70,2,a low-light indoor social photo of a person,4,0.22364799999999999,0.167736,0.25
+instantid,arcp_web_v4_uniform,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,4,0.195052,0.195052,0.0
+instantid,arcp_web_v4_uniform,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_uniform,t2_canvas_dpr1,1,a casual smartphone selfie of a person,4,0.14744200000000002,0.14744200000000002,0.0
+instantid,arcp_web_v4_uniform,t2_canvas_dpr1,2,a low-light indoor social photo of a person,4,0.24958166666666667,0.18718625,0.25
+instantid,arcp_web_v4_uniform,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,4,0.18820075,0.18820075,0.0
+instantid,arcp_web_v4_uniform,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_uniform,t3_agent_facecrop,1,a casual smartphone selfie of a person,4,0.260578,0.260578,0.0
+instantid,arcp_web_v4_uniform,t3_agent_facecrop,2,a low-light indoor social photo of a person,4,0.36593366666666666,0.27445025,0.25
+instantid,arcp_web_v4_uniform,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,4,0.30071074999999997,0.30071074999999997,0.0
+instantid,arcp_web_v4_uniform,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_uniform,t4_sr_x2,1,a casual smartphone selfie of a person,4,0.13818375,0.13818375,0.0
+instantid,arcp_web_v4_uniform,t4_sr_x2,2,a low-light indoor social photo of a person,4,nan,0.0,1.0
+instantid,arcp_web_v4_uniform,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,4,nan,0.0,1.0
+instantid,arcp_web_v4_uniform,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_uniform,t5_i2i30,1,a casual smartphone selfie of a person,4,0.24488999999999997,0.18366749999999998,0.25
+instantid,arcp_web_v4_uniform,t5_i2i30,2,a low-light indoor social photo of a person,4,0.22555324999999998,0.22555324999999998,0.0
+instantid,arcp_web_v4_uniform,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,4,0.18111175000000002,0.18111175000000002,0.0
+instantid,arcp_web_v4_uniform,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_uniform,t6_sde35,1,a casual smartphone selfie of a person,4,0.20042624999999997,0.20042624999999997,0.0
+instantid,arcp_web_v4_uniform,t6_sde35,2,a low-light indoor social photo of a person,4,0.2407805,0.2407805,0.0
+instantid,arcp_web_v4_uniform,t6_sde35,3,an outdoor travel photo of a person with a detailed background,4,0.22092766666666672,0.16569575000000003,0.25
+instantid,arcp_web_v4_no_texture,t0,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_texture,t0,1,a casual smartphone selfie of a person,4,0.0309125,0.0309125,0.0
+instantid,arcp_web_v4_no_texture,t0,2,a low-light indoor social photo of a person,4,0.0035692500000000047,0.0035692500000000047,0.0
+instantid,arcp_web_v4_no_texture,t0,3,an outdoor travel photo of a person with a detailed background,4,0.03702725,0.03702725,0.0
+instantid,arcp_web_v4_no_texture,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_texture,t1_jpeg70,1,a casual smartphone selfie of a person,4,-0.0156525,-0.0156525,0.0
+instantid,arcp_web_v4_no_texture,t1_jpeg70,2,a low-light indoor social photo of a person,4,0.088009,0.0440045,0.5
+instantid,arcp_web_v4_no_texture,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,4,-0.01909975,-0.01909975,0.0
+instantid,arcp_web_v4_no_texture,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_texture,t2_canvas_dpr1,1,a casual smartphone selfie of a person,4,-0.0019295000000000048,-0.0019295000000000048,0.0
+instantid,arcp_web_v4_no_texture,t2_canvas_dpr1,2,a low-light indoor social photo of a person,4,0.04882974999999999,0.04882974999999999,0.0
+instantid,arcp_web_v4_no_texture,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,4,0.016328250000000002,0.016328250000000002,0.0
+instantid,arcp_web_v4_no_texture,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_texture,t3_agent_facecrop,1,a casual smartphone selfie of a person,4,0.0778875,0.0778875,0.0
+instantid,arcp_web_v4_no_texture,t3_agent_facecrop,2,a low-light indoor social photo of a person,4,0.13331866666666667,0.099989,0.25
+instantid,arcp_web_v4_no_texture,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,4,0.07954775,0.07954775,0.0
+instantid,arcp_web_v4_no_texture,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_texture,t4_sr_x2,1,a casual smartphone selfie of a person,4,0.11236674999999999,0.11236674999999999,0.0
+instantid,arcp_web_v4_no_texture,t4_sr_x2,2,a low-light indoor social photo of a person,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_texture,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_texture,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_texture,t5_i2i30,1,a casual smartphone selfie of a person,4,0.1243895,0.06219475,0.5
+instantid,arcp_web_v4_no_texture,t5_i2i30,2,a low-light indoor social photo of a person,4,0.14298566666666668,0.10723925000000001,0.25
+instantid,arcp_web_v4_no_texture,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,4,0.18330333333333335,0.1374775,0.25
+instantid,arcp_web_v4_no_texture,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_texture,t6_sde35,1,a casual smartphone selfie of a person,4,0.1193705,0.05968525,0.5
+instantid,arcp_web_v4_no_texture,t6_sde35,2,a low-light indoor social photo of a person,4,0.11004766666666667,0.08253575,0.25
+instantid,arcp_web_v4_no_texture,t6_sde35,3,an outdoor travel photo of a person with a detailed background,4,0.151427,0.11357025,0.25
+instantid,arcp_web_v4_no_coarse,t0,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_coarse,t0,1,a casual smartphone selfie of a person,4,0.11156825000000001,0.11156825000000001,0.0
+instantid,arcp_web_v4_no_coarse,t0,2,a low-light indoor social photo of a person,4,0.23160966666666663,0.17370724999999998,0.25
+instantid,arcp_web_v4_no_coarse,t0,3,an outdoor travel photo of a person with a detailed background,4,0.11111475000000001,0.11111475000000001,0.0
+instantid,arcp_web_v4_no_coarse,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_coarse,t1_jpeg70,1,a casual smartphone selfie of a person,4,0.185905,0.13942875,0.25
+instantid,arcp_web_v4_no_coarse,t1_jpeg70,2,a low-light indoor social photo of a person,4,0.185425,0.0927125,0.5
+instantid,arcp_web_v4_no_coarse,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,4,0.17969075,0.17969075,0.0
+instantid,arcp_web_v4_no_coarse,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_coarse,t2_canvas_dpr1,1,a casual smartphone selfie of a person,4,0.17252766666666666,0.12939575,0.25
+instantid,arcp_web_v4_no_coarse,t2_canvas_dpr1,2,a low-light indoor social photo of a person,4,0.1705745,0.08528725,0.5
+instantid,arcp_web_v4_no_coarse,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,4,0.15926400000000002,0.15926400000000002,0.0
+instantid,arcp_web_v4_no_coarse,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_coarse,t3_agent_facecrop,1,a casual smartphone selfie of a person,4,0.256633,0.256633,0.0
+instantid,arcp_web_v4_no_coarse,t3_agent_facecrop,2,a low-light indoor social photo of a person,4,0.37248366666666666,0.27936275,0.25
+instantid,arcp_web_v4_no_coarse,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,4,0.26351625,0.26351625,0.0
+instantid,arcp_web_v4_no_coarse,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_coarse,t4_sr_x2,1,a casual smartphone selfie of a person,4,0.15612,0.11709,0.25
+instantid,arcp_web_v4_no_coarse,t4_sr_x2,2,a low-light indoor social photo of a person,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_coarse,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_coarse,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_coarse,t5_i2i30,1,a casual smartphone selfie of a person,4,0.14503266666666667,0.1087745,0.25
+instantid,arcp_web_v4_no_coarse,t5_i2i30,2,a low-light indoor social photo of a person,4,0.12677825,0.12677825,0.0
+instantid,arcp_web_v4_no_coarse,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,4,0.155718,0.1167885,0.25
+instantid,arcp_web_v4_no_coarse,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_coarse,t6_sde35,1,a casual smartphone selfie of a person,4,0.14116525000000002,0.14116525000000002,0.0
+instantid,arcp_web_v4_no_coarse,t6_sde35,2,a low-light indoor social photo of a person,4,0.14227475,0.14227475,0.0
+instantid,arcp_web_v4_no_coarse,t6_sde35,3,an outdoor travel photo of a person with a detailed background,4,0.158279,0.0791395,0.5
+instantid,arcp_web_v4_no_detail,t0,0,a clean front-facing portrait of a person for a social media avatar,4,-0.031174,-0.0077935,0.75
+instantid,arcp_web_v4_no_detail,t0,1,a casual smartphone selfie of a person,4,0.15935666666666667,0.1195175,0.25
+instantid,arcp_web_v4_no_detail,t0,2,a low-light indoor social photo of a person,4,0.16566666666666666,0.12425,0.25
+instantid,arcp_web_v4_no_detail,t0,3,an outdoor travel photo of a person with a detailed background,4,0.121664,0.121664,0.0
+instantid,arcp_web_v4_no_detail,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_detail,t1_jpeg70,1,a casual smartphone selfie of a person,4,0.12718775,0.12718775,0.0
+instantid,arcp_web_v4_no_detail,t1_jpeg70,2,a low-light indoor social photo of a person,4,0.19509766666666664,0.14632325,0.25
+instantid,arcp_web_v4_no_detail,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,4,0.13220874999999999,0.13220874999999999,0.0
+instantid,arcp_web_v4_no_detail,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,4,-0.037599,-0.00939975,0.75
+instantid,arcp_web_v4_no_detail,t2_canvas_dpr1,1,a casual smartphone selfie of a person,4,0.14877533333333334,0.1115815,0.25
+instantid,arcp_web_v4_no_detail,t2_canvas_dpr1,2,a low-light indoor social photo of a person,4,0.18519233333333332,0.13889425,0.25
+instantid,arcp_web_v4_no_detail,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,4,0.13159325,0.13159325,0.0
+instantid,arcp_web_v4_no_detail,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_detail,t3_agent_facecrop,1,a casual smartphone selfie of a person,4,0.24315866666666666,0.182369,0.25
+instantid,arcp_web_v4_no_detail,t3_agent_facecrop,2,a low-light indoor social photo of a person,4,0.21862266666666663,0.16396699999999997,0.25
+instantid,arcp_web_v4_no_detail,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,4,0.146919,0.11018924999999999,0.25
+instantid,arcp_web_v4_no_detail,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_detail,t4_sr_x2,1,a casual smartphone selfie of a person,4,0.1382015,0.1382015,0.0
+instantid,arcp_web_v4_no_detail,t4_sr_x2,2,a low-light indoor social photo of a person,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_detail,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_detail,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_detail,t5_i2i30,1,a casual smartphone selfie of a person,4,0.2066145,0.10330725,0.5
+instantid,arcp_web_v4_no_detail,t5_i2i30,2,a low-light indoor social photo of a person,4,0.21467,0.1610025,0.25
+instantid,arcp_web_v4_no_detail,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,4,0.2256185,0.11280925,0.5
+instantid,arcp_web_v4_no_detail,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_detail,t6_sde35,1,a casual smartphone selfie of a person,4,0.17901833333333336,0.13426375000000002,0.25
+instantid,arcp_web_v4_no_detail,t6_sde35,2,a low-light indoor social photo of a person,4,0.21114033333333335,0.15835525,0.25
+instantid,arcp_web_v4_no_detail,t6_sde35,3,an outdoor travel photo of a person with a detailed background,4,0.231633,0.1158165,0.5
+instantid,arcp_web_v4_no_identity,t0,0,a clean front-facing portrait of a person for a social media avatar,4,0.638581,0.15964525,0.75
+instantid,arcp_web_v4_no_identity,t0,1,a casual smartphone selfie of a person,4,0.5350066666666667,0.40125500000000003,0.25
+instantid,arcp_web_v4_no_identity,t0,2,a low-light indoor social photo of a person,4,0.4729729999999999,0.35472974999999995,0.25
+instantid,arcp_web_v4_no_identity,t0,3,an outdoor travel photo of a person with a detailed background,4,0.4635613333333333,0.347671,0.25
+instantid,arcp_web_v4_no_identity,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_identity,t1_jpeg70,1,a casual smartphone selfie of a person,4,0.5069516666666667,0.38021375,0.25
+instantid,arcp_web_v4_no_identity,t1_jpeg70,2,a low-light indoor social photo of a person,4,0.474064,0.355548,0.25
+instantid,arcp_web_v4_no_identity,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,4,0.4934633333333333,0.37009749999999997,0.25
+instantid,arcp_web_v4_no_identity,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_identity,t2_canvas_dpr1,1,a casual smartphone selfie of a person,4,0.43553066666666673,0.32664800000000005,0.25
+instantid,arcp_web_v4_no_identity,t2_canvas_dpr1,2,a low-light indoor social photo of a person,4,0.40389433333333336,0.30292075,0.25
+instantid,arcp_web_v4_no_identity,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,4,0.4146066666666666,0.310955,0.25
+instantid,arcp_web_v4_no_identity,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,4,0.528878,0.1322195,0.75
+instantid,arcp_web_v4_no_identity,t3_agent_facecrop,1,a casual smartphone selfie of a person,4,0.5009523333333333,0.37571425,0.25
+instantid,arcp_web_v4_no_identity,t3_agent_facecrop,2,a low-light indoor social photo of a person,4,0.524026,0.262013,0.5
+instantid,arcp_web_v4_no_identity,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,4,0.48470433333333335,0.36352825,0.25
+instantid,arcp_web_v4_no_identity,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_identity,t4_sr_x2,1,a casual smartphone selfie of a person,4,0.11097433333333333,0.08323074999999999,0.25
+instantid,arcp_web_v4_no_identity,t4_sr_x2,2,a low-light indoor social photo of a person,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_identity,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_identity,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_identity,t5_i2i30,1,a casual smartphone selfie of a person,4,0.25202425,0.25202425,0.0
+instantid,arcp_web_v4_no_identity,t5_i2i30,2,a low-light indoor social photo of a person,4,0.238966,0.1792245,0.25
+instantid,arcp_web_v4_no_identity,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_identity,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_identity,t6_sde35,1,a casual smartphone selfie of a person,4,0.22714199999999998,0.1703565,0.25
+instantid,arcp_web_v4_no_identity,t6_sde35,2,a low-light indoor social photo of a person,4,0.124137,0.0620685,0.5
+instantid,arcp_web_v4_no_identity,t6_sde35,3,an outdoor travel photo of a person with a detailed background,4,0.3299335,0.16496675,0.5
+instantid,arcp_web_v4_no_denoise,t0,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_denoise,t0,1,a casual smartphone selfie of a person,4,0.114708,0.114708,0.0
+instantid,arcp_web_v4_no_denoise,t0,2,a low-light indoor social photo of a person,4,0.19582,0.146865,0.25
+instantid,arcp_web_v4_no_denoise,t0,3,an outdoor travel photo of a person with a detailed background,4,0.15110800000000002,0.15110800000000002,0.0
+instantid,arcp_web_v4_no_denoise,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_denoise,t1_jpeg70,1,a casual smartphone selfie of a person,4,0.16911900000000002,0.16911900000000002,0.0
+instantid,arcp_web_v4_no_denoise,t1_jpeg70,2,a low-light indoor social photo of a person,4,0.27071466666666666,0.203036,0.25
+instantid,arcp_web_v4_no_denoise,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,4,0.16179500000000002,0.16179500000000002,0.0
+instantid,arcp_web_v4_no_denoise,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,4,0.002458,0.0006145,0.75
+instantid,arcp_web_v4_no_denoise,t2_canvas_dpr1,1,a casual smartphone selfie of a person,4,0.17884066666666668,0.1341305,0.25
+instantid,arcp_web_v4_no_denoise,t2_canvas_dpr1,2,a low-light indoor social photo of a person,4,0.232465,0.17434875,0.25
+instantid,arcp_web_v4_no_denoise,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,4,0.18497675000000002,0.18497675000000002,0.0
+instantid,arcp_web_v4_no_denoise,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_denoise,t3_agent_facecrop,1,a casual smartphone selfie of a person,4,0.17131799999999997,0.17131799999999997,0.0
+instantid,arcp_web_v4_no_denoise,t3_agent_facecrop,2,a low-light indoor social photo of a person,4,0.2314433333333333,0.17358249999999997,0.25
+instantid,arcp_web_v4_no_denoise,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,4,0.17734066666666667,0.1330055,0.25
+instantid,arcp_web_v4_no_denoise,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_denoise,t4_sr_x2,1,a casual smartphone selfie of a person,4,0.132922,0.132922,0.0
+instantid,arcp_web_v4_no_denoise,t4_sr_x2,2,a low-light indoor social photo of a person,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_denoise,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_denoise,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_denoise,t5_i2i30,1,a casual smartphone selfie of a person,4,0.201798,0.1513485,0.25
+instantid,arcp_web_v4_no_denoise,t5_i2i30,2,a low-light indoor social photo of a person,4,0.167709,0.167709,0.0
+instantid,arcp_web_v4_no_denoise,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,4,0.250919,0.1254595,0.5
+instantid,arcp_web_v4_no_denoise,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+instantid,arcp_web_v4_no_denoise,t6_sde35,1,a casual smartphone selfie of a person,4,0.15798325,0.15798325,0.0
+instantid,arcp_web_v4_no_denoise,t6_sde35,2,a low-light indoor social photo of a person,4,0.143006,0.143006,0.0
+instantid,arcp_web_v4_no_denoise,t6_sde35,3,an outdoor travel photo of a person with a detailed background,4,0.2018095,0.10090475,0.5
+ipfaceid,clean,t0,0,a clean profile portrait of a person for a social media avatar,136,0.5006891038961039,0.28347838970588235,0.4338235294117647
+ipfaceid,clean,t0,1,a casual smartphone selfie of a person,8,0.482043625,0.482043625,0.0
+ipfaceid,clean,t0,2,a low-light indoor social photo of a person,8,0.473358,0.473358,0.0
+ipfaceid,clean,t0,3,an outdoor travel photo of a person with a detailed background,8,0.52312675,0.52312675,0.0
+ipfaceid,clean,t1_jpeg70,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",148,0.5117961728395062,0.2801046621621621,0.45270270270270274
+ipfaceid,clean,t1_jpeg70,1,a casual smartphone selfie of a person,4,0.44560724999999995,0.44560724999999995,0.0
+ipfaceid,clean,t1_jpeg70,2,a low-light indoor social photo of a person,4,0.389663,0.389663,0.0
+ipfaceid,clean,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,4,0.5030565,0.5030565,0.0
+ipfaceid,clean,t2_canvas_dpr1,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",148,0.5185273209876543,0.2837886013513513,0.45270270270270274
+ipfaceid,clean,t2_canvas_dpr1,1,a casual smartphone selfie of a person,4,0.45049925,0.45049925,0.0
+ipfaceid,clean,t2_canvas_dpr1,2,a low-light indoor social photo of a person,4,0.39622225,0.39622225,0.0
+ipfaceid,clean,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,4,0.47526525000000003,0.47526525000000003,0.0
+ipfaceid,clean,t3_agent_facecrop,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",148,0.5083877468354431,0.27136913513513516,0.46621621621621623
+ipfaceid,clean,t3_agent_facecrop,1,a casual smartphone selfie of a person,4,0.45928349999999996,0.45928349999999996,0.0
+ipfaceid,clean,t3_agent_facecrop,2,a low-light indoor social photo of a person,4,0.428151,0.428151,0.0
+ipfaceid,clean,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,4,0.489305,0.489305,0.0
+ipfaceid,clean,t4_sr_x2,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",148,0.5054658651685393,0.3039625810810811,0.3986486486486487
+ipfaceid,clean,t4_sr_x2,1,a casual smartphone selfie of a person,4,0.46342975,0.46342975,0.0
+ipfaceid,clean,t4_sr_x2,2,a low-light indoor social photo of a person,4,0.44986175,0.44986175,0.0
+ipfaceid,clean,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,4,0.46586825000000004,0.46586825000000004,0.0
+ipfaceid,clean,t5_i2i30,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",148,0.3150719113924051,0.16818027702702704,0.46621621621621623
+ipfaceid,clean,t5_i2i30,1,a casual smartphone selfie of a person,4,0.29065825,0.29065825,0.0
+ipfaceid,clean,t5_i2i30,2,a low-light indoor social photo of a person,4,0.36455049999999994,0.36455049999999994,0.0
+ipfaceid,clean,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,4,0.345246,0.345246,0.0
+ipfaceid,clean,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,40,0.24645555,0.123227775,0.5
+ipfaceid,clean,t6_sde35,1,a casual smartphone selfie of a person,40,0.24014835897435896,0.23414465,0.025000000000000022
+ipfaceid,clean,t6_sde35,2,a low-light indoor social photo of a person,40,0.2633396,0.2633396,0.0
+ipfaceid,clean,t6_sde35,3,an outdoor travel photo of a person with a detailed background,40,0.2971489,0.2971489,0.0
+ipfaceid,clean,t6_sde50,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",148,0.19689162962962964,0.10775825675675677,0.45270270270270274
+ipfaceid,clean,t6_sde50,1,a casual smartphone selfie of a person,4,0.1609425,0.1609425,0.0
+ipfaceid,clean,t6_sde50,2,a low-light indoor social photo of a person,4,0.2413545,0.2413545,0.0
+ipfaceid,clean,t6_sde50,3,an outdoor travel photo of a person with a detailed background,4,0.2351765,0.2351765,0.0
+ipfaceid,gapdiff,t0,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.49659165476190475,0.26071061875,0.475
+ipfaceid,gapdiff,t1_jpeg70,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.49859362352941183,0.2648778625,0.46875
+ipfaceid,gapdiff,t2_canvas_dpr1,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.4869177142857143,0.2556318,0.475
+ipfaceid,gapdiff,t3_agent_facecrop,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.4924663764705882,0.2616227625,0.46875
+ipfaceid,gapdiff,t4_sr_x2,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.5028714130434783,0.2891510625,0.42500000000000004
+ipfaceid,gapdiff,t5_i2i30,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.2846814125,0.14234070625,0.5
+ipfaceid,gapdiff,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,40,0.19667805555555556,0.088505125,0.55
+ipfaceid,gapdiff,t6_sde35,1,a casual smartphone selfie of a person,40,0.2115773947368421,0.20099852499999998,0.050000000000000044
+ipfaceid,gapdiff,t6_sde35,2,a low-light indoor social photo of a person,40,0.19948655263157897,0.18951222500000003,0.050000000000000044
+ipfaceid,gapdiff,t6_sde35,3,an outdoor travel photo of a person with a detailed background,40,0.24837309999999996,0.24837309999999996,0.0
+ipfaceid,gapdiff,t6_sde50,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.16636613095238093,0.08734221874999999,0.475
+ipfaceid,idprotector,t0,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.20365065384615383,0.09927969375,0.5125
+ipfaceid,idprotector,t1_jpeg70,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.2137439230769231,0.10420016250000001,0.5125
+ipfaceid,idprotector,t2_canvas_dpr1,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.21366953846153847,0.1041639,0.5125
+ipfaceid,idprotector,t3_agent_facecrop,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.2288002,0.1144001,0.5
+ipfaceid,idprotector,t4_sr_x2,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.27049603658536586,0.13862921875,0.48750000000000004
+ipfaceid,idprotector,t5_i2i30,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.2275880117647059,0.12090613125,0.46875
+ipfaceid,idprotector,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,40,0.1832877333333333,0.0687329,0.625
+ipfaceid,idprotector,t6_sde35,1,a casual smartphone selfie of a person,40,0.18074945945945947,0.16719325000000002,0.07499999999999996
+ipfaceid,idprotector,t6_sde35,2,a low-light indoor social photo of a person,40,0.17038761111111111,0.15334885,0.09999999999999998
+ipfaceid,idprotector,t6_sde35,3,an outdoor travel photo of a person with a detailed background,40,0.22514274358974357,0.21951417499999998,0.025000000000000022
+ipfaceid,idprotector,t6_sde50,0,"a high-quality realistic DSLR portrait photograph of a person, face centered",160,0.15132602666666667,0.070934075,0.53125
+ipfaceid,gapdiff_8,t0,0,a clean front-facing portrait of a person for a social media avatar,40,0.373397,0.20536835,0.44999999999999996
+ipfaceid,gapdiff_8,t0,1,a casual smartphone selfie of a person,40,0.3917370769230769,0.38194365,0.025000000000000022
+ipfaceid,gapdiff_8,t0,2,a low-light indoor social photo of a person,40,0.4086841538461538,0.39846704999999993,0.025000000000000022
+ipfaceid,gapdiff_8,t0,3,an outdoor travel photo of a person with a detailed background,40,0.46245664102564105,0.450895225,0.025000000000000022
+ipfaceid,gapdiff_8,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,40,0.42589408333333334,0.25553645,0.4
+ipfaceid,gapdiff_8,t1_jpeg70,1,a casual smartphone selfie of a person,40,0.3795618205128205,0.370072775,0.025000000000000022
+ipfaceid,gapdiff_8,t1_jpeg70,2,a low-light indoor social photo of a person,40,0.41595087179487183,0.4055521000000001,0.025000000000000022
+ipfaceid,gapdiff_8,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,40,0.46016840000000003,0.46016840000000003,0.0
+ipfaceid,gapdiff_8,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,40,0.4068002173913043,0.23391012499999997,0.42500000000000004
+ipfaceid,gapdiff_8,t2_canvas_dpr1,1,a casual smartphone selfie of a person,40,0.38988784615384614,0.38014064999999997,0.025000000000000022
+ipfaceid,gapdiff_8,t2_canvas_dpr1,2,a low-light indoor social photo of a person,40,0.41716566666666666,0.406736525,0.025000000000000022
+ipfaceid,gapdiff_8,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,40,0.4636662564102564,0.4520746,0.025000000000000022
+ipfaceid,gapdiff_8,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,40,0.36092221739130437,0.20753027500000001,0.42500000000000004
+ipfaceid,gapdiff_8,t3_agent_facecrop,1,a casual smartphone selfie of a person,40,0.40458028205128205,0.39446577499999996,0.025000000000000022
+ipfaceid,gapdiff_8,t3_agent_facecrop,2,a low-light indoor social photo of a person,40,0.4186497,0.4186497,0.0
+ipfaceid,gapdiff_8,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,40,0.45686752499999994,0.45686752499999994,0.0
+ipfaceid,gapdiff_8,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,40,0.419762962962963,0.28334000000000004,0.32499999999999996
+ipfaceid,gapdiff_8,t4_sr_x2,1,a casual smartphone selfie of a person,40,0.40607555,0.40607555,0.0
+ipfaceid,gapdiff_8,t4_sr_x2,2,a low-light indoor social photo of a person,40,0.4275312820512821,0.4168430000000001,0.025000000000000022
+ipfaceid,gapdiff_8,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,40,0.460299225,0.460299225,0.0
+ipfaceid,gapdiff_8,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,40,0.21941937500000003,0.08776775,0.6
+ipfaceid,gapdiff_8,t5_i2i30,1,a casual smartphone selfie of a person,40,0.2230734444444444,0.20076609999999998,0.09999999999999998
+ipfaceid,gapdiff_8,t5_i2i30,2,a low-light indoor social photo of a person,40,0.21398571052631582,0.20328642500000002,0.050000000000000044
+ipfaceid,gapdiff_8,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,40,0.274720325,0.274720325,0.0
+ipfaceid,gapdiff_8,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,40,0.22081547058823525,0.09384657499999999,0.575
+ipfaceid,gapdiff_8,t6_sde35,1,a casual smartphone selfie of a person,40,0.20586086842105267,0.19556782500000003,0.050000000000000044
+ipfaceid,gapdiff_8,t6_sde35,2,a low-light indoor social photo of a person,40,0.21109640540540536,0.19526417499999998,0.07499999999999996
+ipfaceid,gapdiff_8,t6_sde35,3,an outdoor travel photo of a person with a detailed background,40,0.25354835,0.25354835,0.0
+ipfaceid,idprotector_8,t0,0,a clean front-facing portrait of a person for a social media avatar,40,0.19560408333333332,0.11736244999999998,0.4
+ipfaceid,idprotector_8,t0,1,a casual smartphone selfie of a person,40,0.21657074358974363,0.21115647500000004,0.025000000000000022
+ipfaceid,idprotector_8,t0,2,a low-light indoor social photo of a person,40,0.20280205405405405,0.18759189999999998,0.07499999999999996
+ipfaceid,idprotector_8,t0,3,an outdoor travel photo of a person with a detailed background,40,0.25564834999999997,0.25564834999999997,0.0
+ipfaceid,idprotector_8,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,40,0.17328516666666668,0.10397110000000001,0.4
+ipfaceid,idprotector_8,t1_jpeg70,1,a casual smartphone selfie of a person,40,0.22181871794871796,0.21627325000000003,0.025000000000000022
+ipfaceid,idprotector_8,t1_jpeg70,2,a low-light indoor social photo of a person,40,0.2067731891891892,0.1912652,0.07499999999999996
+ipfaceid,idprotector_8,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,40,0.26578549999999995,0.26578549999999995,0.0
+ipfaceid,idprotector_8,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,40,0.189576,0.1137456,0.4
+ipfaceid,idprotector_8,t2_canvas_dpr1,1,a casual smartphone selfie of a person,40,0.214372425,0.214372425,0.0
+ipfaceid,idprotector_8,t2_canvas_dpr1,2,a low-light indoor social photo of a person,40,0.21480448571428573,0.18795392500000002,0.125
+ipfaceid,idprotector_8,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,40,0.26558004999999996,0.26558004999999996,0.0
+ipfaceid,idprotector_8,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,40,0.18466700000000003,0.10618352500000001,0.42500000000000004
+ipfaceid,idprotector_8,t3_agent_facecrop,1,a casual smartphone selfie of a person,40,0.231323075,0.231323075,0.0
+ipfaceid,idprotector_8,t3_agent_facecrop,2,a low-light indoor social photo of a person,40,0.22099335135135137,0.20441885,0.07499999999999996
+ipfaceid,idprotector_8,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,40,0.26630295000000004,0.26630295000000004,0.0
+ipfaceid,idprotector_8,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,40,0.22743142857142853,0.11940149999999998,0.475
+ipfaceid,idprotector_8,t4_sr_x2,1,a casual smartphone selfie of a person,40,0.25417428205128206,0.24781992500000002,0.025000000000000022
+ipfaceid,idprotector_8,t4_sr_x2,2,a low-light indoor social photo of a person,40,0.22933805405405402,0.21213769999999998,0.07499999999999996
+ipfaceid,idprotector_8,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,40,0.286926375,0.286926375,0.0
+ipfaceid,idprotector_8,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,40,0.16548853333333333,0.062058199999999994,0.625
+ipfaceid,idprotector_8,t5_i2i30,1,a casual smartphone selfie of a person,40,0.18791134285714284,0.16442242499999998,0.125
+ipfaceid,idprotector_8,t5_i2i30,2,a low-light indoor social photo of a person,40,0.17541127777777776,0.15787015,0.09999999999999998
+ipfaceid,idprotector_8,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,40,0.23582105128205127,0.229925525,0.025000000000000022
+ipfaceid,idprotector_8,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,40,0.1966938,0.07376017500000001,0.625
+ipfaceid,idprotector_8,t6_sde35,1,a casual smartphone selfie of a person,40,0.17549391666666667,0.157944525,0.09999999999999998
+ipfaceid,idprotector_8,t6_sde35,2,a low-light indoor social photo of a person,40,0.1803988947368421,0.17137894999999997,0.050000000000000044
+ipfaceid,idprotector_8,t6_sde35,3,an outdoor travel photo of a person with a detailed background,40,0.21905135000000003,0.21905135000000003,0.0
+ipfaceid,arcp_web_v4,t0,0,a clean front-facing portrait of a person for a social media avatar,40,0.23543715,0.117718575,0.5
+ipfaceid,arcp_web_v4,t0,1,a casual smartphone selfie of a person,40,0.19382439999999998,0.19382439999999998,0.0
+ipfaceid,arcp_web_v4,t0,2,a low-light indoor social photo of a person,40,0.23896981081081078,0.22104707499999998,0.07499999999999996
+ipfaceid,arcp_web_v4,t0,3,an outdoor travel photo of a person with a detailed background,40,0.263053125,0.263053125,0.0
+ipfaceid,arcp_web_v4,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,40,0.2837787222222222,0.127700425,0.55
+ipfaceid,arcp_web_v4,t1_jpeg70,1,a casual smartphone selfie of a person,40,0.21270785,0.21270785,0.0
+ipfaceid,arcp_web_v4,t1_jpeg70,2,a low-light indoor social photo of a person,40,0.2545727297297298,0.23547977500000003,0.07499999999999996
+ipfaceid,arcp_web_v4,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,40,0.27368230000000004,0.27368230000000004,0.0
+ipfaceid,arcp_web_v4,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,40,0.2780878,0.1390439,0.5
+ipfaceid,arcp_web_v4,t2_canvas_dpr1,1,a casual smartphone selfie of a person,40,0.21779735000000003,0.21779735000000003,0.0
+ipfaceid,arcp_web_v4,t2_canvas_dpr1,2,a low-light indoor social photo of a person,40,0.2381243783783784,0.22026505000000002,0.07499999999999996
+ipfaceid,arcp_web_v4,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,40,0.268565825,0.268565825,0.0
+ipfaceid,arcp_web_v4,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,40,0.2820427368421053,0.13397030000000001,0.525
+ipfaceid,arcp_web_v4,t3_agent_facecrop,1,a casual smartphone selfie of a person,40,0.22927947499999995,0.22927947499999995,0.0
+ipfaceid,arcp_web_v4,t3_agent_facecrop,2,a low-light indoor social photo of a person,40,0.25367575675675674,0.23465007499999996,0.07499999999999996
+ipfaceid,arcp_web_v4,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,40,0.29111345,0.29111345,0.0
+ipfaceid,arcp_web_v4,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,40,0.28944545,0.144722725,0.5
+ipfaceid,arcp_web_v4,t4_sr_x2,1,a casual smartphone selfie of a person,40,0.242989575,0.242989575,0.0
+ipfaceid,arcp_web_v4,t4_sr_x2,2,a low-light indoor social photo of a person,40,0.2914126216216216,0.269556675,0.07499999999999996
+ipfaceid,arcp_web_v4,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,40,0.33416667499999997,0.33416667499999997,0.0
+ipfaceid,arcp_web_v4,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,40,0.1947791875,0.077911675,0.6
+ipfaceid,arcp_web_v4,t5_i2i30,1,a casual smartphone selfie of a person,40,0.17559411764705882,0.149255,0.15000000000000002
+ipfaceid,arcp_web_v4,t5_i2i30,2,a low-light indoor social photo of a person,40,0.17969251282051282,0.1752002,0.025000000000000022
+ipfaceid,arcp_web_v4,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,40,0.23421741025641027,0.22836197500000002,0.025000000000000022
+ipfaceid,arcp_web_v4,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,40,0.16843242857142857,0.08842702499999999,0.475
+ipfaceid,arcp_web_v4,t6_sde35,1,a casual smartphone selfie of a person,40,0.17568062162162162,0.16250457499999998,0.07499999999999996
+ipfaceid,arcp_web_v4,t6_sde35,2,a low-light indoor social photo of a person,40,0.1889389743589744,0.18421550000000003,0.025000000000000022
+ipfaceid,arcp_web_v4,t6_sde35,3,an outdoor travel photo of a person with a detailed background,40,0.19820402500000003,0.19820402500000003,0.0
+ipfaceid,arcp_web_v4,t6_sde50,0,a clean front-facing portrait of a person for a social media avatar,4,nan,0.0,1.0
+ipfaceid,arcp_web_v4,t6_sde50,1,a casual smartphone selfie of a person,4,0.14664075,0.14664075,0.0
+ipfaceid,arcp_web_v4,t6_sde50,2,a low-light indoor social photo of a person,4,0.184227,0.184227,0.0
+ipfaceid,arcp_web_v4,t6_sde50,3,an outdoor travel photo of a person with a detailed background,4,0.202666,0.202666,0.0
+ipfaceid,arcp_web_v4_uniform,t0,0,a clean front-facing portrait of a person for a social media avatar,4,0.316856,0.23764200000000002,0.25
+ipfaceid,arcp_web_v4_uniform,t0,1,a casual smartphone selfie of a person,4,0.288931,0.288931,0.0
+ipfaceid,arcp_web_v4_uniform,t0,2,a low-light indoor social photo of a person,4,0.3172916666666667,0.23796875,0.25
+ipfaceid,arcp_web_v4_uniform,t0,3,an outdoor travel photo of a person with a detailed background,4,0.35338025,0.35338025,0.0
+ipfaceid,arcp_web_v4_uniform,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,4,0.3546505,0.17732525,0.5
+ipfaceid,arcp_web_v4_uniform,t1_jpeg70,1,a casual smartphone selfie of a person,4,0.28810725,0.28810725,0.0
+ipfaceid,arcp_web_v4_uniform,t1_jpeg70,2,a low-light indoor social photo of a person,4,0.32781724999999995,0.32781724999999995,0.0
+ipfaceid,arcp_web_v4_uniform,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,4,0.37796125,0.37796125,0.0
+ipfaceid,arcp_web_v4_uniform,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,4,0.3218176666666667,0.24136325000000003,0.25
+ipfaceid,arcp_web_v4_uniform,t2_canvas_dpr1,1,a casual smartphone selfie of a person,4,0.28543475,0.28543475,0.0
+ipfaceid,arcp_web_v4_uniform,t2_canvas_dpr1,2,a low-light indoor social photo of a person,4,0.2907383333333333,0.21805375,0.25
+ipfaceid,arcp_web_v4_uniform,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,4,0.39173925000000004,0.39173925000000004,0.0
+ipfaceid,arcp_web_v4_uniform,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,4,0.34243,0.171215,0.5
+ipfaceid,arcp_web_v4_uniform,t3_agent_facecrop,1,a casual smartphone selfie of a person,4,0.3301005,0.3301005,0.0
+ipfaceid,arcp_web_v4_uniform,t3_agent_facecrop,2,a low-light indoor social photo of a person,4,0.3531843333333333,0.26488825,0.25
+ipfaceid,arcp_web_v4_uniform,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,4,0.42609225,0.42609225,0.0
+ipfaceid,arcp_web_v4_uniform,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,4,0.3766115,0.3766115,0.0
+ipfaceid,arcp_web_v4_uniform,t4_sr_x2,1,a casual smartphone selfie of a person,4,0.40250325,0.40250325,0.0
+ipfaceid,arcp_web_v4_uniform,t4_sr_x2,2,a low-light indoor social photo of a person,4,0.37302674999999996,0.37302674999999996,0.0
+ipfaceid,arcp_web_v4_uniform,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,4,0.42168325,0.42168325,0.0
+ipfaceid,arcp_web_v4_uniform,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,4,0.18818800000000002,0.09409400000000001,0.5
+ipfaceid,arcp_web_v4_uniform,t5_i2i30,1,a casual smartphone selfie of a person,4,0.223222,0.223222,0.0
+ipfaceid,arcp_web_v4_uniform,t5_i2i30,2,a low-light indoor social photo of a person,4,0.20618675,0.20618675,0.0
+ipfaceid,arcp_web_v4_uniform,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,4,0.22155124999999998,0.22155124999999998,0.0
+ipfaceid,arcp_web_v4_uniform,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,4,0.22856500000000002,0.11428250000000001,0.5
+ipfaceid,arcp_web_v4_uniform,t6_sde35,1,a casual smartphone selfie of a person,4,0.23122224999999996,0.23122224999999996,0.0
+ipfaceid,arcp_web_v4_uniform,t6_sde35,2,a low-light indoor social photo of a person,4,0.2577365,0.2577365,0.0
+ipfaceid,arcp_web_v4_uniform,t6_sde35,3,an outdoor travel photo of a person with a detailed background,4,0.24539524999999998,0.24539524999999998,0.0
+ipfaceid,arcp_web_v4_no_texture,t0,0,a clean front-facing portrait of a person for a social media avatar,4,0.181116,0.045279,0.75
+ipfaceid,arcp_web_v4_no_texture,t0,1,a casual smartphone selfie of a person,4,0.10537125,0.10537125,0.0
+ipfaceid,arcp_web_v4_no_texture,t0,2,a low-light indoor social photo of a person,4,0.11474233333333334,0.08605675,0.25
+ipfaceid,arcp_web_v4_no_texture,t0,3,an outdoor travel photo of a person with a detailed background,4,0.10645500000000001,0.10645500000000001,0.0
+ipfaceid,arcp_web_v4_no_texture,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,4,0.117206,0.058603,0.5
+ipfaceid,arcp_web_v4_no_texture,t1_jpeg70,1,a casual smartphone selfie of a person,4,0.0796745,0.0796745,0.0
+ipfaceid,arcp_web_v4_no_texture,t1_jpeg70,2,a low-light indoor social photo of a person,4,0.12725066666666665,0.095438,0.25
+ipfaceid,arcp_web_v4_no_texture,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,4,0.12047899999999999,0.12047899999999999,0.0
+ipfaceid,arcp_web_v4_no_texture,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,4,0.174812,0.043703,0.75
+ipfaceid,arcp_web_v4_no_texture,t2_canvas_dpr1,1,a casual smartphone selfie of a person,4,0.1015485,0.1015485,0.0
+ipfaceid,arcp_web_v4_no_texture,t2_canvas_dpr1,2,a low-light indoor social photo of a person,4,0.12113066666666666,0.090848,0.25
+ipfaceid,arcp_web_v4_no_texture,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,4,0.13290325,0.13290325,0.0
+ipfaceid,arcp_web_v4_no_texture,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,4,0.125519,0.03137975,0.75
+ipfaceid,arcp_web_v4_no_texture,t3_agent_facecrop,1,a casual smartphone selfie of a person,4,0.12595525,0.12595525,0.0
+ipfaceid,arcp_web_v4_no_texture,t3_agent_facecrop,2,a low-light indoor social photo of a person,4,0.06689,0.033445,0.5
+ipfaceid,arcp_web_v4_no_texture,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,4,0.106778,0.106778,0.0
+ipfaceid,arcp_web_v4_no_texture,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,4,0.18777466666666667,0.140831,0.25
+ipfaceid,arcp_web_v4_no_texture,t4_sr_x2,1,a casual smartphone selfie of a person,4,0.2059395,0.2059395,0.0
+ipfaceid,arcp_web_v4_no_texture,t4_sr_x2,2,a low-light indoor social photo of a person,4,0.11016350000000001,0.11016350000000001,0.0
+ipfaceid,arcp_web_v4_no_texture,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,4,0.21444749999999999,0.21444749999999999,0.0
+ipfaceid,arcp_web_v4_no_texture,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,4,0.126268,0.063134,0.5
+ipfaceid,arcp_web_v4_no_texture,t5_i2i30,1,a casual smartphone selfie of a person,4,0.13132775,0.13132775,0.0
+ipfaceid,arcp_web_v4_no_texture,t5_i2i30,2,a low-light indoor social photo of a person,4,0.17875225,0.17875225,0.0
+ipfaceid,arcp_web_v4_no_texture,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,4,0.13894275,0.13894275,0.0
+ipfaceid,arcp_web_v4_no_texture,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,4,0.227802,0.0569505,0.75
+ipfaceid,arcp_web_v4_no_texture,t6_sde35,1,a casual smartphone selfie of a person,4,0.15931675,0.15931675,0.0
+ipfaceid,arcp_web_v4_no_texture,t6_sde35,2,a low-light indoor social photo of a person,4,0.17714125,0.17714125,0.0
+ipfaceid,arcp_web_v4_no_texture,t6_sde35,3,an outdoor travel photo of a person with a detailed background,4,0.17557025,0.17557025,0.0
+ipfaceid,arcp_web_v4_no_coarse,t0,0,a clean front-facing portrait of a person for a social media avatar,4,0.309548,0.232161,0.25
+ipfaceid,arcp_web_v4_no_coarse,t0,1,a casual smartphone selfie of a person,4,0.33427575000000004,0.33427575000000004,0.0
+ipfaceid,arcp_web_v4_no_coarse,t0,2,a low-light indoor social photo of a person,4,0.2748646666666667,0.2061485,0.25
+ipfaceid,arcp_web_v4_no_coarse,t0,3,an outdoor travel photo of a person with a detailed background,4,0.373241,0.373241,0.0
+ipfaceid,arcp_web_v4_no_coarse,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,4,0.3234736666666667,0.24260525000000002,0.25
+ipfaceid,arcp_web_v4_no_coarse,t1_jpeg70,1,a casual smartphone selfie of a person,4,0.2856195,0.2856195,0.0
+ipfaceid,arcp_web_v4_no_coarse,t1_jpeg70,2,a low-light indoor social photo of a person,4,0.28064100000000003,0.28064100000000003,0.0
+ipfaceid,arcp_web_v4_no_coarse,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,4,0.35411650000000006,0.35411650000000006,0.0
+ipfaceid,arcp_web_v4_no_coarse,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,4,0.333113,0.24983475,0.25
+ipfaceid,arcp_web_v4_no_coarse,t2_canvas_dpr1,1,a casual smartphone selfie of a person,4,0.3166445,0.3166445,0.0
+ipfaceid,arcp_web_v4_no_coarse,t2_canvas_dpr1,2,a low-light indoor social photo of a person,4,0.274253,0.20568975,0.25
+ipfaceid,arcp_web_v4_no_coarse,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,4,0.353194,0.353194,0.0
+ipfaceid,arcp_web_v4_no_coarse,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,4,0.35215766666666665,0.26411825,0.25
+ipfaceid,arcp_web_v4_no_coarse,t3_agent_facecrop,1,a casual smartphone selfie of a person,4,0.32306250000000003,0.32306250000000003,0.0
+ipfaceid,arcp_web_v4_no_coarse,t3_agent_facecrop,2,a low-light indoor social photo of a person,4,0.3345373333333333,0.250903,0.25
+ipfaceid,arcp_web_v4_no_coarse,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,4,0.359309,0.359309,0.0
+ipfaceid,arcp_web_v4_no_coarse,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,4,0.36917649999999996,0.36917649999999996,0.0
+ipfaceid,arcp_web_v4_no_coarse,t4_sr_x2,1,a casual smartphone selfie of a person,4,0.37831549999999997,0.37831549999999997,0.0
+ipfaceid,arcp_web_v4_no_coarse,t4_sr_x2,2,a low-light indoor social photo of a person,4,0.34016599999999997,0.34016599999999997,0.0
+ipfaceid,arcp_web_v4_no_coarse,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,4,0.3808885,0.3808885,0.0
+ipfaceid,arcp_web_v4_no_coarse,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,4,0.246378,0.0615945,0.75
+ipfaceid,arcp_web_v4_no_coarse,t5_i2i30,1,a casual smartphone selfie of a person,4,0.21970550000000003,0.21970550000000003,0.0
+ipfaceid,arcp_web_v4_no_coarse,t5_i2i30,2,a low-light indoor social photo of a person,4,0.21151250000000002,0.21151250000000002,0.0
+ipfaceid,arcp_web_v4_no_coarse,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,4,0.259021,0.259021,0.0
+ipfaceid,arcp_web_v4_no_coarse,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,4,0.158663,0.03966575,0.75
+ipfaceid,arcp_web_v4_no_coarse,t6_sde35,1,a casual smartphone selfie of a person,4,0.18672349999999996,0.18672349999999996,0.0
+ipfaceid,arcp_web_v4_no_coarse,t6_sde35,2,a low-light indoor social photo of a person,4,0.231039,0.231039,0.0
+ipfaceid,arcp_web_v4_no_coarse,t6_sde35,3,an outdoor travel photo of a person with a detailed background,4,0.24700425,0.24700425,0.0
+ipfaceid,arcp_web_v4_no_detail,t0,0,a clean front-facing portrait of a person for a social media avatar,4,0.25483266666666665,0.19112449999999997,0.25
+ipfaceid,arcp_web_v4_no_detail,t0,1,a casual smartphone selfie of a person,4,0.247066,0.247066,0.0
+ipfaceid,arcp_web_v4_no_detail,t0,2,a low-light indoor social photo of a person,4,0.27940000000000004,0.20955000000000001,0.25
+ipfaceid,arcp_web_v4_no_detail,t0,3,an outdoor travel photo of a person with a detailed background,4,0.2956765,0.2956765,0.0
+ipfaceid,arcp_web_v4_no_detail,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,4,0.18933899999999998,0.09466949999999999,0.5
+ipfaceid,arcp_web_v4_no_detail,t1_jpeg70,1,a casual smartphone selfie of a person,4,0.26829200000000003,0.26829200000000003,0.0
+ipfaceid,arcp_web_v4_no_detail,t1_jpeg70,2,a low-light indoor social photo of a person,4,0.3107796666666667,0.23308475,0.25
+ipfaceid,arcp_web_v4_no_detail,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,4,0.33940625,0.33940625,0.0
+ipfaceid,arcp_web_v4_no_detail,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,4,0.20147400000000001,0.1511055,0.25
+ipfaceid,arcp_web_v4_no_detail,t2_canvas_dpr1,1,a casual smartphone selfie of a person,4,0.2640165,0.2640165,0.0
+ipfaceid,arcp_web_v4_no_detail,t2_canvas_dpr1,2,a low-light indoor social photo of a person,4,0.26006850000000004,0.26006850000000004,0.0
+ipfaceid,arcp_web_v4_no_detail,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,4,0.31702275,0.31702275,0.0
+ipfaceid,arcp_web_v4_no_detail,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,4,0.2972315,0.14861575,0.5
+ipfaceid,arcp_web_v4_no_detail,t3_agent_facecrop,1,a casual smartphone selfie of a person,4,0.31161249999999996,0.31161249999999996,0.0
+ipfaceid,arcp_web_v4_no_detail,t3_agent_facecrop,2,a low-light indoor social photo of a person,4,0.2438205,0.2438205,0.0
+ipfaceid,arcp_web_v4_no_detail,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,4,0.32369825,0.32369825,0.0
+ipfaceid,arcp_web_v4_no_detail,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,4,0.287446,0.287446,0.0
+ipfaceid,arcp_web_v4_no_detail,t4_sr_x2,1,a casual smartphone selfie of a person,4,0.36604775,0.36604775,0.0
+ipfaceid,arcp_web_v4_no_detail,t4_sr_x2,2,a low-light indoor social photo of a person,4,0.32385175,0.32385175,0.0
+ipfaceid,arcp_web_v4_no_detail,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,4,0.381471,0.381471,0.0
+ipfaceid,arcp_web_v4_no_detail,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,4,0.20762200000000003,0.10381100000000001,0.5
+ipfaceid,arcp_web_v4_no_detail,t5_i2i30,1,a casual smartphone selfie of a person,4,0.246953,0.246953,0.0
+ipfaceid,arcp_web_v4_no_detail,t5_i2i30,2,a low-light indoor social photo of a person,4,0.27647575,0.27647575,0.0
+ipfaceid,arcp_web_v4_no_detail,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,4,0.27334925,0.27334925,0.0
+ipfaceid,arcp_web_v4_no_detail,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,4,0.18953750000000003,0.09476875000000001,0.5
+ipfaceid,arcp_web_v4_no_detail,t6_sde35,1,a casual smartphone selfie of a person,4,0.29097925,0.29097925,0.0
+ipfaceid,arcp_web_v4_no_detail,t6_sde35,2,a low-light indoor social photo of a person,4,0.2334075,0.2334075,0.0
+ipfaceid,arcp_web_v4_no_detail,t6_sde35,3,an outdoor travel photo of a person with a detailed background,4,0.25831325,0.25831325,0.0
+ipfaceid,arcp_web_v4_no_identity,t0,0,a clean front-facing portrait of a person for a social media avatar,4,0.4149773333333333,0.311233,0.25
+ipfaceid,arcp_web_v4_no_identity,t0,1,a casual smartphone selfie of a person,4,0.426038,0.426038,0.0
+ipfaceid,arcp_web_v4_no_identity,t0,2,a low-light indoor social photo of a person,4,0.35724950000000005,0.35724950000000005,0.0
+ipfaceid,arcp_web_v4_no_identity,t0,3,an outdoor travel photo of a person with a detailed background,4,0.49831724999999993,0.49831724999999993,0.0
+ipfaceid,arcp_web_v4_no_identity,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,4,0.42993233333333336,0.32244925,0.25
+ipfaceid,arcp_web_v4_no_identity,t1_jpeg70,1,a casual smartphone selfie of a person,4,0.46414825000000004,0.46414825000000004,0.0
+ipfaceid,arcp_web_v4_no_identity,t1_jpeg70,2,a low-light indoor social photo of a person,4,0.360467,0.360467,0.0
+ipfaceid,arcp_web_v4_no_identity,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,4,0.49516649999999995,0.49516649999999995,0.0
+ipfaceid,arcp_web_v4_no_identity,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,4,0.4484593333333333,0.3363445,0.25
+ipfaceid,arcp_web_v4_no_identity,t2_canvas_dpr1,1,a casual smartphone selfie of a person,4,0.43343600000000004,0.43343600000000004,0.0
+ipfaceid,arcp_web_v4_no_identity,t2_canvas_dpr1,2,a low-light indoor social photo of a person,4,0.3758575,0.3758575,0.0
+ipfaceid,arcp_web_v4_no_identity,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,4,0.49440375000000003,0.49440375000000003,0.0
+ipfaceid,arcp_web_v4_no_identity,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,4,0.4607286666666666,0.3455465,0.25
+ipfaceid,arcp_web_v4_no_identity,t3_agent_facecrop,1,a casual smartphone selfie of a person,4,0.43512275,0.43512275,0.0
+ipfaceid,arcp_web_v4_no_identity,t3_agent_facecrop,2,a low-light indoor social photo of a person,4,0.3764345,0.3764345,0.0
+ipfaceid,arcp_web_v4_no_identity,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,4,0.4888995,0.4888995,0.0
+ipfaceid,arcp_web_v4_no_identity,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,4,0.41166425,0.41166425,0.0
+ipfaceid,arcp_web_v4_no_identity,t4_sr_x2,1,a casual smartphone selfie of a person,4,0.43997975,0.43997975,0.0
+ipfaceid,arcp_web_v4_no_identity,t4_sr_x2,2,a low-light indoor social photo of a person,4,0.46787675,0.46787675,0.0
+ipfaceid,arcp_web_v4_no_identity,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,4,0.45981374999999997,0.45981374999999997,0.0
+ipfaceid,arcp_web_v4_no_identity,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,4,0.1838705,0.09193525,0.5
+ipfaceid,arcp_web_v4_no_identity,t5_i2i30,1,a casual smartphone selfie of a person,4,0.211984,0.211984,0.0
+ipfaceid,arcp_web_v4_no_identity,t5_i2i30,2,a low-light indoor social photo of a person,4,0.23345125,0.23345125,0.0
+ipfaceid,arcp_web_v4_no_identity,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,4,0.25796975,0.25796975,0.0
+ipfaceid,arcp_web_v4_no_identity,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,4,0.369413,0.09235325,0.75
+ipfaceid,arcp_web_v4_no_identity,t6_sde35,1,a casual smartphone selfie of a person,4,0.19161175000000003,0.19161175000000003,0.0
+ipfaceid,arcp_web_v4_no_identity,t6_sde35,2,a low-light indoor social photo of a person,4,0.19374774999999997,0.19374774999999997,0.0
+ipfaceid,arcp_web_v4_no_identity,t6_sde35,3,an outdoor travel photo of a person with a detailed background,4,0.24404325,0.24404325,0.0
+ipfaceid,arcp_web_v4_no_denoise,t0,0,a clean front-facing portrait of a person for a social media avatar,4,0.20784699999999998,0.15588524999999998,0.25
+ipfaceid,arcp_web_v4_no_denoise,t0,1,a casual smartphone selfie of a person,4,0.281623,0.281623,0.0
+ipfaceid,arcp_web_v4_no_denoise,t0,2,a low-light indoor social photo of a person,4,0.27226833333333333,0.20420125,0.25
+ipfaceid,arcp_web_v4_no_denoise,t0,3,an outdoor travel photo of a person with a detailed background,4,0.31881649999999995,0.31881649999999995,0.0
+ipfaceid,arcp_web_v4_no_denoise,t1_jpeg70,0,a clean front-facing portrait of a person for a social media avatar,4,0.2840945,0.14204725,0.5
+ipfaceid,arcp_web_v4_no_denoise,t1_jpeg70,1,a casual smartphone selfie of a person,4,0.33879950000000003,0.33879950000000003,0.0
+ipfaceid,arcp_web_v4_no_denoise,t1_jpeg70,2,a low-light indoor social photo of a person,4,0.31530233333333335,0.23647675,0.25
+ipfaceid,arcp_web_v4_no_denoise,t1_jpeg70,3,an outdoor travel photo of a person with a detailed background,4,0.3566735,0.3566735,0.0
+ipfaceid,arcp_web_v4_no_denoise,t2_canvas_dpr1,0,a clean front-facing portrait of a person for a social media avatar,4,0.26918833333333336,0.20189125000000002,0.25
+ipfaceid,arcp_web_v4_no_denoise,t2_canvas_dpr1,1,a casual smartphone selfie of a person,4,0.30835325,0.30835325,0.0
+ipfaceid,arcp_web_v4_no_denoise,t2_canvas_dpr1,2,a low-light indoor social photo of a person,4,0.2759293333333333,0.206947,0.25
+ipfaceid,arcp_web_v4_no_denoise,t2_canvas_dpr1,3,an outdoor travel photo of a person with a detailed background,4,0.34937850000000004,0.34937850000000004,0.0
+ipfaceid,arcp_web_v4_no_denoise,t3_agent_facecrop,0,a clean front-facing portrait of a person for a social media avatar,4,0.30828933333333336,0.231217,0.25
+ipfaceid,arcp_web_v4_no_denoise,t3_agent_facecrop,1,a casual smartphone selfie of a person,4,0.34143500000000004,0.34143500000000004,0.0
+ipfaceid,arcp_web_v4_no_denoise,t3_agent_facecrop,2,a low-light indoor social photo of a person,4,0.3112046666666667,0.2334035,0.25
+ipfaceid,arcp_web_v4_no_denoise,t3_agent_facecrop,3,an outdoor travel photo of a person with a detailed background,4,0.40476874999999995,0.40476874999999995,0.0
+ipfaceid,arcp_web_v4_no_denoise,t4_sr_x2,0,a clean front-facing portrait of a person for a social media avatar,4,0.38342374999999995,0.38342374999999995,0.0
+ipfaceid,arcp_web_v4_no_denoise,t4_sr_x2,1,a casual smartphone selfie of a person,4,0.367099,0.367099,0.0
+ipfaceid,arcp_web_v4_no_denoise,t4_sr_x2,2,a low-light indoor social photo of a person,4,0.36064125,0.36064125,0.0
+ipfaceid,arcp_web_v4_no_denoise,t4_sr_x2,3,an outdoor travel photo of a person with a detailed background,4,0.37444925,0.37444925,0.0
+ipfaceid,arcp_web_v4_no_denoise,t5_i2i30,0,a clean front-facing portrait of a person for a social media avatar,4,0.2480385,0.12401925,0.5
+ipfaceid,arcp_web_v4_no_denoise,t5_i2i30,1,a casual smartphone selfie of a person,4,0.18759725,0.18759725,0.0
+ipfaceid,arcp_web_v4_no_denoise,t5_i2i30,2,a low-light indoor social photo of a person,4,0.24836025,0.24836025,0.0
+ipfaceid,arcp_web_v4_no_denoise,t5_i2i30,3,an outdoor travel photo of a person with a detailed background,4,0.32663274999999997,0.32663274999999997,0.0
+ipfaceid,arcp_web_v4_no_denoise,t6_sde35,0,a clean front-facing portrait of a person for a social media avatar,4,0.12550899999999998,0.06275449999999999,0.5
+ipfaceid,arcp_web_v4_no_denoise,t6_sde35,1,a casual smartphone selfie of a person,4,0.25561775000000003,0.25561775000000003,0.0
+ipfaceid,arcp_web_v4_no_denoise,t6_sde35,2,a low-light indoor social photo of a person,4,0.270088,0.270088,0.0
+ipfaceid,arcp_web_v4_no_denoise,t6_sde35,3,an outdoor travel photo of a person with a detailed background,4,0.28423075000000003,0.28423075000000003,0.0

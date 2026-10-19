@@ -21,8 +21,13 @@ def list_galleries(data_root):
     if not os.path.isdir(root):
         return out
     for m in sorted(os.listdir(root)):
-        for pid in sorted(os.listdir(os.path.join(root, m))):
-            d = os.path.join(root, m, pid)
+        method_root = os.path.join(root, m)
+        # Audits and manifests may live beside method directories.  Treating
+        # such files as methods made every evaluation task fail at startup.
+        if not os.path.isdir(method_root):
+            continue
+        for pid in sorted(os.listdir(method_root)):
+            d = os.path.join(method_root, pid)
             if os.path.isdir(d):
                 imgs = sorted(i for i in os.listdir(d) if i.lower().endswith((".png", ".jpg", ".jpeg")))
                 out[(m, pid)] = [os.path.join(d, i) for i in imgs]
@@ -38,9 +43,13 @@ def main():
     ap.add_argument("--attack", default="ipfaceid")
     ap.add_argument("--run-name", default=None,
                     help="override config run name so pilot results cannot mix with legacy runs")
+    ap.add_argument("--seed", type=int, default=None,
+                    help="override generation seed for an isolated replication run")
     ap.add_argument("--force", action="store_true", help="rerun selected cells even when a successful row exists")
     args = ap.parse_args()
     cfg = load_config(args.config)
+    if args.seed is not None:
+        cfg["run"]["seed"] = args.seed
     root = cfg["run"]["data_root"]
     run_name = args.run_name or cfg["run"]["name"]
     run_dir = os.path.join("runs", run_name)

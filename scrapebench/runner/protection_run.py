@@ -50,9 +50,12 @@ def generate_method(method, comps, gallery_paths, cfg, out_dir):
             jq = int(prot_cfg.get("jpeg_aware", 85))
             train_surrogate(comps, imgs, steps=prot_cfg.get("surrogate_steps", 200), batch_size=4, log_every=50)
             outs = pgd_fsmg(comps, imgs, eps=eps, alpha=prot_cfg.get("alpha", 1.0) / 255.0, steps=prot_cfg.get("pgd_steps", 100), jpeg_aware=jq, seed=cfg["run"].get("seed", 0))
-        elif method in ("arcp", "arcp2", "arcp_v2", "arcp_web", "arcp_web_v2", "arcp_web_v3", "arcp_web_v4"):
+        elif method in ("arcp", "arcp2", "arcp_v2", "arcp_web", "arcp_web_v2", "arcp_web_v3",
+                        "arcp_web_v4", "arcp_web_v4_uniform", "arcp_web_v4_no_texture",
+                        "arcp_web_v4_no_coarse", "arcp_web_v4_no_detail",
+                        "arcp_web_v4_no_identity", "arcp_web_v4_no_denoise"):
             k = method + "_"
-            is_v2 = method in ("arcp_v2", "arcp_web", "arcp_web_v2", "arcp_web_v3", "arcp_web_v4")
+            is_v2 = method.startswith("arcp_web") or method == "arcp_v2"
             outs = forge_arcp(comps, imgs, eps_max=prot_cfg.get(k + "eps_max", 16.0) / 255.0,
                               eps_min=prot_cfg.get(k + "eps_min", 2.0) / 255.0,
                               steps=prot_cfg.get(k + "steps", 150),
@@ -74,6 +77,11 @@ def generate_method(method, comps, gallery_paths, cfg, out_dir):
                               t0_weight=prot_cfg.get(k + "t0_weight", 1.0),
                               reader_multiview=prot_cfg.get(k + "reader_multiview", False),
                               arcface_weight=prot_cfg.get(k + "arcface_weight", 0.0),
+                              adaptive_weak=prot_cfg.get(k + "adaptive_weak", True),
+                              texture_aware=prot_cfg.get(k + "texture_aware", True),
+                              coarse_weight=prot_cfg.get(k + "coarse_weight", None),
+                              identity_weight=prot_cfg.get(k + "identity_weight", 1.0),
+                              denoise_weight=prot_cfg.get(k + "denoise_weight", 1.0),
                               seed=cfg["run"].get("seed", 0))
         else:
             raise ValueError(f"unknown method {method}")
@@ -95,7 +103,8 @@ def main():
     methods = (args.methods.split(",") if args.methods else cfg.get("protection", {}).get("methods", ["clean", "random", "fsmg"]))
     galleries = list_galleries(root)
     ids = args.ids.split(",") if args.ids else sorted(galleries)
-    need_model = any(m in ("fsmg", "aspl", "fsmgj", "arcp", "arcp2", "arcp_v2", "arcp_web", "arcp_web_v2", "arcp_web_v3", "arcp_web_v4") for m in methods)
+    need_model = any(m in ("fsmg", "aspl", "fsmgj", "arcp", "arcp2", "arcp_v2") or
+                     m.startswith("arcp_web") for m in methods)
     comps = None
     if need_model:
         comps = load_sd15(cfg["run"]["sd_model"], fp16=cfg["run"].get("fp16", True))

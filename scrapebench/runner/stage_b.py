@@ -4,7 +4,7 @@ import os
 import time
 import numpy as np
 import torch
-from PIL import Image
+from PIL import Image, ImageOps
 from ..config import load_config
 from ..funnel import get_tier
 from ..attack.train_utils import load_sd15, load_gallery, build_pipeline, generate_images, add_lora, reset_lora, dreambooth_loss, dreambooth_prior_loss, PROMPTS, CLASS_PROMPT
@@ -18,8 +18,11 @@ def list_galleries(data_root):
     root = os.path.join(data_root, "protected")
     out = {}
     for m in sorted(os.listdir(root)):
-        for pid in sorted(os.listdir(os.path.join(root, m))):
-            d = os.path.join(root, m, pid)
+        method_root = os.path.join(root, m)
+        if not os.path.isdir(method_root):
+            continue
+        for pid in sorted(os.listdir(method_root)):
+            d = os.path.join(method_root, pid)
             if os.path.isdir(d):
                 imgs = sorted(i for i in os.listdir(d) if i.lower().endswith((".png", ".jpg", ".jpeg")))
                 out[(m, pid)] = [os.path.join(d, i) for i in imgs]
@@ -34,11 +37,13 @@ def main():
     ap.add_argument("--ids", default=None)
     ap.add_argument("--steps", type=int, default=None)
     ap.add_argument("--samples-per-prompt", type=int, default=None)
+    ap.add_argument("--run-name", default=None,
+                    help="override config run name (keeps smoke tests out of formal results)")
     ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
     cfg = load_config(args.config)
     root = cfg["run"]["data_root"]
-    run_name = cfg["run"]["name"]
+    run_name = args.run_name or cfg["run"]["name"]
     run_dir = os.path.join("runs", run_name)
     os.makedirs(run_dir, exist_ok=True)
     res_path = ensure_csv(os.path.join(run_dir, "results.csv"))
@@ -51,6 +56,12 @@ def main():
     ids = args.ids.split(",") if args.ids else cfg["stage_b"]["ids"]
     if ids == ["all"]:
         ids = sorted({p for _, p in galleries})
+    cells = [(m, p, t) for m in methods for p in ids for t in tiers]
+    pending = [(m, p, t) for m, p, t in cells
+               if args.force or ("B", p, m, t, "dreambooth") not in done]
+    if not pending:
+        log(f"stage_b no-op cells={len(cells)} already complete", log_path)
+        return
     tr_cfg = cfg["stage_b"]
     prompts = tr_cfg.get("prompts", PROMPTS)
     n_per_prompt = args.samples_per_prompt or tr_cfg.get(
@@ -77,7 +88,6 @@ def main():
     class_images = [Image.open(path).convert("RGB").resize((512, 512))
                     for path in class_paths[:tr_cfg.get("num_class_images", 200)]]
     scorer = IdScorer(use_gpu=True)
-    cells = [(m, p, t) for m in methods for p in ids for t in tiers]
     log(f"stage_b start cells={len(cells)} done={len(done)}", log_path)
     for m, pid, tier in cells:
         if (m, pid) not in galleries:
@@ -88,7 +98,12 @@ def main():
             continue
         paths = galleries[(m, pid)]
         tier_fn = get_tier(tier)
-        imgs = [tier_fn(Image.open(p).convert("RGB")) for p in paths]
+        # Web interventions legitimately change spatial size (for example,
+        # canvas embedding and 2x super-resolution).  DreamBooth still
+        # requires a rectangular batch, so apply the intervention first and
+        # then use the same 512x512 center-crop policy for every cell.
+        imgs = [ImageOps.fit(tier_fn(Image.open(p).convert("RGB")), (512, 512),
+                             method=Image.Resampling.LANCZOS) for p in paths]
         reset_lora(comps["unet"])
         if training_mode == "full_unet":
             comps["unet"].load_state_dict(base_unet_state)

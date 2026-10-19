@@ -1,4 +1,7 @@
 ORDERS = {
+    "jpeg70_crop": ["t1_jpeg70", "t3_agent_facecrop"],
+    "feed_crop": ["t2_canvas_dpr1", "t3_agent_facecrop"],
+    "cdn_feed_crop": ["t1_jpeg70", "t2_canvas_dpr1", "t3_agent_facecrop"],
     "canonical": ["t1_jpeg85", "t2_canvas_dpr1", "t4_sr_x2", "t5_i2i30"],
     "sr_first": ["t4_sr_x2", "t1_jpeg85", "t2_canvas_dpr1"],
     "t5_first": ["t5_i2i30", "t1_jpeg85"],

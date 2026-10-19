@@ -34,7 +34,7 @@ T2 & 360-px CSS raster, DPR 1 & feed/thumbnail render \\
 T3 & detector crop, margin .35, WebP 80 & screenshot agent \\
 T4 & Real-ESRGAN $\times2$ & restoration service \\
 T5 & SD1.5 img2img, strength .30 & generative re-upload \\
-T6 & prompt-free SD1.5 reconstruction, strength .50 & purification \\
+T6 & prompt-free SD1.5 reconstruction, strength .35 & purification \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -70,9 +70,12 @@ excludes zero.
 
 \subsection{Beyond pixels: consent carried by the Web}
 No bounded perturbation can guarantee survival under arbitrary reconstruction.
-We therefore specify \path{/.well-known/face-consent.txt}, a machine-readable
+We therefore sketch \path{/.well-known/face-consent.txt}, a machine-readable
 manifest mapping image patterns and subject hashes to permitted uses, expiry,
-revocation, and optional signatures. ScrapeBench supplies the empirical test for
-pixel defenses; the manifest supplies an auditable obligation for compliant
-agents and platforms when pixels fail. Together they make consent an acquisition
-contract rather than an informal property of one file.
+revocation, and optional signatures. In its present form this is only a
+voluntary preference and audit hook for compliant agents. It neither proves
+that an uploader can authorize every depicted subject, locates a source after
+arbitrary copying, nor constrains a malicious agent. ScrapeBench supplies the
+empirical test for pixel defenses; origin binding, subject verification,
+cross-domain propagation, conflict resolution, and enforcement remain separate
+Web-systems research problems.

@@ -12,7 +12,7 @@ run:
 # Every intervention consumes the same protected T0 image independently.
 stage_a:
   methods: [clean, gapdiff, metacloak, goodac, arcp_web_v4]
-  tiers: [t0, t1_jpeg70, t2_canvas_dpr1, t3_agent_facecrop, t4_sr_x2, t5_i2i30, t6_sde50]
+  tiers: [t0, t1_jpeg70, t2_canvas_dpr1, t3_agent_facecrop, t4_sr_x2, t5_i2i30, t6_sde35]
   ids: [all]
   save_outputs: true
   prompts:
@@ -23,7 +23,7 @@ stage_a:
 
 stage_b:
   methods: [clean, gapdiff, metacloak, goodac, arcp_web_v4]
-  tiers: [t0, t1_jpeg70, t2_canvas_dpr1, t3_agent_facecrop, t4_sr_x2, t5_i2i30, t6_sde50]
+  tiers: [t0, t1_jpeg70, t2_canvas_dpr1, t3_agent_facecrop, t4_sr_x2, t5_i2i30, t6_sde35]
   ids: [all]
   steps: 1000
   model: /mnt/beegfs/home/huangyue26/GAP-Diff/stable-diffusion/stable-diffusion-2-1-base
@@ -122,6 +122,127 @@ protection:
   arcp_web_v4_t0_weight: 1.50
   arcp_web_v4_reader_multiview: true
   arcp_web_v4_arcface_weight: 2.0
+  # Mechanism ablations copy every V4 hyperparameter; exactly one mechanism is
+  # disabled in each block.  These are a four-identity diagnostic, not a
+  # substitute for the 40-identity primary comparison.
+  arcp_web_v4_uniform_eps_max: 8.0
+  arcp_web_v4_uniform_eps_min: 3.0
+  arcp_web_v4_uniform_steps: 600
+  arcp_web_v4_uniform_z_step: 0.035
+  arcp_web_v4_uniform_lam: 1.20
+  arcp_web_v4_uniform_margin: 0.10
+  arcp_web_v4_uniform_grid: 128
+  arcp_web_v4_uniform_detail_grid: 512
+  arcp_web_v4_uniform_detail_weight: 0.55
+  arcp_web_v4_uniform_eot_depth: 1
+  arcp_web_v4_uniform_random_start: true
+  arcp_web_v4_uniform_survival_weight: 0.35
+  arcp_web_v4_uniform_gap_margin: 0.25
+  arcp_web_v4_uniform_reader_softplus_beta: 10.0
+  arcp_web_v4_uniform_dual_t0: true
+  arcp_web_v4_uniform_t0_weight: 1.50
+  arcp_web_v4_uniform_reader_multiview: true
+  arcp_web_v4_uniform_arcface_weight: 2.0
+  arcp_web_v4_uniform_adaptive_weak: false
+
+  arcp_web_v4_no_texture_eps_max: 8.0
+  arcp_web_v4_no_texture_eps_min: 3.0
+  arcp_web_v4_no_texture_steps: 600
+  arcp_web_v4_no_texture_z_step: 0.035
+  arcp_web_v4_no_texture_lam: 1.20
+  arcp_web_v4_no_texture_margin: 0.10
+  arcp_web_v4_no_texture_grid: 128
+  arcp_web_v4_no_texture_detail_grid: 512
+  arcp_web_v4_no_texture_detail_weight: 0.55
+  arcp_web_v4_no_texture_eot_depth: 1
+  arcp_web_v4_no_texture_random_start: true
+  arcp_web_v4_no_texture_survival_weight: 0.35
+  arcp_web_v4_no_texture_gap_margin: 0.25
+  arcp_web_v4_no_texture_reader_softplus_beta: 10.0
+  arcp_web_v4_no_texture_dual_t0: true
+  arcp_web_v4_no_texture_t0_weight: 1.50
+  arcp_web_v4_no_texture_reader_multiview: true
+  arcp_web_v4_no_texture_arcface_weight: 2.0
+  arcp_web_v4_no_texture_texture_aware: false
+
+  arcp_web_v4_no_coarse_eps_max: 8.0
+  arcp_web_v4_no_coarse_eps_min: 3.0
+  arcp_web_v4_no_coarse_steps: 600
+  arcp_web_v4_no_coarse_z_step: 0.035
+  arcp_web_v4_no_coarse_lam: 1.20
+  arcp_web_v4_no_coarse_margin: 0.10
+  arcp_web_v4_no_coarse_grid: 128
+  arcp_web_v4_no_coarse_detail_grid: 512
+  arcp_web_v4_no_coarse_coarse_weight: 0.0
+  arcp_web_v4_no_coarse_detail_weight: 1.0
+  arcp_web_v4_no_coarse_eot_depth: 1
+  arcp_web_v4_no_coarse_random_start: true
+  arcp_web_v4_no_coarse_survival_weight: 0.35
+  arcp_web_v4_no_coarse_gap_margin: 0.25
+  arcp_web_v4_no_coarse_reader_softplus_beta: 10.0
+  arcp_web_v4_no_coarse_dual_t0: true
+  arcp_web_v4_no_coarse_t0_weight: 1.50
+  arcp_web_v4_no_coarse_reader_multiview: true
+  arcp_web_v4_no_coarse_arcface_weight: 2.0
+
+  arcp_web_v4_no_detail_eps_max: 8.0
+  arcp_web_v4_no_detail_eps_min: 3.0
+  arcp_web_v4_no_detail_steps: 600
+  arcp_web_v4_no_detail_z_step: 0.035
+  arcp_web_v4_no_detail_lam: 1.20
+  arcp_web_v4_no_detail_margin: 0.10
+  arcp_web_v4_no_detail_grid: 128
+  arcp_web_v4_no_detail_detail_grid: 0
+  arcp_web_v4_no_detail_detail_weight: 0.0
+  arcp_web_v4_no_detail_eot_depth: 1
+  arcp_web_v4_no_detail_random_start: true
+  arcp_web_v4_no_detail_survival_weight: 0.35
+  arcp_web_v4_no_detail_gap_margin: 0.25
+  arcp_web_v4_no_detail_reader_softplus_beta: 10.0
+  arcp_web_v4_no_detail_dual_t0: true
+  arcp_web_v4_no_detail_t0_weight: 1.50
+  arcp_web_v4_no_detail_reader_multiview: true
+  arcp_web_v4_no_detail_arcface_weight: 2.0
+
+  arcp_web_v4_no_identity_eps_max: 8.0
+  arcp_web_v4_no_identity_eps_min: 3.0
+  arcp_web_v4_no_identity_steps: 600
+  arcp_web_v4_no_identity_z_step: 0.035
+  arcp_web_v4_no_identity_lam: 1.20
+  arcp_web_v4_no_identity_margin: 0.10
+  arcp_web_v4_no_identity_grid: 128
+  arcp_web_v4_no_identity_detail_grid: 512
+  arcp_web_v4_no_identity_detail_weight: 0.55
+  arcp_web_v4_no_identity_eot_depth: 1
+  arcp_web_v4_no_identity_random_start: true
+  arcp_web_v4_no_identity_survival_weight: 0.35
+  arcp_web_v4_no_identity_gap_margin: 0.25
+  arcp_web_v4_no_identity_reader_softplus_beta: 10.0
+  arcp_web_v4_no_identity_dual_t0: true
+  arcp_web_v4_no_identity_t0_weight: 1.50
+  arcp_web_v4_no_identity_reader_multiview: true
+  arcp_web_v4_no_identity_arcface_weight: 0.0
+  arcp_web_v4_no_identity_identity_weight: 0.0
+
+  arcp_web_v4_no_denoise_eps_max: 8.0
+  arcp_web_v4_no_denoise_eps_min: 3.0
+  arcp_web_v4_no_denoise_steps: 600
+  arcp_web_v4_no_denoise_z_step: 0.035
+  arcp_web_v4_no_denoise_lam: 1.20
+  arcp_web_v4_no_denoise_margin: 0.10
+  arcp_web_v4_no_denoise_grid: 128
+  arcp_web_v4_no_denoise_detail_grid: 512
+  arcp_web_v4_no_denoise_detail_weight: 0.55
+  arcp_web_v4_no_denoise_eot_depth: 1
+  arcp_web_v4_no_denoise_random_start: true
+  arcp_web_v4_no_denoise_survival_weight: 0.35
+  arcp_web_v4_no_denoise_gap_margin: 0.25
+  arcp_web_v4_no_denoise_reader_softplus_beta: 10.0
+  arcp_web_v4_no_denoise_dual_t0: true
+  arcp_web_v4_no_denoise_t0_weight: 1.50
+  arcp_web_v4_no_denoise_reader_multiview: true
+  arcp_web_v4_no_denoise_arcface_weight: 2.0
+  arcp_web_v4_no_denoise_denoise_weight: 0.0
 attack:
   ip_adapter_repo: h94/IP-Adapter-FaceID
   ip_adapter_weight: ip-adapter-faceid_sd15.bin

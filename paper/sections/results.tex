@@ -144,9 +144,10 @@ the largest mean paired gap over rankable cells.
 \begin{figure}[t]
 \centering
 \includegraphics[width=.92\columnwidth]{figures/web4_pareto.png}
-\caption{Protection versus upload quality. Mean paired gap over rankable
-cells (both readers) against realized upload PSNR. ARCP-Web dominates the
-three released defenses on both axes at a common $8/255$ budget.}
+\caption{Protection versus upload quality in the four-identity
+official-default pilot. Mean paired gap over rankable cells (both readers) is
+plotted against realized upload PSNR. Budgets are heterogeneous here
+(Table~\ref{tab:web4-quality}); this plot is not a strict common-budget claim.}
 \label{fig:web4-pareto}
 \end{figure}
 
@@ -166,3 +167,21 @@ These results are a feasibility gate, not a population estimate. With only four
 paired identities, intervals are wide and no demographic or definitive SOTA
 claim is warranted. The identical protocol now expands to the pre-audited
 40-identity pool.
+
+\IfFileExists{tables/review1018_web40_auto.tex}{%
+\input{tables/review1018_web40_auto}%
+\begin{figure*}[t]
+\centering
+\includegraphics[width=.98\textwidth]{figures/web40_instantid_t1.png}
+\caption{Preregistered qualitative panel for the first manifest identity at
+T1 (JPEG Q70) under InstantID. Rows are the four fixed Web scenarios. Images
+and footer ISM values are read directly from the per-sample ledger; no identity,
+seed, or output is selected by outcome.}
+\label{fig:web40-qualitative}
+\end{figure*}
+}{%
+\paragraph{Preregistered Web40 expansion.} The artifact generates the full
+tables directly from per-sample JSONL ledgers after a fail-closed completeness
+check. This review copy intentionally contains no hand-entered placeholder
+numbers.
+}
