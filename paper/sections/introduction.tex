@@ -34,9 +34,11 @@ Our preregistered feasibility pilot takes the first four valid identities from
 a manifest fixed before any defense outcome was inspected, with four gallery
 and two held-out reference images each. The preregistered expansion pool is
 pre-audited (40 identities, 160 gallery images, 96.25\% input-face detection,
-.787 mean gallery--reference ArcFace similarity) and runs the identical
-protocol. The completed pilot compares clean uploads, GAP-Diff, MetaCloak,
-GoodAC, and our ARCP-Web under InstantID and IP-Adapter-FaceID; released
+.787 mean gallery--reference ArcFace similarity), and the identical protocol
+has been fully executed on it. The completed pilot compares clean uploads,
+GAP-Diff, MetaCloak, GoodAC, and our ARCP-Web under InstantID and
+IP-Adapter-FaceID; the expansion adds the targeted defense IDProtector and
+strict $8/255$-projected variants of GAP-Diff and IDProtector. Released
 checkpoints are used where provided, and MetaCloak and GoodAC are evaluated
 from their released code with disclosed Web-scenario adaptations. A separate
 DreamBooth protocol is a gated second-stage experiment.
@@ -55,9 +57,10 @@ Our contributions are:
   \item an acquisition-contract formulation for face consent on the agentic Web;
   \item a non-cumulative T0--T6 benchmark with matched clean controls, explicit
   validity gates, and conditional plus end-to-end metrics;
-  \item a preregistered four-identity feasibility pilot comparing released
-  robustness-oriented defenses and two zero-shot customization families, with a
-  pre-audited 40-identity expansion path;
+  \item a preregistered four-identity feasibility pilot and its executed
+  40-identity expansion, comparing released robustness-oriented and targeted
+  defenses under two zero-shot customization families with paired bootstrap
+  intervals, Holm-corrected direct comparisons, and strict common-budget rows;
   \item ARCP-Web, whose optimization allocates effort to its weakest acquisition
   intervention rather than optimizing only the pristine upload; and
   \item a machine-readable \texttt{face-consent.txt} direction for carrying

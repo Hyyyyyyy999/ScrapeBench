@@ -1,4 +1,4 @@
-\section{Four-Identity Feasibility Results}
+\section{Results: Feasibility Pilot and the 40-Identity Expansion}
 \label{sec:results}
 
 We report the completed \texttt{web4\_validation} pilot. It contains
@@ -165,10 +165,11 @@ Tables~\ref{tab:web4-e2e}--\ref{tab:web4-gap}, without cherry-picking identities
 
 These results are a feasibility gate, not a population estimate. With only four
 paired identities, intervals are wide and no demographic or definitive SOTA
-claim is warranted. The identical protocol now expands to the pre-audited
+claim is warranted. The identical protocol now turns to the pre-audited
 40-identity pool.
 
 \IfFileExists{tables/review1018_web40_auto.tex}{%
+\subsection{Forty-identity expansion}
 \input{tables/review1018_web40_auto}%
 \begin{figure*}[t]
 \centering
@@ -179,6 +180,63 @@ and footer ISM values are read directly from the per-sample ledger; no identity,
 seed, or output is selected by outcome.}
 \label{fig:web40-qualitative}
 \end{figure*}
+
+The expansion executes the identical preregistered protocol on the full
+40-identity pool (Tables~\ref{tab:web40-instantid}
+and~\ref{tab:web40-ipfaceid}). Its defense set follows the expansion
+preregistration: Clean, GAP-Diff at its official $9/255$ default, the targeted
+zero-shot defense IDProtector~\cite{song2024idprotector}, and ARCP-Web, with
+strict $8/255$-projected variants of GAP-Diff and IDProtector reported
+separately; MetaCloak and GoodAC remain in the four-identity pilot comparison.
+Rankability is now reader-specific: for InstantID, SR$\times$2, img2img, and
+both purification strengths fail the clean gate (clean ISM $.059$--$.209$
+against a $.475$ clean-T0 ceiling), so T0--T3 are rankable, while for
+IP-Adapter-FaceID the same operations leave the clean attack largely intact
+and T0--T6 remain rankable except the strength-.50 purification. Eleven
+reader--layer cells enter the ranking, each with identity-bootstrap intervals.
+
+The expansion reorders the pilot's provisional ranking. IDProtector attains
+the largest paired gap in all 11 rankable cells: InstantID gaps are $.417$,
+$.392$, $.386$, and $.406$ at T0--T3, and IP-Adapter-FaceID gaps are $.216$,
+$.188$, $.191$, $.171$, $.177$, $.060$, and $.077$ at T0--T6. GAP-Diff's
+released defense nearly
+vanishes under acquisition ($.023$ and $.054$ at T0; at most $.054$ in any
+rankable cell). ARCP-Web is second in ten of the eleven cells and third at
+IP-Adapter-FaceID T5. Against IDProtector at official default, the paired
+identity-resampled difference is significantly negative for ARCP-Web in nine
+of the eleven cells, e.g., $-0.115$ with interval $[-0.158,-0.072]$ at
+InstantID T0 (Holm-corrected $p=.0022$).
+
+Under the strict common $8/255$ ceiling the ordering largely closes:
+projecting IDProtector to the same realized budget as ARCP-Web leaves the two
+statistically indistinguishable in ten of the eleven rankable cells
+(InstantID T0: $-0.087$ $[-0.129,-0.046]$, Holm $p=.058$; IP-Adapter-FaceID
+T0: $-0.006$ $[-0.033,0.019]$), with InstantID T3 the single exception
+($-0.111$ $[-0.153,-0.071]$, $p=.0013$). At that same ceiling ARCP-Web's mean
+upload PSNR is 37.71 dB against IDProtector's 32.34 dB---a 5.4 dB
+imperceptibility advantage at statistically comparable protection.
+Official-default and common-budget rows are never pooled.
+
+A large share of IDProtector's protected outputs defeats face detection
+itself: FDFR is $.606$--$.619$ on InstantID T0--T3 and $.500$--$.512$ on
+IP-Adapter-FaceID T0--T3, against $.231$--$.312$ and $.144$--$.156$ for
+ARCP-Web. Its gaps are therefore real but partially reflect ``no face''
+outcomes that the ledger reports explicitly rather than a hidden zero, and
+its usability cost is mirrored by the PSNR gap above.
+
+Six one-factor ARCP-Web ablations on the fixed four identities are mechanism
+diagnostics, not rankings: every Holm-corrected $p$ equals one at $n=4$.
+Directionally, the identity objective is the only component with a consistent
+effect---removing it costs $.102$--$.216$ of paired advantage across the
+rankable InstantID cells and $.083$--$.159$ across IP-Adapter-FaceID T0--T4,
+with no consistent direction at the generative tiers---the weakest-clause
+scheduler beats uniform scheduling in ten of eleven cells (mean $+0.019$),
+and the texture map trades raw ISM reduction for image quality in all
+fourteen ablation cells. Two additional seed replicas of the pilot (16
+reader--layer cells each) rank IDProtector above GAP-Diff in 15 of 16
+seed-cells and above ARCP-Web in 12 of 16; every disagreement lies inside the
+pilot's wide identity-bootstrap intervals and resolves in IDProtector's favor
+at $n=40$.
 }{%
 \paragraph{Preregistered Web40 expansion.} The artifact generates the full
 tables directly from per-sample JSONL ledgers after a fail-closed completeness
